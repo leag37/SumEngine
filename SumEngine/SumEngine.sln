@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumEngine", "SumEngine\SumEngine.vcxproj", "{FF530499-84D5-45D4-A480-A8031EB6A830}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumMemory", "SumMemory\SumMemory.vcxproj", "{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumUtilities", "SumUtilities\SumUtilities.vcxproj", "{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF530499-84D5-45D4-A480-A8031EB6A830}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FF530499-84D5-45D4-A480-A8031EB6A830}.Debug|Win32.Build.0 = Debug|Win32
+		{FF530499-84D5-45D4-A480-A8031EB6A830}.Release|Win32.ActiveCfg = Release|Win32
+		{FF530499-84D5-45D4-A480-A8031EB6A830}.Release|Win32.Build.0 = Release|Win32
+		{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}.Debug|Win32.Build.0 = Debug|Win32
+		{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}.Release|Win32.ActiveCfg = Release|Win32
+		{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}.Release|Win32.Build.0 = Release|Win32
+		{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}.Debug|Win32.Build.0 = Debug|Win32
+		{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}.Release|Win32.ActiveCfg = Release|Win32
+		{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

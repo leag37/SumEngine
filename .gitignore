@@ -12,7 +12,17 @@
 *.a
 
 # Visual Studio files
-*.suo
-*.sdf
+*.exe
+*.ibd
+*.ilk
+*.ipch
+*.lastbuildstate
+*.lib
+*.log
+*.obj
 *.opensdf
+*.pbd
+*.sdf
+*.suo
+*.tlog
 *.vcxproj.user

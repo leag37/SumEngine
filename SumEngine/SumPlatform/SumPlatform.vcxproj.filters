@@ -6,29 +6,18 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Core">
-      <UniqueIdentifier>{aacb788a-9569-42d8-b49c-fb2d9b23854b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Allocators">
-      <UniqueIdentifier>{38590948-c987-4c63-8d8d-96736eb1d18d}</UniqueIdentifier>
+      <UniqueIdentifier>{87f1c243-a766-4ec7-88fc-4020fc002795}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Chunk.h">
+    <ClInclude Include="include\SumInclude.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\MemoryAllocator.h">
+    <ClInclude Include="include\SumPlatform.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumAllocator.h">
+    <ClInclude Include="include\SumSingleton.h">
       <Filter>Core</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\MemoryAllocator.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SumAllocator.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

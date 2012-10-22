@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1298EF7C-6A22-4657-9ECC-82F77F022725}</ProjectGuid>
-    <RootNamespace>SumMath</RootNamespace>
+    <ProjectGuid>{992B181D-3E5C-4DF2-99BC-66E77A7D037C}</ProjectGuid>
+    <RootNamespace>SumThreading</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

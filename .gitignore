@@ -13,15 +13,16 @@
 
 # Visual Studio files
 *.exe
-*.ibd
+*.idb
 *.ilk
 *.ipch
 *.lastbuildstate
 *.lib
 *.log
+*.manifest
 *.obj
 *.opensdf
-*.pbd
+*.pdb
 *.sdf
 *.suo
 *.tlog

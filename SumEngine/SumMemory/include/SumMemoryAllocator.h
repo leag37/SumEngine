@@ -6,14 +6,14 @@
 #ifndef __MEMORYALLOCATOR_H__
 #define __MEMORYALLOCATOR_H__
 
-#include "Chunk.h"
+#include "SumChunk.h"
 #include "SumPlatform.h"
 #include <malloc.h>
 #include <climits>
 
 namespace SumMemory
 {
-	class _SUMEXPORT MemoryAllocator
+	class SUMEXPORT MemoryAllocator
 	{
 	public:
 		static MemoryAllocator* getInstancePtr()
@@ -64,7 +64,5 @@ namespace SumMemory
 		Chunk _variableSize[32];
 	};
 }
-
-
 
 #endif

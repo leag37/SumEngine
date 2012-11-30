@@ -11,13 +11,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Chunk.h" />
-    <ClInclude Include="include\MemoryAllocator.h" />
-    <ClInclude Include="include\SumAllocator.h" />
+    <ClInclude Include="include\SumAlign.h" />
+    <ClInclude Include="include\SumChunk.h" />
+    <ClInclude Include="include\SumMemoryAllocator.h" />
+    <ClInclude Include="include\SumMemory.h" />
+    <ClInclude Include="include\SumUnaligned.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MemoryAllocator.cpp" />
-    <ClCompile Include="src\SumAllocator.cpp" />
+    <ClCompile Include="src\SumMemoryAllocator.cpp" />
+    <ClCompile Include="src\SumMemory.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}</ProjectGuid>
@@ -45,7 +47,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>

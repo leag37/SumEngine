@@ -12,7 +12,7 @@
 namespace SumMemory
 {
 	// Struct that acts as a data pointer
-	struct _SUMEXPORT Chunk
+	struct SUMEXPORT Chunk
 	{
 		SCHAR* ptr;	// Pointer to memory chunk with embedded data containing pointer to next chunk in list
 		SUINT chunkSize;	// Size of this memory chunk

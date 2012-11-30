@@ -5,5 +5,65 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{cb97fa08-cd2f-4fe2-b9c3-50ad58f1674c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vectors">
+      <UniqueIdentifier>{40ca1e33-ee35-40c2-9069-3947ab4049d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Floats">
+      <UniqueIdentifier>{59b96874-73e2-46d7-97c1-60c3db1c8aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Matrices">
+      <UniqueIdentifier>{8f5591df-edb3-4338-b445-278fb0785516}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SumMath.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVector2.h">
+      <Filter>Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVector.h">
+      <Filter>Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumFloat.h">
+      <Filter>Floats</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMatrix.h">
+      <Filter>Matrices</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMathGlobals.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVector3.h">
+      <Filter>Vectors</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\SumVector2.inl">
+      <Filter>Vectors</Filter>
+    </None>
+    <None Include="src\SumVector.inl">
+      <Filter>Vectors</Filter>
+    </None>
+    <None Include="src\SumMatrix.inl">
+      <Filter>Matrices</Filter>
+    </None>
+    <None Include="src\SumVector3.inl">
+      <Filter>Vectors</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumVector2.cpp">
+      <Filter>Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMatrix.cpp">
+      <Filter>Matrices</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVector3.cpp">
+      <Filter>Vectors</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

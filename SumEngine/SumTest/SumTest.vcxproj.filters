@@ -10,7 +10,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="SumTestMain.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>

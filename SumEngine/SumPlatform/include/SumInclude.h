@@ -8,8 +8,9 @@
 
 #include "SumPlatform.h"
 #include "SumSingleton.h"
+#include <SumMemory.h>
 
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 #include <immintrin.h>
 #endif
 

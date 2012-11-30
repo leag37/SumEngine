@@ -1,22 +1,13 @@
 //*************************************************************************************************
-// Title: SumAllocator.h
+// Title: SumMemory.h
 // Author: Gael Huber
 // Description: Entry point for allocator framework.
 //*************************************************************************************************
-#ifndef __SUMALLOCATOR_H__
-#define __SUMALLOCATOR_H__
+#ifndef __SUMMEMORY_H__
+#define __SUMMEMORY_H__
 
-#include "MemoryAllocator.h"
-
-static void* operator new (size_t size)
-{
-	return SumMemory::MemoryAllocator::getInstancePtr()->allocate(size);
-}
-
-static void operator delete(void* ptr)
-{
-	SumMemory::MemoryAllocator::getInstancePtr()->free(ptr);
-}
+#include "SumUnaligned.h"
+#include "SumAlign.h"
 
 // Create the memory allocators
 static void CreateAllocators()

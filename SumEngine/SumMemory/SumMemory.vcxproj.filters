@@ -13,21 +13,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Chunk.h">
+    <ClInclude Include="include\SumMemory.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\MemoryAllocator.h">
+    <ClInclude Include="include\SumMemoryAllocator.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumAllocator.h">
+    <ClInclude Include="include\SumChunk.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumAlign.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumUnaligned.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\MemoryAllocator.cpp">
+    <ClCompile Include="src\SumMemory.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\SumAllocator.cpp">
+    <ClCompile Include="src\SumMemoryAllocator.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>

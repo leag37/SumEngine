@@ -10,6 +10,26 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SumFloat.h" />
+    <ClInclude Include="include\SumMath.h" />
+    <ClInclude Include="include\SumMathGlobals.h" />
+    <ClInclude Include="include\SumMatrix.h" />
+    <ClInclude Include="include\SumVector.h" />
+    <ClInclude Include="include\SumVector2.h" />
+    <ClInclude Include="include\SumVector3.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\SumMatrix.inl" />
+    <None Include="src\SumVector.inl" />
+    <None Include="src\SumVector2.inl" />
+    <None Include="src\SumVector3.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumMatrix.cpp" />
+    <ClCompile Include="src\SumVector2.cpp" />
+    <ClCompile Include="src\SumVector3.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1298EF7C-6A22-4657-9ECC-82F77F022725}</ProjectGuid>
     <RootNamespace>SumMath</RootNamespace>
@@ -36,11 +56,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>src;include;..\SumPlatform\include;..\SumMemory\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -59,8 +82,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -8,7 +8,7 @@
 
 // Exports
 //***********************************************
-#define _SUMEXPORT __declspec (dllexport)
+#define SUMEXPORT __declspec (dllexport)
 
 // Primitive data types typedefs
 //***********************************************
@@ -29,7 +29,7 @@ typedef __int128 SINT128;
 typedef float SFLOAT;
 typedef double SDOUBLE;
 
-typedef bool SBOOl;
+typedef bool SBOOL;
 
 typedef unsigned char SUCHAR;
 typedef char SCHAR;
@@ -37,6 +37,25 @@ typedef wchar_t SWCHAR_T;
 
 // SIMD intrinsics
 //***********************************************
-#define _SUMSIMD
+#if defined(_M_AMD64) || defined(_AMD64)
+#define SUM_X64
+#elif defined (_M_IX86) || defined(_X86_)
+#define SUM_X86
+#endif
+
+#if defined(SUM_X64) || defined(SUM_X86)
+#define SUMSIMD
+#endif
+
+// Inlining
+//***********************************************
+#define SUMINLINE_F __forceinline
+#define SUMINLINE inline
+
+#define SUMGLOBALCONST	extern const __declspec (selectany)
+
+// Alignment
+//***********************************************
+#define SUM_DECLSPEC_ALIGN_16 __declspec(align(16))
 
 #endif

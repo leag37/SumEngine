@@ -8,10 +8,30 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2de5114a-ebae-4995-a5a1-e9f4a8708d61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{37393318-435e-4685-a71e-20cb7eb5a738}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SumTestMain.cpp">
+    <ClInclude Include="include\SumTestDriver.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMathTest.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVectorTest.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumTestHelper.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumTestMain.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVectorTest.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

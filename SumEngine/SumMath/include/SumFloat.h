@@ -41,7 +41,7 @@ typedef struct _Float2x2
 	// Accessors
 	
 	// Assignment
-};
+} Float2x2;
 
 
 // Load operations

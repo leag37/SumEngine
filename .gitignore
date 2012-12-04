@@ -13,6 +13,7 @@
 
 # Visual Studio files
 *.exe
+*.exp
 *.idb
 *.ilk
 *.ipch

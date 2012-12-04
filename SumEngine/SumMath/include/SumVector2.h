@@ -52,20 +52,20 @@ extern "C++"
 // Hermite interpolation between position V1, tangent T1 (when s == 0)
 // and position V2, tangent T2 (when s == 1).
 Vector Vec2Hermite(const Vector v1, const Vector t1, 
-	const Vector v2, const Vector t2, float s);
+	const Vector v2, const Vector& t2, float s);
 
 // Hermite interpolation between position V1, tangent T1 (when s == 0)
 // and position V2, tangent T2 (when s == 1).
 Vector Vec2Hermite(const Vector v1, const Vector t1, 
-	const Vector v2, const Vector t2, const Vector s);
+	const Vector v2, const Vector& t2, const Vector& s);
 
 // CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
 Vector Vec2CatmullRom(const Vector v0, const Vector v1,
-	const Vector v2, const Vector v3, float s);
+	const Vector v2, const Vector& v3, float s);
 
 // CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
 Vector Vec2CatmullRom(const Vector v0, const Vector v1,
-	const Vector v2, const Vector v3, const Vector s);
+	const Vector v2, const Vector& v3, const Vector& s);
 
 // Barycentric coordinates V1 + f(V2 - V1) + g(V3 - V1)
 Vector Vec2Barycentric(const Vector v1, const Vector v2, const Vector v3,
@@ -73,7 +73,7 @@ Vector Vec2Barycentric(const Vector v1, const Vector v2, const Vector v3,
 
 // Barycentric coordinates V1 + f(V2 - V1) + g(V3 - V1)
 Vector Vec2Barycentric(const Vector v1, const Vector v2, const Vector v3,
-	const Vector f, const Vector g);
+	const Vector& f, const Vector& g);
 
 // Transform by matrix (x, y, 0, 1)
 Vector Vec2Transform(const Vector v, const Matrix& m);

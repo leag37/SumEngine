@@ -20,37 +20,49 @@ Vector Vec3Dot(const Vector v1, const Vector v2);
 // Cross
 Vector Vec3Cross(const Vector v1, const Vector v2);
 
-//// Add
-//Vector3* Vec3Add(Vector3* pOut, const Vector3* pV1, const Vector3* pV2);
-//
-//// Subtract
-//Vector3* Vec3Sub(Vector3* pOut, const Vector3* pV1, const Vector3* pV2);
-//
-//// Minimize
-//Vector3* Vec3Minimize(Vector3* pOut, const Vector3* pV1, const Vector3* pV2);
-//
-//// Maximize
-//Vector3* Vec3Maximize(Vector3* pOut, const Vector3* pV1, const Vector3* pV2);
-//
-//// Scale
-//Vector3* Vec3Scale(Vector3* pOut, const Vector3* pV, float s);
-//
-//// Lerp
-//Vector3* Vec3Lerp(Vector3* pOut, const Vector3* pV1, const Vector3* pV2, float s);
-//
-//// Normalize
-//Vector3* Vec3Normalize(Vector3* pOut, const Vector3* pV);
-//
-//extern "C"
-//{
-//// Hermite interpolation between position V1, tangent T1 (when s == 0)
-//// and position V2, tangent T2 (when s == 1).
-//Vector3* Vec3Hermite(Vector3* pOut, const Vector3* pV1, const Vector3* pT1, 
-//	const Vector3* pV2, const Vector3* pT2, float s);
-//
-//// CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
-//Vector3* Vec3CatmullRom(Vector3* pOut, const Vector3* pV0, const Vector3* pV1,
-//	const Vector3* pV2, const Vector3* pV3, float s);
+// Add
+Vector Vec3Add(const Vector v1, const Vector v2);
+
+// Subtract
+Vector Vec3Sub(const Vector v1, const Vector v2);
+
+// Minimize
+Vector Vec3Minimize(const Vector v1, const Vector v2);
+
+// Maximize
+Vector Vec3Maximize(const Vector v1, const Vector v2);
+
+// Scale
+Vector Vec3Scale(const Vector v, float s);
+
+// Scale
+Vector Vec3Scale(const Vector v, Vector s);
+
+// Lerp
+Vector Vec3Lerp(const Vector v1, const Vector v2, float s);
+
+// Lerp
+Vector Vec3Lerp(const Vector v1, const Vector v2, Vector s);
+
+// Normalize
+Vector Vec3Normalize(const Vector v);
+
+extern "C"
+{
+// Hermite interpolation between position V1, tangent T1 (when s == 0)
+// and position V2, tangent T2 (when s == 1).
+Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector t2, float s);
+
+// Hermite interpolation between position V1, tangent T1 (when s == 0)
+// and position V2, tangent T2 (when s == 1).
+Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector t2, const Vector s);
+
+// CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
+Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, float s);
+
+// CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
+Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, const Vector s);
+
 //
 //// Barycentric
 //Vector3* Vec3Barycentric(Vector3* pOut, const Vector3* pV1, const Vector3* pV2, const Vector3* pV3,
@@ -72,7 +84,7 @@ Vector Vec3Cross(const Vector v1, const Vector v2);
 //// Project from screen space into object space
 //Vector3* Vec3Unproject(Vector3* pOut, const Vector3* pV, const Viewport* pViewport, 
 //	const Matrix* pProjection, const Matrix* pView, const Matrix* pWorld);
-//}
+}
 
 #include "SumVector3.inl"
 

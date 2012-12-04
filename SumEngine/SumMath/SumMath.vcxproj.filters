@@ -34,26 +34,9 @@
     <ClInclude Include="include\SumMatrix.h">
       <Filter>Matrices</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumMathGlobals.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumVector3.h">
       <Filter>Vectors</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="src\SumVector2.inl">
-      <Filter>Vectors</Filter>
-    </None>
-    <None Include="src\SumVector.inl">
-      <Filter>Vectors</Filter>
-    </None>
-    <None Include="src\SumMatrix.inl">
-      <Filter>Matrices</Filter>
-    </None>
-    <None Include="src\SumVector3.inl">
-      <Filter>Vectors</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumVector2.cpp">
@@ -65,5 +48,19 @@
     <ClCompile Include="src\SumVector3.cpp">
       <Filter>Vectors</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\SumMatrix.inl">
+      <Filter>Matrices</Filter>
+    </None>
+    <None Include="include\SumVector.inl">
+      <Filter>Vectors</Filter>
+    </None>
+    <None Include="include\SumVector2.inl">
+      <Filter>Vectors</Filter>
+    </None>
+    <None Include="include\SumVector3.inl">
+      <Filter>Vectors</Filter>
+    </None>
   </ItemGroup>
 </Project>

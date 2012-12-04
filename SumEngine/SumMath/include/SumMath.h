@@ -24,12 +24,163 @@ namespace Math
 
 #define ToRadian(degree) ((degree) * (S_PI / 180.0f))
 #define ToDegree(radian) ((radian) * (180.0f / S_PI))
-#define ToRadiand(degree) ((degree) * (S_PId / 180.0))
-#define ToDegree(radian) ((radian * (180.0 / S_PId))
+#define ToRadian_d(degree) ((degree) * (S_PId / 180.0))
+#define ToDegree_d(radian) ((radian * (180.0 / S_PId))
 }
 
 //*************************************************************************************************
-// VECTORS
+// DEFINITIONS
+//*************************************************************************************************
+
+// Define a basic vector type
+#ifdef SUMSIMD
+typedef __m128 Vector;
+#else
+typedef struct Vector
+{
+	union
+	{
+		SFLOAT vector_f32[4];
+		SUINT vector_u32[4];
+		struct
+		{
+			SFLOAT x;
+			SFLOAT y;
+			SFLOAT z;
+			SFLOAT w;
+		};
+		SFLOAT v[4];
+		SUINT u[4];
+	};
+};
+#endif // SUMSIMD
+
+// Define conversions for vector types
+//***********************************************
+
+// 4x 32-bit floating point values
+typedef SUM_DECLSPEC_ALIGN_16 struct _VectorF32 
+{
+	union
+	{
+		float f[4];
+		Vector v;
+	};
+
+	// Casting operators
+	SUMINLINE_F operator Vector() const { return v; }
+	SUMINLINE_F operator __m128i() const { return reinterpret_cast<const __m128i*>(&v)[0]; }
+	SUMINLINE_F operator __m128d() const { return reinterpret_cast<const __m128d*>(&v)[0]; }
+} VectorF32;
+
+// 4x 32-bit integers
+typedef SUM_DECLSPEC_ALIGN_16 struct _VectorI32
+{
+	union
+	{
+		SINT i[4];
+		Vector v;
+	};
+
+	// Casting operators
+	SUMINLINE_F operator Vector() const { return v; }
+	SUMINLINE_F operator __m128i() const { return reinterpret_cast<const __m128i*>(&v)[0]; }
+	SUMINLINE_F operator __m128d() const { return reinterpret_cast<const __m128d*>(&v)[0]; }
+} VectorI32;	
+
+// 16x 8-bit unsigned chars
+typedef SUM_DECLSPEC_ALIGN_16 struct _VectorU8
+{
+	union
+	{
+		SUCHAR u[16];
+		Vector v;
+	};
+
+	// Casting operators
+	SUMINLINE_F operator Vector() const { return v; }
+	SUMINLINE_F operator __m128i() const { return reinterpret_cast<const __m128i*>(&v)[0]; }
+	SUMINLINE_F operator __m128d() const { return reinterpret_cast<const __m128d*>(&v)[0]; }
+} VectorU8;
+
+// 4x 32-bit unsigned integers
+typedef SUM_DECLSPEC_ALIGN_16 struct _VectorU32
+{
+	union
+	{
+		SUINT u[4];
+		Vector v;
+	};
+
+	// Casting operators
+	SUMINLINE_F operator Vector() const { return v; }
+	SUMINLINE_F operator __m128i() const { return reinterpret_cast<const __m128i*>(&v)[0]; }
+	SUMINLINE_F operator __m128d() const { return reinterpret_cast<const __m128d*>(&v)[0]; }
+} VectorU32;
+
+// MATRIX
+typedef SUM_DECLSPEC_ALIGN_16 struct _Matrix
+{
+	// Primary data structure
+	union
+	{
+		Vector r[4];
+		struct
+		{
+			SFLOAT _11, _12, _13, _14;
+			SFLOAT _21, _22, _23, _24;
+			SFLOAT _31, _32, _33, _34;
+			SFLOAT _41, _42, _43, _44;
+		};
+		SFLOAT m[4][4];
+	};
+
+	// Constructors
+	_Matrix();
+	_Matrix(const Vector r0, const Vector r1, const Vector r2, const Vector& r3);
+	_Matrix(SFLOAT m11, SFLOAT m12, SFLOAT m13, SFLOAT m14,
+			SFLOAT m21, SFLOAT m22, SFLOAT m23, SFLOAT m24,
+			SFLOAT m31, SFLOAT m32, SFLOAT m33, SFLOAT m34,
+			SFLOAT m41, SFLOAT m42, SFLOAT m43, SFLOAT m44);
+	_Matrix(const SFLOAT* m);
+
+	// Accessors
+	SFLOAT operator() (SUINT row, SUINT column) const;
+	SFLOAT& operator() (SUINT row, SUINT column);
+
+	// Assignment operator
+	_Matrix& operator=(const _Matrix& m);
+
+	// Matrix multiplication
+	_Matrix& operator*=(const _Matrix& m);
+	_Matrix operator*(const _Matrix& m) const;
+} Matrix;
+
+
+//*************************************************************************************************
+// GLOBALS
+//*************************************************************************************************
+
+// Vector
+//***********************************************
+SUMGLOBALCONST VectorF32 gVEpsilon = {1.192092896e-7f, 1.192092896e-7f, 1.192092896e-7f, 1.192092896e-7f};
+SUMGLOBALCONST VectorI32 gVInfinity = {0x7F800000, 0x7F800000, 0x7F800000, 0x7F800000};
+SUMGLOBALCONST VectorI32 gVQNaN = {0x7FC00000, 0x7FC00000, 0x7FC00000, 0x7FC00000};
+SUMGLOBALCONST VectorI32 gVXMask = {0x00000000, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF};
+SUMGLOBALCONST VectorI32 gVYMask = {0xFFFFFFFF, 0x00000000, 0xFFFFFFFF, 0xFFFFFFFF};
+SUMGLOBALCONST VectorI32 gVZMask = {0xFFFFFFFF, 0xFFFFFFFF, 0x00000000, 0xFFFFFFFF};
+SUMGLOBALCONST VectorI32 gVWMask = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000};
+
+// Matrix
+//***********************************************
+SUMGLOBALCONST VectorF32 gVIdentityR0 = {1.0f, 0.0f, 0.0f, 0.0f};
+SUMGLOBALCONST VectorF32 gVIdentityR1 = {0.0f, 1.0f, 0.0f, 0.0f};
+SUMGLOBALCONST VectorF32 gVIdentityR2 = {0.0f, 0.0f, 1.0f, 0.0f};
+SUMGLOBALCONST VectorF32 gVIdentityR3 = {0.0f, 0.0f, 0.0f, 1.0f};
+SUMGLOBALCONST VectorF32 gVDeterminantNegate = {1.0f, -1.0f, 1.0f, -1.0f};
+
+//*************************************************************************************************
+// DIMENSIONAL VECTOR
 //*************************************************************************************************
 #include "SumVector.h"
 #include "SumVector2.h"
@@ -45,10 +196,6 @@ namespace Math
 //*************************************************************************************************
 #include "SumFloat.h"
 
-//*************************************************************************************************
-// GLOBALS
-//*************************************************************************************************
-#include "SumMathGlobals.h"
 
 #ifndef SUMSIMD
 // 2D Vector

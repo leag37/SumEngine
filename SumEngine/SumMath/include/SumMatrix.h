@@ -8,43 +8,6 @@
 
 #include "SumMath.h"
 
-typedef SUM_DECLSPEC_ALIGN_16 struct Matrix
-{
-	// Primary data structure
-	union
-	{
-		Vector r[4];
-		struct
-		{
-			SFLOAT _11, _12, _13, _14;
-			SFLOAT _21, _22, _23, _24;
-			SFLOAT _31, _32, _33, _34;
-			SFLOAT _41, _42, _43, _44;
-		};
-		SFLOAT m[4][4];
-	};
-
-	// Constructors
-	Matrix();
-	Matrix(const Vector r0, const Vector r1, const Vector r2, const Vector r3);
-	Matrix(SFLOAT m11, SFLOAT m12, SFLOAT m13, SFLOAT m14,
-			SFLOAT m21, SFLOAT m22, SFLOAT m23, SFLOAT m24,
-			SFLOAT m31, SFLOAT m32, SFLOAT m33, SFLOAT m34,
-			SFLOAT m41, SFLOAT m42, SFLOAT m43, SFLOAT m44);
-	Matrix(const SFLOAT* m);
-
-	// Accessors
-	SFLOAT operator() (SUINT row, SUINT column) const;
-	SFLOAT& operator() (SUINT row, SUINT column);
-
-	// Assignment operator
-	Matrix& operator=(const Matrix& m);
-
-	// Matrix multiplication
-	Matrix& operator*=(const Matrix& m);
-	Matrix operator*(const Matrix& m) const;
-};
-
 //-----------------------------------------------
 // 4D Matrix
 //-----------------------------------------------
@@ -135,15 +98,15 @@ Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
 // Build transformation matrix with null arguments being treated as identity. 
 // Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixTransformation(const Vector scalingCenter, const Vector scalingRotation, 
-	const Vector scaling, const Vector rotationCenter, const Vector rotation, const Vector translation);
+	const Vector scaling, const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
 
 // Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixTransformation2D(const Vector scalingCenter, float scalingRotation, const Vector scaling,
-	const Vector rotationCenter, float rotation, const Vector translation);
+	const Vector& rotationCenter, float rotation, const Vector& translation);
 
 // Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixTransformation2D(const Vector scalingCenter, const Vector scalingRotation, const Vector scaling,
-	const Vector rotationCenter, const Vector rotation, const Vector translation);
+	const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
 
 // Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixAffineTransformation(float scaling, const Vector rotationCenter, const Vector rotation, 
@@ -151,14 +114,14 @@ Matrix MatrixAffineTransformation(float scaling, const Vector rotationCenter, co
 
 // Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixAffineTransformation(const Vector scaling, const Vector rotationCenter, const Vector rotation, 
-	const Vector translation);
+	const Vector& translation);
 
 // Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixAffineTransformation2D(float scaling, const Vector rotationCenter, float rotation, const Vector translation);
 
 // Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixAffineTransformation2D(const Vector scaling, const Vector rotationCenter, 
-	const Vector rotation, const Vector translation);
+	const Vector rotation, const Vector& translation);
 
 // Build a lookat matrix (right-handed)
 Matrix MatrixLookAtRH(const Vector eye, const Vector at, const Vector up);
@@ -170,25 +133,25 @@ Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up);
 Matrix MatrixPerspectiveRH(float w, float h, float zn, float zf);
 
 // Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveRH(const Vector w, const Vector h, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveRH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
 
 // Build a perspective projection matrix (left-handed)
 Matrix MatrixPerspectiveLH(float w, float h, float zn, float zf);
 
 // Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveLH(const Vector w, const Vector h, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveLH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
 
 // Build a perspective projection matrix (right-handed)
 Matrix MatrixPerspectiveFovRH(float fovy, float aspect, float zn, float zf);
 
 // Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 
 // Build a perspective projection matrix (left-handed)
 Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
 
 // Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 
 // Build a matrix which flattens geometry into a plane, as if casting a shadow from a light
 Matrix MatrixShadow(const Vector light, const Vector plane);

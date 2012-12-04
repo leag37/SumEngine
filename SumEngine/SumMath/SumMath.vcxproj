@@ -13,22 +13,21 @@
   <ItemGroup>
     <ClInclude Include="include\SumFloat.h" />
     <ClInclude Include="include\SumMath.h" />
-    <ClInclude Include="include\SumMathGlobals.h" />
     <ClInclude Include="include\SumMatrix.h" />
     <ClInclude Include="include\SumVector.h" />
     <ClInclude Include="include\SumVector2.h" />
     <ClInclude Include="include\SumVector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\SumMatrix.inl" />
-    <None Include="src\SumVector.inl" />
-    <None Include="src\SumVector2.inl" />
-    <None Include="src\SumVector3.inl" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="src\SumMatrix.cpp" />
     <ClCompile Include="src\SumVector2.cpp" />
     <ClCompile Include="src\SumVector3.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\SumMatrix.inl" />
+    <None Include="include\SumVector.inl" />
+    <None Include="include\SumVector2.inl" />
+    <None Include="include\SumVector3.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1298EF7C-6A22-4657-9ECC-82F77F022725}</ProjectGuid>
@@ -63,7 +62,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src;include;..\SumPlatform\include;..\SumMemory\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;..\SumPlatform\include;..\SumMemory\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

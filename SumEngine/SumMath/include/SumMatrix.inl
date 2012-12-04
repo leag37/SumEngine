@@ -7,13 +7,13 @@
 //*************************************************************************************************
 // Base constructor
 //*************************************************************************************************
-SUMINLINE Matrix::Matrix()
+SUMINLINE _Matrix::_Matrix()
 { }
 
 //*************************************************************************************************
 // Constructor
 //*************************************************************************************************
-SUMINLINE Matrix::Matrix(const Vector r0, const Vector r1, const Vector r2, const Vector r3)
+SUMINLINE _Matrix::_Matrix(const Vector r0, const Vector r1, const Vector r2, const Vector& r3)
 {
 	r[0] = r0;
 	r[1] = r1;
@@ -24,7 +24,7 @@ SUMINLINE Matrix::Matrix(const Vector r0, const Vector r1, const Vector r2, cons
 //*************************************************************************************************
 // Constructor
 //*************************************************************************************************
-SUMINLINE Matrix::Matrix(SFLOAT m11, SFLOAT m12, SFLOAT m13, SFLOAT m14,
+SUMINLINE _Matrix::_Matrix(SFLOAT m11, SFLOAT m12, SFLOAT m13, SFLOAT m14,
 		SFLOAT m21, SFLOAT m22, SFLOAT m23, SFLOAT m24,
 		SFLOAT m31, SFLOAT m32, SFLOAT m33, SFLOAT m34,
 		SFLOAT m41, SFLOAT m42, SFLOAT m43, SFLOAT m44)
@@ -38,7 +38,7 @@ SUMINLINE Matrix::Matrix(SFLOAT m11, SFLOAT m12, SFLOAT m13, SFLOAT m14,
 //*************************************************************************************************
 // Constructor
 //*************************************************************************************************
-SUMINLINE Matrix::Matrix(const SFLOAT* m)
+SUMINLINE _Matrix::_Matrix(const SFLOAT* m)
 {
 	r[0] = _mm_loadu_ps(m);
 	r[1] = _mm_loadu_ps(m + 4);
@@ -49,7 +49,7 @@ SUMINLINE Matrix::Matrix(const SFLOAT* m)
 //*************************************************************************************************
 // Accessor
 //*************************************************************************************************
-SUMINLINE SFLOAT Matrix::operator() (SUINT row, SUINT column) const
+SUMINLINE SFLOAT _Matrix::operator() (SUINT row, SUINT column) const
 {
 	return m[row][column];
 }
@@ -57,7 +57,7 @@ SUMINLINE SFLOAT Matrix::operator() (SUINT row, SUINT column) const
 //*************************************************************************************************
 // Array-accessor
 //*************************************************************************************************
-SUMINLINE SFLOAT& Matrix::operator() (SUINT row, SUINT column)
+SUMINLINE SFLOAT& _Matrix::operator() (SUINT row, SUINT column)
 {
 	return m[row][column];
 }
@@ -65,7 +65,7 @@ SUMINLINE SFLOAT& Matrix::operator() (SUINT row, SUINT column)
 //*************************************************************************************************
 // Assignment operator
 //*************************************************************************************************
-SUMINLINE Matrix& Matrix::operator=(const Matrix& m)
+SUMINLINE _Matrix& _Matrix::operator=(const _Matrix& m)
 {
 	r[0] = m.r[0];
 	r[1] = m.r[1];
@@ -75,9 +75,9 @@ SUMINLINE Matrix& Matrix::operator=(const Matrix& m)
 }
 
 //*************************************************************************************************
-// Matrix multiplication
+// _Matrix multiplication
 //*************************************************************************************************
-SUMINLINE Matrix& Matrix::operator*=(const Matrix& m)
+SUMINLINE _Matrix& _Matrix::operator*=(const _Matrix& m)
 {
 	*this = MatrixMultiply(*this, m);
 	return *this;
@@ -86,7 +86,7 @@ SUMINLINE Matrix& Matrix::operator*=(const Matrix& m)
 //*************************************************************************************************
 // Matrix multiplication
 //*************************************************************************************************
-SUMINLINE Matrix Matrix::operator*(const Matrix& m) const
+SUMINLINE _Matrix _Matrix::operator*(const _Matrix& m) const
 {
 	return MatrixMultiply(*this, m);
 }

@@ -79,6 +79,7 @@
 Vector MatrixDeterminant(const Matrix& m)
 {
 	// Phase 1
+	return VectorZero();
 }
 
 //*************************************************************************************************
@@ -311,21 +312,21 @@ Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
 // Build transformation matrix with null arguments being treated as identity. 
 // Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixTransformation(const Vector scalingCenter, const Vector scalingRotation, 
-	const Vector scaling, const Vector rotationCenter, const Vector rotation, const Vector translation);
+	const Vector scaling, const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
 
 //*************************************************************************************************
 // 
 //*************************************************************************************************
 // Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixTransformation2D(const Vector scalingCenter, float scalingRotation, const Vector scaling,
-	const Vector rotationCenter, float rotation, const Vector translation);
+	const Vector rotationCenter, float rotation, const Vector& translation);
 
 //*************************************************************************************************
 // 
 //*************************************************************************************************
 // Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixTransformation2D(const Vector scalingCenter, const Vector scalingRotation, const Vector scaling,
-	const Vector rotationCenter, const Vector rotation, const Vector translation);
+	const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
 
 //*************************************************************************************************
 // 
@@ -339,7 +340,7 @@ Matrix MatrixAffineTransformation(float scaling, const Vector rotationCenter, co
 //*************************************************************************************************
 // Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixAffineTransformation(const Vector scaling, const Vector rotationCenter, const Vector rotation, 
-	const Vector translation);
+	const Vector& translation);
 
 //*************************************************************************************************
 // 
@@ -352,7 +353,7 @@ Matrix MatrixAffineTransformation2D(float scaling, const Vector rotationCenter, 
 //*************************************************************************************************
 // Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
 Matrix MatrixAffineTransformation2D(const Vector scaling, const Vector rotationCenter, 
-	const Vector rotation, const Vector translation);
+	const Vector rotation, const Vector& translation);
 
 //*************************************************************************************************
 // 
@@ -376,7 +377,7 @@ Matrix MatrixPerspectiveRH(float w, float h, float zn, float zf);
 // 
 //*************************************************************************************************
 // Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveRH(const Vector w, const Vector h, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveRH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
 
 //*************************************************************************************************
 // 
@@ -388,7 +389,7 @@ Matrix MatrixPerspectiveLH(float w, float h, float zn, float zf);
 // 
 //*************************************************************************************************
 // Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveLH(const Vector w, const Vector h, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveLH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
 
 //*************************************************************************************************
 // 
@@ -400,7 +401,7 @@ Matrix MatrixPerspectiveFovRH(float fovy, float aspect, float zn, float zf);
 // 
 //*************************************************************************************************
 // Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 
 //*************************************************************************************************
 // 
@@ -412,7 +413,7 @@ Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
 // 
 //*************************************************************************************************
 // Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector zf);
+Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 
 //*************************************************************************************************
 // 

@@ -11,7 +11,7 @@
 // Hermite interpolation between position V1, tangent T1 (when s == 0) and position V2, tangent T2 
 // (when s == 1).
 //*************************************************************************************************
-Vector Vec2Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector t2, float s)
+Vector Vec2Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector& t2, float s)
 {
 	// Load s into a vector
 	Vector vS = _mm_set1_ps(s);
@@ -23,7 +23,7 @@ Vector Vec2Hermite(const Vector v1, const Vector t1, const Vector v2, const Vect
 // Hermite interpolation between position V1, tangent T1 (when s == 0) and position V2, tangent T2 
 // (when s == 1).
 //*************************************************************************************************
-Vector Vec2Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector t2, const Vector s)
+Vector Vec2Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector& t2, const Vector& s)
 {
 	// Find double and triple of s
 	Vector vS2 = _mm_mul_ps(s, s);
@@ -71,7 +71,7 @@ Vector Vec2Hermite(const Vector v1, const Vector t1, const Vector v2, const Vect
 //*************************************************************************************************
 // CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
 //*************************************************************************************************
-Vector Vec2CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, float s)
+Vector Vec2CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector& v3, float s)
 {
 	Vector vS = _mm_set1_ps(s);
 	return Vec2CatmullRom(v0, v1, v2, v3, vS);
@@ -80,7 +80,7 @@ Vector Vec2CatmullRom(const Vector v0, const Vector v1, const Vector v2, const V
 //*************************************************************************************************
 // CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
 //*************************************************************************************************
-Vector Vec2CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, const Vector s)
+Vector Vec2CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector& v3, const Vector& s)
 {
 	// Calculate s^2 and s^3
 	Vector vS2 = _mm_mul_ps(s, s);
@@ -139,7 +139,7 @@ Vector Vec2Barycentric(const Vector v1, const Vector v2, const Vector v3, float 
 //*************************************************************************************************
 // Barycentric coordinates V1 + f(V2 - V1) + g(V3 - V1)
 //*************************************************************************************************
-Vector Vec2Barycentric(const Vector v1, const Vector v2, const Vector v3, const Vector f, const Vector g)
+Vector Vec2Barycentric(const Vector v1, const Vector v2, const Vector v3, const Vector& f, const Vector& g)
 {
 	// Calculate v2 - v1 and v3 - v1
 	Vector vTemp1 = _mm_sub_ps(v2, v1);

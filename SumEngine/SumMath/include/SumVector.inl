@@ -7,7 +7,7 @@
 //*************************************************************************************************
 // Cast to positive version of the vector
 //*************************************************************************************************
-SUMINLINE_F Vector operator+ (const Vector v)
+SUMINLINE Vector operator+ (const Vector v)
 {
 	return v;
 }
@@ -15,7 +15,7 @@ SUMINLINE_F Vector operator+ (const Vector v)
 //*************************************************************************************************
 // Cast to negated version of the vector
 //*************************************************************************************************
-SUMINLINE_F Vector operator- (const Vector v)
+SUMINLINE Vector operator- (const Vector v)
 {
 	return VectorNegate(v);
 }
@@ -23,7 +23,7 @@ SUMINLINE_F Vector operator- (const Vector v)
 //*************************************************************************************************
 // Addition of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector& operator+= (Vector& v1, const Vector v2)
+SUMINLINE Vector& operator+= (Vector& v1, const Vector v2)
 {
 	v1 = VectorAdd(v1, v2);
 	return v1;
@@ -32,7 +32,7 @@ SUMINLINE_F Vector& operator+= (Vector& v1, const Vector v2)
 //*************************************************************************************************
 // Subtraction of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector& operator-= (Vector& v1, const Vector v2)
+SUMINLINE Vector& operator-= (Vector& v1, const Vector v2)
 {
 	v1 = VectorSub(v1, v2);
 	return v1;
@@ -41,7 +41,7 @@ SUMINLINE_F Vector& operator-= (Vector& v1, const Vector v2)
 //*************************************************************************************************
 // Product of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector& operator*= (Vector& v1, const Vector v2)
+SUMINLINE Vector& operator*= (Vector& v1, const Vector v2)
 {
 	v1 = VectorMul(v1, v2);
 	return v1;
@@ -50,7 +50,7 @@ SUMINLINE_F Vector& operator*= (Vector& v1, const Vector v2)
 //*************************************************************************************************
 // Division of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector& operator/= (Vector& v1, const Vector v2)
+SUMINLINE Vector& operator/= (Vector& v1, const Vector v2)
 {
 	v1 = VectorDiv(v1, v2);
 	return v1;
@@ -59,7 +59,7 @@ SUMINLINE_F Vector& operator/= (Vector& v1, const Vector v2)
 //*************************************************************************************************
 // Multiply a vector by a scalar
 //*************************************************************************************************
-SUMINLINE_F Vector& operator*= (Vector& v, SFLOAT s)
+SUMINLINE Vector& operator*= (Vector& v, SFLOAT s)
 {
 	v = VectorScale(v, s);
 	return v;
@@ -68,7 +68,7 @@ SUMINLINE_F Vector& operator*= (Vector& v, SFLOAT s)
 //*************************************************************************************************
 // Divide by a scalar
 //*************************************************************************************************
-SUMINLINE_F Vector& operator/= (Vector& v, SFLOAT s)
+SUMINLINE Vector& operator/= (Vector& v, SFLOAT s)
 {
 	v = VectorScale(v, 1.0f / s);
 	return v;
@@ -77,7 +77,7 @@ SUMINLINE_F Vector& operator/= (Vector& v, SFLOAT s)
 //*************************************************************************************************
 // Addition of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector operator+ (const Vector v1, const Vector v2)
+SUMINLINE Vector operator+ (const Vector v1, const Vector v2)
 {
 	return VectorAdd(v1, v2);
 }
@@ -85,7 +85,7 @@ SUMINLINE_F Vector operator+ (const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Difference between two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector operator- (const Vector v1, const Vector v2)
+SUMINLINE Vector operator- (const Vector v1, const Vector v2)
 {
 	return VectorSub(v1, v2);
 }
@@ -93,7 +93,7 @@ SUMINLINE_F Vector operator- (const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Product of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector operator* (const Vector v1, const Vector v2)
+SUMINLINE Vector operator* (const Vector v1, const Vector v2)
 {
 	return VectorMul(v1, v2);
 }
@@ -101,7 +101,7 @@ SUMINLINE_F Vector operator* (const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Division of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector operator/ (const Vector v1, const Vector v2)
+SUMINLINE Vector operator/ (const Vector v1, const Vector v2)
 {
 	return VectorDiv(v1, v2);
 }
@@ -109,7 +109,7 @@ SUMINLINE_F Vector operator/ (const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Scale a vector by a scalar
 //*************************************************************************************************
-SUMINLINE_F Vector operator* (const Vector v, const SFLOAT s)
+SUMINLINE Vector operator* (const Vector v, const SFLOAT s)
 {
 	return VectorScale(v, s);
 }
@@ -117,7 +117,7 @@ SUMINLINE_F Vector operator* (const Vector v, const SFLOAT s)
 //*************************************************************************************************
 // Scale a vector by a scalar
 //*************************************************************************************************
-SUMINLINE_F Vector operator* (const SFLOAT s, const Vector v)
+SUMINLINE Vector operator* (const SFLOAT s, const Vector v)
 {
 	return VectorScale(v, s);
 }
@@ -125,7 +125,7 @@ SUMINLINE_F Vector operator* (const SFLOAT s, const Vector v)
 //*************************************************************************************************
 // Scale a vector by a scalar
 //*************************************************************************************************
-SUMINLINE_F Vector operator/ (const Vector v, const SFLOAT s)
+SUMINLINE Vector operator/ (const Vector v, const SFLOAT s)
 {
 	return VectorScale(v, 1.0f / s);
 }
@@ -133,9 +133,9 @@ SUMINLINE_F Vector operator/ (const Vector v, const SFLOAT s)
 //*************************************************************************************************
 // Return a zeroed vector
 //*************************************************************************************************
-SUMINLINE_F Vector VectorZero()
+SUMINLINE Vector VectorZero()
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	return _mm_setzero_ps();
 #else
 	return {0.0f, 0.0f, 0.0f, 0.0f};
@@ -145,9 +145,9 @@ SUMINLINE_F Vector VectorZero()
 //*************************************************************************************************
 // Vector setting operations
 //*************************************************************************************************
-SUMINLINE_F Vector VectorSet(SFLOAT x, SFLOAT y, SFLOAT z, SFLOAT w)
+SUMINLINE Vector VectorSet(SFLOAT x, SFLOAT y, SFLOAT z, SFLOAT w)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	return _mm_set_ps(w, z, y, x);
 #else
 	return {x, y, z, w};
@@ -157,9 +157,9 @@ SUMINLINE_F Vector VectorSet(SFLOAT x, SFLOAT y, SFLOAT z, SFLOAT w)
 //*************************************************************************************************
 // Negate a vector
 //*************************************************************************************************
-SUMINLINE_F Vector VectorNegate(Vector v)
+SUMINLINE Vector VectorNegate(Vector v)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	Vector z = _mm_setzero_ps();
 	return _mm_sub_ps(z, v);
 #else
@@ -174,9 +174,9 @@ SUMINLINE_F Vector VectorNegate(Vector v)
 //*************************************************************************************************
 // Scale a vector by a scalar
 //*************************************************************************************************
-SUMINLINE_F Vector VectorScale(const Vector v, const SFLOAT s)
+SUMINLINE Vector VectorScale(const Vector v, const SFLOAT s)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	Vector scale = _mm_set1_ps(s);
 	return _mm_mul_ps(v, scale);
 #else
@@ -191,9 +191,9 @@ SUMINLINE_F Vector VectorScale(const Vector v, const SFLOAT s)
 //*************************************************************************************************
 // Sum of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector VectorAdd(const Vector v1, const Vector v2)
+SUMINLINE Vector VectorAdd(const Vector v1, const Vector v2)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	return _mm_add_ps(v1, v2);
 #else
 	Vector result;
@@ -208,9 +208,9 @@ SUMINLINE_F Vector VectorAdd(const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Difference between two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector VectorSub(const Vector v1, const Vector v2)
+SUMINLINE Vector VectorSub(const Vector v1, const Vector v2)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	return _mm_sub_ps(v1, v2);
 #else
 	Vector result;
@@ -225,9 +225,9 @@ SUMINLINE_F Vector VectorSub(const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Product of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector VectorMul(const Vector v1, const Vector v2)
+SUMINLINE Vector VectorMul(const Vector v1, const Vector v2)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	return _mm_mul_ps(v1, v2);
 #else
 	Vector result;
@@ -242,9 +242,9 @@ SUMINLINE_F Vector VectorMul(const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Division of two vectors
 //*************************************************************************************************
-SUMINLINE_F Vector VectorDiv(const Vector v1, const Vector v2)
+SUMINLINE Vector VectorDiv(const Vector v1, const Vector v2)
 {
-#ifdef _SUMSIMD
+#ifdef SUMSIMD
 	return _mm_div_ps(v1, v2);
 #else
 	Vector result;

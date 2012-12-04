@@ -10,6 +10,16 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SumMathTest.h" />
+    <ClInclude Include="include\SumTestDriver.h" />
+    <ClInclude Include="include\SumTestHelper.h" />
+    <ClInclude Include="include\SumVectorTest.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumTestMain.cpp" />
+    <ClCompile Include="src\SumVectorTest.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{96301856-F78A-4007-9B5C-79B816177B85}</ProjectGuid>
     <RootNamespace>SumTest</RootNamespace>
@@ -41,7 +51,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../SumMath/include;../SumPlatform/include;../SumMemory/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include;../SumMath/include;../SumPlatform/include;../SumMemory/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -62,9 +72,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="SumTestMain.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

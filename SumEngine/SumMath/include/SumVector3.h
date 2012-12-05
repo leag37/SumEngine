@@ -47,7 +47,7 @@ Vector Vec3Lerp(const Vector v1, const Vector v2, Vector s);
 // Normalize
 Vector Vec3Normalize(const Vector v);
 
-extern "C"
+extern "C++"
 {
 // Hermite interpolation between position V1, tangent T1 (when s == 0)
 // and position V2, tangent T2 (when s == 1).
@@ -63,11 +63,12 @@ Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const V
 // CatmullRom interpolation between V1 (when s == 0) and V2 (when s == 1)
 Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, const Vector s);
 
-//
-//// Barycentric
-//Vector3* Vec3Barycentric(Vector3* pOut, const Vector3* pV1, const Vector3* pV2, const Vector3* pV3,
-//	float f, float g);
-//
+// Barycentric
+Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, float f, float g);
+
+// Barycentric
+Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, const Vector f, const Vector g);
+
 //// Transform by matrix (x, y, z, 1)
 //Vector4* Vec3Transform(Vector4* pOut, const Vector3* pV, const Matrix* pM);
 //

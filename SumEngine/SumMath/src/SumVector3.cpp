@@ -102,7 +102,74 @@ Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const V
 //*************************************************************************************************
 Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, const Vector s)
 {
+		// Calculate s^2 and s^3
+	Vector vS2 = _mm_mul_ps(s, s);
+	Vector vS3 = _mm_mul_ps(vS2, s);
 
+	// Calculate a, b, c, and d
+	// a = -s^3 + 2s^2 - s
+	// b = 3s^3 - 5s^2 + 2
+	// c = -3s^3 + 4s^2 + s
+	// d = s^3 - s^2
+
+	// A
+	Vector vTemp1 = _mm_mul_ps(_mm_set1_ps(-1.0f), vS3);
+	Vector vTemp2 = _mm_mul_ps(_mm_set1_ps(2.0f), vS2);
+	Vector vA = _mm_add_ps(vTemp1, vTemp2);
+	vA = _mm_sub_ps(vA, s);
+
+	// B
+	vTemp1 = _mm_mul_ps(_mm_set1_ps(3.0f), vS3);
+	vTemp2 = _mm_mul_ps(_mm_set1_ps(-5.0f), vS2);
+	Vector vB = _mm_add_ps(vTemp1, vTemp2);
+	vB = _mm_add_ps(_mm_set1_ps(2.0f), vB);
+
+	// C
+	vTemp1 = _mm_mul_ps(_mm_set1_ps(-3.0f), vS3);
+	vTemp2 = _mm_mul_ps(_mm_set1_ps(4.0f), vS2);
+	Vector vC = _mm_add_ps(vTemp1, vTemp2);
+	vC = _mm_add_ps(vC, s);
+
+	// D
+	Vector vD = _mm_sub_ps(vS3, vS2);
+
+	// Solve for (a*p1 + b*p2 + c*p3 + d*p4)/2
+	vTemp1 = _mm_mul_ps(vA, v0);
+	vTemp2 = _mm_mul_ps(vB, v1);
+	Vector vResult = _mm_add_ps(vTemp1, vTemp2);
+	vTemp1 = _mm_mul_ps(vC, v2);
+	vTemp2 = _mm_mul_ps(vD, v3);
+	vResult = _mm_add_ps(vTemp1, vResult);
+	vResult = _mm_add_ps(vTemp2, vResult);
+	vResult = _mm_mul_ps(vResult, _mm_set1_ps(0.5f));
+
+	return vResult;
+}
+
+//*************************************************************************************************
+//  Barycentric V1 + f(V2 - V1) + g(V3 - V1)
+//*************************************************************************************************
+Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, float f, float g)
+{
+	Vector vF = _mm_load1_ps(&f);
+}
+
+//*************************************************************************************************
+// Barycentric V1 + f(V2 - V1) + g(V3 - V1) 
+//*************************************************************************************************
+Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, const Vector f, const Vector g)
+{
+	// Differences
+	Vector vTemp1 = _mm_sub_ps(v2, v1);
+	Vector vTemp2 = _mm_sub_ps(v3, v1);
+	
+	// Multiply by constants
+	vTemp1 = _mm_mul_ps(f, vTemp1);
+	vTemp2 = _mm_mul_ps(g, vTemp2);
+
+	// Add
+	vTemp1 = _mm_add_ps(v1, vTemp1);
+	return _mm_add_ps(vTemp1, vTemp2);
 }
 
 //*************************************************************************************************

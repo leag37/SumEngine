@@ -11,9 +11,9 @@
 // c = s^3 - 2s^2 + s
 // d = s^3 - s^2
 //*************************************************************************************************
-Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector t2, float s)
+Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector& t2, float s)
 {
-	Vector vS = _mm_load1_ps(&s);
+	Vector vS = _mm_set1_ps(s);
 	return Vec3Hermite(v1, t1, v2, t2, vS);
 }
 
@@ -27,7 +27,7 @@ Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vect
 // c = s^3 - 2s^2 + s
 // d = s^3 - s^2
 //*************************************************************************************************
-Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector t2, Vector s)
+Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector& t2, Vector& s)
 {
 	// Find double and triple of s
 	Vector vS2 = _mm_mul_ps(s, s);
@@ -83,9 +83,9 @@ Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vect
 // 
 // Solve for (a*p1 + b*p2 + c*p3 + d*p4)/2
 //*************************************************************************************************
-Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, float s)
+Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector& v3, float s)
 {
-	Vector vS = _mm_load1_ps(&s);
+	Vector vS = _mm_set1_ps(s);
 	return Vec3CatmullRom(v0, v1, v2, v3, vS);
 }
 
@@ -100,7 +100,7 @@ Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const V
 // 
 // Solve for (a*p1 + b*p2 + c*p3 + d*p4)/2
 //*************************************************************************************************
-Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector v3, const Vector s)
+Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const Vector& v3, const Vector& s)
 {
 		// Calculate s^2 and s^3
 	Vector vS2 = _mm_mul_ps(s, s);
@@ -147,17 +147,19 @@ Vector Vec3CatmullRom(const Vector v0, const Vector v1, const Vector v2, const V
 }
 
 //*************************************************************************************************
-//  Barycentric V1 + f(V2 - V1) + g(V3 - V1)
+// Barycentric V1 + f(V2 - V1) + g(V3 - V1) 
 //*************************************************************************************************
 Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, float f, float g)
 {
-	Vector vF = _mm_load1_ps(&f);
+	Vector vF = _mm_set1_ps(f);
+	Vector vG = _mm_set1_ps(g);
+	return Vec3Barycentric(v1, v2, v3, vF, vG);
 }
 
 //*************************************************************************************************
 // Barycentric V1 + f(V2 - V1) + g(V3 - V1) 
 //*************************************************************************************************
-Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, const Vector f, const Vector g)
+Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, const Vector& f, const Vector& g)
 {
 	// Differences
 	Vector vTemp1 = _mm_sub_ps(v2, v1);
@@ -173,9 +175,118 @@ Vector Vec3Barycentric(const Vector v1, const Vector v2, const Vector v3, const 
 }
 
 //*************************************************************************************************
-// 
+// Transform by matrix (x, y, z, 1)
 //*************************************************************************************************
+Vector Vec3Transform(const Vector v, const Matrix& m)
+{
+	// X
+	Vector vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
+	Vector vResult = _mm_mul_ps(vTemp, m.r[0]);
+
+	// Y
+	vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
+	vTemp = _mm_mul_ps(vTemp, m.r[1]);
+	vResult = _mm_add_ps(vResult, vTemp);
+
+	// Z
+	vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+	vTemp = _mm_mul_ps(vTemp, m.r[2]);
+	vResult = _mm_add_ps(vResult, vTemp);
+	return _mm_add_ps(vResult, m.r[3]);
+}
 
 //*************************************************************************************************
-// 
+// Transform by matrix and project back to w = 1 (x, y, z, 1)
 //*************************************************************************************************
+Vector Vec3TransformCoord(const Vector v, const Matrix& m)
+{
+	// X
+	Vector vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
+	Vector vResult = _mm_mul_ps(vTemp, m.r[0]);
+
+	// Y
+	vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
+	vTemp = _mm_mul_ps(vTemp, m.r[1]);
+	vResult = _mm_add_ps(vResult, vTemp);
+
+	// Z
+	vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+	vTemp = _mm_mul_ps(vTemp, m.r[2]);
+	vResult = _mm_add_ps(vResult, vTemp);
+	vResult = _mm_add_ps(vResult, m.r[3]);
+
+	vTemp = _mm_shuffle_ps(vResult, vResult, _MM_SHUFFLE(3, 3, 3, 3));
+	return _mm_div_ps(vResult, vTemp);
+}
+
+//*************************************************************************************************
+// Transform normal by matix (x, y, z, 0) 
+//*************************************************************************************************
+Vector Vec3TransformNormal(const Vector v, const Matrix& m)
+{
+	// X
+	Vector vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
+	Vector vResult = _mm_mul_ps(vTemp, m.r[0]);
+
+	// Y
+	vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
+	vTemp = _mm_mul_ps(vTemp, m.r[1]);
+	vResult = _mm_add_ps(vResult, vTemp);
+
+	// Z
+	vTemp = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+	vTemp = _mm_mul_ps(vTemp, m.r[2]);
+	return _mm_add_ps(vResult, vTemp);
+}
+
+// Project from object space into screen space
+Vector Vec3Project(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT viewportWidth, 
+	SFLOAT viewportHeight, SFLOAT viewportMinZ, SFLOAT viewportMaxZ, 
+	const Matrix& projection, const Matrix& view, const Matrix& world)
+{
+	// Create the scale and offset vectors
+	SFLOAT vpHalfWidth = viewportWidth * 0.5f;
+	SFLOAT vpHalfHeight = viewportHeight * 0.5f;
+	Vector scale = VectorSet(vpHalfWidth, vpHalfHeight, viewportMaxZ - viewportMinZ, 0.0f);
+	Vector offset = VectorSet(viewportX + vpHalfWidth, viewportY + vpHalfHeight, viewportMinZ, 0.0f);
+
+	// Construct transform matrix
+	Matrix transform = MatrixMultiply(world, view);
+	transform = MatrixMultiply(transform, projection);
+
+	// Transform the coordinate
+	Vector result = Vec3TransformCoord(v, transform);
+
+	// Scale the coordinate to the viewport and offset it appropriately so it appears at the right location
+	result = _mm_mul_ps(result, scale);
+	return _mm_add_ps(result, offset);
+}
+
+//*************************************************************************************************
+// Project from screen space into object space 
+//*************************************************************************************************
+Vector Vec3Unproject(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT viewportWidth,
+	SFLOAT viewportHeight, SFLOAT viewportMinZ, SFLOAT viewportMaxZ,
+	const Matrix& projection, const Matrix& view, const Matrix& world)
+{
+	// Create the scale and offset vectors
+	SFLOAT vpHalfWidth = viewportWidth * 0.5f;
+	SFLOAT vpHalfHeight = viewportHeight * 0.5f;
+	Vector scale = VectorSet(vpHalfWidth, vpHalfHeight, viewportMaxZ - viewportMinZ, 0.0f);
+	Vector offset = VectorSet(viewportX + vpHalfWidth, viewportY + vpHalfHeight, viewportMinZ, 0.0f);
+
+	// Shift vectors
+	Vector result = _mm_sub_ps(v, offset);
+	
+	// Anti-scale
+	result = _mm_div_ps(result, scale);
+
+	// Get the transform matrix
+	Vector determinant;
+	Matrix transform = MatrixMultiply(world, view);
+	transform = MatrixMultiply(transform, projection);
+	transform = MatrixInverse(&determinant, transform);
+
+	// Reverse the transformation
+	return Vec3TransformCoord(result, transform);
+}

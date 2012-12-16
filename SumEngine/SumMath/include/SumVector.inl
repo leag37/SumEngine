@@ -255,3 +255,54 @@ SUMINLINE Vector VectorDiv(const Vector v1, const Vector v2)
 	return result;
 #endif
 }
+
+//*************************************************************************************************
+// Division of two vectors
+//*************************************************************************************************
+SUMINLINE Vector VectorEqual(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmpeq_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Division of two vectors
+//*************************************************************************************************
+SUMINLINE Vector VectorNotEqual(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmpneq_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Return the reciprocal of a vector
+//*************************************************************************************************
+SUMINLINE Vector VectorReciprocal(const Vector v)
+{
+	return _mm_div_ps(gVOne, v);
+}
+
+//*************************************************************************************************
+// Replicate a float value across a vector
+//*************************************************************************************************
+SUMINLINE Vector VectorReplicate(SFLOAT v)
+{
+#ifdef SUMSIMD
+	return _mm_set1_ps(v);
+#else
+#endif
+}
+
+//Vector VectorSplatX(const Vector v);
+//Vector VectorSplatY(const Vector v);
+//Vector VectorSplatZ(const Vector v);
+//Vector VectorSplatW(const Vector v);
+//Vector VectorSetX(const Vector v, SFLOAT x);
+//Vector VectorSetY(const Vector v, SFLOAT y);
+//Vector VectorSetZ(const Vector v, SFLOAT z);
+//Vector VectorSetW(const Vector v, SFLOAT w);
+	

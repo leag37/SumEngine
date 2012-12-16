@@ -5,6 +5,24 @@
 //*************************************************************************************************
 
 //*************************************************************************************************
+// Equality
+//*************************************************************************************************
+SUMINLINE SBOOL Vec3Equal(const Vector v1, const Vector v2)
+{
+	Vector vTemp = _mm_cmpeq_ps(v1, v2);
+	return ((_mm_movemask_ps(vTemp) == 7) != 0);
+}
+
+//*************************************************************************************************
+// Non-Equality
+//*************************************************************************************************
+SUMINLINE SBOOL Vec3NonEqual(const Vector v1, const Vector v2)
+{
+	Vector vTemp = _mm_cmpeq_ps(v1, v2);
+	return ((_mm_movemask_ps(vTemp) != 7) != 0);
+}
+
+//*************************************************************************************************
 // Length
 //*************************************************************************************************
 SUMINLINE Vector Vec3Length(const Vector v)
@@ -122,7 +140,7 @@ SUMINLINE Vector Vec3Cross(const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Add
 //*************************************************************************************************
-SUMINLINE Vector Vec3Add(const Vector v1, const Vector v2
+SUMINLINE Vector Vec3Add(const Vector v1, const Vector v2)
 {
 #ifdef SUMSIMD
 
@@ -177,7 +195,7 @@ SUMINLINE Vector Vec3Scale(const Vector v, float s)
 {
 #ifdef SUMSIMD
 
-	Vector vS = _mm_load1_ps(&s);
+	Vector vS = _mm_set1_ps(s);
 	return Vec3Scale(v, vS);
 
 #else
@@ -204,7 +222,7 @@ SUMINLINE Vector Vec3Lerp(const Vector v1, const Vector v2, float s)
 {
 #ifdef SUMSIMD
 	
-	Vector vS = _mm_load1_ps(&s);
+	Vector vS = _mm_set1_ps(s);
 	return Vec3Lerp(v1, v2, vS);
 
 #else

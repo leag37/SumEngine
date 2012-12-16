@@ -32,67 +32,184 @@
 //-14 ( 21 (32.43 - 33.42) - 22 (31.43 - 33.41) + 23 (31.42 - 32.41))
 //
 // Phase 1 - primary inner products
-//v1 = zzyy -> 3
-//v2 = wwwz -> 4
-//v3 = yxxx -> 3
-//v4 = wwwz -> 4
-//v5 = yxxx -> 3
-//v6 = zzyy -> 4
+// v1 = zzyy -> 3
+// v2 = wwwz -> 4
+// v3 = yxxx -> 3
+// v4 = wwwz -> 4
+// v5 = yxxx -> 3
+// v6 = zzyy -> 4
 //
-//p0 = v1.v2
-//p1 = v3.v4
-//p2 = v5.v6
+// p0 = v1.v2
+// p1 = v3.v4
+// p2 = v5.v6
 //
-//v1 = wwwz -> 3
-//v2 = zzyy -> 4
-//v3 = wwwz -> 3
-//v4 = yxxx -> 4
-//v5 = zzyy -> 3
-//v6 = yxxx -> 4
+// v1 = wwwz -> 3
+// v2 = zzyy -> 4
+// v3 = wwwz -> 3
+// v4 = yxxx -> 4
+// v5 = zzyy -> 3
+// v6 = yxxx -> 4
 //
-//v1 = v1.v2
-//v3 = v3.v4
-//v5 = v5.v6
+// v1 = v1.v2
+// v3 = v3.v4
+// v5 = v5.v6
 //
 // Phase 2 - difference of inner products
-//p0 = p0 - v1
-//p1 = p1 - v3
-//p2 = p2 - v5
+// p0 = p0 - v1
+// p1 = p1 - v3
+// p2 = p2 - v5
 //
 // Phase 3 - secondary inner products
-//v1 = yxxx -> 2
-//v2 = zzyy -> 2
-//v3 = wwwz -> 2
+// v1 = yxxx -> 2
+// v2 = zzyy -> 2
+// v3 = wwwz -> 2
 //
-//p0 = p0.v1
-//p1 = p1.v1
-//p2 = p2.v2
+// p0 = p0.v1
+// p1 = p1.v1
+// p2 = p2.v2
 //
 // Phase 4 - aggregate sum
-//p0 = p0 - p1
-//p0 = p0 + p2
+// p0 = p0 - p1
+// p0 = p0 + p2
 //
-//// Final product
-//p1 = r1 * +-+-
-//result = dot(p0, p1)
+// Final product
+// p1 = r1 * +-+-
+// result = dot(p0, p1)
 //*************************************************************************************************
 Vector MatrixDeterminant(const Matrix& m)
 {
-	// Phase 1
-	return VectorZero();
+	// Phase 1 - primary inner products
+	// v1 = zzyy -> 3
+	// v2 = wwwz -> 4
+	// v3 = yxxx -> 3
+	// v4 = wwwz -> 4
+	// v5 = yxxx -> 3
+	// v6 = zzyy -> 4
+	//
+	// p0 = v1.v2
+	// p1 = v3.v4
+	// p2 = v5.v6
+	
+	Vector v1 = _mm_shuffle_ps(m.r[2], m.r[2], _MM_SHUFFLE(1, 1, 2, 2));
+	Vector v2 = _mm_shuffle_ps(m.r[3], m.r[3], _MM_SHUFFLE(2, 3, 3, 3));
+	Vector v3 = _mm_shuffle_ps(m.r[2], m.r[2], _MM_SHUFFLE(0, 0, 0, 1));
+	Vector v4 = _mm_shuffle_ps(m.r[3], m.r[3], _MM_SHUFFLE(2, 3, 3, 3));
+	Vector v5 = _mm_shuffle_ps(m.r[2], m.r[2], _MM_SHUFFLE(0, 0, 0, 1));
+	Vector v6 = _mm_shuffle_ps(m.r[3], m.r[3], _MM_SHUFFLE(1, 1, 2, 2));
+
+	Vector p0 = _mm_mul_ps(v1, v2);
+	Vector p1 = _mm_mul_ps(v3, v4);
+	Vector p2 = _mm_mul_ps(v5, v6);
+	
+	// Phase 2 - difference of inner products
+	// p0 = p0 - v1
+	// p1 = p1 - v3
+	// p2 = p2 - v5
+	
+	p0 = _mm_sub_ps(p0, v1);
+	p1 = _mm_sub_ps(p1, v3);
+	p2 = _mm_sub_ps(p2, v5);
+
+	// Phase 3 - secondary inner products
+	// v1 = yxxx -> 2
+	// v2 = zzyy -> 2
+	// v3 = wwwz -> 2
+	//
+	// p0 = p0.v1
+	// p1 = p1.v2
+	// p2 = p2.v3
+	
+	v1 = _mm_shuffle_ps(m.r[1], m.r[1], _MM_SHUFFLE(0, 0, 0, 1));
+	v2 = _mm_shuffle_ps(m.r[1], m.r[1], _MM_SHUFFLE(1, 1, 2, 2));
+	v3 = _mm_shuffle_ps(m.r[1], m.r[1], _MM_SHUFFLE(2, 3, 3, 3));
+
+	p0 = _mm_mul_ps(p0, v1);
+	p1 = _mm_mul_ps(p1, v2);
+	p2 = _mm_mul_ps(p2, v3);
+
+	// Phase 4 - aggregate sum
+	// p0 = p0 - p1
+	// p0 = p0 + p2
+	
+	p0 = _mm_sub_ps(p0, p1);
+	p0 = _mm_add_ps(p0, p2);
+
+	// Final product
+	// p1 = r1 * +-+-
+	// result = dot(p0, p1)
+	p1 = _mm_mul_ps(m.r[0], gVDeterminantNegate);
+	return Vec4Dot(p0, p1);
 }
 
 //*************************************************************************************************
-// 
+// Decompose 
 //*************************************************************************************************
-// Decompose
-SBOOL MatrixDecompose(Vector* pOutScale, Vector* pOutRotation, Vector* pOutTranslation, const Matrix& m);
+//SBOOL MatrixDecompose(Vector* pOutScale, Vector* pOutRotation, Vector* pOutTranslation, const Matrix& m)
+//{
+//	// Create row vector u, v, and w
+//	Vector u = _mm_load_ps(&m._11);
+//	Vector v = _mm_load_ps(&m._21);
+//	Vector w = _mm_load_ps(&m._31);
+//
+//	// Create orthonormal vectors 
+//	Vector s1 = Vec3Length(u);
+//	if(Vec3Equal(s1, gVZero))
+//		return false;
+//
+//	Vector u0 = VectorReciprocal(s1);
+//	u0 = _mm_mul_ps(u, u0);
+//
+//	Vector temp = Vec3Dot(v, u0);
+//	temp = _mm_mul_ps(temp, u0);
+//	temp = _mm_sub_ps(v, temp);
+//	Vector s2 = Vec3Length(temp);
+//	if(Vec3Equal(s2, gVZero))
+//		return false;
+//
+//	Vector v0 = VectorReciprocal(s2);
+//	v0 = _mm_mul_ps(v0, temp);
+//	
+//	temp = Vec3Dot(w, u0);
+//	temp = _mm_mul_ps(temp, u0);
+//	temp = _mm_sub_ps(w, temp);
+//	Vector temp1 = Vec3Dot(w, v0);
+//	temp1 = _mm_mul_ps(temp1, v0);
+//	temp = _mm_sub_ps(temp, temp1);
+//	Vector s3 = Vec3Length(temp);
+//	if(Vec3Equal(s3, gVZero))
+//		return false;
+//
+//	Vector w0 = VectorReciprocal(s3);
+//	w0 = _mm_mul_ps(temp, w0);
+//
+//	// Populate reciprocal matrix
+//	Matrix r = Matrix(u0, v0, w0, gVIdentityR3);
+//	Vector det = MatrixDeterminant(r);
+//	if(Vec4Equal(det, gVNegOne))
+//	{
+//		r.r[2] = _mm_mul_ps(r.r[2], gV3Negate);
+//		s3 = _mm_mul_ps(s3, gVNegOne);
+//	}
+//
+//	// Populate scale
+//	temp = _mm_unpacklo_ps(s1, s2);
+//	temp = _mm_shuffle_ps(temp, s3, _MM_SHUFFLE(0, 0, 1, 0));
+//	*pOutScale = temp;
+//
+//	// Populate quaternion
+//	*pOutRotation = QuaternionRotationMatrix(r);
+//
+//	// Populate translation
+//	*pOutTranslation = _mm_load_ps(r.m[3]);
+//
+//	return true;
+//}
 
 //*************************************************************************************************
 // 
 //*************************************************************************************************
 // Transpose
-Matrix MatrixTranspose(const Matrix& m);
+//Matrix MatrixTranspose(const Matrix& m);
 
 //*************************************************************************************************
 // Multiply
@@ -205,10 +322,12 @@ Matrix MatrixMultiply(const Matrix& m1, const Matrix& m2)
 }
 
 //*************************************************************************************************
-// 
+// Multiply, followed by a transpose T(M1 * M2) 
 //*************************************************************************************************
-// Multiply, followed by a transpose T(M1 * M2)
-Matrix MatrixMultiplyTranspose(const Matrix& m1, const Matrix& m2);
+//Matrix MatrixMultiplyTranspose(const Matrix& m1, const Matrix& m2)
+//{
+//
+//}
 
 //*************************************************************************************************
 // 

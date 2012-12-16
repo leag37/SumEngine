@@ -37,6 +37,16 @@ Vector VectorMul(const Vector v1, const Vector v2);
 Vector VectorDiv(const Vector v1, const Vector v2);
 Vector VectorEqual(const Vector v1, const Vector v2);
 Vector VectorNotEqual(const Vector v1, const Vector v2);
+Vector VectorReciprocal(const Vector v);
+Vector VectorReplicate(SFLOAT v);
+Vector VectorSplatX(const Vector v);
+Vector VectorSplatY(const Vector v);
+Vector VectorSplatZ(const Vector v);
+Vector VectorSplatW(const Vector v);
+Vector VectorSetX(const Vector v, SFLOAT x);
+Vector VectorSetY(const Vector v, SFLOAT y);
+Vector VectorSetZ(const Vector v, SFLOAT z);
+Vector VectorSetW(const Vector v, SFLOAT w);
 
 #include "SumVector.inl"
 

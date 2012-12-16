@@ -14,20 +14,27 @@
     <ClInclude Include="include\SumFloat.h" />
     <ClInclude Include="include\SumMath.h" />
     <ClInclude Include="include\SumMatrix.h" />
+    <ClInclude Include="include\SumQuaternion.h" />
+    <ClInclude Include="include\SumMiscMath.h" />
     <ClInclude Include="include\SumVector.h" />
     <ClInclude Include="include\SumVector2.h" />
     <ClInclude Include="include\SumVector3.h" />
+    <ClInclude Include="include\SumVector4.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMatrix.cpp" />
     <ClCompile Include="src\SumVector2.cpp" />
     <ClCompile Include="src\SumVector3.cpp" />
+    <ClCompile Include="src\SumVector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="include\SumFloat.inl" />
     <None Include="include\SumMatrix.inl" />
+    <None Include="include\SumQuaternion.inl" />
     <None Include="include\SumVector.inl" />
     <None Include="include\SumVector2.inl" />
     <None Include="include\SumVector3.inl" />
+    <None Include="include\SumVector4.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1298EF7C-6A22-4657-9ECC-82F77F022725}</ProjectGuid>

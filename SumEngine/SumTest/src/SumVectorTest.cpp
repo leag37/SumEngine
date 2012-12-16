@@ -5,6 +5,11 @@ void vectorSuite(int& errors, int& tests)
 	errors += initVector(tests);
 	errors += setVector(tests);
 
+	Vector a = {1.0f, 1.0f, 1.0f, 1.0f};
+	Vector b = {1.0f, 1.0f, 1.0f, 1.0f};
+	Vector c = _mm_cmpeq_ps(a, b);
+	int d = _mm_movemask_ps(c);
+	int e;
 }
 
 int initVector(int& tests)

@@ -8,6 +8,12 @@
 
 #include "SumMath.h"
 
+// Equality
+SBOOL Vec2Equal(const Vector v1, const Vector v2);
+
+// Non-Equality
+SBOOL Vec2NonEqual(const Vector v1, const Vector v2);
+
 // Length
 Vector Vec2Length(const Vector v);
 

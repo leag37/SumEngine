@@ -17,6 +17,12 @@
     <Filter Include="Matrices">
       <UniqueIdentifier>{8f5591df-edb3-4338-b445-278fb0785516}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Quaternions">
+      <UniqueIdentifier>{78257e01-995d-4982-8b01-22780a0a5a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Miscellaneous">
+      <UniqueIdentifier>{8c6b4e37-8d9b-4fc6-90ae-9d8bbed2b3b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumMath.h">
@@ -37,6 +43,15 @@
     <ClInclude Include="include\SumVector3.h">
       <Filter>Vectors</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumVector4.h">
+      <Filter>Vectors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumQuaternion.h">
+      <Filter>Quaternions</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMiscMath.h">
+      <Filter>Miscellaneous</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumVector2.cpp">
@@ -46,6 +61,9 @@
       <Filter>Matrices</Filter>
     </ClCompile>
     <ClCompile Include="src\SumVector3.cpp">
+      <Filter>Vectors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVector4.cpp">
       <Filter>Vectors</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,6 +79,15 @@
     </None>
     <None Include="include\SumVector3.inl">
       <Filter>Vectors</Filter>
+    </None>
+    <None Include="include\SumVector4.inl">
+      <Filter>Vectors</Filter>
+    </None>
+    <None Include="include\SumFloat.inl">
+      <Filter>Floats</Filter>
+    </None>
+    <None Include="include\SumQuaternion.inl">
+      <Filter>Quaternions</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -171,6 +171,11 @@ SUMGLOBALCONST VectorI32 gVYMask = {0xFFFFFFFF, 0x00000000, 0xFFFFFFFF, 0xFFFFFF
 SUMGLOBALCONST VectorI32 gVZMask = {0xFFFFFFFF, 0xFFFFFFFF, 0x00000000, 0xFFFFFFFF};
 SUMGLOBALCONST VectorI32 gVWMask = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x00000000};
 
+SUMGLOBALCONST VectorF32 gVOne = {1.0f, 1.0f, 1.0f, 1.0f};
+SUMGLOBALCONST VectorF32 gVZero = {0.0f, 0.0f, 0.0f, 0.0f};
+SUMGLOBALCONST VectorF32 gVOneHalf = {0.5f, 0.5f, 0.5f, 0.5f};
+SUMGLOBALCONST VectorF32 gVNegOne = {-1.0f, -1.0f, -1.0f, -1.0f};
+
 // Matrix
 //***********************************************
 SUMGLOBALCONST VectorF32 gVIdentityR0 = {1.0f, 0.0f, 0.0f, 0.0f};
@@ -179,17 +184,30 @@ SUMGLOBALCONST VectorF32 gVIdentityR2 = {0.0f, 0.0f, 1.0f, 0.0f};
 SUMGLOBALCONST VectorF32 gVIdentityR3 = {0.0f, 0.0f, 0.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVDeterminantNegate = {1.0f, -1.0f, 1.0f, -1.0f};
 
+SUMGLOBALCONST VectorF32 gV3Negate = {-1.0f, -1.0f, -1.0f, 1.0f};
+
 //*************************************************************************************************
 // DIMENSIONAL VECTOR
 //*************************************************************************************************
 #include "SumVector.h"
 #include "SumVector2.h"
 #include "SumVector3.h"
+#include "SumVector4.h"
 
 //*************************************************************************************************
 // MATRICES
 //*************************************************************************************************
 #include "SumMatrix.h"
+
+//*************************************************************************************************
+// QUATERNIONS
+//*************************************************************************************************
+#include "SumQuaternion.h"
+
+//*************************************************************************************************
+// MISCELLANEOUS
+//*************************************************************************************************
+#include "SumMiscMath.h"
 
 //*************************************************************************************************
 // FLOATS

@@ -7,6 +7,7 @@
 #define __SUMMATHTEST_H__
 
 #include "SumVectorTest.h"
+#include "SumMatrixTest.h"
 
 // Run entire math suite
 void runMathTests()
@@ -25,8 +26,18 @@ void runMathTests()
 	// Run vector suite
 	vectorSuite(errors, tests);
 	Test::printSuiteResults(errors, tests, "Vector Suite");
+	totalErrors += errors;
+	totalTests += tests;
+	errors = 0;
+	tests = 0;
 
-	// Reset errors
+	// Run matrix suite
+	matrixSuite(errors, tests);
+	Test::printSuiteResults(errors, tests, "Matrix Suite");
+	totalErrors += errors;
+	totalTests += tests;
+	errors = 0;
+	tests = 0;
 }
 
 #endif

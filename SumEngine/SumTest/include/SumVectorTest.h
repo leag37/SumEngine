@@ -1,3 +1,8 @@
+//*************************************************************************************************
+// Title: SumVectorTest.h
+// Author: Gael Huber
+// Description: Vector test suite
+//*************************************************************************************************
 #ifndef __SUMVECTORTEST_H__
 #define __SUMVECTORTEST_H__
 
@@ -10,16 +15,16 @@ extern "C"
 {
 	void vectorSuite(int& errors, int& tests);
 	
-	int initVector(int& tests);
-	int setVector(int& tests);
-	int negateVector(int& tests);
-	int scaleVector(int& tests);
-	int addVector(int& tests);
-	int subtractVector(int& tests);
-	int divideVector(int& tests);
-	int multiplyVector(int& tests);
-	int equalVector(int& tests);
-	int notEqualVector(int& tests);
+	int vectorInit(int& tests);
+	int vectorSet(int& tests);
+	int vectorNegate(int& tests);
+	int vectorScale(int& tests);
+	int vectorAdd(int& tests);
+	int vectorSubtract(int& tests);
+	int vectorDivide(int& tests);
+	int vectorMultiply(int& tests);
+	int vectorEqual(int& tests);
+	int vectorNotEqual(int& tests);
 
 }
 

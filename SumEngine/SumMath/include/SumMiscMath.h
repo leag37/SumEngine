@@ -8,14 +8,17 @@
 
 #include "SumMath.h"
 
-Vector VectorASin(const Vector v);
-Vector VectorACos(const Vector v);
-Vector VectorATan(const Vector v);
-Vector VectorSin(const Vector v);
-Vector VectorCos(const Vector v);
-Vector VectorTan(const Vector v);
-void VectorSinCos(Vector* pSin, Vector* pCos, const Vector v);
-Vector VectorPow(const Vector v1, const Vector v2);
+//Vector VectorASin(const Vector v);
+//Vector VectorACos(const Vector v);
+//Vector VectorATan(const Vector v);
+//Vector VectorSin(const Vector v);
+//Vector VectorCos(const Vector v);
+//Vector VectorTan(const Vector v);
+//Vector VectorSinh(const Vector v);
+//Vector VectorCosh(const Vector v);
+//Vector VectorTanh(const Vector v);
+//void VectorSinCos(Vector* pSin, Vector* pCos, const Vector v);
+//Vector VectorPow(const Vector v1, const Vector v2);
 
 
 // sin(V) ~= V - V^3 / 3! + V^5 / 5! - V^7 / 7! + V^9 / 9! - V^11 / 11! + V^13 / 13! - 
@@ -43,5 +46,7 @@ Vector VectorPow(const Vector v1, const Vector v2);
 //     Y == Infinity and X is Finite    -> Pi / 2 with the sign of Y
 //     Y == Infinity and X == -Infinity -> 3Pi / 4 with the sign of Y
 //     Y == Infinity and X == +Infinity -> Pi / 4 with the sign of Y
+
+#include "SumMiscMath.inl"
 
 #endif

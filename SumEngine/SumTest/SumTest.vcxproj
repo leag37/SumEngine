@@ -12,11 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumMathTest.h" />
+    <ClInclude Include="include\SumMatrixTest.h" />
     <ClInclude Include="include\SumTestDriver.h" />
     <ClInclude Include="include\SumTestHelper.h" />
     <ClInclude Include="include\SumVectorTest.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumMatrixTest.cpp" />
     <ClCompile Include="src\SumTestMain.cpp" />
     <ClCompile Include="src\SumVectorTest.cpp" />
   </ItemGroup>

@@ -1,3 +1,8 @@
+//*************************************************************************************************
+// Title: SumTestHelper.h
+// Author: Gael Huber
+// Description: Series of helper function to help print results and assert desired outcomes.
+//*************************************************************************************************
 #ifndef __SUMTESTHELPER_H__
 #define __SUMTESTHELPER_H__
 
@@ -26,8 +31,14 @@ inline void printResult(int errors, const char* title)
 	// Failure
 	else
 	{
-		cout << "Failed! " << title << "completed with " << errors << " errors." << endl;
+		cout << "Failed! " << title << " completed with " << errors << " errors." << endl;
 	}
+}
+
+// Print an error
+inline void printError(const char* testName, int testCase)
+{
+	cout << testName << " failed on case " << testCase << "!" << endl;
 }
 
 // Print suite results
@@ -45,6 +56,12 @@ inline void printHelp()
 	cout << "Active configurations: " << endl;
 	cout << "all -- run all test suites" << endl;
 	cout << "math -- run math suites" << endl;
+}
+
+// Assertion statement
+inline SBOOL assertExpression(SBOOL a, SBOOL b)
+{
+	return a == b;
 }
 
 }

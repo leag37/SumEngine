@@ -18,7 +18,7 @@ SUMINLINE SBOOL Vec2Equal(const Vector v1, const Vector v2)
 //*************************************************************************************************
 // Non-Equality
 //*************************************************************************************************
-SUMINLINE SBOOL Vec2NonEqual(const Vector v1, const Vector v2)
+SUMINLINE SBOOL Vec2NotEqual(const Vector v1, const Vector v2)
 {
 	Vector vTemp = _mm_cmpeq_ps(v1, v2);
 	return ((_mm_movemask_ps(vTemp) != 3) != 0);

@@ -108,7 +108,7 @@ SUMINLINE Matrix MatrixIdentity()
 //*************************************************************************************************
 // Is identity
 //*************************************************************************************************
-SUMINLINE bool MatrixIsIdentity(const Matrix& m)
+SUMINLINE SBOOL MatrixIsIdentity(const Matrix& m)
 {
 	// Get equalities for all the rows
 	Vector vTemp1 = _mm_cmpeq_ps(m.r[0], gVIdentityR0);
@@ -123,6 +123,46 @@ SUMINLINE bool MatrixIsIdentity(const Matrix& m)
 
 	// Find bit mask
 	return _mm_movemask_ps(vTemp1) == 0x0F;
+}
+
+//*************************************************************************************************
+// Is equal
+//*************************************************************************************************
+SUMINLINE SBOOL MatrixEqual(const Matrix& m1, const Matrix& m2)
+{
+	// Get equalities for all the rows
+	Vector vTemp1 = _mm_cmpeq_ps(m1.r[0], m2.r[0]);
+	Vector vTemp2 = _mm_cmpeq_ps(m1.r[1], m2.r[1]);
+	Vector vTemp3 = _mm_cmpeq_ps(m1.r[2], m2.r[2]);
+	Vector vTemp4 = _mm_cmpeq_ps(m1.r[3], m2.r[3]);
+
+	// Find aggregate equalities
+	vTemp1 = _mm_and_ps(vTemp1, vTemp2);
+	vTemp3 = _mm_and_ps(vTemp3, vTemp4);
+	vTemp1 = _mm_and_ps(vTemp1, vTemp3);
+
+	// Find bit mask
+	return _mm_movemask_ps(vTemp1) == 0x0F;
+}
+
+//*************************************************************************************************
+// Not equal
+//*************************************************************************************************
+SUMINLINE SBOOL MatrixNotEqual(const Matrix& m1, const Matrix& m2)
+{
+	// Get equalities for all the rows
+	Vector vTemp1 = _mm_cmpneq_ps(m1.r[0], m2.r[0]);
+	Vector vTemp2 = _mm_cmpneq_ps(m1.r[1], m2.r[1]);
+	Vector vTemp3 = _mm_cmpneq_ps(m1.r[2], m2.r[2]);
+	Vector vTemp4 = _mm_cmpneq_ps(m1.r[3], m2.r[3]);
+
+	// Find aggregate equalities
+	vTemp1 = _mm_or_ps(vTemp1, vTemp2);
+	vTemp3 = _mm_or_ps(vTemp3, vTemp4);
+	vTemp1 = _mm_or_ps(vTemp1, vTemp3);
+
+	// Find bit mask
+	return _mm_movemask_ps(vTemp1) != 0;
 }
 
 //*************************************************************************************************

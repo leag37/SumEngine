@@ -1,18 +1,23 @@
+//*************************************************************************************************
+// Title: SumVectorTest.cpp
+// Author: Gael Huber
+// Description: Vector test suite
+//*************************************************************************************************
 #include "SumVectorTest.h"
 
+//*************************************************************************************************
+// Vector suite
+//*************************************************************************************************
 void vectorSuite(int& errors, int& tests)
 {
-	errors += initVector(tests);
-	errors += setVector(tests);
-
-	Vector a = {1.0f, 1.0f, 1.0f, 1.0f};
-	Vector b = {1.0f, 1.0f, 1.0f, 1.0f};
-	Vector c = _mm_cmpeq_ps(a, b);
-	int d = _mm_movemask_ps(c);
-	int e;
+	errors += vectorInit(tests);
+	errors += vectorSet(tests);
 }
 
-int initVector(int& tests)
+//*************************************************************************************************
+// Vector initialization
+//*************************************************************************************************
+int vectorInit(int& tests)
 {
 	int errors = 0;
 
@@ -28,12 +33,12 @@ int initVector(int& tests)
 		++errors;
 	++tests;
 	
-	Test::printResult(errors, "InitVector");
+	Test::printResult(errors, "VectorInit");
 	return errors;
 }
 
 // Set a vector
-int setVector(int& tests)
+int vectorSet(int& tests)
 {
 	int errors = 0;
 
@@ -59,15 +64,15 @@ int setVector(int& tests)
 		++errors;
 	++tests;
 
-	Test::printResult(errors, "SetVector");
+	Test::printResult(errors, "VectorSet");
 	return errors;
 }
 
-//int negateVector(int& tests);
-//int scaleVector(int& tests);
-//int addVector(int& tests);
-//int subtractVector(int& tests);
-//int divideVector(int& tests);
-//int multiplyVector(int& tests);
-//int equalVector(int& tests);
-//int notEqualVector(int& tests);
+//int vectorNegate(int& tests);
+//int vectorScale(int& tests);
+//int vectorAdd(int& tests);
+//int vectorSubtract(int& tests);
+//int vectorDivide(int& tests);
+//int vectorMultiply(int& tests);
+//int vectorEqual(int& tests);
+//int vectorNotEqual(int& tests);

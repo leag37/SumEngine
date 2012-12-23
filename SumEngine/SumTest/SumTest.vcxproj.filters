@@ -25,12 +25,18 @@
     <ClInclude Include="include\SumTestHelper.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumMatrixTest.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumTestMain.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\SumVectorTest.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMatrixTest.cpp">
       <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,7 +12,7 @@
 SBOOL Vec3Equal(const Vector v1, const Vector v2);
 
 // Non-Equality
-SBOOL Vec3NonEqual(const Vector v1, const Vector v2);
+SBOOL Vec3NotEqual(const Vector v1, const Vector v2);
 
 // Length
 Vector Vec3Length(const Vector v);

@@ -206,10 +206,51 @@ Vector MatrixDeterminant(const Matrix& m)
 //}
 
 //*************************************************************************************************
-// 
-//*************************************************************************************************
 // Transpose
-//Matrix MatrixTranspose(const Matrix& m);
+//
+// [11 12 13 14]
+// [21 22 23 24]
+// [31 32 33 34]
+// [41 42 43 44]
+//
+// [11 21 31 41]
+// [12 22 32 42]
+// [13 23 33 43]
+// [14 24 34 44]
+//
+// v1 = _mm_unpacklo_ps(r1, r2)
+// v1 = [11 21 12 22]
+// v2 = _mm_unpacklo_ps(r3, r4)
+// v2 = [31 41 32 42]
+// m1 = _mm_shuffle_ps(v1, v2, _MM_SHUFFLE(1, 0, 1, 0))
+// m2 = _mm_shuffle_ps(v1, v2, _MM_SHUFFLE(3, 2, 3, 2))
+//
+// v1 = _mm_unpackhi_ps(r1, r2)
+// v1 = [13 23 14 24]
+// v2 = _mm_unpackhi_ps(r3, r4)
+// v2 = [33 43 34 44]
+// m3 = _mm_shuffle_ps(v1, v2, _MM_SHUFFLE(1, 0, 1, 0))
+// m4 = _mm_shuffle_ps(v1, v2, _MM_SHUFFLE(3, 2, 3, 2))
+//*************************************************************************************************
+Matrix MatrixTranspose(const Matrix& m)
+{
+	// Unpack lo and solve for first two rows
+	Vector vTemp1 = _mm_unpacklo_ps(m.r[0], m.r[1]);
+	Vector vTemp2 = _mm_unpacklo_ps(m.r[2], m.r[3]);
+
+	Matrix result;
+	result.r[0] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(1, 0, 1, 0));
+	result.r[1] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(3, 2, 3, 2));
+
+	// Unpack hi and solve for last two rows
+	vTemp1 = _mm_unpackhi_ps(m.r[0], m.r[1]);
+	vTemp2 = _mm_unpackhi_ps(m.r[2], m.r[3]);
+
+	result.r[2] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(1, 0, 1, 0));
+	result.r[3] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(3, 2, 3, 2));
+
+	return result;
+}
 
 //*************************************************************************************************
 // Multiply

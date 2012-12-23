@@ -16,7 +16,13 @@
 Matrix MatrixIdentity();
 
 // Is identity
-bool MatrixIsIdentity(const Matrix& m);
+SBOOL MatrixIsIdentity(const Matrix& m);
+
+// Is equal
+SBOOL MatrixEqual(const Matrix& m1, const Matrix& m2);
+
+// Not equal
+SBOOL MatrixNotEqual(const Matrix& m1, const Matrix& m2);
 
 // Sum of two matrices
 Matrix MatrixAdd(const Matrix& m1, const Matrix& m2);

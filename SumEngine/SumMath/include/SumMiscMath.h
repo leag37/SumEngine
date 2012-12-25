@@ -11,13 +11,13 @@
 //Vector VectorASin(const Vector v);
 //Vector VectorACos(const Vector v);
 //Vector VectorATan(const Vector v);
-//Vector VectorSin(const Vector v);
-//Vector VectorCos(const Vector v);
+Vector VectorSin(const Vector v);
+Vector VectorCos(const Vector v);
 //Vector VectorTan(const Vector v);
 //Vector VectorSinh(const Vector v);
 //Vector VectorCosh(const Vector v);
 //Vector VectorTanh(const Vector v);
-//void VectorSinCos(Vector* pSin, Vector* pCos, const Vector v);
+void VectorSinCos(Vector* pSin, Vector* pCos, const Vector v);
 //Vector VectorPow(const Vector v1, const Vector v2);
 
 

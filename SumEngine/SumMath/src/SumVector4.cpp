@@ -132,13 +132,13 @@ Vector Vec4Hermite(const Vector v1, const Vector t1, const Vector v2, const Vect
 	Vector vS3 = _mm_mul_ps(s, vS2);
 
 	// Set constants
-	Vector vTemp1 = _mm_set_ps(2.0f, -2.0f, 1.0f, 1.0f);
+	Vector vTemp1 = _mm_set_ps(1.0f, 1.0f, -2.0f, 2.0f);
 	vS3 = _mm_mul_ps(vTemp1, vS3);
 
-	vTemp1 = _mm_set_ps(-3.0f, 3.0f, -2.0f, -1.0f);
+	vTemp1 = _mm_set_ps(-1.0f, -2.0f, 3.0f, -3.0f);
 	vS2 = _mm_mul_ps(vTemp1, vS2);
 
-	vTemp1 = _mm_set_ps(1.0f, 0.0f, s.m128_f32[0], 0.0f);
+	vTemp1 = _mm_set_ps(0.0f, s.m128_f32[0], 0.0f, 1.0f);
 	
 	vTemp1 = _mm_add_ps(vTemp1, vS2);
 	vTemp1 = _mm_add_ps(vTemp1, vS3);

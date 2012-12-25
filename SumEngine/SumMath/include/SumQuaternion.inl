@@ -115,7 +115,7 @@ SUMINLINE Vector QuaternionDot(const Vector q1, const Vector q2)
 //*************************************************************************************************
 SUMINLINE Vector QuaternionIdentity()
 {
-	return _mm_set_ps(0.0f, 0.0f, 0.0f, 1.0f);
+	return _mm_set_ps(1.0f, 0.0f, 0.0f, 0.0f);
 }
 
 //*************************************************************************************************

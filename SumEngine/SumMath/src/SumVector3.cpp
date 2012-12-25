@@ -265,28 +265,28 @@ Vector Vec3Project(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT vi
 //*************************************************************************************************
 // Project from screen space into object space 
 //*************************************************************************************************
-Vector Vec3Unproject(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT viewportWidth,
-	SFLOAT viewportHeight, SFLOAT viewportMinZ, SFLOAT viewportMaxZ,
-	const Matrix& projection, const Matrix& view, const Matrix& world)
-{
-	// Create the scale and offset vectors
-	SFLOAT vpHalfWidth = viewportWidth * 0.5f;
-	SFLOAT vpHalfHeight = viewportHeight * 0.5f;
-	Vector scale = VectorSet(vpHalfWidth, vpHalfHeight, viewportMaxZ - viewportMinZ, 0.0f);
-	Vector offset = VectorSet(viewportX + vpHalfWidth, viewportY + vpHalfHeight, viewportMinZ, 0.0f);
-
-	// Shift vectors
-	Vector result = _mm_sub_ps(v, offset);
-	
-	// Anti-scale
-	result = _mm_div_ps(result, scale);
-
-	// Get the transform matrix
-	Vector determinant;
-	Matrix transform = MatrixMultiply(world, view);
-	transform = MatrixMultiply(transform, projection);
-	transform = MatrixInverse(&determinant, transform);
-
-	// Reverse the transformation
-	return Vec3TransformCoord(result, transform);
-}
+//Vector Vec3Unproject(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT viewportWidth,
+//	SFLOAT viewportHeight, SFLOAT viewportMinZ, SFLOAT viewportMaxZ,
+//	const Matrix& projection, const Matrix& view, const Matrix& world)
+//{
+//	// Create the scale and offset vectors
+//	SFLOAT vpHalfWidth = viewportWidth * 0.5f;
+//	SFLOAT vpHalfHeight = viewportHeight * 0.5f;
+//	Vector scale = VectorSet(vpHalfWidth, vpHalfHeight, viewportMaxZ - viewportMinZ, 0.0f);
+//	Vector offset = VectorSet(viewportX + vpHalfWidth, viewportY + vpHalfHeight, viewportMinZ, 0.0f);
+//
+//	// Shift vectors
+//	Vector result = _mm_sub_ps(v, offset);
+//	
+//	// Anti-scale
+//	result = _mm_div_ps(result, scale);
+//
+//	// Get the transform matrix
+//	Vector determinant;
+//	Matrix transform = MatrixMultiply(world, view);
+//	transform = MatrixMultiply(transform, projection);
+//	transform = MatrixInverse(&determinant, transform);
+//
+//	// Reverse the transformation
+//	return Vec3TransformCoord(result, transform);
+//}

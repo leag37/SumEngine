@@ -365,230 +365,339 @@ Matrix MatrixMultiply(const Matrix& m1, const Matrix& m2)
 //*************************************************************************************************
 // Multiply, followed by a transpose T(M1 * M2) 
 //*************************************************************************************************
-//Matrix MatrixMultiplyTranspose(const Matrix& m1, const Matrix& m2)
+Matrix MatrixMultiplyTranspose(const Matrix& m1, const Matrix& m2)
+{
+	Matrix result = MatrixMultiply(m1, m2);
+	return MatrixTranspose(result);
+}
+
+//*************************************************************************************************
+// Inverse
+//*************************************************************************************************
+//Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m)
 //{
+//	// Get the determinant
+//	Vector determinant = MatrixDeterminant(m);
 //
+//	// If the determinant is not equal to 0
+//	if(Vec4NotEqual(determinant, gVZero))
+//	{
+//		// Start with two base matrices - one as identity matrix, the other as the parametrized matrix
+//		Matrix m1 = MatrixIdentity();
+//		Matrix m2 = m;
+//
+//
+//	}
+//
+//	return m;
 //}
 
 //*************************************************************************************************
-// 
-//*************************************************************************************************
-// Inverse
-Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
 // Build a matrix which scales by (sx, sy, sz)
-Matrix MatrixScaling(float sx, float sy, float sz);
+//*************************************************************************************************
+Matrix MatrixScaling(float sx, float sy, float sz)
+{
+	Matrix m;
+	m.r[0] = _mm_set_ps(0.0f, 0.0f, 0.0f, sx);
+	m.r[1] = _mm_set_ps(0.0f, 0.0f, sy, 0.0f);
+	m.r[2] = _mm_set_ps(0.0f, sz, 0.0f, 0.0f);
+	m.r[3] = gVIdentityR3;
+	return m;
+}
 
 //*************************************************************************************************
-// 
+//  Build a matrix which scales by (sx, sy, sz)
 //*************************************************************************************************
-// Build a matrix which scales by (sx, sy, sz)
-Matrix MatrixScaling(Vector sx, Vector sy, Vector sz);
+Matrix MatrixScaling(Vector s)
+{
+	Matrix m;
+	m.r[0] = _mm_and_ps(gVXMask, s);
+	m.r[1] = _mm_and_ps(gVYMask, s);
+	m.r[2] = _mm_and_ps(gVZMask, s);
+	m.r[3] = gVIdentityR3;
+	return m;
+}
 
 //*************************************************************************************************
-// 
+// Build a matrix which tranlates by (x, y, z) 
 //*************************************************************************************************
-// Build a matrix which tranlates by (x, y, z)
-Matrix MatrixTranslation(float x, float y, float z);
+Matrix MatrixTranslation(float x, float y, float z)
+{
+	Matrix m;
+	m.r[0] = gVIdentityR0;
+	m.r[1] = gVIdentityR1;
+	m.r[2] = gVIdentityR2;
+	m.r[3] = _mm_set_ps(1.0f, z, y, x);
+	return m;
+}
 
 //*************************************************************************************************
-// 
+//  Build a matrix which tranlates by (x, y, z)
 //*************************************************************************************************
-// Build a matrix which tranlates by (x, y, z)
-Matrix MatrixTranslation(Vector x, Vector y, Vector z);
+Matrix MatrixTranslation(Vector t)
+{
+	Matrix m;
+	m.r[0] = gVIdentityR0;
+	m.r[1] = gVIdentityR1;
+	m.r[2] = gVIdentityR2;
+	m.r[3] = t;
+	return m;
+}
 
 //*************************************************************************************************
-// 
+// Build a matrix which rotates around the X axis 
 //*************************************************************************************************
-// Build a matrix which rotates around the X axis
-Matrix MatrixRotationX(float angle);
+Matrix MatrixRotationX(float angle)
+{
+	// Load sin and cos values
+	SFLOAT sin = sinf(angle);
+	SFLOAT cos = cosf(angle);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around the X axis
-Matrix MatrixRotationX(Vector angle);
+	Vector vSin = _mm_set_ss(sin);
+	Vector vCos = _mm_set_ss(cos);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around the Y axis
-Matrix MatrixRotationY(float angle);
+	Matrix m;
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around the Y axis
-Matrix MatrixRotationY(Vector angle);
+	// Load first row
+	m.r[0] = gVIdentityR0;
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around the Z axis
-Matrix MatrixRotationZ(float angle);
+	// Load second row [0 cos sin 0]
+	m.r[1] = _mm_shuffle_ps(vCos, vSin, _MM_SHUFFLE(1, 0, 0, 1));
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around the Z axis
-Matrix MatrixRotationZ(Vector angle);
+	// Get third row [0 -sin cos 0]
+	vCos = _mm_shuffle_ps(vCos, vCos, _MM_SHUFFLE(3, 1, 2, 0));
+	vCos = _mm_mul_ps(vCos, gVNegateY);
+	m.r[2] = vCos;
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around an arbitrary axis
-Matrix MatrixRotationAxis(const Vector v, float angle);
+	// Load fourth row
+	m.r[3] = gVIdentityR3;
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which rotates around an arbitrary axis
-Matrix MatrixRotationAxis(const Vector v, Vector angle);
+	return m;
+}
 
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which rotates around the X axis
+//Matrix MatrixRotationX(Vector angle);
+//
 //*************************************************************************************************
-// 
+// Build a matrix which rotates around the Y axis 
 //*************************************************************************************************
-// Build a matrix from a quaternion
-Matrix MatrixRotationQuaternion(const Vector q);
+Matrix MatrixRotationY(float angle)
+{
+	// Load sin and cos
+	SFLOAT sin = sinf(angle);
+	SFLOAT cos = cosf(angle);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
-Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll);
+	Vector vSin = _mm_set_ss(sin);
+	Vector vCos = _mm_set_ss(cos);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
-Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
+	// Load first and third rows
+	vSin = _mm_shuffle_ps(vSin, vCos, _MM_SHUFFLE(3, 0, 3, 0));
+	vCos = _mm_shuffle_ps(vSin, vSin, _MM_SHUFFLE(3, 0, 1, 2));
+	vCos = _mm_mul_ps(vCos, gVNegateZ);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build transformation matrix with null arguments being treated as identity. 
-// Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixTransformation(const Vector scalingCenter, const Vector scalingRotation, 
-	const Vector scaling, const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
+	// Set all rows
+	Matrix m;
+	m.r[0] = vCos;
+	m.r[1] = gVIdentityR1;
+	m.r[2] = vSin;
+	m.r[3] = gVIdentityR3;
+	return m;
+}
 
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which rotates around the Y axis
+//Matrix MatrixRotationY(Vector angle);
+//
 //*************************************************************************************************
-// 
+// Build a matrix which rotates around the Z axis 
 //*************************************************************************************************
-// Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixTransformation2D(const Vector scalingCenter, float scalingRotation, const Vector scaling,
-	const Vector rotationCenter, float rotation, const Vector& translation);
+Matrix MatrixRotationZ(float angle)
+{
+	// Load sin and cos
+	SFLOAT sin = sinf(angle);
+	SFLOAT cos = cosf(angle);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixTransformation2D(const Vector scalingCenter, const Vector scalingRotation, const Vector scaling,
-	const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
+	Vector vSin = _mm_set_ss(sin);
+	Vector vCos = _mm_set_ss(cos);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixAffineTransformation(float scaling, const Vector rotationCenter, const Vector rotation, 
-	const Vector translation);
+	// Load first and second rows
+	vSin = _mm_unpacklo_ps(vSin, vCos);
+	vCos = _mm_shuffle_ps(vSin, vSin, _MM_SHUFFLE(3, 3, 0, 1));
+	vCos = _mm_mul_ps(vCos, gVNegateX);
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixAffineTransformation(const Vector scaling, const Vector rotationCenter, const Vector rotation, 
-	const Vector& translation);
+	// Construct matrix
+	Matrix m;
+	m.r[0] = vSin;
+	m.r[1] = vCos;
+	m.r[2] = gVIdentityR2;
+	m.r[3] = gVIdentityR3;
+	return m;
+}
 
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixAffineTransformation2D(float scaling, const Vector rotationCenter, float rotation, const Vector translation);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
-Matrix MatrixAffineTransformation2D(const Vector scaling, const Vector rotationCenter, 
-	const Vector rotation, const Vector& translation);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a lookat matrix (right-handed)
-Matrix MatrixLookAtRH(const Vector eye, const Vector at, const Vector up);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a lookat matrix (left-handed)
-Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveRH(float w, float h, float zn, float zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveRH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveLH(float w, float h, float zn, float zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveLH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveFovRH(float fovy, float aspect, float zn, float zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (right-handed)
-Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a perspective projection matrix (left-handed)
-Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which flattens geometry into a plane, as if casting a shadow from a light
-Matrix MatrixShadow(const Vector light, const Vector plane);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Build a matrix which reflects the coordinate system about a plane
-Matrix MatrixReflect(const Vector plane);
-
-//*************************************************************************************************
-// 
-//*************************************************************************************************
-// Creates a tensor product of given two 3D vectors
-Matrix MatrixTensorProduct(const Vector v1, const Vector v2);
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which rotates around the Z axis
+//Matrix MatrixRotationZ(Vector angle);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which rotates around an arbitrary axis
+//Matrix MatrixRotationAxis(const Vector v, float angle);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which rotates around an arbitrary axis
+//Matrix MatrixRotationAxis(const Vector v, Vector angle);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix from a quaternion
+//Matrix MatrixRotationQuaternion(const Vector q);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
+//Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
+//Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build transformation matrix with null arguments being treated as identity. 
+//// Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixTransformation(const Vector scalingCenter, const Vector scalingRotation, 
+//	const Vector scaling, const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixTransformation2D(const Vector scalingCenter, float scalingRotation, const Vector scaling,
+//	const Vector rotationCenter, float rotation, const Vector& translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build 2D transformation matrix in XY plane. Null arguments treated as identity. Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixTransformation2D(const Vector scalingCenter, const Vector scalingRotation, const Vector scaling,
+//	const Vector& rotationCenter, const Vector& rotation, const Vector& translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixAffineTransformation(float scaling, const Vector rotationCenter, const Vector rotation, 
+//	const Vector translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build affine transformation matrix. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixAffineTransformation(const Vector scaling, const Vector rotationCenter, const Vector rotation, 
+//	const Vector& translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixAffineTransformation2D(float scaling, const Vector rotationCenter, float rotation, const Vector translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build 2D affine transformation matrix in XY plane. Null arguments treated as identity. Mout = Ms * Mrc-1 * Mr * Mrc * Mt
+//Matrix MatrixAffineTransformation2D(const Vector scaling, const Vector rotationCenter, 
+//	const Vector rotation, const Vector& translation);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a lookat matrix (right-handed)
+//Matrix MatrixLookAtRH(const Vector eye, const Vector at, const Vector up);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a lookat matrix (left-handed)
+//Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (right-handed)
+//Matrix MatrixPerspectiveRH(float w, float h, float zn, float zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (right-handed)
+//Matrix MatrixPerspectiveRH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (left-handed)
+//Matrix MatrixPerspectiveLH(float w, float h, float zn, float zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (left-handed)
+//Matrix MatrixPerspectiveLH(const Vector w, const Vector h, const Vector zn, const Vector& zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (right-handed)
+//Matrix MatrixPerspectiveFovRH(float fovy, float aspect, float zn, float zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (right-handed)
+//Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (left-handed)
+//Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a perspective projection matrix (left-handed)
+//Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which flattens geometry into a plane, as if casting a shadow from a light
+//Matrix MatrixShadow(const Vector light, const Vector plane);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Build a matrix which reflects the coordinate system about a plane
+//Matrix MatrixReflect(const Vector plane);
+//
+////*************************************************************************************************
+//// 
+////*************************************************************************************************
+//// Creates a tensor product of given two 3D vectors
+//Matrix MatrixTensorProduct(const Vector v1, const Vector v2);

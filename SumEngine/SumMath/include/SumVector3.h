@@ -90,9 +90,9 @@ Vector Vec3Project(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT vi
 	const Matrix& projection, const Matrix& view, const Matrix& world);
 
 // Project from screen space into object space
-Vector Vec3Unproject(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT viewportWidth,
-	SFLOAT viewportHeight, SFLOAT viewportMinZ, SFLOAT viewportMaxZ,
-	const Matrix& projection, const Matrix& view, const Matrix& world);
+//Vector Vec3Unproject(const Vector v, SFLOAT viewportX, SFLOAT viewportY, SFLOAT viewportWidth,
+//	SFLOAT viewportHeight, SFLOAT viewportMinZ, SFLOAT viewportMaxZ,
+//	const Matrix& projection, const Matrix& view, const Matrix& world);
 }
 
 #include "SumVector3.inl"

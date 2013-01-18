@@ -14,4 +14,6 @@
 #include <immintrin.h>
 #endif
 
+#include <Windows.h>
+
 #endif

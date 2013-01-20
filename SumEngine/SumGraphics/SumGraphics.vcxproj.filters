@@ -8,20 +8,26 @@
     <Filter Include="Core">
       <UniqueIdentifier>{190d57fe-63b9-42f1-835c-5dcb14363de9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{7b1d000a-6f9a-411d-a043-2d371ddd8a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderables">
+      <UniqueIdentifier>{8be00a23-584d-4f07-a5d1-4441571f82c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumGraphicsManager.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="SumRenderContext.h">
+    <ClInclude Include="include\SumRenderContext.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\SumGraphicsManager.cpp">
+    <ClCompile Include="src\SumGraphicsManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="SumRenderContext.cpp">
+    <ClCompile Include="src\SumRenderContext.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>

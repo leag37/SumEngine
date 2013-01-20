@@ -91,8 +91,54 @@ SBOOL RenderContext::checkMultisampling()
 //*************************************************************************************************
 // Create the swap chain for the device
 //*************************************************************************************************
-SBOOL createSwapChain(HWND clientWindow, SUINT clientWidth, SUINT clientHeight)
+SBOOL RenderContext::createSwapChain(HWND clientWindow, SUINT clientWidth, SUINT clientHeight)
 {
+	// Fill out DXGI swap chain description
+	DXGI_SWAP_CHAIN_DESC sd;
+	sd.BufferDesc.Width = clientWidth;
+	sd.BufferDesc.Height = clientHeight;
+	sd.BufferDesc.RefreshRate.Numerator = 60;
+	sd.BufferDesc.RefreshRate.Denominator = 1;
+	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+
+	// Use 4x Msaa
+	if(_4xMsaaQuality > 0)
+	{
+		sd.SampleDesc.Count = 4;
+		sd.SampleDesc.Quality = _4xMsaaQuality - 1;
+	}
+
+	// No Msaa
+	else
+	{
+		sd.SampleDesc.Count = 1;
+		sd.SampleDesc.Quality = 0;
+	}
+
+	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	sd.BufferCount = 1;
+	sd.OutputWindow = clientWindow;
+	sd.Windowed = true;
+	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	sd.Flags = 0;
+
+	// Generate an IDXGI factory to properly initialize the swap chain
+	IDXGIDevice* dxgiDevice = 0;
+	HR(_d3dDevice->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice));
+
+	IDXGIAdapter* dxgiAdapter = 0;
+	HR(dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&dxgiAdapter));
+
+	IDXGIFactory* dxgiFactory = 0;
+	HR(dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory));
+
+	HR(dxgiFactory->CreateSwapChain(_d3dDevice, &sd, &_swapChain));
+
+	ReleaseCOM(dxgiDevice);
+	ReleaseCOM(dxgiAdapter);
+	ReleaseCOM(dxgiFactory);	
 
 	return true;
 }

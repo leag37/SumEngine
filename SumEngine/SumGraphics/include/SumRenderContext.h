@@ -7,6 +7,8 @@
 // TODO: Expand to support multiple feature levels
 // TODO: Expand to support loading in a configuration
 // TODO: Add support for debug mode
+// TODO: Enable support for enabling/disabling multisampling
+// TODO: Enable support for variable multisampling
 //*************************************************************************************************
 #ifndef __SUMRENDERCONTEXT_H__
 #define __SUMRENDERCONTEXT_H__
@@ -61,8 +63,5 @@ public:
 		return _swapChain;
 	}
 };
-
-#define ReleaseCOM { if(x) x->Release(); x = 0; }
-
 
 #endif

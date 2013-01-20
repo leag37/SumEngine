@@ -58,4 +58,29 @@ typedef wchar_t SWCHAR_T;
 //***********************************************
 #define SUM_DECLSPEC_ALIGN_16 __declspec(align(16))
 
+// Error checking function
+//***********************************************
+#if defined(DEBUG) | defined(_DEBUG)
+	#ifndef HR
+	#define HR(x)												\
+	{															\
+		HRESULT hr = (x);										\
+		if(FAILED(hr))											\
+		{														\
+			DXTrace(__FILE__, (DWORD)__LINE__, hr, #x, true);	\
+		}														\
+	}
+	#endif
+#else
+	#ifndef HR
+	#define HR(x) (x)
+	#endif
+#endif
+
+// Safe deletion of objects
+//***********************************************
+#ifndef ReleaseCOM
+#define ReleaseCOM(x) { if(x) x->Release(); x = 0; }
+#endif
+
 #endif

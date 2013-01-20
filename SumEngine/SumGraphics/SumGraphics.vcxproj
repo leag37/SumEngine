@@ -70,11 +70,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\SumGraphicsManager.h" />
-    <ClInclude Include="SumRenderContext.h" />
+    <ClInclude Include="include\SumRenderContext.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\SumGraphicsManager.cpp" />
-    <ClCompile Include="SumRenderContext.cpp" />
+    <ClCompile Include="src\SumGraphicsManager.cpp" />
+    <ClCompile Include="src\SumRenderContext.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

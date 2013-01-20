@@ -8,9 +8,11 @@
 #define __SUMGRAPHICSMANAGER_H__
 
 #include <SumIncludes.h>
+#include "SumRenderContext.h"
 
 class GraphicsManager : public Singleton<GraphicsManager>
 {
+public:
 	// Constructor
 	GraphicsManager();
 
@@ -28,6 +30,23 @@ class GraphicsManager : public Singleton<GraphicsManager>
 	{
 		return singleton;
 	}
+
+	// Initialize render manager
+	void startUp();
+
+	// Shut down the render manager
+	void shutDown();
+
+	// Update the manager
+	void update();
+
+private:
+	// Render the current scene
+	void renderScene();
+
+private:
+	// Render context
+	RenderContext* _renderContext;
 };
 
 #endif

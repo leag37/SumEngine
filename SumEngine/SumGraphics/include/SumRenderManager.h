@@ -1,7 +1,7 @@
 //*************************************************************************************************
-// Title: SumGraphicsManager.h
+// Title: SumRenderManager.h
 // Author: Gael Huber
-// Description: Graphics manager. Keeps track of various effects, renderable objects, and scene
+// Description: Render manager. Keeps track of various effects, renderable objects, and scene
 //	graphs.
 //
 // Notes:
@@ -12,29 +12,29 @@
 // EffectsManager -> Manages all active effects
 // LightManager -> Manages all lighting effects
 //*************************************************************************************************
-#ifndef __SUMGRAPHICSMANAGER_H__
-#define __SUMGRAPHICSMANAGER_H__
+#ifndef __SUMRENDERMANAGER_H__
+#define __SUMRENDERMANAGER_H__
 
 #include "SumInclude.h"
 #include "SumRenderContext.h"
 
-class GraphicsManager : public Singleton<GraphicsManager>
+class RenderManager : public Singleton<RenderManager>
 {
 public:
 	// Constructor
-	GraphicsManager();
+	RenderManager();
 
 	// Destructor
-	~GraphicsManagr();
+	~RenderManager();
 
 	// Singleton
-	SUMINLINE static GraphicsManager& getSingleton()
+	SUMINLINE static RenderManager& getSingleton()
 	{
 		assert(singleton);
 		return *singleton;
 	}
 
-	SUMINLINE static GraphicsManager* getSingletonPtr()
+	SUMINLINE static RenderManager* getSingletonPtr()
 	{
 		return singleton;
 	}

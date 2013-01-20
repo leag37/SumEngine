@@ -16,24 +16,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\SumGraphicsManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumRenderContext.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="include\SumRenderWindow.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumRenderManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SumGraphicsManager.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\SumRenderContext.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\SumRenderWindow.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumRenderManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>

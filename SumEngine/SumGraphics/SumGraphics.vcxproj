@@ -69,12 +69,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\SumGraphicsManager.h" />
+    <ClInclude Include="include\SumRenderManager.h" />
     <ClInclude Include="include\SumRenderContext.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\SumGraphicsManager.cpp" />
+    <ClCompile Include="src\SumRenderManager.cpp" />
     <ClCompile Include="src\SumRenderContext.cpp" />
     <ClCompile Include="src\SumRenderWindow.cpp" />
   </ItemGroup>

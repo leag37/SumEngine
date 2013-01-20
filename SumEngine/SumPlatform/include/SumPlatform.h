@@ -83,4 +83,8 @@ typedef wchar_t SWCHAR_T;
 #define ReleaseCOM(x) { if(x) x->Release(); x = 0; }
 #endif
 
+// Callbacks
+//***********************************************
+#define SUMCALLBACK __stdcall
+
 #endif

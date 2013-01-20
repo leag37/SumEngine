@@ -3,11 +3,19 @@
 // Author: Gael Huber
 // Description: Graphics manager. Keeps track of various effects, renderable objects, and scene
 //	graphs.
+//
+// Notes:
+// RenderContext -> Device and swap chain info
+// SceneGraph -> Scene graph information for render objects
+// ClientWindow -> Physical application window
+// RenderViewport -> Contains the viewport and manages draw buffers, etc.
+// EffectsManager -> Manages all active effects
+// LightManager -> Manages all lighting effects
 //*************************************************************************************************
 #ifndef __SUMGRAPHICSMANAGER_H__
 #define __SUMGRAPHICSMANAGER_H__
 
-#include <SumIncludes.h>
+#include "SumInclude.h"
 #include "SumRenderContext.h"
 
 class GraphicsManager : public Singleton<GraphicsManager>

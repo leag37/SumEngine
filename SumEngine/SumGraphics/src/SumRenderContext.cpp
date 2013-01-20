@@ -35,7 +35,15 @@ RenderContext::RenderContext(HWND clientWindow, SUINT clientWidth, SUINT clientH
 //*************************************************************************************************
 RenderContext::~RenderContext()
 {
+	ReleaseCOM(_swapChain);
 
+	if(_d3dImmediateContext)
+	{
+		_d3dImmediateContext->ClearState();
+	}
+
+	ReleaseCOM(_d3dImmediateContext);
+	ReleaseCOM(_d3dDevice);
 }
 
 //*************************************************************************************************

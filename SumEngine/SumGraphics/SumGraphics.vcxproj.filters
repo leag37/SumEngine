@@ -25,6 +25,12 @@
     <ClInclude Include="include\SumRenderManager.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumRenderViewport.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SumRenderViewport.cpp">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">

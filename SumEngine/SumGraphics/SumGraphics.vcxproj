@@ -71,7 +71,9 @@
   <ItemGroup>
     <ClInclude Include="include\SumRenderManager.h" />
     <ClInclude Include="include\SumRenderContext.h" />
+    <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
+    <ClInclude Include="src\SumRenderViewport.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderManager.cpp" />

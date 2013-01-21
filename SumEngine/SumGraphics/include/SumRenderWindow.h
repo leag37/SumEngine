@@ -12,20 +12,38 @@ class RenderWindow
 {
 public:
 	// Constructor
-	RenderWindow(SINT clientWidth, SINT clientHeight);
+	RenderWindow(SUINT clientWidth, SUINT clientHeight);
 
 	// Destructor
 	~RenderWindow();
 
+	// Process a Windows message
+	LRESULT processMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 private:
+	// Window handle
+	HWND _clientWindow;
+
 	// Client width
-	SINT _clientWidth;
+	SUINT _clientWidth;
 
 	// Client height
-	SINT _clientHeight;
+	SUINT _clientHeight;
 
 	// Is the window active?
 	SBOOL _windowActive;
+
+// Inline functions
+public:
+	SUMINLINE SUINT clientWidth() const
+	{
+		return _clientWidth;
+	}
+
+	SUMINLINE SUINT clientHeight() const
+	{
+		return _clientHeight;
+	}
 };
 
 #endif

@@ -10,6 +10,10 @@
 // Constructor
 //*************************************************************************************************
 RenderContext::RenderContext(HWND clientWindow, SUINT clientWidth, SUINT clientHeight)
+	:	_d3dDevice(0),
+		_swapChain(0),
+		_d3dImmediateContext(0),
+		_4xMsaaEnabled(false)
 {
 	// Initialize the render context
 	SBOOL success = false;
@@ -112,7 +116,7 @@ SBOOL RenderContext::createSwapChain(HWND clientWindow, SUINT clientWidth, SUINT
 	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
 	// Use 4x Msaa
-	if(_4xMsaaQuality > 0)
+	if(_4xMsaaEnabled)
 	{
 		sd.SampleDesc.Count = 4;
 		sd.SampleDesc.Quality = _4xMsaaQuality - 1;

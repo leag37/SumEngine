@@ -54,13 +54,40 @@ private:
 
 	// Multisampling quality
 	SUINT _4xMsaaQuality;
+
+	// Multisampling level
+	SBOOL _4xMsaaEnabled;
 	
 // INLINE FUNCTIONS
 public:
 	// Get the swap chain
-	SUMINLINE IDXGISwapChain* swapChain()
+	SUMINLINE IDXGISwapChain* swapChain() const
 	{
 		return _swapChain;
+	}
+
+	// ID3D11Device
+	SUMINLINE ID3D11Device* d3dDevice() const
+	{
+		return _d3dDevice;
+	}
+
+	// Immediate context
+	SUMINLINE ID3D11DeviceContext* d3dImmediateContext() const
+	{
+		return _d3dImmediateContext;
+	}
+
+	// Is 4x Msaa enabled
+	SUMINLINE SBOOL msaaEnabled() const
+	{
+		return _4xMsaaEnabled;
+	}
+
+	// 4x Msaa quality
+	SUMINLINE SUINT msaaQuality() const
+	{
+		return _4xMsaaQuality;
 	}
 };
 

@@ -35,14 +35,28 @@ private:
 
 // Inline functions
 public:
+	// Get the window handle
+	SUMINLINE HWND clientHandle() const
+	{
+		return _clientWindow;
+	}
+
+	// Get the client width
 	SUMINLINE SUINT clientWidth() const
 	{
 		return _clientWidth;
 	}
 
+	// Get the client height
 	SUMINLINE SUINT clientHeight() const
 	{
 		return _clientHeight;
+	}
+
+	// Return whether or not the window is active
+	SUMINLINE SBOOL windowActive() const
+	{
+		return _windowActive;
 	}
 };
 

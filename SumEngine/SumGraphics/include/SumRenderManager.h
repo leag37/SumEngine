@@ -11,12 +11,16 @@
 // RenderViewport -> Contains the viewport and manages draw buffers, etc.
 // EffectsManager -> Manages all active effects
 // LightManager -> Manages all lighting effects
+//
+// TODO: Read configuration file and initialize based on RenderConfig
 //*************************************************************************************************
 #ifndef __SUMRENDERMANAGER_H__
 #define __SUMRENDERMANAGER_H__
 
 #include "SumInclude.h"
 #include "SumRenderContext.h"
+#include "SumRenderWindow.h"
+#include "SumRenderViewport.h"
 
 class RenderManager : public Singleton<RenderManager>
 {
@@ -55,6 +59,12 @@ private:
 private:
 	// Render context
 	RenderContext* _renderContext;
+
+	// Render window
+	RenderWindow* _renderWindow;
+
+	// Render viewport
+	RenderViewport* _renderViewport;
 };
 
 #endif

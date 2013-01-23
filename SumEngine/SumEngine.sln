@@ -6,6 +6,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumMemory", "SumMemory\SumMemory.vcxproj", "{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumUtilities", "SumUtilities\SumUtilities.vcxproj", "{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EFDFA29F-5579-47E2-97F2-B0E8B27BA4C7} = {EFDFA29F-5579-47E2-97F2-B0E8B27BA4C7}
+		{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB} = {FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumGraphics", "SumGraphics\SumGraphics.vcxproj", "{0E8A5B8D-2260-4AD0-8BDB-2E40217459D9}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -39,6 +43,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumTest", "SumTest\SumTest.
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SumThreading", "SumThreading\SumThreading.vcxproj", "{992B181D-3E5C-4DF2-99BC-66E77A7D037C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EFDFA29F-5579-47E2-97F2-B0E8B27BA4C7} = {EFDFA29F-5579-47E2-97F2-B0E8B27BA4C7}
+		{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB} = {FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}
+		{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9} = {26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

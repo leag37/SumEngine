@@ -8,5 +8,27 @@
     <Filter Include="Misc">
       <UniqueIdentifier>{9abd524e-7201-42eb-9979-fefc3a65a6d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures">
+      <UniqueIdentifier>{5a6f1c78-d7fb-4dc9-adf1-d2175acbc26d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Forward List">
+      <UniqueIdentifier>{6ab2ae2b-55da-4c83-a1bd-3849732f52dc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SumForwardList.h">
+      <Filter>Data Structures\Forward List</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\SumForwardList.inl">
+      <Filter>Data Structures\Forward List</Filter>
+    </None>
+    <None Include="include\SumForwardListIterator.inl">
+      <Filter>Data Structures\Forward List</Filter>
+    </None>
+    <None Include="include\SumForwardListNode.inl">
+      <Filter>Data Structures\Forward List</Filter>
+    </None>
   </ItemGroup>
 </Project>

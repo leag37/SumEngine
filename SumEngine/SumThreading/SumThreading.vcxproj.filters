@@ -9,4 +9,25 @@
       <UniqueIdentifier>{cb1bf67c-0f25-4268-a40e-02d86003b400}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SumJob.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumCriticalSection.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumJobManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\SumJobManager.inl">
+      <Filter>Core</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumJobManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

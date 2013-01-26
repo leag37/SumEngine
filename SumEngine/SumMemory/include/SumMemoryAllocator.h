@@ -13,12 +13,12 @@
 
 namespace SumMemory
 {
-	class SUMEXPORT MemoryAllocator
+	class MemoryAllocator
 	{
 	public:
-		static MemoryAllocator* getInstancePtr()
+		SUMINLINE static MemoryAllocator* getInstancePtr()
 		{
-			if(!instance)
+			if(!SumMemory::MemoryAllocator::instance)
 			{
 				instance = static_cast<MemoryAllocator*>(malloc(sizeof(MemoryAllocator)));
 				instance->init();
@@ -26,7 +26,7 @@ namespace SumMemory
 			return instance;
 		}
 
-		static MemoryAllocator& getInstance()
+		SUMINLINE static MemoryAllocator& getInstance()
 		{
 			if(!instance) instance = new MemoryAllocator();
 			return *instance;

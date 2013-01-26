@@ -99,4 +99,3 @@ void RenderViewport::clean()
 	ReleaseCOM(_depthStencilView);
 	ReleaseCOM(_depthStencilBuffer);
 }
-

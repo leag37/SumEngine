@@ -7,32 +7,33 @@
 #define __SUMSINGLETON_H__
 
 #include <assert.h>
+#include "SumPlatform.h"
 
 template <typename T> class Singleton {
 public:
 	// Constructor implemented locally
-	Singleton(void) {
+	SUMINLINE Singleton(void) {
 		// Ensure the singleton does not already exist
 		assert(!singleton);
 		singleton = static_cast<T*> (this);
 	};
 
 	// Deconstructor implemented locally
-	~Singleton(void) {
+	SUMINLINE ~Singleton(void) {
 		// Ensure the singleton exists
 		assert(singleton);
 		singleton = 0;
 	};
 
 	// Get the singleton instance
-	static T& getSingleton(void) {
+	SUMINLINE static T& getSingleton(void) {
 		// Return the instance if it exists
 		assert(singleton);
 		return *singleton;
 	};
 
 	// Get the singleton pointer
-	static T* getSingletonPtr() {
+	SUMINLINE static T* getSingletonPtr() {
 		return singleton;
 	};
 

@@ -10,9 +10,8 @@
 
 namespace SumMemory
 {
-
 	// Memory aligned malloc
-	static inline void* aligned_alloc(size_t size, int alignment) {
+	SUMINLINE static void* aligned_alloc(size_t size, int alignment) {
 		const int pointerSize = sizeof(void*);
 		const int requestedSize = size + alignment - 1 + pointerSize;
 		void* raw = MemoryAllocator::getInstancePtr()->allocate(requestedSize);
@@ -23,11 +22,10 @@ namespace SumMemory
 	}
 
 	// Memory-aligned free
-	static inline void aligned_free(void* mem) {
+	SUMINLINE static void aligned_free(void* mem) {
 		void* raw = *(void**)((char*)mem - sizeof(void*));
 		MemoryAllocator::getInstancePtr()->free(raw);
 	}
-
 }
 
 #define _SUM_ALIGN(T) \

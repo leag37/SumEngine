@@ -1,68 +1,98 @@
 //*************************************************************************************************
-// Title: SumRenderManager.h
+// Title: SumSimulationManager.cpp
 // Author: Gael Huber
-// Description: Render manager. Keeps track of various effects, renderable objects, and scene
-//	graphs.
+// Description: Manages primary game loop and manages subsystem start up and shutdown.
 //*************************************************************************************************
-#include "SumRenderManager.h"
+#include "SumSimulationManager.h"
 
 //*************************************************************************************************
 // Initialize the singleton instance of this class to 0
 //*************************************************************************************************
-template <> RenderManager* Singleton<RenderManager>::singleton = 0;
+template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 
 //*************************************************************************************************
 // Constructor
 //*************************************************************************************************
-RenderManager::RenderManager()
-	:	_renderContext(0),
-		_renderWindow(0),
-		_renderViewport(0)
-{
-
-}
+SimulationManager::SimulationManager()
+	:	_jobManager(0),
+		_renderManager(0)
+{ }
 
 //*************************************************************************************************
 // Destructor
 //*************************************************************************************************
-RenderManager::~RenderManager()
-{ }
-
-//*************************************************************************************************
-// Initialize render manager
-//*************************************************************************************************
-void RenderManager::startUp()
+SimulationManager::~SimulationManager()
 {
-	// Initialize the three primary components
-	_renderWindow = new RenderWindow(600, 400);
-	_renderContext = new RenderContext(_renderWindow->clientHandle(), _renderWindow->clientWidth(), _renderWindow->clientHeight());
-	_renderViewport = new RenderViewport();
-	_renderViewport->configure(_renderContext, _renderWindow);
+	SafeDelete(_jobManager);
+	SafeDelete(_renderManager);
+	// TODO: Shut down input system
+	// TODO: Shut down physics
+	// TODO: Shut down resource manager
+	// TODO: Shut down game configuration
 }
 
 //*************************************************************************************************
-// Shut down the render manager
+// Start up the manager
 //*************************************************************************************************
-void RenderManager::shutDown()
+void SimulationManager::startUp()
 {
-	SafeDelete(_renderContext);
-	SafeDelete(_renderWindow);
-	SafeDelete(_renderViewport);
+	// TODO: Seed random number generator
+
+	// Initialize memory subsystems
+	CreateAllocators();
+	
+	// TODO: Initialize game configuration
+
+	// TODO: Initialize job manager
+	_jobManager = new JobManager();
+	_jobManager->startUp(50);
+
+	// TODO: Initialize resources
+
+	// Initialize rendering
+	_renderManager = new RenderManager();
+	_renderManager->startUp();
+
+	// TODO: Initialize physics
+
+	// TODO: Initialize input system
 }
 
 //*************************************************************************************************
-// Update the manager
+// Shut down the manager
 //*************************************************************************************************
-void RenderManager::update()
+void SimulationManager::shutDown()
 {
+	// TODO: Shut down input system
 
+	// TODO: Shut down physics
+
+	// Shut down rendering
+	_renderManager->shutDown();
+
+	// TODO: Shut down resource manager
+
+	// Shut down job manager
+	_jobManager->shutDown();
+
+	// TODO: Shut down game configuration
+
+	// Destroy allocators
+	DestroyAllocators();
 }
 
 //*************************************************************************************************
-// Render the current scene
+// Run the simulation
 //*************************************************************************************************
-void RenderManager::renderScene()
+void SimulationManager::run()
+{	
+	gameLoop();
+}
+
+//*************************************************************************************************
+// Game loop for the engine
+//*************************************************************************************************
+void SimulationManager::gameLoop()
 {
 
 }
-

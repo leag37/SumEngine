@@ -4,6 +4,8 @@
 // Description: Manages jobs and processes them accordingly. When a job is added to the job queue,
 //	it checks whether there is a free JobExecutor. If there is an available JobExecutor, the next
 //	job will be assigned to it. Otherwise, it waits for the next available JobExecutor.
+//
+// TODO: Allow JobManager to be initializable via game configuration
 //*************************************************************************************************
 #ifndef __SUMJOBMANAGER_H__
 #define __SUMJOBMANAGER_H__

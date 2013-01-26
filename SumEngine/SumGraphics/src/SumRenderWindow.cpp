@@ -90,7 +90,7 @@ RenderWindow::~RenderWindow()
 //*************************************************************************************************
 // Process a Windows message
 //*************************************************************************************************
-LRESULT processMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT RenderWindow::processMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
 	// Return default process

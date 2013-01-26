@@ -61,16 +61,23 @@ typedef wchar_t SWCHAR_T;
 // Error checking function
 //***********************************************
 #if defined(DEBUG) | defined(_DEBUG)
+	#include <iostream>
+	using namespace std;
 	#ifndef HR
 	#define HR(x)												\
 	{															\
 		HRESULT hr = (x);										\
 		if(FAILED(hr))											\
 		{														\
-			DXTrace(__FILE__, (DWORD)__LINE__, hr, #x, true);	\
+			cout << __FILE__ << " ; ";							\
+			cout << (DWORD)__LINE__ << " ; ";					\
+			cout << hr << " ; ";								\
+			cout << #x << " ; ";								\
+			cout << endl;										\
 		}														\
 	}
 	#endif
+//	DXTrace(__FILE__, (DWORD)__LINE__, hr, #x, true);	
 #else
 	#ifndef HR
 	#define HR(x) (x)

@@ -13,6 +13,7 @@ RenderContext::RenderContext(HWND clientWindow, SUINT clientWidth, SUINT clientH
 	:	_d3dDevice(0),
 		_swapChain(0),
 		_d3dImmediateContext(0),
+		_d3dDriverType(D3D_DRIVER_TYPE_HARDWARE),
 		_4xMsaaEnabled(false)
 {
 	// Initialize the render context

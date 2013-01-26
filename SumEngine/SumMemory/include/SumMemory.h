@@ -10,12 +10,12 @@
 #include "SumAlign.h"
 
 // Create the memory allocators
-static void CreateAllocators()
+SUMINLINE static void CreateAllocators()
 {
 }
 
 // Destroy the memory allocator
-static void DestroyAllocators()
+SUMINLINE static void DestroyAllocators()
 {
 }
 

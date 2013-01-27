@@ -15,7 +15,8 @@ template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 //*************************************************************************************************
 SimulationManager::SimulationManager()
 	:	_jobManager(0),
-		_renderManager(0)
+		_renderManager(0),
+		_canRun(false)
 { }
 
 //*************************************************************************************************
@@ -56,6 +57,9 @@ void SimulationManager::startUp()
 	// TODO: Initialize physics
 
 	// TODO: Initialize input system
+
+	// The engine can now run
+	_canRun = true;
 }
 
 //*************************************************************************************************
@@ -94,5 +98,25 @@ void SimulationManager::run()
 //*************************************************************************************************
 void SimulationManager::gameLoop()
 {
+	// Jobs for major for engine components
+	Job renderJob = Job(Delegate0(_renderManager, &RenderManager::update));
+	
+	// Define a struct to hold a Windows event message
+	MSG msg;
 
+	// While windows message queue is populated and the program has not been exited
+	while(_canRun)
+	{
+		// Check for any Windows messages
+		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			// Translate keystroke message to a compatible format
+			TranslateMessage(&msg);
+
+			// Dispatch the message to WindowProcess function
+			DispatchMessage(&msg);
+		}
+
+		// Wait for rendering job to finish
+	}
 }

@@ -9,6 +9,7 @@
 #include "SumInclude.h"
 #include "SumJobManager.h"
 #include "SumRenderManager.h"
+#include "SumDelegate.h"
 
 class SimulationManager : public Singleton<SimulationManager>
 {
@@ -38,6 +39,9 @@ private:
 
 	// Manager for rendering and effects pipeline
 	RenderManager* _renderManager;
+
+	// Can the application run?
+	SBOOL _canRun;
 
 // Inline functions
 public:

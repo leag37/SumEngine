@@ -8,6 +8,7 @@
 
 #include <process.h>
 #include "SumInclude.h"
+#include "SumDelegate.h"
 
 class Job {
 public:
@@ -24,8 +25,8 @@ public:
 	{ }
 
 	// Constructor given the function pointer
-	Job(void (*pF)(void*), void* pP)
-		: jobStatus(Job::PENDING), pFunction(pF), pParams(pP)
+	Job(Delegate0 del)
+		: jobStatus(Job::PENDING), _delegate(del)
 	{ }
 
 	// Destructor
@@ -34,7 +35,7 @@ public:
 
 	// Invoke the function
 	SUMINLINE void operator()(void) const {
-		pFunction(pParams);
+		_delegate();
 	}
 
 	// Return the status of the job
@@ -58,8 +59,7 @@ private:
 	}
 
 	Job::Status jobStatus;		// The current status of the job
-	void (*pFunction)(void*);	// Pointer to function attached to the job
-	void* pParams;				// Pointer to function parameters
+	Delegate0 _delegate;		// Delegate
 };
 
 #endif

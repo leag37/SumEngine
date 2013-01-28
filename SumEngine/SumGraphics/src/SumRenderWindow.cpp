@@ -28,7 +28,7 @@ RenderWindow::RenderWindow(SUINT clientWidth, SUINT clientHeight)
 {
 	// Set pointer to Window
 	gRenderWindow = this;
-
+	
 	// Initialize the window
 	WNDCLASS wc;
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -92,6 +92,18 @@ RenderWindow::~RenderWindow()
 //*************************************************************************************************
 LRESULT RenderWindow::processMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	switch(msg)
+	{
+	// The window is being destroyed, quit application
+	case WM_DESTROY:
+		// Send message to quit application
+		PostQuitMessage(0);
+
+		// Destroy window function
+		gCanRun = false;
+		
+		return 0;
+	}
 
 	// Return default process
 	return DefWindowProc(hWnd, msg, wParam, lParam);

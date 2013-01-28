@@ -13,6 +13,7 @@
 #include "SumInclude.h"
 #include "SumRenderContext.h"
 #include "SumRenderWindow.h"
+#include "SumMath.h"
 
 class RenderViewport
 {
@@ -25,6 +26,9 @@ public:
 
 	// Configure the viewport
 	void configure(const RenderContext* context, const RenderWindow* window);
+
+	// Clear the viewports
+	void clearViewport(const RenderContext* context);
 
 private:
 	// Clean the viewport
@@ -43,5 +47,7 @@ private:
 	// Depth stencil view
 	ID3D11DepthStencilView* _depthStencilView;
 };
+
+#include "SumRenderViewport.inl"
 
 #endif

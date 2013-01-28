@@ -17,9 +17,6 @@
 #include "SumJob.h"
 //#include <Windows.h>
 
-// Thread sleep time
-#define THREAD_SLEEP_TIME 1
-
 class JobManager : public Singleton<JobManager> {
 public:
 	JobManager(void);	// Constructor
@@ -68,5 +65,28 @@ public:
 };
 
 #include "SumJobManager.inl"
+
+//*************************************************************************************************
+// Helper function that waits for a job
+//*************************************************************************************************
+SUMINLINE void WaitForJob(const Job& job)
+{
+	while(job.getStatus() != Job::DONE)
+	{
+		Sleep(THREAD_SLEEP_TIME);
+	}
+}
+
+//*************************************************************************************************
+// Helper function to add a job to the queue
+//*************************************************************************************************
+SUMINLINE void RequestJob(Job& job)
+{
+	// Set the job status to pending
+	job.setStatus(Job::PENDING);
+
+	// Add job to the queue
+	JobManager::getSingletonPtr()->addJob(job);
+}
 
 #endif

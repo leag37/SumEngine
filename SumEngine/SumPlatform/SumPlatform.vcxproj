@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\SumGlobals.h" />
     <ClInclude Include="include\SumInclude.h" />
     <ClInclude Include="include\SumPlatform.h" />
     <ClInclude Include="include\SumSingleton.h" />

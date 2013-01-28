@@ -53,6 +53,7 @@ typedef wchar_t SWCHAR_T;
 #define SUMINLINE inline
 
 #define SUMGLOBALCONST	extern const __declspec (selectany)
+#define SUMGLOBAL extern __declspec (selectany)
 
 // Alignment
 //***********************************************

@@ -10,6 +10,8 @@
 #ifndef __SUMFORWARDLIST_H__
 #define __SUMFORWARDLIST_H__
 
+#include "SumInclude.h"
+
 template <typename Type>
 class ForwardList {
 private:

@@ -19,5 +19,8 @@
     <ClInclude Include="include\SumSingleton.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Include\SumGlobals.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

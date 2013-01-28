@@ -270,6 +270,6 @@ const unsigned int ForwardList<Type>::getCount(void) const {
 * Return whether the list has a valid head
 **************************************************************************************************/
 template <typename Type>
-inline const bool ForwardList<Type>::hasHead(void) const {
+SUMINLINE const bool ForwardList<Type>::hasHead(void) const {
 	return head != 0;
 }

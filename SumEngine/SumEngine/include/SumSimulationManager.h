@@ -40,8 +40,8 @@ private:
 	// Manager for rendering and effects pipeline
 	RenderManager* _renderManager;
 
-	// Can the application run?
-	SBOOL _canRun;
+	// Render job
+	Job renderJob;
 
 // Inline functions
 public:

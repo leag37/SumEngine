@@ -55,8 +55,12 @@ void RenderManager::shutDown()
 //*************************************************************************************************
 void RenderManager::update()
 {
-	int a = 0;
-	int b = a + 2;
+	// TODO: Prune the scene and update draw list
+
+	// TODO: Update any effects
+
+	// Render the scene
+	renderScene();
 }
 
 //*************************************************************************************************
@@ -64,6 +68,10 @@ void RenderManager::update()
 //*************************************************************************************************
 void RenderManager::renderScene()
 {
-
+	// Clear the viewports
+	_renderViewport->clearViewport(_renderContext);
+	
+	// Present the swap chain
+	HR(_renderContext->swapChain()->Present(0, 0));
 }
 

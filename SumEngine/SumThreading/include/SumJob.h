@@ -10,6 +10,9 @@
 #include "SumInclude.h"
 #include "SumDelegate.h"
 
+// Thread sleep time
+#define THREAD_SLEEP_TIME 1
+
 class Job {
 public:
 	// Enumeration representative of job status
@@ -20,13 +23,13 @@ public:
 	};
 
 	// Constructor
-	Job(void) 
-	: jobStatus(Job::PENDING) 
+	SUMINLINE Job(void) 
+	: jobStatus(Job::DONE) 
 	{ }
 
 	// Constructor given the function pointer
-	Job(Delegate0 del)
-		: jobStatus(Job::PENDING), _delegate(del)
+	SUMINLINE Job(Delegate0 del)
+		: jobStatus(Job::DONE), _delegate(del)
 	{ }
 
 	// Destructor
@@ -58,8 +61,11 @@ private:
 		return id++;
 	}
 
-	Job::Status jobStatus;		// The current status of the job
-	Delegate0 _delegate;		// Delegate
+	// The current status of the job
+	Job::Status jobStatus;
+
+	// Delegate containing job function
+	Delegate0 _delegate;
 };
 
 #endif

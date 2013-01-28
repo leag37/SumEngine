@@ -80,11 +80,14 @@ class Delegate0
 {
 public:
 	// Constructor
-	Delegate0();
+	SUMINLINE Delegate0()
+	{
+		_closure.clear();
+	}
 
 	// Constructor for non-const member functions
 	template <typename X, typename Y>
-	Delegate0(Y *pThis, void (X::*function)())
+	SUMINLINE Delegate0(Y *pThis, void (X::*function)())
 	{
 		_closure.bind(implicit_cast<X*>(pThis), function);
 	}

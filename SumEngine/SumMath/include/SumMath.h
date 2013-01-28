@@ -196,6 +196,22 @@ SUMGLOBALCONST VectorF32 gVDeterminantNegate = {1.0f, -1.0f, 1.0f, -1.0f};
 
 SUMGLOBALCONST VectorF32 gV3Negate = {-1.0f, -1.0f, -1.0f, 1.0f};
 
+// Colors
+//***********************************************
+namespace Color
+{
+	SUMGLOBALCONST VectorF32 White     = {1.0f, 1.0f, 1.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Black     = {0.0f, 0.0f, 0.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Red       = {1.0f, 0.0f, 0.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Green     = {0.0f, 1.0f, 0.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Blue      = {0.0f, 0.0f, 1.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Yellow    = {1.0f, 1.0f, 0.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Cyan      = {0.0f, 1.0f, 1.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Magenta   = {1.0f, 0.0f, 1.0f, 1.0f};
+	SUMGLOBALCONST VectorF32 Silver    = {0.75f, 0.75f, 0.75f, 1.0f};
+	SUMGLOBALCONST VectorF32 LightSteelBlue = {0.69f, 0.77f, 0.87f, 1.0f};
+}
+
 //*************************************************************************************************
 // DIMENSIONAL VECTOR
 //*************************************************************************************************

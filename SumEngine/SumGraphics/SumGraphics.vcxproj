@@ -69,12 +69,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Include\SumGeometry.h" />
+    <ClInclude Include="include\SumLight.h" />
+    <ClInclude Include="include\SumMaterial.h" />
+    <ClInclude Include="Include\SumMesh.h" />
+    <ClInclude Include="Include\SumRenderable.h" />
+    <ClInclude Include="Include\SumRenderCore.h" />
     <ClInclude Include="include\SumRenderManager.h" />
     <ClInclude Include="include\SumRenderContext.h" />
     <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumMesh.cpp" />
     <ClCompile Include="src\SumRenderManager.cpp" />
     <ClCompile Include="src\SumRenderContext.cpp" />
     <ClCompile Include="src\SumRenderViewport.cpp" />

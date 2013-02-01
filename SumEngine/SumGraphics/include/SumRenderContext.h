@@ -13,8 +13,8 @@
 #ifndef __SUMRENDERCONTEXT_H__
 #define __SUMRENDERCONTEXT_H__
 
-#include <D3D11.h>
 #include "SumInclude.h"
+#include "SumRenderCore.h"
 
 class RenderContext
 {

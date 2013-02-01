@@ -14,6 +14,15 @@
     <Filter Include="Renderables">
       <UniqueIdentifier>{8be00a23-584d-4f07-a5d1-4441571f82c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lighting">
+      <UniqueIdentifier>{a09e510c-b119-4cff-b032-cb36ac59ee29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cameras">
+      <UniqueIdentifier>{11be72fd-bc7e-409e-85d3-e381d9651634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{dfc9d695-f3b3-434c-8beb-efd89d46dcac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumRenderContext.h">
@@ -28,6 +37,24 @@
     <ClInclude Include="include\SumRenderViewport.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Include\SumRenderable.h">
+      <Filter>Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SumGeometry.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SumRenderCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\SumMesh.h">
+      <Filter>Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumLight.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMaterial.h">
+      <Filter>Lighting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -41,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="src\SumRenderViewport.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMesh.cpp">
+      <Filter>Renderables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

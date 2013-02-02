@@ -49,10 +49,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;Effects11D.lib</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(DXSDK_DIR)Samples\C++\Effects11\Debug</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -69,6 +69,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumEffect.h" />
+    <ClInclude Include="include\SumEffectsManager.h" />
     <ClInclude Include="Include\SumGeometry.h" />
     <ClInclude Include="include\SumLight.h" />
     <ClInclude Include="include\SumMaterial.h" />
@@ -81,7 +83,9 @@
     <ClInclude Include="include\SumRenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumEffectsManager.cpp" />
     <ClCompile Include="src\SumMesh.cpp" />
+    <ClCompile Include="src\SumRenderable.cpp" />
     <ClCompile Include="src\SumRenderManager.cpp" />
     <ClCompile Include="src\SumRenderContext.cpp" />
     <ClCompile Include="src\SumRenderViewport.cpp" />

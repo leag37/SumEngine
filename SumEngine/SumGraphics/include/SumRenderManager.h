@@ -18,9 +18,11 @@
 #define __SUMRENDERMANAGER_H__
 
 #include "SumInclude.h"
+#include "SumRenderCore.h"
 #include "SumRenderContext.h"
 #include "SumRenderWindow.h"
 #include "SumRenderViewport.h"
+#include "SumEffectsManager.h"
 
 class RenderManager : public Singleton<RenderManager>
 {
@@ -65,6 +67,9 @@ private:
 
 	// Render viewport
 	RenderViewport* _renderViewport;
+
+	// Effects manager
+	EffectsManager* _effectsManager;
 };
 
 #endif

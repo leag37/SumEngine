@@ -11,7 +11,7 @@
 #define __SUMRENDERABLE_H__
 
 #include "SumInclude.h"
-#include "SumMath.h"
+#include "SumRenderCore.h"
 
 class Renderable
 {
@@ -23,17 +23,31 @@ public:
 	~Renderable();
 
 private:
-	// Vertex buffer
-	ID3D11Buffer* _vertexBuffer;
-
-	// Index buffer
-	ID3D11Buffer* _indexBuffer;
-
-	// Number of indices in the mesh
-	SUINT _indexCount;
+	// Mesh
+	Mesh* _mesh;
 
 	// World matrix of the object
-	FLOAT4x4 _world;
+	Float4x4 _world;
+
+// Inline functions
+public:
+	// Set the mesh for the renderable
+	SUMINLINE void setMesh(Mesh* mesh)
+	{
+		_mesh = mesh;
+	}
+
+	// Retrieve the mesh
+	SUMINLINE const Mesh* mesh() const
+	{
+		return _mesh;
+	}
+
+	// Get the world object
+	SUMINLINE const Float4x4& world() const
+	{
+		return _world;
+	}
 };
 
 #endif

@@ -55,6 +55,12 @@
     <ClInclude Include="include\SumMaterial.h">
       <Filter>Lighting</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumEffectsManager.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumEffect.h">
+      <Filter>Effects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -71,6 +77,12 @@
     </ClCompile>
     <ClCompile Include="src\SumMesh.cpp">
       <Filter>Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumRenderable.cpp">
+      <Filter>Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumEffectsManager.cpp">
+      <Filter>Effects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

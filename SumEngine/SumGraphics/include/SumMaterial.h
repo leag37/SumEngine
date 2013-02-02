@@ -8,4 +8,18 @@
 
 #include "SumRenderCore.h"
 
+// Material structure
+struct Material
+{
+	SUMINLINE Material()
+	{
+		ZeroMemory(this, sizeof(this));
+	}
+
+	Float4 ambient;
+	Float4 diffuse;
+	Float4 specular;
+	Float4 reflect;
+};
+
 #endif

@@ -17,7 +17,8 @@ template <> RenderManager* Singleton<RenderManager>::singleton = 0;
 RenderManager::RenderManager()
 	:	_renderContext(0),
 		_renderWindow(0),
-		_renderViewport(0)
+		_renderViewport(0),
+		_effectsManager(0)
 {
 
 }
@@ -38,6 +39,9 @@ void RenderManager::startUp()
 	_renderContext = new RenderContext(_renderWindow->clientHandle(), _renderWindow->clientWidth(), _renderWindow->clientHeight());
 	_renderViewport = new RenderViewport();
 	_renderViewport->configure(_renderContext, _renderWindow);
+
+	// Initialize the effects manager
+	_effectsManager = new EffectsManager();
 }
 
 //*************************************************************************************************

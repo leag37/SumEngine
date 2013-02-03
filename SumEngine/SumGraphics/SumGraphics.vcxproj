@@ -38,6 +38,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSdkDir)include;$(FrameworkSDKDir)\include;</IncludePath>
+    <ExecutablePath>$(DXSDK_DIR)Utilities/bin/x86;$(VCInstallDir)bin;$(WindowsSdkDir)bin\NETFX 4.0 Tools;$(WindowsSdkDir)bin;$(VSInstallDir)Common7\Tools\bin;$(VSInstallDir)Common7\tools;$(VSInstallDir)Common7\ide;$(ProgramFiles)\HTML Help Workshop;$(FrameworkSDKDir)\bin;$(MSBuildToolsPath32);$(VSInstallDir);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -49,7 +50,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;Effects11D.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dx11d.lib;Effects11D.lib;D3DCompiler.lib;dxerr.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(DXSDK_DIR)Samples\C++\Effects11\Debug</AdditionalLibraryDirectories>
@@ -72,6 +73,7 @@
     <ClInclude Include="include\SumEffect.h" />
     <ClInclude Include="include\SumEffectsManager.h" />
     <ClInclude Include="Include\SumGeometry.h" />
+    <ClInclude Include="include\SumInputLayout.h" />
     <ClInclude Include="include\SumLight.h" />
     <ClInclude Include="include\SumMaterial.h" />
     <ClInclude Include="Include\SumMesh.h" />
@@ -83,7 +85,9 @@
     <ClInclude Include="include\SumRenderWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
+    <ClCompile Include="src\SumInputLayout.cpp" />
     <ClCompile Include="src\SumMesh.cpp" />
     <ClCompile Include="src\SumRenderable.cpp" />
     <ClCompile Include="src\SumRenderManager.cpp" />
@@ -92,6 +96,25 @@
     <ClCompile Include="src\SumRenderWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="Effects\Basic.fx">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc compile for debug: %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">fxc /T fx_5_0 /Fo "$(SolutionDir)$(Configuration)\%(Filename).fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">fxc compile for release: %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\%(Filename).fxo</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="Effects\LightingHelper.fx">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">fxc /T fx_5_0 /Fo "$(SolutionDir)$(Configuration)\%(Filename).fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">fxc compile for release: %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\%(Filename).fxo</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc compile for debug: %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo</Outputs>
+    </CustomBuild>
+    <None Include="include\SumEffect.inl" />
     <None Include="Include\SumRenderViewport.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

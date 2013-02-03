@@ -1,42 +1,42 @@
 //*************************************************************************************************
-// Title: SumRenderManager.cpp
+// Title: SumConfigurationManager.cpp
 // Author: Gael Huber
-// Description: Render manager. Keeps track of various effects, renderable objects, and scene
-//	graphs.
+// Description: Configuration manager for engine.
 //*************************************************************************************************
-#include "SumEffectsManager.h"
+#include "SumConfigurationManager.h"
 
 //*************************************************************************************************
 // Initialize the singleton instance of this class to 0
 //*************************************************************************************************
-template <> EffectsManager* Singleton<EffectsManager>::singleton = 0;
+template <> ConfigurationManager* Singleton<ConfigurationManager>::singleton = 0;
 
 //*************************************************************************************************
-// Construtor
+// Constructor
 //*************************************************************************************************
-EffectsManager::EffectsManager()
+ConfigurationManager::ConfigurationManager()
 {
 }
 
 //*************************************************************************************************
 // Destructor
 //*************************************************************************************************
-EffectsManager::~EffectsManager()
+ConfigurationManager::~ConfigurationManager()
 {
+
 }
 
 //*************************************************************************************************
-// Start up the effects
+// Start up the configuration manager
 //*************************************************************************************************
-void EffectsManager::startUp(ID3D11Device* device)
+void ConfigurationManager::startUp()
 {
-	_effects["basic"] = new BasicEffect(device, "Effects/Basic.fxo");
+
 }
 
 //*************************************************************************************************
-// Shut down the effects
+// Shut down the configuration manager
 //*************************************************************************************************
-void EffectsManager::shutDown()
+void ConfigurationManager::shutDown()
 {
 
 }

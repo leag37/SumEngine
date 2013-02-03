@@ -40,6 +40,9 @@ private:
 	// Manager for rendering and effects pipeline
 	RenderManager* _renderManager;
 
+	// Configuration manager
+	ConfigurationManager* _configurationManager;
+
 	// Render job
 	Job renderJob;
 

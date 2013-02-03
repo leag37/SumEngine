@@ -15,7 +15,8 @@ template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 //*************************************************************************************************
 SimulationManager::SimulationManager()
 	:	_jobManager(0),
-		_renderManager(0)
+		_renderManager(0),
+		_configurationManager(0)
 { }
 
 //*************************************************************************************************
@@ -28,7 +29,7 @@ SimulationManager::~SimulationManager()
 	// TODO: Shut down input system
 	// TODO: Shut down physics
 	// TODO: Shut down resource manager
-	// TODO: Shut down game configuration
+	SafeDelete(_configurationManager);
 }
 
 //*************************************************************************************************
@@ -42,6 +43,8 @@ void SimulationManager::startUp()
 	CreateAllocators();
 	
 	// TODO: Initialize game configuration
+	_configurationManager = new ConfigurationManager();
+	_configurationManager->startUp();
 
 	// TODO: Initialize job manager
 	_jobManager = new JobManager();

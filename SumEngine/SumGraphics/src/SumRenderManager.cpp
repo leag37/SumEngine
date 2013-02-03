@@ -42,6 +42,8 @@ void RenderManager::startUp()
 
 	// Initialize the effects manager
 	_effectsManager = new EffectsManager();
+	_effectsManager->startUp(_renderContext->d3dDevice());
+	InputLayouts::InitAll(_renderContext->d3dDevice());
 }
 
 //*************************************************************************************************
@@ -49,6 +51,8 @@ void RenderManager::startUp()
 //*************************************************************************************************
 void RenderManager::shutDown()
 {
+	SafeDelete(_effectsManager);
+
 	SafeDelete(_renderContext);
 	SafeDelete(_renderWindow);
 	SafeDelete(_renderViewport);

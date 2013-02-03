@@ -23,6 +23,15 @@
     <Filter Include="Utilities">
       <UniqueIdentifier>{dfc9d695-f3b3-434c-8beb-efd89d46dcac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects\Core">
+      <UniqueIdentifier>{4f2f174e-b1e5-46fa-a324-9b39b490ab37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Standard Effects">
+      <UniqueIdentifier>{7c6f8c8c-5b89-412d-b526-c804c8aac63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Utility Effects">
+      <UniqueIdentifier>{b9e4a8ee-5292-469b-be55-228499cc7c45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumRenderContext.h">
@@ -55,11 +64,14 @@
     <ClInclude Include="include\SumMaterial.h">
       <Filter>Lighting</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumEffectsManager.h">
-      <Filter>Effects</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumEffect.h">
-      <Filter>Effects</Filter>
+      <Filter>Effects\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumEffectsManager.h">
+      <Filter>Effects\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumInputLayout.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -81,13 +93,30 @@
     <ClCompile Include="src\SumRenderable.cpp">
       <Filter>Renderables</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumEffect.cpp">
+      <Filter>Effects\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\SumEffectsManager.cpp">
-      <Filter>Effects</Filter>
+      <Filter>Effects\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumInputLayout.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">
       <Filter>Core</Filter>
     </None>
+    <None Include="include\SumEffect.inl">
+      <Filter>Effects\Core</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Effects\Basic.fx">
+      <Filter>Effects\Standard Effects</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Effects\LightingHelper.fx">
+      <Filter>Effects\Utility Effects</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>

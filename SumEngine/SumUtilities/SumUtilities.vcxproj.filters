@@ -17,6 +17,9 @@
     <Filter Include="Delegates">
       <UniqueIdentifier>{e3c3dce5-320b-4820-bab7-b8d1f842b55c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Array">
+      <UniqueIdentifier>{10f7dcbb-c7fa-42ca-990c-139de65a393f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumForwardList.h">
@@ -24,6 +27,9 @@
     </ClInclude>
     <ClInclude Include="Include\SumDelegate.h">
       <Filter>Delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumArray.h">
+      <Filter>Data Structures\Array</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +41,12 @@
     </None>
     <None Include="include\SumForwardListNode.inl">
       <Filter>Data Structures\Forward List</Filter>
+    </None>
+    <None Include="include\SumArray.inl">
+      <Filter>Data Structures\Array</Filter>
+    </None>
+    <None Include="include\SumArrayIterator.inl">
+      <Filter>Data Structures\Array</Filter>
     </None>
   </ItemGroup>
 </Project>

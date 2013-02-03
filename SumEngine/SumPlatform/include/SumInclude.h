@@ -9,6 +9,7 @@
 #include "SumPlatform.h"
 #include "SumSingleton.h"
 #include "SumGlobals.h"
+#include "SumConfigurationManager.h"
 #include <SumMemory.h>
 
 #ifdef SUMSIMD
@@ -17,5 +18,7 @@
 
 #include <Windows.h>
 #include <D3D11.h>
+
+#include <string>
 
 #endif

@@ -2,6 +2,10 @@
 // Title: SumEffectsManager.h
 // Author: Gael Huber
 // Description: Manages lifecycle of all rendering effects.
+//
+// TODO: Switch over to using SumEngine data structures
+// TODO: Load effects from configuration file
+// TODO: Allow management of active effect for quick access
 //*************************************************************************************************
 #ifndef __SUMEFFECTSMANAGER_H__
 #define __SUMEFFECTSMANAGER_H__
@@ -21,7 +25,7 @@ public:
 	~EffectsManager();
 
 	// Start up the effects
-	void startUp();
+	void startUp(ID3D11Device* device);
 
 	// Shut down the effects
 	void shutDown();
@@ -43,6 +47,12 @@ public:
 	SUMINLINE static EffectsManager* getSingletonPtr()
 	{
 		return singleton;
+	}
+
+	// Get an effect
+	SUMINLINE Effect* getEffectByName(const std::string& name)
+	{
+		return _effects[name];
 	}
 };
 

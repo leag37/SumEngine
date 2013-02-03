@@ -11,10 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumArray.h" />
     <ClInclude Include="Include\SumDelegate.h" />
     <ClInclude Include="include\SumForwardList.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="include\SumArray.inl" />
+    <None Include="include\SumArrayIterator.inl" />
     <None Include="include\SumForwardList.inl" />
     <None Include="include\SumForwardListIterator.inl" />
     <None Include="include\SumForwardListNode.inl" />

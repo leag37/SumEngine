@@ -11,10 +11,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumConfigurationManager.h" />
     <ClInclude Include="Include\SumGlobals.h" />
     <ClInclude Include="include\SumInclude.h" />
     <ClInclude Include="include\SumPlatform.h" />
     <ClInclude Include="include\SumSingleton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumConfigurationManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EFDFA29F-5579-47E2-97F2-B0E8B27BA4C7}</ProjectGuid>
@@ -49,12 +53,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d11.lib;Effects11D.lib</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;Effects11D.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86;$(DXSDK_DIR)Samples\C++\Effects11\Debug</AdditionalLibraryDirectories>

@@ -23,6 +23,7 @@
 #include "SumRenderWindow.h"
 #include "SumRenderViewport.h"
 #include "SumEffectsManager.h"
+#include "SumInputLayout.h"
 
 class RenderManager : public Singleton<RenderManager>
 {

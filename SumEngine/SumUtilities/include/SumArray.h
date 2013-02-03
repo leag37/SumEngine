@@ -16,7 +16,7 @@ public:
 
 public:
 	Array(void);	// Default constructor (default capacity is 4)
-	Array(unsigned int capacity);	// Constructor given an initial capacity
+	Array(SUINT capacity);	// Constructor given an initial capacity
 	Array(const Array<Type>& rhs);	// Copy constructor
 	~Array(void);	// Destructor
 
@@ -30,16 +30,16 @@ public:
 	void push_copy_back(const Type val);	// Pushes a copy of an element onto the back of the array
 	const Type pop_front(void);	// Pops an element from the front of the array
 	const Type pop_back(void);		// Pops an element from the back of the array
-	void insert(const Type& val, const unsigned int index);	// Insert a piece of data at a particular index
-	void insert_copy(const Type val, const unsigned int index);	// Insert a copy of data at a particular index
-	void splice(const unsigned int index, const unsigned int length);		// Splice length objects from the array starting at position index
+	void insert(const Type& val, const SUINT index);	// Insert a piece of data at a particular index
+	void insert_copy(const Type val, const SUINT index);	// Insert a copy of data at a particular index
+	void splice(const SUINT index, const SUINT length);		// Splice length objects from the array starting at position index
 	void splice(const Type& val);	// Splice the first copy data
-	void splice(const Type& val, const unsigned int length);		// Splice length objects from the array starting at the first occurence of data
+	void splice(const Type& val, const SUINT length);		// Splice length objects from the array starting at the first occurence of data
 	void splice_all(const Type& val);	// Splice all instances of data
-	const bool find(const Type& val, unsigned int& index) const;	// Return the first index at which data is found (if not found return false)
-	Type& operator[](const unsigned int index) const;	// Returns the item at requested array position
-	const unsigned int getCount(void) const;		// Returns the number of elements in the array
-	const unsigned int getCapacity(void) const;	// Returns the capacity of the array
+	const bool find(const Type& val, SUINT& index) const;	// Return the first index at which data is found (if not found return false)
+	Type& operator[](const SUINT index) const;	// Returns the item at requested array position
+	const SUINT getCount(void) const;		// Returns the number of elements in the array
+	const SUINT getCapacity(void) const;	// Returns the capacity of the array
 	Iterator begin(void) const;		// Returns an iterator pointing to the first value in the array
 	Iterator end(void) const;	// Returns an iterator pointing to the ending value in the array
 	void clear(void);	// Clears the contents of the container
@@ -47,8 +47,8 @@ public:
 
 private:
 	Type* data;		// Contains the array of data
-	unsigned int count;		// Number of objects currently in the array
-	unsigned int capacity;	// Current capacity of the array
+	SUINT count;		// Number of objects currently in the array
+	SUINT capacity;	// Current capacity of the array
 };
 
 /**************************************************************************************************

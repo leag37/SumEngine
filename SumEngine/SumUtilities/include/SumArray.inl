@@ -16,7 +16,7 @@ Array<Type>::Array(void)
 * Constructor given an initial capacity
 **************************************************************************************************/
 template <typename Type>
-Array<Type>::Array(unsigned int capacity)
+Array<Type>::Array(SUINT capacity)
 	: count(0), capacity(capacity)
 {
 	data = new Type[capacity];
@@ -33,7 +33,7 @@ Array<Type>::Array(const Array<Type>& rhs) {
 	data = new Type[capacity];
 
 	// Fill the array
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		data[i] = rhs[i];
 	}
 }
@@ -65,7 +65,7 @@ const Array<Type>& Array<Type>::operator=(const Array<Type>& rhs) {
 	data = new Type[capacity];
 
 	// Populate the array
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		data[i] = rhs[i];
 	}
 
@@ -82,7 +82,7 @@ const bool Array<Type>::operator==(const Array<Type>& rhs) const {
 		return false;
 	
 	// Iterate through and return false if not equal
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		if(data[i] != rhs[i])
 			return false;
 	}
@@ -100,7 +100,7 @@ const bool Array<Type>::operator!=(const Array<Type>& rhs) const {
 		return true;
 
 	// Iterate through, is anything is not equal, inequivalence is true
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		if(data[i] != rhs[i])
 			return true;
 	}
@@ -120,7 +120,7 @@ void Array<Type>::push_front(const Type& val) {
 		capacity *= 2;
 		Type* tData = new Type[capacity];
 
-		for(unsigned int i = 0; i < count; ++i) {
+		for(SUINT i = 0; i < count; ++i) {
 			tData[i + 1] = data[i];
 		}
 
@@ -131,7 +131,7 @@ void Array<Type>::push_front(const Type& val) {
 		data = tData;
 	} else {
 		// Move all data back by one
-		for(unsigned int i = count - 1; i != 0; --i) {
+		for(SUINT i = count - 1; i != 0; --i) {
 			data[i + 1] = data[i];
 		}
 	}
@@ -155,7 +155,7 @@ void Array<Type>::push_back(const Type& val) {
 		capacity *= 2;
 		Type* tData = new Type[capacity];
 
-		for(unsigned int i = 0; i < count; ++i) {
+		for(SUINT i = 0; i < count; ++i) {
 			tData[i] = data[i];
 		}
 
@@ -182,7 +182,7 @@ void Array<Type>::push_copy_front(const Type val) {
 		capacity *= 2;
 		Type* tData = new Type[capacity];
 
-		for(unsigned int i = 0; i < count; ++i) {
+		for(SUINT i = 0; i < count; ++i) {
 			tData[i + 1] = data[i];
 		}
 
@@ -193,7 +193,7 @@ void Array<Type>::push_copy_front(const Type val) {
 		data = tData;
 	} else {
 		// Move all data back by one
-		for(unsigned int i = count - 1; i != 0; --i) {
+		for(SUINT i = count - 1; i != 0; --i) {
 			data[i + 1] = data[i];
 		}
 	}
@@ -217,7 +217,7 @@ void Array<Type>::push_copy_back(const Type val) {
 		capacity *= 2;
 		Type* tData = new Type[capacity];
 
-		for(unsigned int i = 0; i < count; ++i) {
+		for(SUINT i = 0; i < count; ++i) {
 			tData[i] = data[i];
 		}
 
@@ -241,7 +241,7 @@ const Type Array<Type>::pop_front(void) {
 	Type toReturn = data[0];
 	
 	// Move everything forward
-	for(unsigned int i = 1; i < count; ++i) {
+	for(SUINT i = 1; i < count; ++i) {
 		data[i - 1] = data[i];
 	}
 
@@ -265,7 +265,7 @@ const Type Array<Type>::pop_back(void) {
 * Insert a piece of data at a particular index
 **************************************************************************************************/
 template <typename Type>
-void Array<Type>::insert(const Type& val, const unsigned int index) {
+void Array<Type>::insert(const Type& val, const SUINT index) {
 	// Is it even possible to insert
 	assert(index < count); 
 
@@ -276,7 +276,7 @@ void Array<Type>::insert(const Type& val, const unsigned int index) {
 		capacity *= 2;
 		Type* tData = new Type[capacity];
 
-		for(unsigned int i = 0; i < count; ++i) {
+		for(SUINT i = 0; i < count; ++i) {
 			if(i < index) {
 				// Standard move
 				tData[i] = data[i];
@@ -293,7 +293,7 @@ void Array<Type>::insert(const Type& val, const unsigned int index) {
 		data = tData;
 	} else {
 		// We don't need to expand the capacity of the array, so just shift everything back
-		for(unsigned int i = count; i >= index; --i) {
+		for(SUINT i = count; i >= index; --i) {
 			data[i + 1] = data[i];
 		}
 	}
@@ -309,7 +309,7 @@ void Array<Type>::insert(const Type& val, const unsigned int index) {
 * Insert a copy of data at a particular index
 **************************************************************************************************/
 template <typename Type>
-void Array<Type>::insert_copy(const Type val, const unsigned int index) {
+void Array<Type>::insert_copy(const Type val, const SUINT index) {
 	// Is it even possible to insert
 	assert(index < count); 
 
@@ -320,7 +320,7 @@ void Array<Type>::insert_copy(const Type val, const unsigned int index) {
 		capacity *= 2;
 		Type* tData = new Type[capacity];
 
-		for(unsigned int i = 0; i < count; ++i) {
+		for(SUINT i = 0; i < count; ++i) {
 			if(i < index) {
 				// Standard move
 				tData[i] = data[i];
@@ -337,7 +337,7 @@ void Array<Type>::insert_copy(const Type val, const unsigned int index) {
 		data = tData;
 	} else {
 		// We don't need to expand the capacity of the array, so just shift everything back
-		for(unsigned int i = count; i >= index; --i) {
+		for(SUINT i = count; i >= index; --i) {
 			data[i + 1] = data[i];
 		}
 	}
@@ -353,12 +353,12 @@ void Array<Type>::insert_copy(const Type val, const unsigned int index) {
 * Splice length objects from the array starting at position index
 **************************************************************************************************/
 template <typename Type>
-void Array<Type>::splice(const unsigned int index, const unsigned int length) {
+void Array<Type>::splice(const SUINT index, const SUINT length) {
 	// Ensure we can access the array
 	assert(index < count);
 
 	// Shift everything back by requested index
-	for(unsigned int i = index + length; i < count; ++i) {
+	for(SUINT i = index + length; i < count; ++i) {
 		data[i - length] = data[i];
 	}
 
@@ -372,10 +372,10 @@ void Array<Type>::splice(const unsigned int index, const unsigned int length) {
 template <typename Type>
 void Array<Type>::splice(const Type& val) {
 	// Try to find the value
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		// If they are equal, splice it from the array
 		if(data[i] == val) {
-			for(unsigned int j = i; j < count; ++j) {
+			for(SUINT j = i; j < count; ++j) {
 				data[j] = data[j + 1];
 			}
 			// Break out of the array
@@ -388,12 +388,12 @@ void Array<Type>::splice(const Type& val) {
 * Splice length objects from the array starting at the first occurence of data
 **************************************************************************************************/
 template <typename Type>
-void Array<Type>::splice(const Type& val, const unsigned int length) {
+void Array<Type>::splice(const Type& val, const SUINT length) {
 	// Try to find the value to splice
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		// If the value is found, splice the given length
 		if(data[i] == val) {
-			for(unsigned int j = i + length; j < count; ++j) {
+			for(SUINT j = i + length; j < count; ++j) {
 				data[j - length] = data[j];
 			}
 
@@ -414,10 +414,10 @@ void Array<Type>::splice(const Type& val, const unsigned int length) {
 template <typename Type>
 void Array<Type>::splice_all(const Type& val) {
 	// Try to find the value
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		// If they are equal, splice it from the array
 		if(data[i] == val) {
-			for(unsigned int j = i; j < count; ++j) {
+			for(SUINT j = i; j < count; ++j) {
 				data[j] = data[j + 1];
 			}
 			// Decrement count and repeat the ith value
@@ -431,9 +431,9 @@ void Array<Type>::splice_all(const Type& val) {
 * Return the first index at which data is found (if not found return false)
 **************************************************************************************************/
 template <typename Type>
-const bool Array<Type>::find(const Type& val, unsigned int& index) const {
+const bool Array<Type>::find(const Type& val, SUINT& index) const {
 	// Try to find the value
-	for(unsigned int i = 0; i < count; ++i) {
+	for(SUINT i = 0; i < count; ++i) {
 		// If we find the value, set the index and return true
 		if(data[i] == val) {
 			index = i;
@@ -449,7 +449,7 @@ const bool Array<Type>::find(const Type& val, unsigned int& index) const {
 * Returns the item at requested array position
 **************************************************************************************************/
 template <typename Type>
-Type& Array<Type>::operator[](const unsigned int index) const {
+Type& Array<Type>::operator[](const SUINT index) const {
 	return data[index];
 }
 
@@ -457,7 +457,7 @@ Type& Array<Type>::operator[](const unsigned int index) const {
 * Returns the number of elements in the array
 **************************************************************************************************/
 template <typename Type>
-const unsigned int Array<Type>::getCount(void) const { 
+const SUINT Array<Type>::getCount(void) const { 
 	return count;
 }
 
@@ -465,7 +465,7 @@ const unsigned int Array<Type>::getCount(void) const {
 * Returns the capacity of the array
 **************************************************************************************************/
 template <typename Type>
-const unsigned int Array<Type>::getCapacity(void) const {
+const SUINT Array<Type>::getCapacity(void) const {
 	return capacity;
 }
 

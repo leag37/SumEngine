@@ -20,6 +20,21 @@
     <Filter Include="Data Structures\Array">
       <UniqueIdentifier>{10f7dcbb-c7fa-42ca-990c-139de65a393f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{d51feff8-de39-480c-b45a-760577f86c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\String">
+      <UniqueIdentifier>{51418c6c-38ab-4b3a-9b19-01d850b96026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Dictionary">
+      <UniqueIdentifier>{025972b8-2405-493e-9bb4-c84673084a4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\Hash Map">
+      <UniqueIdentifier>{35ea796a-35c3-452e-b39e-1947823c9cce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structures\List">
+      <UniqueIdentifier>{5589a7fe-e9ef-4657-b9e9-a8e5eb6cc5af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumForwardList.h">
@@ -30,6 +45,24 @@
     </ClInclude>
     <ClInclude Include="include\SumArray.h">
       <Filter>Data Structures\Array</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumConfigurationManager.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumDictionary.h">
+      <Filter>Data Structures\Dictionary</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumHashMap.h">
+      <Filter>Data Structures\Hash Map</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumString.h">
+      <Filter>Data Structures\String</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumRandom.h">
+      <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumList.h">
+      <Filter>Data Structures\List</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -48,5 +81,55 @@
     <None Include="include\SumArrayIterator.inl">
       <Filter>Data Structures\Array</Filter>
     </None>
+    <None Include="include\SumDictionary.inl">
+      <Filter>Data Structures\Dictionary</Filter>
+    </None>
+    <None Include="include\SumDictionaryIterator.inl">
+      <Filter>Data Structures\Dictionary</Filter>
+    </None>
+    <None Include="include\SumDictionaryNode.inl">
+      <Filter>Data Structures\Dictionary</Filter>
+    </None>
+    <None Include="include\SumDictionaryPair.inl">
+      <Filter>Data Structures\Dictionary</Filter>
+    </None>
+    <None Include="include\SumHashMap.inl">
+      <Filter>Data Structures\Hash Map</Filter>
+    </None>
+    <None Include="include\SumHashMapBucket.inl">
+      <Filter>Data Structures\Hash Map</Filter>
+    </None>
+    <None Include="include\SumHashMapIterator.inl">
+      <Filter>Data Structures\Hash Map</Filter>
+    </None>
+    <None Include="include\SumHashMapPair.inl">
+      <Filter>Data Structures\Hash Map</Filter>
+    </None>
+    <None Include="include\SumList.inl">
+      <Filter>Data Structures\List</Filter>
+    </None>
+    <None Include="include\SumListIterator.inl">
+      <Filter>Data Structures\List</Filter>
+    </None>
+    <None Include="include\SumListNode.inl">
+      <Filter>Data Structures\List</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumConfigurationManager.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumHashMapFunctions.cpp">
+      <Filter>Data Structures\Hash Map</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumString.cpp">
+      <Filter>Data Structures\String</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumStringIterator.cpp">
+      <Filter>Data Structures\String</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumRandom.cpp">
+      <Filter>Misc</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

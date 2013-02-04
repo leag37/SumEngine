@@ -9,7 +9,6 @@
 #include "SumPlatform.h"
 #include "SumSingleton.h"
 #include "SumGlobals.h"
-#include "SumConfigurationManager.h"
 #include <SumMemory.h>
 
 #ifdef SUMSIMD

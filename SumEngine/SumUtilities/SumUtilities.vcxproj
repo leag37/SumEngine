@@ -12,15 +12,39 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumArray.h" />
+    <ClInclude Include="include\SumConfigurationManager.h" />
     <ClInclude Include="Include\SumDelegate.h" />
+    <ClInclude Include="include\SumDictionary.h" />
     <ClInclude Include="include\SumForwardList.h" />
+    <ClInclude Include="include\SumHashMap.h" />
+    <ClInclude Include="include\SumList.h" />
+    <ClInclude Include="include\SumRandom.h" />
+    <ClInclude Include="include\SumString.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\SumArray.inl" />
     <None Include="include\SumArrayIterator.inl" />
+    <None Include="include\SumDictionary.inl" />
+    <None Include="include\SumDictionaryIterator.inl" />
+    <None Include="include\SumDictionaryNode.inl" />
+    <None Include="include\SumDictionaryPair.inl" />
     <None Include="include\SumForwardList.inl" />
     <None Include="include\SumForwardListIterator.inl" />
     <None Include="include\SumForwardListNode.inl" />
+    <None Include="include\SumHashMap.inl" />
+    <None Include="include\SumHashMapBucket.inl" />
+    <None Include="include\SumHashMapIterator.inl" />
+    <None Include="include\SumHashMapPair.inl" />
+    <None Include="include\SumList.inl" />
+    <None Include="include\SumListIterator.inl" />
+    <None Include="include\SumListNode.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\SumConfigurationManager.cpp" />
+    <ClCompile Include="src\SumHashMapFunctions.cpp" />
+    <ClCompile Include="src\SumRandom.cpp" />
+    <ClCompile Include="src\SumString.cpp" />
+    <ClCompile Include="src\SumStringIterator.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}</ProjectGuid>
@@ -55,6 +79,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

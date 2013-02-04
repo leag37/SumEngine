@@ -46,7 +46,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SumMath.lib;SumPlatform.lib;SumMemory.lib;SumGraphics.lib;SumThreading.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SumMath.lib;SumPlatform.lib;SumUtilities.lib;SumMemory.lib;SumGraphics.lib;SumThreading.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

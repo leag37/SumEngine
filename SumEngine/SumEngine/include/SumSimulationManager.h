@@ -9,6 +9,7 @@
 #include "SumInclude.h"
 #include "SumJobManager.h"
 #include "SumRenderManager.h"
+#include "SumConfigurationManager.h"
 #include "SumDelegate.h"
 
 class SimulationManager : public Singleton<SimulationManager>

@@ -7,6 +7,23 @@
 #define __SUMCONFIGURATIONMANAGER_H__
 
 #include "SumInclude.h"
+#include "SumDictionary.h"
+#include "SumString.h"
+#include <fstream>
+#include <string>
+
+// Configuration structure
+struct Configuration
+{
+	// Constructor
+	Configuration(String name);
+
+	// Name
+	String name;
+
+	// Configuration keys
+	Dictionary<String, String> configMap;
+};
 
 class ConfigurationManager : public Singleton<ConfigurationManager>
 {
@@ -24,7 +41,12 @@ public:
 	void shutDown();
 
 private:
+	// Read the primary configuration file
+	void loadPrimaryConfig();
 
+private:
+	// Dictionary of configurations
+	Dictionary<String, Configuration> _configurations;
 
 public:
 	// Get the singleton instance

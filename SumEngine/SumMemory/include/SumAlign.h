@@ -2,6 +2,8 @@
 // Title: SumAlign.h
 // Author: Gael Huber
 // Description: Tip for aligned allocation.
+//
+// TODO: Switch over to using SumEngine platform variables
 //*************************************************************************************************
 #ifndef __SUMALIGN_H__
 #define __SUMALIGN_H__

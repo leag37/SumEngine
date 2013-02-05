@@ -2,6 +2,10 @@
 * Title: SumString.h
 * Author: Gael Huber
 * Description: Defines various methods for creating strings.
+//
+// TODO: Switch over comment structures to follow new standard
+// TODO: Switch variable declarations and getters to follow new standard
+// TODO: Switch file to using inline file to help optimize string operations
 **************************************************************************************************/
 #ifndef __SUMSTRING_H__
 #define __SUMSTRING_H__

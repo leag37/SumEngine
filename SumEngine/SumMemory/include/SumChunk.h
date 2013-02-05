@@ -11,6 +11,9 @@
 
 namespace SumMemory
 {
+// Memory offset size for storing size of particular pointer
+#define MEM_OFFSET sizeof(SUINT)
+
 	// Struct that acts as a data pointer
 	struct SUMEXPORT Chunk
 	{
@@ -18,31 +21,49 @@ namespace SumMemory
 		SUINT chunkSize;	// Size of this memory chunk
 	
 		// Default constructor
-		Chunk()
+		SUMINLINE Chunk()
 			: ptr(0), chunkSize(0)
 		{ }
 
+		// Copy constructor
+		SUMINLINE Chunk(const Chunk& rhs)
+			:	ptr(rhs.ptr), chunkSize(rhs.chunkSize)
+		{ }
+
 		// Constructor specifying data points
-		Chunk(SCHAR* iPtr, SUINT iChunkSize)
+		SUMINLINE Chunk(SCHAR* iPtr, SUINT iChunkSize)
 			: ptr(iPtr), chunkSize(iChunkSize)
 		{
 			if(ptr)	static_cast<SCHAR*>(ptr) = 0;
 		}
 
 		// Returns the next available chunk
-		void* pop()
+		SUMINLINE void* pop()
 		{
+			// Get the top-most pointer
 			SCHAR* n = ptr;
-			ptr = reinterpret_cast<SCHAR*>(*ptr);
+
+			// Get the pointer value of th next pointer
+			SCHAR* nPtr = ptr - MEM_OFFSET;
+
+			// Set the head to the value stored in the data segment of the old head
+			ptr = reinterpret_cast<SCHAR*>(*reinterpret_cast<SUINT*>(nPtr));
 			return n;
 		}
 
 		// Pushes a pointer of memory onto this stack
-		void push(void* iPtr)
+		SUMINLINE void push(void* iPtr)
 		{
-			void* nPtr = reinterpret_cast<void*>(reinterpret_cast<SCHAR*>(iPtr) - 4);
-			*static_cast<SUINT*>(iPtr) = reinterpret_cast<SUINT>(ptr);
-			ptr = reinterpret_cast<SCHAR*>(nPtr);
+			// Get the offset position of the pointer being pushed onto the chunk
+			// iPtr = 4; nPtr = 0
+			// Actual pointer returned on allocation is iPtr
+			void* nPtr = reinterpret_cast<void*>(reinterpret_cast<SCHAR*>(iPtr) - MEM_OFFSET);
+
+			// Link nPtr to current pointer
+			*static_cast<SUINT*>(nPtr) = reinterpret_cast<SUINT>(ptr);
+
+			// Set ptr to iPtr, this is our new head
+			ptr = reinterpret_cast<SCHAR*>(iPtr);
 		}
 	};
 }

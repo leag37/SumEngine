@@ -47,22 +47,55 @@ void ConfigurationManager::shutDown()
 //*************************************************************************************************
 void ConfigurationManager::loadPrimaryConfig()
 {
+	// Open the file
 	std::fstream fin("SumConfig.cfg");
 
+	// Ensure the file is good
 	if(fin.is_open())
 	{
-		std::string line;
+		std::string tmpLine;
+		String line;
+
+		Configuration* config;
+
 		while(fin.good())
 		{
-			std::getline(fin, line);
+			// Get the line
+			std::getline(fin, tmpLine);
+			line = tmpLine.c_str();
+
+			// Parse the line
+			//-------------------
+			
+			// Ensure valid line
+			if(line.getLength() == 0 || line.at(0) == '#')
+			{
+				continue;
+			}
+
+			// Section
+			if(line.at(0) == '[' && line.at(line.getLength() - 1) == ']')
+			{
+				// Pull the section name
+				String section = line.substring(1, line.getLength() - 2);
+				
+				// Create the new configuration
+				config = new Configuration(section);
+
+				// Attach the config to the map
+				_configurations[section] = config;
+			}
+
+			// Property
+			else if(line.find('=') != -1)
+			{
+				// Parse line
+				Array<String> values = line.split('=');
+				config->addConfigPair(values[0], values[1]);
+			}
 		}
+
+		// Close the stream
+		fin.close();
 	}
-
-	fin.seekg(0, std::ios_base::end);
-	int size = (int)fin.tellg();
-	fin.seekg(0, std::ios_base::beg);
-	Array<char> compiledShader(size);
-
-	fin.read(&compiledShader[0], size);
-	fin.close();
 }

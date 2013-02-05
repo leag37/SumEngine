@@ -39,6 +39,19 @@ namespace SumMemory
 	private:
 		// Constructor
 		MemoryAllocator();
+
+		// Validate the pointer by setting the size
+		SUMINLINE void* validatePointer(void* ptr, size_t size)
+		{
+			// Get data portion of pointer
+			SUINT* nPtr = reinterpret_cast<SUINT*>(reinterpret_cast<SCHAR*>(ptr) - MEM_OFFSET);
+			
+			// Set size of this chunk
+			*nPtr = size;
+
+			// Return original pointer
+			return ptr;
+		}
 		
 	public:
 		// Destructor

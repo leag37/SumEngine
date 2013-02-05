@@ -19,38 +19,38 @@ namespace SumMemory
 		// 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 1
 		
 		// Initialize fix length array
-		_fixedSize[0] = Chunk(0, 8);//136);
-		_fixedSize[1] = Chunk(0, 16);//72);
-		_fixedSize[2] = Chunk(0, 24);//200);
-		_fixedSize[3] = Chunk(0, 32);//40);
-		_fixedSize[4] = Chunk(0, 40);//104);
-		_fixedSize[5] = Chunk(0, 48);//168);
-		_fixedSize[6] = Chunk(0, 56);//232);
-		_fixedSize[7] = Chunk(0, 64);//24);
-		_fixedSize[8] = Chunk(0, 72);//56);
-		_fixedSize[9] = Chunk(0, 80);//88);
-		_fixedSize[10] = Chunk(0, 88);//120);
-		_fixedSize[11] = Chunk(0, 96);//152);
-		_fixedSize[12] = Chunk(0, 104);//184);
-		_fixedSize[13] = Chunk(0, 112);//216);
-		_fixedSize[14] = Chunk(0, 120);//248);
-		_fixedSize[15] = Chunk(0, 128);//16);
-		_fixedSize[16] = Chunk(0, 136);//32);
-		_fixedSize[17] = Chunk(0, 144);//48);
-		_fixedSize[18] = Chunk(0, 152);//64);
-		_fixedSize[19] = Chunk(0, 160);//80);
-		_fixedSize[20] = Chunk(0, 168);//96);
-		_fixedSize[21] = Chunk(0, 176);//112);
-		_fixedSize[22] = Chunk(0, 184);//128);
-		_fixedSize[23] = Chunk(0, 192);//144);
-		_fixedSize[24] = Chunk(0, 200);//160);
-		_fixedSize[25] = Chunk(0, 208);//176);
-		_fixedSize[26] = Chunk(0, 216);//192);
-		_fixedSize[27] = Chunk(0, 224);//208);
-		_fixedSize[28] = Chunk(0, 232);//224);
+		_fixedSize[0] = Chunk(0, 8);
+		_fixedSize[1] = Chunk(0, 16);
+		_fixedSize[2] = Chunk(0, 24);
+		_fixedSize[3] = Chunk(0, 32);
+		_fixedSize[4] = Chunk(0, 40);
+		_fixedSize[5] = Chunk(0, 48);
+		_fixedSize[6] = Chunk(0, 56);
+		_fixedSize[7] = Chunk(0, 64);
+		_fixedSize[8] = Chunk(0, 72);
+		_fixedSize[9] = Chunk(0, 80);
+		_fixedSize[10] = Chunk(0, 88);
+		_fixedSize[11] = Chunk(0, 96);
+		_fixedSize[12] = Chunk(0, 104);
+		_fixedSize[13] = Chunk(0, 112);
+		_fixedSize[14] = Chunk(0, 120);
+		_fixedSize[15] = Chunk(0, 128);
+		_fixedSize[16] = Chunk(0, 136);
+		_fixedSize[17] = Chunk(0, 144);
+		_fixedSize[18] = Chunk(0, 152);
+		_fixedSize[19] = Chunk(0, 160);
+		_fixedSize[20] = Chunk(0, 168);
+		_fixedSize[21] = Chunk(0, 176);
+		_fixedSize[22] = Chunk(0, 184);
+		_fixedSize[23] = Chunk(0, 192);
+		_fixedSize[24] = Chunk(0, 200);
+		_fixedSize[25] = Chunk(0, 208);
+		_fixedSize[26] = Chunk(0, 216);
+		_fixedSize[27] = Chunk(0, 224);
+		_fixedSize[28] = Chunk(0, 232);
 		_fixedSize[29] = Chunk(0, 240);
-		_fixedSize[30] = Chunk(0, 248);//256);
-		_fixedSize[31] = Chunk(0, 256);//8);
+		_fixedSize[30] = Chunk(0, 248);
+		_fixedSize[31] = Chunk(0, 256);
 
 		// Variable length chunks
 		_variableSize[0] = Chunk(0, 98304);
@@ -104,98 +104,131 @@ namespace SumMemory
 	//************************************************************************************************
 	void* MemoryAllocator::allocate(size_t size)
 	{
-		// 1
-		//-------------------------
+		// Check against minimum size
+		size = size < 8 ? 8 : size;
 
-		// Get fixed size bin to check first
-		SUINT bin = size >> 3;
-		Chunk chk = _fixedSize[bin];
-		
-		if(chk.ptr)
+		// ONLY PERFORM 1 and 2 if size <= 256
+		SUINT bin = 0;
+		Chunk* chk = 0;
+		if(size <= 256)
 		{
-			return chk.pop();
-		}
+			// 1
+			// Check for free chunk in exact-fit bin
+			//-------------------------
 
-		// 2
-		//-------------------------
+			// Get fixed size bin to check first
+			bin = (size >> 3) - 1;
+			chk = &_fixedSize[bin];
 		
-		// Only check next bin if next bin is available
-		if(bin < 31)
-		{
-			chk = _fixedSize[bin + 1];
-
-			if(chk.ptr)
+			if(chk->ptr)
 			{
-				return chk.pop();
+				return validatePointer(chk->pop(), size);
+			}
+
+			// 2
+			// If not, look into the next largest bin
+			//-------------------------
+		
+			// Only check next bin if next bin is available
+			if(bin < 31)
+			{
+				chk = &_fixedSize[bin + 1];
+
+				if(chk->ptr)
+				{
+					return validatePointer(chk->pop(), size);
+				}
 			}
 		}
 
 		// 3
+		// If that bin has no chunk, check designated victim (dv) chunk
 		//-------------------------
 		
 		if(_designatedVictim.ptr)
 		{
-			void* ptr = _designatedVictim.ptr;
-			if(*reinterpret_cast<SUINT*>(_designatedVictim.ptr) >= size)
+			// Get the pointer value at memory offset
+			SUINT ptrSize = *reinterpret_cast<SUINT*>(_designatedVictim.ptr);
+			if(ptrSize >= size)//reinterpret_cast<SUINT*>(_designatedVictim.ptr) >= size)
 			{
-				// Carve out piece from DV
-				void* ptr = static_cast<void*>(reinterpret_cast<SCHAR*>(_designatedVictim.pop()) - 4);
+				// Get the return pointer from the DV
+				void* rPtr = _designatedVictim.pop();
 
-				// Push back on if DV is not perfect fit
-				if(*(reinterpret_cast<SUINT*>(ptr)) == size)
+				// If the pointer size is not exact, push back remnant onto DV
+				if(ptrSize == size)
 				{
-					_designatedVictim.push(reinterpret_cast<SCHAR*>(ptr) + size + 4);
-					*(reinterpret_cast<SUINT*>(_designatedVictim.ptr)) = *reinterpret_cast<SUINT*>(ptr) - size;
+					// Find new pointer location
+					SCHAR* nPtr = static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;
+					
+					// Set size of new pointer
+					*reinterpret_cast<SUINT*>(nPtr) = ptrSize - size - MEM_OFFSET;
+
+					// Push onto DV
+					_designatedVictim.push(static_cast<void*>(nPtr));
 				}
-				return static_cast<void*>(reinterpret_cast<SCHAR*>(ptr) + 4);
+
+				return validatePointer(rPtr, size);
 			}
 		}
 
 		// 4
+		// If the dv chunk is not sufficiently large
+		// - search for the smallest available small-size chunk
+		// - split off a chunk of needed size
+		// - make the rest the dv chunk
 		//-------------------------
 
-		if(size < 256)
+		if(size <= 256)
 		{
 			for(bin = bin + 2; bin < 32; ++bin)
 			{
 				if(_fixedSize[bin].ptr)
 				{
-					void* ptr = static_cast<void*>(reinterpret_cast<SCHAR*>(_designatedVictim.pop()) - 4);
-					_designatedVictim.push(reinterpret_cast<SCHAR*>(ptr) + size + 4);
-					*(reinterpret_cast<SUINT*>(_designatedVictim.ptr)) = *reinterpret_cast<SUINT*>(ptr) - size;
-					return static_cast<void*>(reinterpret_cast<SCHAR*>(ptr) + 4);
+					// Get pointer to return
+					void* rPtr = _fixedSize[bin].pop();//static_cast<void*>(reinterpret_cast<SCHAR*>(_fixedSize[bin].pop()) - MEM_OFFSET);
+					
+					// Get pointer at new location
+					void* nPtr =  static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;
+					
+					// Set pointer size and push onto DV
+					*reinterpret_cast<SUINT*>(nPtr) = *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET;
+					_designatedVictim.push(nPtr);
+
+					// Return value
+					return validatePointer(rPtr, size);
 				}
 			}
 		}
 
 		// 5
+		// If no suitable small-size chunks are found
+		// - split off a piece from a large-size chunk
+		// - make the remainder the dv chunk
 		//-------------------------
 		bin = 0;
-		Chunk pChk = Chunk(0, (SUINT) - 1);
 		SUINT base = 1;
 		while(bin < 32)
 		{
-			chk = _variableSize[bin];
-			if(size <= chk.chunkSize && size > pChk.chunkSize)
+			// Get next variable-size chunk
+			chk = &_variableSize[bin];
+
+			// We fit within this chunk and it exists
+			if(size <= chk->chunkSize && chk->ptr)// && size > pChk.chunkSize)
 			{
-				// Is there a valid chunk in the bin?
-				if(chk.ptr)
-				{
-					// Carve out piece from DV
-					void* ptr = static_cast<void*>(reinterpret_cast<SCHAR*>(chk.pop()) - 4);
+				// Get pointer to return
+				void* rPtr = chk->pop();
+					
+				// Get pointer at new location
+				void* nPtr =  static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;
+					
+				// Set pointer size and push onto DV
+				*reinterpret_cast<SUINT*>(nPtr) = *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET;
+				_designatedVictim.push(nPtr);
 
-					// Push back on if DV is not perfect fit
-					if(*(reinterpret_cast<SUINT*>(ptr)) == size)
-					{
-						_designatedVictim.push(reinterpret_cast<SCHAR*>(ptr) + size + 4);
-						*(reinterpret_cast<SUINT*>(_designatedVictim.ptr)) = *reinterpret_cast<SUINT*>(ptr) - size;
-					}
-					return static_cast<void*>(reinterpret_cast<SCHAR*>(ptr) + 4);
-				}
-
-				bin = 32;
+				// Return value
+				return validatePointer(rPtr, size);
 			}
-			else if(size < chk.chunkSize)
+			else if(size < chk->chunkSize)
 			{
 				base = base << 1;
 				bin += base - 1;
@@ -205,15 +238,13 @@ namespace SumMemory
 				base = base << 1;
 				bin += base;
 			}
-
-			pChk = chk;
 		}
 
 		// 6
+		// All else fails, allocate new from memory
 		//-------------------------
-		SUINT* sPtr = reinterpret_cast<SUINT*>(malloc(size + sizeof(SUINT)));
-		*sPtr = size;
-		return reinterpret_cast<void*>(reinterpret_cast<SCHAR*>(sPtr) + sizeof(SUINT));
+		void* ptr = static_cast<void*>(reinterpret_cast<SCHAR*>(malloc(size + MEM_OFFSET)) + MEM_OFFSET);
+		return validatePointer(ptr, size);
 	}
 
 	//************************************************************************************************
@@ -221,45 +252,51 @@ namespace SumMemory
 	//************************************************************************************************
 	void MemoryAllocator::free(void* ptr)
 	{
-		// Get actual pointer location
-		ptr = reinterpret_cast<SCHAR*>(ptr) - sizeof(SUINT);
+		// Get data pointer location
+		void* nPtr = static_cast<void*>(reinterpret_cast<SCHAR*>(ptr) - MEM_OFFSET);
 
-		// Get size of chunk
-		SUINT size = *reinterpret_cast<SUINT*>(ptr);
+		// Get size of memory to be freed
+		SUINT size = *reinterpret_cast<SUINT*>(nPtr);
+
+		// Set this piece of data to zero to ensure pushing happens safely
+		*reinterpret_cast<SUINT*>(nPtr) = 0;
+
+		// Set the size of the pointer
+		*reinterpret_cast<SUINT*>(ptr) = size;
 
 		// Find appropriate bin
 		if(size > 256)
 		{
 			SUINT bin = 0;
-			SUINT base = 0;
-			Chunk chk;
-			Chunk pChk = Chunk(0, (SUINT) - 1);
+			SUINT base = 1;
 			while(bin < 32)
 			{
-				chk = _variableSize[bin];
-				if(size <= chk.chunkSize && size > pChk.chunkSize)
+				Chunk* chk = &_variableSize[bin];
+
+				// The memory chunk fits is smaller than the next largest bin
+				if(size < (chk->chunkSize << 1))
 				{
-					chk.push(ptr);
+					chk->push(ptr);
 					return;
 				}
-				else if(size < chk.chunkSize)
+				else if(size < chk->chunkSize)
 				{
-					bin += ++base - 1;
+					base = base << 1;
+					bin += base - 1;
 				}
 				else
 				{
-					bin += ++base;
+					base = base << 1;
+					bin += base;
 				}
-
-				pChk = chk;
 			}
 
-			// Push into auxiliary chunk
+			// Push into auxiliary chunk if no other choice
 			_designatedVictim.push(ptr);
 		}
 		else 
 		{
-			SUINT bin = size >> 3;
+			SUINT bin = (size >> 3) - 1;
 			_fixedSize[bin].push(ptr);
 		}
 	}

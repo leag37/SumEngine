@@ -1495,6 +1495,11 @@ Array<String> String::split(char split) const {
 			str += *itr;
 		}
 	}
+	if(!str.getEmpty())
+	{
+		arr.push_back(str);
+		str.clear();
+	}
 
 	return arr;
 }

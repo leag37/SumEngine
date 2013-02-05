@@ -9,8 +9,10 @@
 **************************************************************************************************/
 template <typename Type>
 Array<Type>::Array(void) 
-	: count(0), capacity(4), data(new Type[4])
-{ }
+	: count(0), capacity(4)
+{ 
+	data = new Type[4];
+}
 
 /**************************************************************************************************
 * Constructor given an initial capacity

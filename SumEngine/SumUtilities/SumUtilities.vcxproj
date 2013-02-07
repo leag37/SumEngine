@@ -38,6 +38,7 @@
     <None Include="include\SumList.inl" />
     <None Include="include\SumListIterator.inl" />
     <None Include="include\SumListNode.inl" />
+    <None Include="include\SumString.inl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp" />

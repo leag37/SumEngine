@@ -43,6 +43,22 @@ void ConfigurationManager::shutDown()
 }
 
 //*************************************************************************************************
+// Retrieve a configuration
+//*************************************************************************************************
+Configuration* ConfigurationManager::getConfiguration(const String& key)
+{
+	return _configurations[key];
+}
+
+//*************************************************************************************************
+// Retrieve a configuration
+//*************************************************************************************************
+//const Configuration* ConfigurationManager::getConfiguration(const String& key) const
+//{
+//	return _configurations[key];
+//}
+
+//*************************************************************************************************
 // Read the primary configuration file
 //*************************************************************************************************
 void ConfigurationManager::loadPrimaryConfig()

@@ -6,6 +6,7 @@
 //	job will be assigned to it. Otherwise, it waits for the next available JobExecutor.
 //
 // TODO: Allow JobManager to be initializable via game configuration
+// TODO: Move configuration pulling into this manager instead of passing it in through init method
 //*************************************************************************************************
 #ifndef __SUMJOBMANAGER_H__
 #define __SUMJOBMANAGER_H__

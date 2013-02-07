@@ -2,6 +2,8 @@
 * Title: SumList.h
 * Author: Gael Huber
 * Description: Defines a standard bi-directional list.
+//
+// TODO: Add const accessor functions
 **************************************************************************************************/
 #ifndef __SUMLIST_H__
 #define __SUMLIST_H__

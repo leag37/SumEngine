@@ -114,6 +114,9 @@
     <None Include="include\SumListNode.inl">
       <Filter>Data Structures\List</Filter>
     </None>
+    <None Include="include\SumString.inl">
+      <Filter>Data Structures\String</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp">

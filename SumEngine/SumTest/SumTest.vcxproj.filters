@@ -11,6 +11,9 @@
     <Filter Include="Math">
       <UniqueIdentifier>{37393318-435e-4685-a71e-20cb7eb5a738}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{97d65995-bc4e-48f0-b2a2-196d41638963}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumTestDriver.h">

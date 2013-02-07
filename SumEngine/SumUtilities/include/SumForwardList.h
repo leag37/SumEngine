@@ -6,6 +6,7 @@
 // TODO: Convert block comment format in ForwardList class to follow current convention
 // TODO: Convert ForwardList to utilize SumEngine's memory allocator
 // TODO: Convert to use SumPlatform
+// TODO: Add const accessor functions
 //*************************************************************************************************
 #ifndef __SUMFORWARDLIST_H__
 #define __SUMFORWARDLIST_H__

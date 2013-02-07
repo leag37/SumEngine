@@ -6,6 +6,7 @@
 // TODO: Switch over comment structures to follow new standard
 // TODO: Switch variable declarations and getters to follow new standard
 // TODO: Switch file to using inline file to help optimize string operations
+// TODO: Add const accessor functions
 **************************************************************************************************/
 #ifndef __SUMSTRING_H__
 #define __SUMSTRING_H__
@@ -101,6 +102,22 @@ public:
 	Array<String> split(char split) const;	// Splits a string using the given character as a delimiter
 	const int compare(const String& str) const;		// Compare strings, return -1 if less than compared, 0 if equal, 1 if greater
 
+	// Convert a string to an int
+	SINT toInt() const;
+	SINT toInt();
+
+	// Convert a string to an unsigned int
+	SUINT toUInt() const;
+	SUINT toUInt();
+
+	// Convert a string to a floating point
+	SFLOAT toFloat() const;
+	SFLOAT toFloat();
+
+	// Convert a string to a double
+	SDOUBLE toDouble() const;
+	SDOUBLE toDouble();
+
 private:
 	void _determineCapacity(void);		// Determine the capacity given a known length
 	void _grow(void);		// Increase the size of the array
@@ -143,5 +160,7 @@ private:
 };
 
 const int strLen(const char* s);	// Determines the length of a string
+
+#include "SumString.inl"
 
 #endif

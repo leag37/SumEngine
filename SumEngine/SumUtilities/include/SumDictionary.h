@@ -9,6 +9,8 @@
 *	Property 4: Both children of every red node are black
 *	Property 5: Every simple path from a given node to any of its descendant leaves contains the
 *		same number of black nodes.
+//
+// TODO: Add const accessor functions
 **************************************************************************************************/
 #ifndef __SUMDICTIONARY_H__
 #define __SUMDICTIONARY_H__

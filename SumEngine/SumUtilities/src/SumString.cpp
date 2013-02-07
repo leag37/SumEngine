@@ -255,22 +255,26 @@ const bool String::operator!=(const char* rhs) const {
 /**************************************************************************************************
 * Less than
 **************************************************************************************************/
-const bool String::operator<(const String& rhs) const {
+const bool String::operator<(const String& rhs) const 
+{
 	// Iterate through each string while they are valid
 	int checkLength;
-	bool toReturn;
 	if(length < rhs.getLength()) {
 		checkLength = length;
-		toReturn = true;
 	} else {
 		checkLength = rhs.getLength();
-		toReturn = false;
 	}
 	
 	// Iterate while they are equivalent
 	for(int i = 0; i < checkLength; ++i) {
-		// If greater than or equal to, return false
-		if(s[i] > rhs[i]) {
+		// If we are less than, we know that we must meet conditions so return true
+		if(s[i] < rhs[i]) 
+		{
+			return true;
+		}
+		// Otherwise, we could be equal so if greater return false
+		else if(s[i] > rhs[i])
+		{
 			return false;
 		}
 	}
@@ -278,56 +282,60 @@ const bool String::operator<(const String& rhs) const {
 	// We made it this far without failing tests, so we must now check lengths. 
 	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
 	// In all other situations return false.
-	return toReturn;
+	return length < rhs.getLength();
 }
 
 /**************************************************************************************************
 * Less than
 **************************************************************************************************/
-const bool String::operator<(const char* rhs) const {
+const bool String::operator<(const char* rhs) const 
+{
 	// Iterate through each string while they are valid
-	int checkLength = strLen(rhs);
-	bool toReturn;
+	SINT sLength = strLen(rhs);
+	SINT checkLength = sLength;
 	if(length < checkLength) {
 		checkLength = length;
-		toReturn = true;
-	} else {
-		toReturn = false;
 	}
 	
 	// Iterate while they are equivalent
-	for(int i = 0; i < checkLength; ++i) {
+	for(SINT i = 0; i < checkLength; ++i) {
 		// If greater than or equal to, return false
-		if(s[i] > rhs[i]) {
+		if(s[i] < rhs[i]) 
+		{
+			return true;
+		}
+		else if(s[i] > rhs[i])
+		{
 			return false;
 		}
 	}
 
-	// We made it this far without failing tests, so we must now check lengths. 
-	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
-	// In all other situations return false.
-	return toReturn;
+	return length < sLength;
 }
 
 /**************************************************************************************************
 * Less than or equal
 **************************************************************************************************/
-const bool String::operator<=(const String& rhs) const {
+const bool String::operator<=(const String& rhs) const 
+{
 	// Iterate through each string while they are valid
 	int checkLength;
-	bool toReturn;
-	if(length <= rhs.getLength()) {
+	if(length < rhs.getLength()) {
 		checkLength = length;
-		toReturn = true;
 	} else {
 		checkLength = rhs.getLength();
-		toReturn = false;
 	}
 	
 	// Iterate while they are equivalent
 	for(int i = 0; i < checkLength; ++i) {
-		// If greater than or equal to, return false
-		if(s[i] > rhs[i]) {
+		// If we are less than, we know that we must meet conditions so return true
+		if(s[i] < rhs[i]) 
+		{
+			return true;
+		}
+		// Otherwise, we could be equal so if greater return false
+		else if(s[i] > rhs[i])
+		{
 			return false;
 		}
 	}
@@ -335,35 +343,35 @@ const bool String::operator<=(const String& rhs) const {
 	// We made it this far without failing tests, so we must now check lengths. 
 	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
 	// In all other situations return false.
-	return toReturn;
+	return length <= rhs.getLength();	
 }
 
 /**************************************************************************************************
 * Less than or equal
 **************************************************************************************************/
-const bool String::operator<=(const char* rhs) const {
+const bool String::operator<=(const char* rhs) const 
+{
 	// Iterate through each string while they are valid
-	int checkLength = strLen(rhs);
-	bool toReturn;
-	if(length <= checkLength) {
+	SINT sLength = strLen(rhs);
+	SINT checkLength = sLength;
+	if(length < checkLength) {
 		checkLength = length;
-		toReturn = true;
-	} else {
-		toReturn = false;
 	}
 	
 	// Iterate while they are equivalent
-	for(int i = 0; i < checkLength; ++i) {
+	for(SINT i = 0; i < checkLength; ++i) {
 		// If greater than or equal to, return false
-		if(s[i] > rhs[i]) {
+		if(s[i] < rhs[i]) 
+		{
+			return true;
+		}
+		else if(s[i] > rhs[i])
+		{
 			return false;
 		}
 	}
 
-	// We made it this far without failing tests, so we must now check lengths. 
-	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
-	// In all other situations return false.
-	return toReturn;
+	return length <= sLength;
 }
 
 /**************************************************************************************************
@@ -371,21 +379,23 @@ const bool String::operator<=(const char* rhs) const {
 **************************************************************************************************/
 const bool String::operator>(const String& rhs) const {
 	// Iterate through each string while they are valid
-	//int checkLength = (length < rhs.getLength()) ? length : rhs.getLength();
 	int checkLength;
-	bool toReturn;
-	if(length > rhs.getLength()) {
-		checkLength = rhs.getLength();
-		toReturn = true;
-	} else {
+	if(length < rhs.getLength()) {
 		checkLength = length;
-		toReturn = false;
+	} else {
+		checkLength = rhs.getLength();
 	}
 	
 	// Iterate while they are equivalent
 	for(int i = 0; i < checkLength; ++i) {
-		// If greater than or equal to, return false
-		if(s[i] < rhs[i]) {
+		// If we are less than, we know that we must meet conditions so return true
+		if(s[i] > rhs[i]) 
+		{
+			return true;
+		}
+		// Otherwise, we could be equal so if greater return false
+		else if(s[i] < rhs[i])
+		{
 			return false;
 		}
 	}
@@ -393,7 +403,7 @@ const bool String::operator>(const String& rhs) const {
 	// We made it this far without failing tests, so we must now check lengths. 
 	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
 	// In all other situations return false.
-	return toReturn;
+	return length > rhs.getLength();
 }
 
 /**************************************************************************************************
@@ -401,28 +411,26 @@ const bool String::operator>(const String& rhs) const {
 **************************************************************************************************/
 const bool String::operator>(const char* rhs) const {
 	// Iterate through each string while they are valid
-	//int checkLength = (length < rhs.getLength()) ? length : rhs.getLength();
-	int checkLength = strLen(rhs);
-	bool toReturn;
-	if(length > checkLength) {
-		toReturn = true;
-	} else {
+	SINT sLength = strLen(rhs);
+	SINT checkLength = sLength;
+	if(length < checkLength) {
 		checkLength = length;
-		toReturn = false;
 	}
 	
 	// Iterate while they are equivalent
-	for(int i = 0; i < checkLength; ++i) {
+	for(SINT i = 0; i < checkLength; ++i) {
 		// If greater than or equal to, return false
-		if(s[i] < rhs[i]) {
+		if(s[i] > rhs[i]) 
+		{
+			return true;
+		}
+		else if(s[i] < rhs[i])
+		{
 			return false;
 		}
 	}
 
-	// We made it this far without failing tests, so we must now check lengths. 
-	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
-	// In all other situations return false.
-	return toReturn;
+	return length > sLength;
 }
 
 /**************************************************************************************************
@@ -431,19 +439,22 @@ const bool String::operator>(const char* rhs) const {
 const bool String::operator>=(const String& rhs) const {
 	// Iterate through each string while they are valid
 	int checkLength;
-	bool toReturn;
-	if(length >= rhs.getLength()) {
-		checkLength = rhs.getLength();
-		toReturn = true;
-	} else {
+	if(length < rhs.getLength()) {
 		checkLength = length;
-		toReturn = false;
+	} else {
+		checkLength = rhs.getLength();
 	}
 	
 	// Iterate while they are equivalent
 	for(int i = 0; i < checkLength; ++i) {
-		// If greater than or equal to, return false
-		if(s[i] < rhs[i]) {
+		// If we are less than, we know that we must meet conditions so return true
+		if(s[i] > rhs[i]) 
+		{
+			return true;
+		}
+		// Otherwise, we could be equal so if greater return false
+		else if(s[i] < rhs[i])
+		{
 			return false;
 		}
 	}
@@ -451,35 +462,35 @@ const bool String::operator>=(const String& rhs) const {
 	// We made it this far without failing tests, so we must now check lengths. 
 	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
 	// In all other situations return false.
-	return toReturn;
+	return length >= rhs.getLength();
 }
 
 /**************************************************************************************************
 * Greater than or equal
 **************************************************************************************************/
-const bool String::operator>=(const char* rhs) const {
+const bool String::operator>=(const char* rhs) const 
+{
 	// Iterate through each string while they are valid
-	int checkLength = strLen(rhs);
-	bool toReturn;
-	if(length >= checkLength) {
-		toReturn = true;
-	} else {
+	SINT sLength = strLen(rhs);
+	SINT checkLength = sLength;
+	if(length < checkLength) {
 		checkLength = length;
-		toReturn = false;
 	}
 	
 	// Iterate while they are equivalent
-	for(int i = 0; i < checkLength; ++i) {
+	for(SINT i = 0; i < checkLength; ++i) {
 		// If greater than or equal to, return false
-		if(s[i] < rhs[i]) {
+		if(s[i] > rhs[i]) 
+		{
+			return true;
+		}
+		else if(s[i] < rhs[i])
+		{
 			return false;
 		}
 	}
 
-	// We made it this far without failing tests, so we must now check lengths. 
-	// If this.length < rhs.length, we know that rhs must be greater than this, so we may return true.
-	// In all other situations return false.
-	return toReturn;
+	return length >= sLength;
 }
 
 /**************************************************************************************************

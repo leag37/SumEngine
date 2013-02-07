@@ -4,6 +4,7 @@
 // Description: Configuration manager for engine.
 //
 // TODO: Switch to use SumEngine string
+// TODO: Switch accessors to have const and non-const modifiers
 //*************************************************************************************************
 #ifndef __SUMCONFIGURATIONMANAGER_H__
 #define __SUMCONFIGURATIONMANAGER_H__
@@ -35,6 +36,11 @@ public:
 		return _configMap.find(key)->getValue();
 	}
 
+	SUMINLINE const String& retrieveValue(const String& key) const
+	{
+		return _configMap.find(key)->getValue();
+	}
+
 	SUMINLINE void addConfigPair(const String& key, const String& value)
 	{
 		_configMap[key] = value;
@@ -62,6 +68,10 @@ public:
 
 	// Shut down the configuration manager
 	void shutDown();
+
+	// Retrieve a configuration
+	Configuration* getConfiguration(const String& key);
+	//const Configuration* getConfiguration(const String& key) const;
 
 private:
 	// Read the primary configuration file

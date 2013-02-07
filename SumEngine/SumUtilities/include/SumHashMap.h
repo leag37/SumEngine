@@ -2,6 +2,8 @@
 * Title: SumHashMap.h
 * Author: Gael Huber
 * Description: Hash map used to contain information within a table.
+//
+// TODO: Add const accessor functions
 **************************************************************************************************/
 #ifndef __SUMHASHMAP_H__
 #define __SUMHASHMAP_H__

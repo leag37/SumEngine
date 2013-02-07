@@ -2,6 +2,8 @@
 // Title: SumArray.h
 // Author: Gael Huber
 // Description: A standard array container with auto-resizing capabilities.
+//
+// TODO: Add const accessor functions
 //*************************************************************************************************
 #ifndef __SUMARRAY_H__
 #define __SUMARRAY_H__

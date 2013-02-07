@@ -42,13 +42,14 @@ void SimulationManager::startUp()
 	// Initialize memory subsystems
 	CreateAllocators();
 	
-	// TODO: Initialize game configuration
+	// Initialize game configuration
 	_configurationManager = new ConfigurationManager();
 	_configurationManager->startUp();
 
-	// TODO: Initialize job manager
+	// Initialize job manager
 	_jobManager = new JobManager();
-	_jobManager->startUp(50);
+	SINT numThreads = _configurationManager->getConfiguration("Engine")->retrieveValue("threads").toInt();
+	_jobManager->startUp(numThreads);
 
 	// TODO: Initialize resources
 

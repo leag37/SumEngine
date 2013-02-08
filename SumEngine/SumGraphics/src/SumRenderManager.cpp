@@ -34,8 +34,13 @@ RenderManager::~RenderManager()
 //*************************************************************************************************
 void RenderManager::startUp()
 {
+	// Get width and height
+	Configuration* config = ConfigurationManager::getSingletonPtr()->getConfiguration("Engine");
+	SUINT width = config->retrieveValue("width").toUInt();
+	SUINT height = config->retrieveValue("height").toUInt();
+
 	// Initialize the three primary components
-	_renderWindow = new RenderWindow(600, 400);
+	_renderWindow = new RenderWindow(width, height);
 	_renderContext = new RenderContext(_renderWindow->clientHandle(), _renderWindow->clientWidth(), _renderWindow->clientHeight());
 	_renderViewport = new RenderViewport();
 	_renderViewport->configure(_renderContext, _renderWindow);

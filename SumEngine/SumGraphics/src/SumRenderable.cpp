@@ -10,7 +10,7 @@
 // Constructor
 //*************************************************************************************************
 Renderable::Renderable()
-	:	_mesh(0)
+//	:	_mesh(0)
 {
 	Matrix i = MatrixIdentity();
 	StoreFloat4x4(&_world, i);
@@ -21,7 +21,7 @@ Renderable::Renderable()
 //*************************************************************************************************
 Renderable::~Renderable()
 {
-	_mesh = 0;
+//	_mesh = 0;
 }
 
 

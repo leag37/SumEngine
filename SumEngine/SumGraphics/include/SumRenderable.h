@@ -24,7 +24,7 @@ public:
 
 private:
 	// Mesh
-	Mesh* _mesh;
+//	Mesh* _mesh;
 
 	// World matrix of the object
 	Float4x4 _world;
@@ -32,16 +32,16 @@ private:
 // Inline functions
 public:
 	// Set the mesh for the renderable
-	SUMINLINE void setMesh(Mesh* mesh)
-	{
-		_mesh = mesh;
-	}
+//	SUMINLINE void setMesh(Mesh* mesh)
+//	{
+//		_mesh = mesh;
+//	}
 
 	// Retrieve the mesh
-	SUMINLINE const Mesh* mesh() const
-	{
-		return _mesh;
-	}
+//	SUMINLINE const Mesh* mesh() const
+//	{
+//		return _mesh;
+//	}
 
 	// Get the world object
 	SUMINLINE const Float4x4& world() const

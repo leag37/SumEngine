@@ -54,6 +54,7 @@ typedef wchar_t SWCHAR_T;
 
 #define SUMGLOBALCONST	extern const __declspec (selectany)
 #define SUMGLOBAL extern __declspec (selectany)
+#define SUMEXTERN extern "C++"
 
 // Alignment
 //***********************************************

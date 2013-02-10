@@ -1,4 +1,11 @@
-
+//*************************************************************************************************
+// Title: SumFloat.h
+// Author: Gael Huber
+// Description: Non-vectorized representations of vector quantities. Primarily constructor for
+//	passing data to GPU. 
+// 
+// TODO: Implement Float2, Float3, Float4, Float3x3, Float4x3, Float4x4
+//*************************************************************************************************
 #ifndef __SUMFLOAT_H__
 #define __SUMFLOAT_H__
 

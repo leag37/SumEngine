@@ -6,7 +6,7 @@
 #ifndef __SUMMESH_H__
 #define __SUMMESH_H__
 
-#include "SumInclude.h"
+#include "SumRenderCore.h"
 
 class Mesh
 {
@@ -15,7 +15,7 @@ public:
 	Mesh();
 
 	// Create the mesh
-	Mesh(ID3D11Buffer* vertexBuffer, ID3D11Buffer* indexBuffer, SUINT indexCount);
+	Mesh(ID3D11Buffer* vertexBuffer, ID3D11Buffer* indexBuffer, SUINT vertexCount, SUINT indexCount);
 
 	// Destructor
 	~Mesh();
@@ -26,6 +26,9 @@ private:
 
 	// Index buffer
 	ID3D11Buffer* _indexBuffer;
+
+	// Vertex count
+	SUINT _vertexCount;
 
 	// Index count
 	SUINT _indexCount;

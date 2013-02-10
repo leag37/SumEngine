@@ -72,21 +72,24 @@
   <ItemGroup>
     <ClInclude Include="include\SumEffect.h" />
     <ClInclude Include="include\SumEffectsManager.h" />
-    <ClInclude Include="Include\SumGeometry.h" />
+    <ClInclude Include="include\SumGeometry.h" />
+    <ClInclude Include="include\SumMesh.h" />
+    <ClInclude Include="include\SumMeshData.h" />
     <ClInclude Include="include\SumInputLayout.h" />
     <ClInclude Include="include\SumLight.h" />
     <ClInclude Include="include\SumMaterial.h" />
-    <ClInclude Include="Include\SumMesh.h" />
     <ClInclude Include="Include\SumRenderable.h" />
     <ClInclude Include="Include\SumRenderCore.h" />
     <ClInclude Include="include\SumRenderManager.h" />
     <ClInclude Include="include\SumRenderContext.h" />
     <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
+    <ClInclude Include="include\SumVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
+    <ClCompile Include="src\SumGeometry.cpp" />
     <ClCompile Include="src\SumInputLayout.cpp" />
     <ClCompile Include="src\SumMesh.cpp" />
     <ClCompile Include="src\SumRenderable.cpp" />
@@ -116,6 +119,7 @@
     </CustomBuild>
     <None Include="include\SumEffect.inl" />
     <None Include="Include\SumRenderViewport.inl" />
+    <None Include="include\SumVertex.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

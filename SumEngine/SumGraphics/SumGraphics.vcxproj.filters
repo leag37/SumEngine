@@ -49,14 +49,8 @@
     <ClInclude Include="Include\SumRenderable.h">
       <Filter>Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="Include\SumGeometry.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="Include\SumRenderCore.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Include\SumMesh.h">
-      <Filter>Renderables</Filter>
     </ClInclude>
     <ClInclude Include="include\SumLight.h">
       <Filter>Lighting</Filter>
@@ -72,6 +66,18 @@
     </ClInclude>
     <ClInclude Include="include\SumInputLayout.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVertex.h">
+      <Filter>Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMeshData.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMesh.h">
+      <Filter>Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumGeometry.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +108,9 @@
     <ClCompile Include="src\SumInputLayout.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumGeometry.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">
@@ -109,6 +118,9 @@
     </None>
     <None Include="include\SumEffect.inl">
       <Filter>Effects\Core</Filter>
+    </None>
+    <None Include="include\SumVertex.inl">
+      <Filter>Renderables</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

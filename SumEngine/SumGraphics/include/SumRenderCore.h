@@ -6,16 +6,28 @@
 #ifndef __SUMRENDERCORE_H__
 #define __SUMRENDERCORE_H__
 
+// DirectX
 #include <D3D11.h>
 #include <D3DX11.h>
 #include <d3dx11effect.h>
 
+// Platform
 #include "SumInclude.h"
 #include "SumMath.h"
-#include "SumGeometry.h"
-#include "SumMesh.h"
+
+// Utility includes
+#include "SumArray.h"
+#include "SumString.h"
+
+// Core graphics
+#include "SumMeshData.h"
 #include "SumLight.h"
 #include "SumMaterial.h"
 #include "SumEffect.h"
+#include "SumVertex.h"
+#include "SumMesh.h"
+
+// Utilities
+#include "SumGeometry.h"
 
 #endif

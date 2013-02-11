@@ -49,6 +49,19 @@ void RenderManager::startUp()
 	_effectsManager = new EffectsManager();
 	_effectsManager->startUp(_renderContext->d3dDevice());
 	InputLayouts::InitAll(_renderContext->d3dDevice());
+
+	// TEMP
+	_mesh = Geometry::CreateBox("box", 1.0f, 1.0f, 1.0f);
+	Matrix p = MatrixPerspectiveFovLH(0.25f * S_PI, _renderWindow->aspectRatio(), 1.0f, 1000.0f);
+	StoreFloat4x4(&_proj, p);
+	Matrix i = MatrixIdentity();
+	StoreFloat4x4(&_view, i);
+	StoreFloat4x4(&_world, i);
+	
+	_eyePosW = Float3(0.0f, 0.0f, 0.0f);
+	_theta = 1.5f * S_PI;
+	_phi = 0.25f * S_PI;
+	_radius = 5.0f;
 }
 
 //*************************************************************************************************
@@ -68,6 +81,19 @@ void RenderManager::shutDown()
 //*************************************************************************************************
 void RenderManager::update()
 {
+	// Update the camera
+	SFLOAT x = _radius * sinf(_phi) * cosf(_theta);
+	SFLOAT z = _radius * sinf(_phi) * sinf(_theta);
+	SFLOAT y = _radius * cosf(_phi);
+	_eyePosW = Float3(x, y, z);
+	
+	Vector pos = VectorSet(x, y, z, 1.0f);
+	Vector target = VectorZero();
+	Vector up = VectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+
+	Matrix v = MatrixLookAtLH(pos, target, up);
+ 	StoreFloat4x4(&_view, v);
+
 	// TODO: Prune the scene and update draw list
 
 	// TODO: Update any effects
@@ -83,7 +109,40 @@ void RenderManager::renderScene()
 {
 	// Clear the viewports
 	_renderViewport->clearViewport(_renderContext);
-	
+
+	// Draw the scene
+
+	// Set draw contexts
+	ID3D11DeviceContext* context = _renderContext->d3dImmediateContext();
+	context->IASetInputLayout(InputLayouts::Pos);
+	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	// Camera
+	Matrix world = LoadFloat4x4(&_world);
+	Matrix view = LoadFloat4x4(&_view);
+	Matrix proj = LoadFloat4x4(&_proj);
+	Matrix worldViewProj = MatrixMultiply(view, proj);
+	worldViewProj = MatrixMultiply(world, worldViewProj);
+	PrimitiveEffect* effect = static_cast<PrimitiveEffect*>(_effectsManager->getEffectByName("primitive"));
+	effect->worldViewProj()->SetMatrix(reinterpret_cast<float*>(&worldViewProj));
+
+	// Set vertex buffers
+	SUINT stride = sizeof(Vertex);
+	SUINT offset = 0;
+	context->IASetVertexBuffers(0, 1, _mesh->vertexBufferPtr(), &stride, &offset);
+	context->IASetIndexBuffer(_mesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+
+	// Technique description
+	D3DX11_TECHNIQUE_DESC techDesc;
+	effect->technique()->GetDesc(&techDesc);
+	for(SUINT p = 0; p < techDesc.Passes; ++p)
+	{
+		effect->technique()->GetPassByIndex(p)->Apply(0, context);
+
+		// Draw indices
+		context->DrawIndexed(_mesh->indexCount(), 0, 0);
+	}
+
 	// Present the swap chain
 	HR(_renderContext->swapChain()->Present(0, 0));
 }

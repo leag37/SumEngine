@@ -132,8 +132,8 @@ Matrix MatrixRotationZ(float angle);
 //// Build a lookat matrix (right-handed)
 //Matrix MatrixLookAtRH(const Vector eye, const Vector at, const Vector up);
 //
-//// Build a lookat matrix (left-handed)
-//Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up);
+// Build a lookat matrix (left-handed)
+Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up);
 //
 //// Build a perspective projection matrix (right-handed)
 //Matrix MatrixPerspectiveRH(float w, float h, float zn, float zf);
@@ -153,11 +153,11 @@ Matrix MatrixRotationZ(float angle);
 //// Build a perspective projection matrix (right-handed)
 //Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 //
-//// Build a perspective projection matrix (left-handed)
-//Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
-//
-//// Build a perspective projection matrix (left-handed)
-//Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
+// Build a perspective projection matrix (left-handed)
+Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
+
+// Build a perspective projection matrix (left-handed)
+Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 //
 //// Build a matrix which flattens geometry into a plane, as if casting a shadow from a light
 //Matrix MatrixShadow(const Vector light, const Vector plane);

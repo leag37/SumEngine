@@ -17,7 +17,6 @@
 #ifndef __SUMRENDERMANAGER_H__
 #define __SUMRENDERMANAGER_H__
 
-#include "SumInclude.h"
 #include "SumRenderCore.h"
 #include "SumRenderContext.h"
 #include "SumRenderWindow.h"
@@ -72,6 +71,23 @@ private:
 
 	// Effects manager
 	EffectsManager* _effectsManager;
+
+	// TEMP
+	Mesh* _mesh;
+	Float4x4 _world;
+	Float4x4 _view;
+	Float4x4 _proj;
+	Float3 _eyePosW;
+	SFLOAT _theta;
+	SFLOAT _phi;
+	SFLOAT _radius;
+
+// Inline accessor functions
+public:
+	SUMINLINE ID3D11Device* d3dDevice() const
+	{
+		return _renderContext->d3dDevice();
+	}
 };
 
 #endif

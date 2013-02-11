@@ -13,7 +13,6 @@
 #ifndef __SUMRENDERCONTEXT_H__
 #define __SUMRENDERCONTEXT_H__
 
-#include "SumInclude.h"
 #include "SumRenderCore.h"
 
 class RenderContext

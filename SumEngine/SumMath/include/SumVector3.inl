@@ -124,15 +124,15 @@ SUMINLINE Vector Vec3Cross(const Vector v1, const Vector v2)
 	Vector vResult = _mm_mul_ps(vTemp1, vTemp2);
 
 	// Perform right side of the operation
-	vTemp1 = _mm_shuffle_ps(v1, v1, _MM_SHUFFLE(3, 1, 0, 2));
-	vTemp2 = _mm_shuffle_ps(v2, v2, _MM_SHUFFLE(3, 0, 2, 1));
+	vTemp1 = _mm_shuffle_ps(vTemp1, vTemp1, _MM_SHUFFLE(3, 0, 2, 1));
+	vTemp2 = _mm_shuffle_ps(vTemp2, vTemp2, _MM_SHUFFLE(3, 1, 0, 2));
 	vTemp1 = _mm_mul_ps(vTemp1, vTemp2);
 
 	// Subtraction
-	vResult = _mm_sub_ps(vResult, vTemp2);
+	vResult = _mm_sub_ps(vResult, vTemp1);
 
 	// Set w to 0
-	vResult = _mm_and_ps(vResult, gVWMask);
+	vResult = _mm_and_ps(vResult, gVMask3);
 
 	return vResult;
 }

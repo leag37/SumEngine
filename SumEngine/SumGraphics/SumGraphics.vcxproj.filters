@@ -124,11 +124,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="Effects\LightingHelper.fx">
+      <Filter>Effects\Utility Effects</Filter>
+    </CustomBuild>
     <CustomBuild Include="Effects\Basic.fx">
       <Filter>Effects\Standard Effects</Filter>
     </CustomBuild>
-    <CustomBuild Include="Effects\LightingHelper.fx">
-      <Filter>Effects\Utility Effects</Filter>
+    <CustomBuild Include="Effects\Primitive.fx">
+      <Filter>Effects\Standard Effects</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

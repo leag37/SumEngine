@@ -10,10 +10,11 @@
 #ifndef __SUMRENDERVIEWPORT_H__
 #define __SUMRENDERVIEWPORT_H__
 
-#include "SumInclude.h"
 #include "SumRenderContext.h"
+#include "SumInclude.h"
 #include "SumRenderWindow.h"
-#include "SumMath.h"
+
+class RenderContext;
 
 class RenderViewport
 {

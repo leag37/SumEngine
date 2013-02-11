@@ -58,6 +58,12 @@ public:
 	{
 		return _windowActive;
 	}
+
+	// Get the aspect ratio
+	SUMINLINE SFLOAT aspectRatio() const
+	{
+		return static_cast<float>(_clientWidth) / _clientHeight;
+	}
 };
 
 #endif

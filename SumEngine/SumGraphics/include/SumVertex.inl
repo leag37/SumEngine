@@ -3,8 +3,8 @@ SUMINLINE Vertex::Vertex()
 { }
 
 // Constructor
-SUMINLINE Vertex::Vertex(const Float3& p)
-	: _position(p)//, _normal(n), _tangentU(t), _texC(uv)
+SUMINLINE Vertex::Vertex(const Float3& p)//, const Float4& c)
+	: _position(p)//, color(c)//, _normal(n), _tangentU(t), _texC(uv)
 { }
 
 // Constructor
@@ -17,6 +17,11 @@ SUMINLINE const Float3& Vertex::position()
 {
 	return _position;
 }
+//
+//SUMINLINE const Float4& Vertex::color()
+//{
+//	return _color;
+//}
 
 //SUMINLINE const Float3& Vertex::normal()
 //{

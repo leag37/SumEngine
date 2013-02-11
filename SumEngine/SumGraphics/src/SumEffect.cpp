@@ -26,6 +26,21 @@ Effect::~Effect()
 	ReleaseCOM(_effect);
 }
 
+
+// Constructor
+PrimitiveEffect::PrimitiveEffect(ID3D11Device* device, const std::string& filename)
+	: Effect(device, filename)
+{
+	_technique = _effect->GetTechniqueByName("ColorTech");
+	_worldViewProj = _effect->GetVariableByName("gWorldViewProj")->AsMatrix();
+}
+
+// Destructor
+PrimitiveEffect::~PrimitiveEffect()
+{
+
+}
+
 BasicEffect::BasicEffect(ID3D11Device* device, const std::string& filename)
 	: Effect(device, filename)
 {

@@ -173,7 +173,7 @@ SUMINLINE void VectorSinCos(Vector* pSin, Vector* pCos, const Vector v)
 	Vector vPower = _mm_mul_ps(v, v);
 	Vector vConstant = _mm_load1_ps(&gVCosCoefficient0.f[1]);
 	vConstant = _mm_mul_ps(vPower, vConstant);
-	cos = _mm_add_ps(v, vConstant);
+	cos = _mm_add_ps(gVOne, vConstant);
 
 	// v^3
 	vPower = _mm_mul_ps(vPower, v);

@@ -30,6 +30,7 @@ EffectsManager::~EffectsManager()
 //*************************************************************************************************
 void EffectsManager::startUp(ID3D11Device* device)
 {
+	_effects["primitive"] = new PrimitiveEffect(device, "Effects/Primitive.fxo");
 	_effects["basic"] = new BasicEffect(device, "Effects/Basic.fxo");
 }
 

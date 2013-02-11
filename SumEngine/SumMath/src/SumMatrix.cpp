@@ -630,12 +630,102 @@ Matrix MatrixRotationZ(float angle)
 //// Build a lookat matrix (right-handed)
 //Matrix MatrixLookAtRH(const Vector eye, const Vector at, const Vector up);
 //
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a lookat matrix (left-handed)
-//Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up);
+//*************************************************************************************************
+// Build a lookat matrix (left-handed)
 //
+// Construct z axis
+// zAxis = Vec3Sub(at, eye)
+// zAxis = Vec3Normalize(zAxis)
+//
+// Construct x axis
+// xAxis = Vec3Cross(up, zAxis)
+// xAxis = Vec3Normalize(xAxis)
+//
+// Construct y axis
+// yAxis = Vec3Cross(zAxis, xAxis)
+//
+// Splat x and y axes
+// vTemp1 = _mm_shuffle_ps(xAxis, yAxis, _MM_SHUFFLE(1, 0, 1, 0)) -> x.x x.y y.x y.y
+// vTemp2 = _mm_shuffle_ps(xAxis, yAxis, _MM_SHUFFLE(3, 2, 3, 2)) -> x.z x.w y.z y.w
+//
+// Splat z axis
+// vTemp3 = _mm_shuffle_ps(zAxis, gVZero, _MM_SHUFFLE(1, 0, 1, 0)) -> z.x z.y 0 0
+// vTemp4 = _mm_shuffle_ps(zAxis, gVZero, _MM_SHUFFLE(3, 2, 3, 2)) -> z.z z.w 0 0
+//
+// Construct R0
+// r1 = _mm_shuffle_ps(vTemp1, vTemp3, _MM_SHUFFLE(3, 0, 2, 0));
+//
+// Construct R1
+// r2 = _mm_shuffle_ps(vTemp1, vTemp3, _MM_SHUFFLE(3, 1, 3, 1));
+//
+// Construct R2
+// r3 = _mm_shuffle_ps(vTemp2, vTemp4, _MM_SHUFFLE(3, 0, 2, 0))
+//
+// Construct R3
+// vTemp1 = Vec3Dot(xAxis, eye)
+// vTemp1 = Vec3Mul(gVNegOne, vTemp1)
+// vTemp2 = Vec3Dot(yAxis, eye)
+// vTemp2 = Vec3Mul(gVNegOne, vTemp2)
+// vTemp3 = Vec3Dot(zAxis, eye)
+// vTemp3 = Vec3Mul(gVNegOne, vTemp3)
+//
+// vTemp1 = _mm_unpacklo_ps(vTemp1, vTemp2)
+// vTemp2 = _mm_unpacklo_ps(vTemp3, gVOne)
+// r4 = _mm_unpacklo_ps(vTemp1, vTemp2)
+//*************************************************************************************************
+Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up)
+{
+	// Construct z axis
+	Vector zAxis = Vec3Sub(at, eye);
+	Vector l = Vec3Length(zAxis);
+	zAxis = Vec3Normalize(zAxis);
+	Vector l2 = Vec3Length(zAxis);
+
+	// Construct x axis
+	Vector xAxis = Vec3Cross(up, zAxis);
+	Vector l3 = Vec3Length(xAxis);
+	xAxis = Vec3Normalize(xAxis);
+	Vector l4 = Vec3Length(xAxis);
+
+	// Construct y axis
+	Vector yAxis = Vec3Cross(zAxis, xAxis);
+	Vector l5 = Vec3Length(yAxis);
+
+	// Splat x and y axes
+	Vector vTemp1 = _mm_shuffle_ps(xAxis, yAxis, _MM_SHUFFLE(1, 0, 1, 0));
+	Vector vTemp2 = _mm_shuffle_ps(xAxis, yAxis, _MM_SHUFFLE(3, 2, 3, 2));
+
+	// Splat z axis
+	Vector vTemp3 = _mm_shuffle_ps(zAxis, gVZero, _MM_SHUFFLE(1, 0, 1, 0));
+	Vector vTemp4 = _mm_shuffle_ps(zAxis, gVZero, _MM_SHUFFLE(3, 2, 3, 2));
+
+	// Construct the matix
+	Matrix m;
+
+	// R0
+	m.r[0] = _mm_shuffle_ps(vTemp1, vTemp3, _MM_SHUFFLE(3, 0, 2, 0));
+
+	// R1
+	m.r[1] = _mm_shuffle_ps(vTemp1, vTemp3, _MM_SHUFFLE(3, 1, 3, 1));
+
+	// R2
+	m.r[2] = _mm_shuffle_ps(vTemp2, vTemp4, _MM_SHUFFLE(3, 0, 2, 0));
+
+	// R3
+	vTemp1 = Vec3Dot(xAxis, eye);
+	vTemp1 = Vec3Scale(vTemp1, gVNegOne);
+	vTemp2 = Vec3Dot(yAxis, eye);
+	vTemp2 = Vec3Scale(vTemp2, gVNegOne);
+	vTemp3 = Vec3Dot(zAxis, eye);
+	vTemp3 = Vec3Scale(vTemp3, gVNegOne);
+
+	vTemp1 = _mm_unpacklo_ps(vTemp1, vTemp3);
+	vTemp3 = _mm_unpacklo_ps(vTemp2, gVOne);
+	m.r[3] = _mm_unpacklo_ps(vTemp1, vTemp3);
+
+	return m;
+}
+
 ////*************************************************************************************************
 //// 
 ////*************************************************************************************************
@@ -672,18 +762,75 @@ Matrix MatrixRotationZ(float angle)
 //// Build a perspective projection matrix (right-handed)
 //Matrix MatrixPerspectiveFovRH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
 //
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a perspective projection matrix (left-handed)
-//Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf);
-//
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a perspective projection matrix (left-handed)
-//Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf);
-//
+//*************************************************************************************************
+// Build a perspective projection matrix (left-handed)
+// 
+// [cot(fovy/2)/aspect 0 0 0]
+// [0 cot(fovy/2) 0 0]
+// [0 0 (f)/(f-n) (nf)/(n-f)]
+// [0 0 -1 0]
+//*************************************************************************************************
+Matrix MatrixPerspectiveFovLH(float fovy, float aspect, float zn, float zf)
+{
+	Vector vFovy = VectorReplicate(fovy);
+	Vector vAspect = VectorReplicate(aspect);
+	Vector vZn = VectorReplicate(zn);
+	Vector vZf = VectorReplicate(zf);
+
+	return MatrixPerspectiveFovLH(vFovy, vAspect, vZn, vZf);
+}
+
+//*************************************************************************************************
+// Build a perspective projection matrix (left-handed) 
+// 
+// [cot(fovy/2)/aspect 0 0 0]
+// [0 cot(fovy/2) 0 0]
+// [0 0 (f)/(f-n) (nf)/(n-f)]
+// [0 0 -1 0]
+// 
+// cot = cos/sin
+//*************************************************************************************************
+Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vector zn, const Vector& zf)
+{
+	// Find fovy/2
+	Vector fovy2 = VectorMul(fovy, gVOneHalf);
+
+	// Find cot
+	Vector sin, cos;
+	VectorSinCos(&sin, &cos, fovy2);
+	Vector cot = VectorDiv(cos, sin);
+	fovy2 = VectorDiv(cot, aspect);
+
+	// Matrix constructor
+	Matrix m;
+
+	// Construct the first row
+	m.r[0] = _mm_move_ss(gVZero, fovy2);
+
+	// Construct the second row
+	m.r[1] = _mm_and_ps(gVYMask, cot);
+
+	// Construct third row
+	Vector range = VectorSub(zf, zn);
+	range = VectorDiv(zf, range);
+	Vector vTemp = _mm_and_ps(gVWMask, range);
+	m.r[2] = _mm_unpackhi_ps(vTemp, gVIdentityR3);//, vTemp);
+
+	/*vTemp1 = _mm_and_ps(gVYMask, vTemp1);
+	range = VectorMul(gVNegOne, range);
+	Vector vTemp2 = VectorMul(zn, zf);
+	vTemp2 = VectorDiv(vTemp2, range);
+	vTemp2 =  _mm_and_ps(gVYMask, vTemp2);
+	m.r[2] = _mm_unpacklo_ps(vTemp1, vTemp2);*/
+
+	// Construct fourth row	
+	range = VectorMul(gVNegOne, range);
+	range = VectorMul(range, zn);
+	m.r[3] = _mm_and_ps(gVZMask, range);	
+
+	return m;
+}
+
 ////*************************************************************************************************
 //// 
 ////*************************************************************************************************

@@ -117,6 +117,12 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc compile for debug: %(FullPath)</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo</Outputs>
     </CustomBuild>
+    <CustomBuild Include="Effects\Primitive.fx">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc /Fc /Od /Zi /T fx_5_0 /Fo "$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">fxc compile for debug: %(FullPath)</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo</Outputs>
+    </CustomBuild>
     <None Include="include\SumEffect.inl" />
     <None Include="Include\SumRenderViewport.inl" />
     <None Include="include\SumVertex.inl" />

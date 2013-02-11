@@ -5,6 +5,7 @@
 //
 // TODO: Switch over to use SumEngine data structures intead of STL
 // TODO: Come up with a better way to store effect names -> probably from configuration
+// TODO: Split effects out into multiple files
 //*************************************************************************************************
 #ifndef __SUMEFFECT_H__
 #define __SUMEFFECT_H__
@@ -28,6 +29,35 @@ private:
 protected:
 	// Effect variable
 	ID3DX11Effect* _effect;
+};
+
+// A primitive effect with support for position only
+class PrimitiveEffect : public Effect
+{
+public:
+	// Constructor
+	PrimitiveEffect(ID3D11Device* device, const std::string& filename);
+
+	// Destructor
+	~PrimitiveEffect();
+
+private:
+	// Technique
+	ID3DX11EffectTechnique* _technique;
+
+	// Camera buffer
+	ID3DX11EffectMatrixVariable* _worldViewProj;
+
+public:
+	SUMINLINE ID3DX11EffectTechnique* technique()
+	{
+		return _technique;
+	}
+
+	SUMINLINE ID3DX11EffectMatrixVariable* worldViewProj()
+	{
+		return _worldViewProj;
+	}
 };
 
 // A basic effect supporting up to 3 light sources

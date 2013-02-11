@@ -13,8 +13,10 @@ class Mesh;
 namespace Geometry
 {
 	// Create a box and attach it to the resource manager
-	Mesh* CreateBox(SFLOAT width, SFLOAT height, SFLOAT depth);
+	Mesh* CreateBox(const String& name, SFLOAT width, SFLOAT height, SFLOAT depth);
 
+	// Create a mesh from mesh data
+	void CreateMeshFromData(const MeshData& data, Mesh* pOut);
 }
 
 #endif

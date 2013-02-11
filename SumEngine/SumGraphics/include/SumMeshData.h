@@ -9,11 +9,15 @@
 
 #include "SumRenderCore.h"
 
+class Vertex;
+
 struct MeshData
 {
-	int a;
-//	Array<Vertex> vertices;
-//	Array<SUINT> indices;
+	SUMINLINE MeshData()
+	{ }
+
+	Array<Vertex> vertices;
+	Array<SUINT> indices;
 };
 
 #endif

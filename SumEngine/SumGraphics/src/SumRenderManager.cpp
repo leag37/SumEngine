@@ -122,9 +122,10 @@ void RenderManager::renderScene()
 	Matrix view = LoadFloat4x4(&_view);
 	Matrix proj = LoadFloat4x4(&_proj);
 	Matrix worldViewProj = MatrixMultiply(view, proj);
-	worldViewProj = MatrixMultiply(world, worldViewProj);
+	//worldViewProj = MatrixMultiply(world, worldViewProj);
 	PrimitiveEffect* effect = static_cast<PrimitiveEffect*>(_effectsManager->getEffectByName("primitive"));
-	effect->worldViewProj()->SetMatrix(reinterpret_cast<float*>(&worldViewProj));
+	effect->viewProj()->SetMatrix(reinterpret_cast<float*>(&worldViewProj));
+	effect->world()->SetMatrix(reinterpret_cast<float*>(&world));
 
 	// Set vertex buffers
 	SUINT stride = sizeof(Vertex);

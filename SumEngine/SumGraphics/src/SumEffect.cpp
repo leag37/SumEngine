@@ -32,7 +32,8 @@ PrimitiveEffect::PrimitiveEffect(ID3D11Device* device, const std::string& filena
 	: Effect(device, filename)
 {
 	_technique = _effect->GetTechniqueByName("ColorTech");
-	_worldViewProj = _effect->GetVariableByName("gWorldViewProj")->AsMatrix();
+	_viewProj = _effect->GetVariableByName("gViewProj")->AsMatrix();
+	_world = _effect->GetVariableByName("gWorld")->AsMatrix();
 }
 
 // Destructor

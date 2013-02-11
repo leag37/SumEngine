@@ -2,6 +2,8 @@
 // Title: SumGeometry.h
 // Author: Gael Huber
 // Description: Utility functions to help generate standard pieces of geometry
+//
+// TODO: Improve box mesh (can be simplified to 8 vertices...)
 //*************************************************************************************************
 #ifndef __SUMGEOMETRY_H__
 #define __SUMGEOMETRY_H__

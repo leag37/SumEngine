@@ -46,7 +46,8 @@ private:
 	ID3DX11EffectTechnique* _technique;
 
 	// Camera buffer
-	ID3DX11EffectMatrixVariable* _worldViewProj;
+	ID3DX11EffectMatrixVariable* _viewProj;
+	ID3DX11EffectMatrixVariable* _world;
 
 public:
 	SUMINLINE ID3DX11EffectTechnique* technique()
@@ -54,9 +55,14 @@ public:
 		return _technique;
 	}
 
-	SUMINLINE ID3DX11EffectMatrixVariable* worldViewProj()
+	SUMINLINE ID3DX11EffectMatrixVariable* viewProj()
 	{
-		return _worldViewProj;
+		return _viewProj;
+	}
+
+	SUMINLINE ID3DX11EffectMatrixVariable* world()
+	{
+		return _world;
 	}
 };
 

@@ -4,9 +4,14 @@
 // Description: Primitive effect file to render an object. No particular support for color.
 //*************************************************************************************************
 
+cbuffer cbPerFrame
+{
+	float4x4 gViewProj;
+};
+
 cbuffer cbPerObject
 {
-	float4x4 gWorldViewProj;
+	float4x4 gWorld;
 };
 
 struct VertexIn
@@ -30,7 +35,8 @@ VertexOut VS(VertexIn vIn)
 	VertexOut vOut;
 
 	// Transform to homogeneous clip space
-	vOut.PosH = mul(float4(vIn.Pos, 1.0f), gWorldViewProj);
+	float4x4 wvp = mul(gWorld, gViewProj);
+	vOut.PosH = mul(float4(vIn.Pos, 1.0f), wvp);
 
 	// Return vertex
 	return vOut;

@@ -39,7 +39,7 @@
   <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>include;..\SumPlatform\include;..\SumMemory\include;..\SumMath\include;..\SumThreading\include;..\SumUtilities\include;..\SumGraphics\include;</AdditionalIncludeDirectories>
     </ClCompile>

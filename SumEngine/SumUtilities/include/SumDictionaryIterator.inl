@@ -100,7 +100,7 @@ const typename Dictionary<Key, Value>::Iterator& Dictionary<Key, Value>::Iterato
 * Post-increment
 **************************************************************************************************/
 template <typename Key, typename Value>
-const typename Dictionary<Key, Value>::Iterator Dictionary<Key, Value>::Iterator::operator++(int rhs) {
+const typename Dictionary<Key, Value>::Iterator Dictionary<Key, Value>::Iterator::operator++(int) {
 	// Copy this
 	Iterator itr = *this;
 
@@ -142,7 +142,7 @@ const typename Dictionary<Key, Value>::Iterator& Dictionary<Key, Value>::Iterato
 * Post-decrement
 **************************************************************************************************/
 template <typename Key, typename Value>
-const typename Dictionary<Key, Value>::Iterator Dictionary<Key, Value>::Iterator::operator--(int rhs) {
+const typename Dictionary<Key, Value>::Iterator Dictionary<Key, Value>::Iterator::operator--(int) {
 	// Copy this
 	Iterator itr = *this;
 

@@ -72,7 +72,7 @@ void ConfigurationManager::loadPrimaryConfig()
 		std::string tmpLine;
 		String line;
 
-		Configuration* config;
+		Configuration* config = 0;
 
 		while(fin.good())
 		{
@@ -107,6 +107,7 @@ void ConfigurationManager::loadPrimaryConfig()
 			{
 				// Parse line
 				Array<String> values = line.split('=');
+
 				config->addConfigPair(values[0], values[1]);
 			}
 		}

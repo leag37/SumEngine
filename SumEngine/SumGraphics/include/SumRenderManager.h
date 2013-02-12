@@ -13,6 +13,7 @@
 // LightManager -> Manages all lighting effects
 //
 // TODO: Read configuration file and initialize based on RenderConfig
+// TODO: Add debugging information to the top of the window
 //*************************************************************************************************
 #ifndef __SUMRENDERMANAGER_H__
 #define __SUMRENDERMANAGER_H__

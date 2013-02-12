@@ -143,9 +143,9 @@ public:
 	const bool operator==(const Iterator& rhs) const;	// Equivalence
 	const bool operator!=(const Iterator& rhs) const;	// Non-equivalence
 	const Iterator& operator++(void);	// Pre-increment
-	const Iterator operator++(int rhs);	// Post-increment
+	const Iterator operator++(int);	// Post-increment
 	const Iterator& operator--(void);	// Pre-decrement
-	const Iterator operator--(int rhs);	// Post-decrement
+	const Iterator operator--(int);	// Post-decrement
 	const Iterator& operator+=(int off);	// Increment by
 	const Iterator& operator-=(int off);	// Decrement by
 	const Iterator operator+(int off) const;	// Return an iterator incremented by specified amount

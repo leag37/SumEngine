@@ -6,6 +6,8 @@
 #ifndef __SUMPLATFORM_H__
 #define __SUMPLATFORM_H__
 
+#pragma warning(disable: 4201)
+
 // Exports
 //***********************************************
 #define SUMEXPORT __declspec (dllexport)

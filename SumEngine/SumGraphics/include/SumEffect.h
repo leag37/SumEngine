@@ -6,6 +6,8 @@
 // TODO: Switch over to use SumEngine data structures intead of STL
 // TODO: Come up with a better way to store effect names -> probably from configuration
 // TODO: Split effects out into multiple files
+// TODO: Move inline functions to .inl files
+// TODO: Make effect more generic by adding technique and variable maps
 //*************************************************************************************************
 #ifndef __SUMEFFECT_H__
 #define __SUMEFFECT_H__

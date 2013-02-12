@@ -677,19 +677,14 @@ Matrix MatrixLookAtLH(const Vector eye, const Vector at, const Vector up)
 {
 	// Construct z axis
 	Vector zAxis = Vec3Sub(at, eye);
-	Vector l = Vec3Length(zAxis);
 	zAxis = Vec3Normalize(zAxis);
-	Vector l2 = Vec3Length(zAxis);
 
 	// Construct x axis
 	Vector xAxis = Vec3Cross(up, zAxis);
-	Vector l3 = Vec3Length(xAxis);
 	xAxis = Vec3Normalize(xAxis);
-	Vector l4 = Vec3Length(xAxis);
 
 	// Construct y axis
 	Vector yAxis = Vec3Cross(zAxis, xAxis);
-	Vector l5 = Vec3Length(yAxis);
 
 	// Splat x and y axes
 	Vector vTemp1 = _mm_shuffle_ps(xAxis, yAxis, _MM_SHUFFLE(1, 0, 1, 0));

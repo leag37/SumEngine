@@ -73,7 +73,7 @@ const String::Iterator& String::Iterator::operator++(void) {
 /**************************************************************************************************
 * Post-increment
 **************************************************************************************************/
-const String::Iterator String::Iterator::operator++(int rhs) {
+const String::Iterator String::Iterator::operator++(int) {
 	// Make a copy of the iterator
 	Iterator toReturn = *this;
 
@@ -84,9 +84,9 @@ const String::Iterator String::Iterator::operator++(int rhs) {
 	return toReturn;
 }
 
-/**************************************************************************************************
-* Pre-decrement
-**************************************************************************************************/
+//*************************************************************************************************
+// Pre-decrement
+//*************************************************************************************************
 const String::Iterator& String::Iterator::operator--(void) {
 	// Decrement the pointer and return this
 	--c;
@@ -96,7 +96,7 @@ const String::Iterator& String::Iterator::operator--(void) {
 /**************************************************************************************************
 * Post-decrement
 **************************************************************************************************/
-const String::Iterator String::Iterator::operator--(int rhs) {
+const String::Iterator String::Iterator::operator--(int) {
 	// Make a copy of hte iterator
 	Iterator toReturn = *this;
 

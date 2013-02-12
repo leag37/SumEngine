@@ -2,8 +2,13 @@
 // Title: SumMain.cpp
 // Author: Gael Huber
 // Description: Main class of the engine. Responsible for launching the engine proper.
+//
+// TODO: Find out why debug mode doesn't work as standalone exe
 //*************************************************************************************************
 #include "SumSimulationManager.h"
+
+#include <string>
+std::string::iterator itr;
 
 //*************************************************************************************************
 // Main method of the engine.

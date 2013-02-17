@@ -5,10 +5,10 @@
 //*************************************************************************************************
 #include "SumEffect.h"
 
-Effect::Effect(ID3D11Device* device, const std::string& filename)
+Effect::Effect(ID3D11Device* device, const String& filename)
 	:	_effect(0)
 {
-	std::ifstream fin(filename, std::ios::binary);
+	std::ifstream fin(filename.c_str(), std::ios::binary);
 
 	fin.seekg(0, std::ios_base::end);
 	int size = (int)fin.tellg();
@@ -28,7 +28,7 @@ Effect::~Effect()
 
 
 // Constructor
-PrimitiveEffect::PrimitiveEffect(ID3D11Device* device, const std::string& filename)
+PrimitiveEffect::PrimitiveEffect(ID3D11Device* device, const String& filename)
 	: Effect(device, filename)
 {
 	_technique = _effect->GetTechniqueByName("ColorTech");
@@ -42,7 +42,7 @@ PrimitiveEffect::~PrimitiveEffect()
 
 }
 
-BasicEffect::BasicEffect(ID3D11Device* device, const std::string& filename)
+BasicEffect::BasicEffect(ID3D11Device* device, const String& filename)
 	: Effect(device, filename)
 {
 	_light1Tech = _effect->GetTechniqueByName("Light1");

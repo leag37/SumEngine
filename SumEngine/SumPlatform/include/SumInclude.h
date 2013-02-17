@@ -6,18 +6,17 @@
 #ifndef __SUMINCLUDE_H__
 #define __SUMINCLUDE_H__
 
+#include <Windows.h>
+#include <D3D11.h>
+
 #include "SumPlatform.h"
 #include "SumSingleton.h"
 #include "SumGlobals.h"
-#include <SumMemory.h>
+//#include <SumMemory.h>
 
 #ifdef SUMSIMD
 #include <immintrin.h>
 #endif
 
-#include <Windows.h>
-#include <D3D11.h>
-
-#include <string>
 
 #endif

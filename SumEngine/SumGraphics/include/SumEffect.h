@@ -21,7 +21,7 @@ class Effect
 {
 public:
 	// Constructor
-	Effect(ID3D11Device* device, const std::string& filename);
+	Effect(ID3D11Device* device, const String& filename);
 
 	// Destructor
 	virtual ~Effect();
@@ -38,7 +38,7 @@ class PrimitiveEffect : public Effect
 {
 public:
 	// Constructor
-	PrimitiveEffect(ID3D11Device* device, const std::string& filename);
+	PrimitiveEffect(ID3D11Device* device, const String& filename);
 
 	// Destructor
 	~PrimitiveEffect();
@@ -73,7 +73,7 @@ class BasicEffect : public Effect
 {
 public:
 	// Constructor
-	BasicEffect(ID3D11Device* device, const std::string& filename);
+	BasicEffect(ID3D11Device* device, const String& filename);
 
 	// Destructor
 	~BasicEffect();

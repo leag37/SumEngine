@@ -30,3 +30,4 @@
 *.suo
 *.tlog
 *.vcxproj.user
+*.unsuccessfulbuild

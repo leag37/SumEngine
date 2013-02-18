@@ -40,7 +40,7 @@ void SimulationManager::startUp()
 	// TODO: Seed random number generator
 
 	// Initialize memory subsystems
-	//CreateAllocators();
+	CreateAllocators();
 	
 	// Initialize game configuration
 	_configurationManager = new ConfigurationManager();
@@ -85,7 +85,7 @@ void SimulationManager::shutDown()
 	// TODO: Shut down game configuration
 
 	// Destroy allocators
-	//DestroyAllocators();
+	DestroyAllocators();
 }
 
 //*************************************************************************************************

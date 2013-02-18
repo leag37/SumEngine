@@ -19,9 +19,4 @@ SUMINLINE static void DestroyAllocators()
 {
 }
 
-// Safe deletion macro
-#ifndef SafeDelete
-#define SafeDelete(x) { if(x) delete x; x = 0; }
-#endif
-
 #endif

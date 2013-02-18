@@ -27,8 +27,7 @@ namespace SumMemory
 
 		// Copy constructor
 		SUMINLINE Chunk(const Chunk& rhs)
-			:	ptr(rhs.ptr), chunkSize(rhs.chunkSize)
-		{ }
+			:	ptr(rhs.ptr), chunkSize(rhs.chunkSize){ }
 
 		// Constructor specifying data points
 		SUMINLINE Chunk(SCHAR* iPtr, SUINT iChunkSize)
@@ -48,6 +47,7 @@ namespace SumMemory
 
 			// Set the head to the value stored in the data segment of the old head
 			ptr = reinterpret_cast<SCHAR*>(*reinterpret_cast<SUINT*>(nPtr));
+
 			return n;
 		}
 

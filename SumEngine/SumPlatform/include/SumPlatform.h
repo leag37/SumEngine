@@ -81,17 +81,41 @@ typedef wchar_t SWCHAR_T;
 		}														\
 	}
 	#endif
-//	DXTrace(__FILE__, (DWORD)__LINE__, hr, #x, true);	
+//	DXTrace(__FILE__, (DWORD)__LINE__, hr, #x, true);
+
 #else
 	#ifndef HR
 	#define HR(x) (x)
 	#endif
 #endif
 
-// Safe deletion of objects
+// Memory
 //***********************************************
 #ifndef ReleaseCOM
 #define ReleaseCOM(x) { if(x) x->Release(); x = 0; }
+#endif
+
+// Safe deletion macro
+#ifndef SafeDelete
+#define SafeDelete(x) { if(x) delete x; x = 0; }
+#endif
+
+// Safe array deletion macro
+#ifndef SafeDeleteArray
+#define SafeDeleteArray(x) { if(x) delete[] x; x = 0; }
+#endif
+
+// Safe deletion macros overridden from DirectX
+#ifndef SAFE_DELETE
+#define SAFE_DELETE(x) { if(x) delete x; x = 0; }
+#endif
+
+#ifndef SAFE_DELETE_ARRAY
+#define SAFE_DELETE_ARRAY(x) { if(x) delete[] x; x = 0; }
+#endif
+
+#ifndef SUMMEMORY
+#define SUMMEMORY
 #endif
 
 // Callbacks

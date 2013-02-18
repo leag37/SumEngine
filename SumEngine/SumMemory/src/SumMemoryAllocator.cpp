@@ -104,6 +104,12 @@ namespace SumMemory
 	//************************************************************************************************
 	void* MemoryAllocator::allocate(size_t size)
 	{
+		// Safety check
+		if(size == 0)
+		{
+			return 0;
+		}
+
 		// Check against minimum size
 		size = size < 8 ? 8 : size;
 
@@ -213,16 +219,20 @@ namespace SumMemory
 			chk = &_variableSize[bin];
 
 			// We fit within this chunk and it exists
-			if(size <= chk->chunkSize && chk->ptr)// && size > pChk.chunkSize)
+			SUINT fitBinSize = chk->chunkSize;
+			SUINT smallBinSize = fitBinSize >> 1;
+			if(chk->ptr && size <= fitBinSize && size > smallBinSize)
 			{
 				// Get pointer to return
 				void* rPtr = chk->pop();
 					
-				// Get pointer at new location
-				void* nPtr =  static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;
+				// Get pointer at new location for designated victim
+				void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
 				// Set pointer size and push onto DV
-				*reinterpret_cast<SUINT*>(nPtr) = *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET;
+				SUINT* oldSize = reinterpret_cast<SUINT*>(static_cast<SCHAR*>(rPtr) - MEM_OFFSET);
+				validatePointer(nPtr, *oldSize - size - MEM_OFFSET);
+				//*reinterpret_cast<SUINT*>(nPtr) = *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET;
 				_designatedVictim.push(nPtr);
 
 				// Return value
@@ -230,8 +240,8 @@ namespace SumMemory
 			}
 			else if(size < chk->chunkSize)
 			{
+				bin += base;
 				base = base << 1;
-				bin += base - 1;
 			}
 			else
 			{
@@ -244,6 +254,7 @@ namespace SumMemory
 		// All else fails, allocate new from memory
 		//-------------------------
 		void* ptr = static_cast<void*>(reinterpret_cast<SCHAR*>(malloc(size + MEM_OFFSET)) + MEM_OFFSET);
+
 		return validatePointer(ptr, size);
 	}
 
@@ -252,6 +263,12 @@ namespace SumMemory
 	//************************************************************************************************
 	void MemoryAllocator::free(void* ptr)
 	{
+		// Safety check
+		if(ptr == 0)
+		{
+			return;
+		}
+
 		// Get data pointer location
 		void* nPtr = static_cast<void*>(reinterpret_cast<SCHAR*>(ptr) - MEM_OFFSET);
 
@@ -274,15 +291,17 @@ namespace SumMemory
 				Chunk* chk = &_variableSize[bin];
 
 				// The memory chunk fits is smaller than the next largest bin
-				if(size < (chk->chunkSize << 1))
+				SUINT fitBinSize = chk->chunkSize;
+				SUINT bigBinSize = fitBinSize << 1;
+				if(size >= fitBinSize && size < bigBinSize)
 				{
 					chk->push(ptr);
 					return;
 				}
-				else if(size < chk->chunkSize)
+				else if(size < fitBinSize)
 				{
+					bin += base;
 					base = base << 1;
-					bin += base - 1;
 				}
 				else
 				{

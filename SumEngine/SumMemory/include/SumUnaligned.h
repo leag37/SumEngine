@@ -9,6 +9,8 @@
 #include "SumInclude.h"
 #include "SumMemoryAllocator.h"
 
+#ifdef SUMMEMORY
+
 SUMINLINE extern void* operator new (size_t size)
 {
 	return SumMemory::MemoryAllocator::getInstancePtr()->allocate(size);
@@ -28,5 +30,7 @@ SUMINLINE extern void operator delete[] (void* ptr)
 {
 	SumMemory::MemoryAllocator::getInstancePtr()->free(ptr);
 } 
+
+#endif
 
 #endif

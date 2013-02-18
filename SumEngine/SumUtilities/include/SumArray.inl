@@ -57,14 +57,17 @@ const Array<Type>& Array<Type>::operator=(const Array<Type>& rhs) {
 	if(this == &rhs)
 		return *this;
 	
-	// Delete any existing data
-	if(data)
+	// Delete any existing data if this array cannot hold the data
+	if(capacity < rhs.getCapacity())
+	{
 		delete[] data;
+		data = 0;
+		capacity = rhs.getCapacity();
+		data = new Type[capacity];
+	}
 
 	// Set counts and allocate new space for array
 	count = rhs.getCount();
-	capacity = rhs.getCapacity();
-	data = new Type[capacity];
 
 	// Populate the array
 	for(SUINT i = 0; i < count; ++i) {

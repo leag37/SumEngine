@@ -549,9 +549,10 @@ void String::clear(void) {
 	//  Empty out the string. We can achieve this by only placing a null-terminating character at the 
 	// start of the string.
 	if(s) {
-		delete s;
+		delete[] s;
 		capacity = 1;
 		length = 0;
+		maxLength = 0;
 		s = new char[capacity];
 		s[0] = '\0';
 	}

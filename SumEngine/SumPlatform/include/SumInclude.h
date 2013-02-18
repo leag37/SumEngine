@@ -12,7 +12,7 @@
 #include "SumPlatform.h"
 #include "SumSingleton.h"
 #include "SumGlobals.h"
-//#include <SumMemory.h>
+#include <SumMemory.h>
 
 #ifdef SUMSIMD
 #include <immintrin.h>

@@ -13,12 +13,17 @@
   <ItemGroup>
     <ClInclude Include="include\SumArray.h" />
     <ClInclude Include="include\SumConfigurationManager.h" />
+    <ClInclude Include="include\SumCriticalSection.h" />
     <ClInclude Include="Include\SumDelegate.h" />
     <ClInclude Include="include\SumDictionary.h" />
     <ClInclude Include="include\SumForwardList.h" />
     <ClInclude Include="include\SumHashMap.h" />
+    <ClInclude Include="include\SumJob.h" />
+    <ClInclude Include="include\SumJobManager.h" />
     <ClInclude Include="include\SumList.h" />
     <ClInclude Include="include\SumRandom.h" />
+    <ClInclude Include="include\SumResource.h" />
+    <ClInclude Include="include\SumResourceManager.h" />
     <ClInclude Include="include\SumString.h" />
   </ItemGroup>
   <ItemGroup>
@@ -35,6 +40,7 @@
     <None Include="include\SumHashMapBucket.inl" />
     <None Include="include\SumHashMapIterator.inl" />
     <None Include="include\SumHashMapPair.inl" />
+    <None Include="include\SumJobManager.inl" />
     <None Include="include\SumList.inl" />
     <None Include="include\SumListIterator.inl" />
     <None Include="include\SumListNode.inl" />
@@ -43,6 +49,7 @@
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp" />
     <ClCompile Include="src\SumHashMapFunctions.cpp" />
+    <ClCompile Include="src\SumJobManager.cpp" />
     <ClCompile Include="src\SumRandom.cpp" />
     <ClCompile Include="src\SumString.cpp" />
     <ClCompile Include="src\SumStringIterator.cpp" />

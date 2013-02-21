@@ -154,6 +154,7 @@ public:
 	const Iterator operator--(int rhs);	// Post-decrement
 	const Pair& operator*(void) const;	// Return the associated value
 	const Pair* operator->(void) const;	// Return a pointer to the associated object
+	Node* _node() const;			// Directly return the node
 
 private:
 	Node* n;

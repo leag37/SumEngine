@@ -63,6 +63,7 @@ public:
 	String& operator+=(const char* str);		// Append to the string
 	String& operator+=(const char c);		// Append to the string
 	String operator+(const String& str);	// Return the appended string
+	String operator+(const String& str) const;	// Return the appended string
 	String operator+(const char* str);		// Return the appended string
 	String operator+(const char c);			// Return the appended string
 	String& append(const String& str);		// Append to the string

@@ -21,7 +21,7 @@ Dictionary<Key, Value>::Dictionary(const Dictionary<Key, Value>& rhs)
 	: dictionary(0), size(0)
 {
 	// Iterate through the tree being copied and insert all objects
-	for(Dictionary<Key, Value>::Iterator itr = begin(); itr != end(); ++itr) {
+	for(Dictionary<Key, Value>::Iterator itr = rhs.begin(); itr != end(); ++itr) {
 		insert((*itr).getKey(), (*itr).getValue());
 	}
 }
@@ -736,6 +736,12 @@ const bool Dictionary<Key, Value>::_isLeaf(typename Dictionary<Key, Value>::Node
 **************************************************************************************************/
 template <typename Key, typename Value>
 typename Dictionary<Key, Value>::Node* Dictionary<Key, Value>::_leftMost(typename Dictionary<Key, Value>::Node* n) {
+	// Safety check for non-existent node
+	if(n == 0)
+	{
+		return 0;
+	}
+
 	// While there is a left child that is not null, go to it
 	while(!n->getLeft()->isEmpty()) {
 		n = n->getLeft();

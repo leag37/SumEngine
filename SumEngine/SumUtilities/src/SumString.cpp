@@ -619,6 +619,16 @@ String String::operator+(const String& str) {
 	return toReturn;
 }
 
+//*************************************************************************************************
+// Return the appended string
+//*************************************************************************************************
+String String::operator+(const String& str) const
+{
+	String toReturn = String(*this);
+	toReturn += str;
+	return toReturn;
+}
+
 /**************************************************************************************************
 * Return the appended string
 **************************************************************************************************/
@@ -1501,8 +1511,11 @@ Array<String> String::split(char split) const {
 	for(Iterator itr = begin(); itr != e; ++itr) {
 		// Check for delimiter
 		if(*itr == split) {
-			arr.push_back(str);
-			str.clear();
+			if(str.getEmpty() == false)
+			{
+				arr.push_back(str);
+				str.clear();
+			}
 		} else {
 			str += *itr;
 		}

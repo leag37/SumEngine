@@ -15,13 +15,13 @@ class Resource
 {
 public:
 	// Constructor
-	Resource(const String& name);
+	Resource();
 
 	// Constructor
-	Resource(const String& name, String& filePath);
+	Resource(const String& name, const String& filePath, const String& fileType);
 
 	// Destructor
-	~Resource();
+	virtual ~Resource();
 
 	// Get the resource
 	Type* resource();
@@ -31,7 +31,10 @@ public:
 
 protected:
 	// Load the resource
-	virtual void _load();
+	void _load();
+
+	// Free the resource
+	void _unload();
 
 protected:
 	// The loaded resource
@@ -43,8 +46,13 @@ protected:
 	// The resource path
 	String _filePath;
 
+	// The resource type
+	String _fileType;
+
 	// Is the resource loaded
 	SBOOL _isLoaded;
 };
+
+#include "SumResource.inl"
 
 #endif

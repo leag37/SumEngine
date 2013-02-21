@@ -90,7 +90,7 @@ void ConfigurationManager::loadPrimaryConfig()
 			}
 
 			// Section
-			if(line.at(0) == '[' && line.at(line.getLength() - 1) == ']')
+			else if(line.at(0) == '[' && line.at(line.getLength() - 1) == ']')
 			{
 				// Pull the section name
 				String section = line.substring(1, line.getLength() - 2);

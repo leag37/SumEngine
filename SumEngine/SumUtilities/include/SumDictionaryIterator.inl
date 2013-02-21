@@ -25,7 +25,7 @@ Dictionary<Key, Value>::Iterator::Iterator(Node* arg)
 **************************************************************************************************/
 template <typename Key, typename Value>
 Dictionary<Key, Value>::Iterator::Iterator(const Iterator& rhs) 
-	: n(reinterpret_cast<Node*>(reinterpret_cast<unsigned int>(&*rhs)))
+	: n(rhs._node())
 { }
 
 /**************************************************************************************************
@@ -47,7 +47,14 @@ const typename Dictionary<Key, Value>::Iterator& Dictionary<Key, Value>::Iterato
 		return *this;
 
 	// Assign node
-	n = reinterpret_cast<Node*>(reinterpret_cast<unsigned int>(&*rhs));
+	if(rhs._node() == 0)
+	{
+		n = 0;
+	}
+	else
+	{
+		n = reinterpret_cast<Node*>(reinterpret_cast<unsigned int>(&*rhs));
+	}
 
 	// Return this
 	return *this;
@@ -58,7 +65,7 @@ const typename Dictionary<Key, Value>::Iterator& Dictionary<Key, Value>::Iterato
 **************************************************************************************************/
 template <typename Key, typename Value>
 const bool Dictionary<Key, Value>::Iterator::operator==(const Iterator& rhs) const {
-	return (reinterpret_cast<Node*>(reinterpret_cast<unsigned int>(&*rhs)) == n) ? true : false;
+	return (rhs._node() == n) ? true : false;// reinterpret_cast<Node*>(reinterpret_cast<unsigned int>(&*rhs)) == n) ? true : false;
 }
 
 /**************************************************************************************************
@@ -167,4 +174,13 @@ const typename Dictionary<Key, Value>::Pair& Dictionary<Key, Value>::Iterator::o
 template <typename Key, typename Value>
 const typename Dictionary<Key, Value>::Pair* Dictionary<Key, Value>::Iterator::operator->(void) const {
 	return (&**this);
+}
+
+//*************************************************************************************************
+// Return a pointer to the associated object
+//*************************************************************************************************
+template <typename Key, typename Value>
+typename Dictionary<Key, Value>::Node* Dictionary<Key, Value>::Iterator::_node(void) const 
+{
+	return n;
 }

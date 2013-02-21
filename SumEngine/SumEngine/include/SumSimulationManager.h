@@ -10,6 +10,7 @@
 #include "SumJobManager.h"
 #include "SumRenderManager.h"
 #include "SumConfigurationManager.h"
+#include "SumResourceManager.h"
 #include "SumDelegate.h"
 
 class SimulationManager : public Singleton<SimulationManager>
@@ -40,6 +41,9 @@ private:
 
 	// Manager for rendering and effects pipeline
 	RenderManager* _renderManager;
+
+	// Resource manager
+	ResourceManager* _resourceManager;
 
 	// Configuration manager
 	ConfigurationManager* _configurationManager;

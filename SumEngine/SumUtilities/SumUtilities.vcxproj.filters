@@ -35,9 +35,6 @@
     <Filter Include="Data Structures\List">
       <UniqueIdentifier>{5589a7fe-e9ef-4657-b9e9-a8e5eb6cc5af}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resources">
-      <UniqueIdentifier>{40146bf7-8cff-429e-8571-39f1e7fcbd89}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Threading">
       <UniqueIdentifier>{3b547bbc-44bc-445a-8ee8-b30d0e09910a}</UniqueIdentifier>
     </Filter>
@@ -69,12 +66,6 @@
     </ClInclude>
     <ClInclude Include="include\SumList.h">
       <Filter>Data Structures\List</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SumResourceManager.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SumResource.h">
-      <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="include\SumJob.h">
       <Filter>Threading</Filter>

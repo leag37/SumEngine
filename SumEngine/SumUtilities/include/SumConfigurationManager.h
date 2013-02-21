@@ -3,8 +3,9 @@
 // Author: Gael Huber
 // Description: Configuration manager for engine.
 //
-// TODO: Switch to use SumEngine string
 // TODO: Switch accessors to have const and non-const modifiers
+// TODO: Switch from using a map to a multimap
+// TODO: Switch configuraton such that it doesn't need unique names (i.e. file and dir)
 //*************************************************************************************************
 #ifndef __SUMCONFIGURATIONMANAGER_H__
 #define __SUMCONFIGURATIONMANAGER_H__
@@ -14,7 +15,6 @@
 #include "SumString.h"
 #include "SumArray.h"
 #include <fstream>
-#include <string>
 
 // Configuration structure
 class Configuration
@@ -44,6 +44,11 @@ public:
 	SUMINLINE void addConfigPair(const String& key, const String& value)
 	{
 		_configMap[key] = value;
+	}
+
+	SUMINLINE const Dictionary<String, String> configMap() const
+	{
+		return _configMap;
 	}
 
 private:

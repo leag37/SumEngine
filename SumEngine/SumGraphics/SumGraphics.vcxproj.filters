@@ -32,6 +32,9 @@
     <Filter Include="Effects\Utility Effects">
       <UniqueIdentifier>{b9e4a8ee-5292-469b-be55-228499cc7c45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{63719a3c-f8b2-4627-95a3-d10f50990474}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumRenderContext.h">
@@ -79,6 +82,15 @@
     <ClInclude Include="include\SumGeometry.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumResource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumResourceManager.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumBaseResource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -111,6 +123,12 @@
     <ClCompile Include="src\SumGeometry.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumResourceManager.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumBaseResource.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">
@@ -121,6 +139,12 @@
     </None>
     <None Include="include\SumVertex.inl">
       <Filter>Renderables</Filter>
+    </None>
+    <None Include="include\SumResource.inl">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="include\SumResourceManager.inl">
+      <Filter>Resources</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

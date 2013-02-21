@@ -16,6 +16,7 @@ template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 SimulationManager::SimulationManager()
 	:	_jobManager(0),
 		_renderManager(0),
+		_resourceManager(0),
 		_configurationManager(0)
 { }
 
@@ -26,6 +27,7 @@ SimulationManager::~SimulationManager()
 {
 	SafeDelete(_jobManager);
 	SafeDelete(_renderManager);
+	SafeDelete(_resourceManager);
 	// TODO: Shut down input system
 	// TODO: Shut down physics
 	// TODO: Shut down resource manager
@@ -51,7 +53,9 @@ void SimulationManager::startUp()
 	SINT numThreads = _configurationManager->getConfiguration("Engine")->retrieveValue("threads").toInt();
 	_jobManager->startUp(numThreads);
 
-	// TODO: Initialize resources
+	// Initialize resources
+	_resourceManager = new ResourceManager();
+	_resourceManager->startUp();
 
 	// Initialize rendering
 	_renderManager = new RenderManager();
@@ -80,7 +84,8 @@ void SimulationManager::shutDown()
 	// Shut down rendering
 	_renderManager->shutDown();
 
-	// TODO: Shut down resource manager
+	// Shut down resource manager
+	_resourceManager->shutDown();
 
 	// TODO: Shut down game configuration
 

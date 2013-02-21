@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(DXSDK_DIR)Include;$(DXSDK_DIR)Samples\C++\Effects11\Inc;include;..\SumPlatform\include;..\SumMemory\include;..\SumMath\include;..\SumUtilities\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -70,6 +70,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumBaseResource.h" />
     <ClInclude Include="include\SumEffect.h" />
     <ClInclude Include="include\SumEffectsManager.h" />
     <ClInclude Include="include\SumGeometry.h" />
@@ -84,9 +85,12 @@
     <ClInclude Include="include\SumRenderContext.h" />
     <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
+    <ClInclude Include="include\SumResource.h" />
+    <ClInclude Include="include\SumResourceManager.h" />
     <ClInclude Include="include\SumVertex.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumBaseResource.cpp" />
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
     <ClCompile Include="src\SumGeometry.cpp" />
@@ -97,6 +101,7 @@
     <ClCompile Include="src\SumRenderContext.cpp" />
     <ClCompile Include="src\SumRenderViewport.cpp" />
     <ClCompile Include="src\SumRenderWindow.cpp" />
+    <ClCompile Include="src\SumResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Effects\Basic.fx">
@@ -125,6 +130,8 @@
     </CustomBuild>
     <None Include="include\SumEffect.inl" />
     <None Include="Include\SumRenderViewport.inl" />
+    <None Include="include\SumResource.inl" />
+    <None Include="include\SumResourceManager.inl" />
     <None Include="include\SumVertex.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

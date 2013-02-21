@@ -22,8 +22,6 @@
     <ClInclude Include="include\SumJobManager.h" />
     <ClInclude Include="include\SumList.h" />
     <ClInclude Include="include\SumRandom.h" />
-    <ClInclude Include="include\SumResource.h" />
-    <ClInclude Include="include\SumResourceManager.h" />
     <ClInclude Include="include\SumString.h" />
   </ItemGroup>
   <ItemGroup>
@@ -85,7 +83,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>include;</AdditionalIncludeDirectories>
     </ClCompile>

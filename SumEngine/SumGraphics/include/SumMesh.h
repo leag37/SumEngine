@@ -2,6 +2,8 @@
 // Title: SumMesh.h
 // Author: Gael Huber
 // Description: Contains basic mesh data.
+//
+// TODO: Write unload function for mesh
 //*************************************************************************************************
 #ifndef __SUMMESH_H__
 #define __SUMMESH_H__
@@ -46,8 +48,8 @@ private:
 	// Index count
 	SUINT _indexCount;
 
-	// Mesh name
-	//String _name;
+	// Mesh data for this mesh
+	MeshData _data;
 
 // Inline functions
 public:
@@ -106,11 +108,11 @@ public:
 		_indexCount = rhs;
 	}
 
-	// Return the name
-	//SUMINLINE const String& name() const
-	//{
-	//	return _name;
-	//}
+	// Return the mesh data
+	SUMINLINE const MeshData& data() const
+	{
+		return _data;
+	}
 	
 };
 

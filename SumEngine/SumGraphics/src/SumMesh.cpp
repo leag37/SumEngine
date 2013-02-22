@@ -13,8 +13,7 @@ Mesh::Mesh()
 		_vertexBuffer(0),
 		_indexBuffer(0),
 		_vertexCount(0),
-		_indexCount(0)//,
-		//_name("")
+		_indexCount(0)
 { }
 
 //*************************************************************************************************
@@ -25,16 +24,14 @@ Mesh::Mesh(const String& name, const String& filePath, const String& fileType)
 		_vertexBuffer(0),
 		_indexBuffer(0),
 		_vertexCount(0),
-		_indexCount(0)//,
-		//_name("")
+		_indexCount(0)
 { }
 
 //*************************************************************************************************
 // Constructor from name
 //*************************************************************************************************
 Mesh::Mesh(const String& name)
-	:	//_name(name),
-		_vertexBuffer(0),
+	:	_vertexBuffer(0),
 		_indexBuffer(0),
 		_vertexCount(0),
 		_indexCount(0)
@@ -47,8 +44,7 @@ Mesh::Mesh(const String& name, ID3D11Buffer* vertexBuffer, ID3D11Buffer* indexBu
 	:	_vertexBuffer(vertexBuffer), 
 		_indexBuffer(indexBuffer), 
 		_vertexCount(vertexCount), 
-		_indexCount(indexCount)//,
-		//_name(name)
+		_indexCount(indexCount)
 { }
 
 //*************************************************************************************************
@@ -66,9 +62,6 @@ Mesh::~Mesh()
 void Mesh::load()
 {
 	std::fstream stream(_filePath);
-
-	// Vertices and indices
-	MeshData data;
 
 	// Line type (0 = vert, 1 = index)
 	SINT type = -1;
@@ -106,15 +99,15 @@ void Mesh::load()
 					// Process vertex data
 					if(type == 0)
 					{
-						data.vertices.push_back(Vertex(line[0].toFloat(), line[1].toFloat(), line[2].toFloat()));
+						_data.vertices.push_back(Vertex(line[0].toFloat(), line[1].toFloat(), line[2].toFloat()));
 					}
 
 					// Process index data
 					else if(type == 1)
 					{
-						data.indices.push_back(line[0].toUInt());
-						data.indices.push_back(line[1].toUInt());
-						data.indices.push_back(line[2].toUInt());
+						_data.indices.push_back(line[0].toUInt());
+						_data.indices.push_back(line[1].toUInt());
+						_data.indices.push_back(line[2].toUInt());
 					}
 				}
 			}
@@ -122,11 +115,11 @@ void Mesh::load()
 	}
 
 	// Now that we have constructed the mesh, create it
-	Geometry::CreateBuffersFromData(data, &_vertexBuffer, &_indexBuffer);
+	Geometry::CreateBuffersFromData(_data, &_vertexBuffer, &_indexBuffer);
 
 	// Set vertex counts
-	_vertexCount = data.vertices.getCount();
-	_indexCount = data.indices.getCount();
+	_vertexCount = _data.vertices.getCount();
+	_indexCount = _data.indices.getCount();
 
 	// Is loaded is now true
 	_isLoaded = true;

@@ -10,10 +10,23 @@
 // Constructor
 //*************************************************************************************************
 Renderable::Renderable()
-//	:	_mesh(0)
+	:	_name(""),
+		_mesh(0)
 {
-	Matrix i = MatrixIdentity();
-	StoreFloat4x4(&_world, i);
+	_world = MatrixIdentity();
+}
+
+//*************************************************************************************************
+// Constructor
+//*************************************************************************************************
+Renderable::Renderable(const String& name, const String& mesh)
+	:	_name("")
+{
+	// Set world
+	_world = MatrixIdentity();
+
+	// Load the mesh
+	_mesh = ResourceManager::getSingletonPtr()->getResourceById<Mesh>(mesh, "mesh");
 }
 
 //*************************************************************************************************
@@ -21,7 +34,7 @@ Renderable::Renderable()
 //*************************************************************************************************
 Renderable::~Renderable()
 {
-//	_mesh = 0;
+	_mesh = 0;
 }
 
 

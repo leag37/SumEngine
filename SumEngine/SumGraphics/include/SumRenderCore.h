@@ -27,6 +27,11 @@
 #include "SumVertex.h"
 #include "SumMesh.h"
 
+#include "SumRenderable.h"
+
+// Resource manager
+#include "SumResourceManager.h"
+
 // Utilities
 #include "SumGeometry.h"
 

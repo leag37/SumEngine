@@ -13,20 +13,44 @@
 namespace SumMemory
 {
 	// Memory aligned malloc
-	SUMINLINE static void* aligned_alloc(size_t size, int alignment) {
-		const int pointerSize = sizeof(void*);
-		const int requestedSize = size + alignment - 1 + pointerSize;
-		void* raw = MemoryAllocator::getInstancePtr()->allocate(requestedSize);
-		void* start = (char*) raw + pointerSize;
-		void* aligned = (void*)(((unsigned int)((char*)start + alignment - 1)) & ~(alignment - 1));
-		*(void**)((char*)aligned - pointerSize) = raw;
-		return aligned;
+	SUMINLINE static void* aligned_alloc(size_t size, SUINT alignment) {
+		// Sizeof a pointer to store actual return address
+		SUINT pointerSize = sizeof(SUINT*);
+
+		// Total request size
+		SUINT requestSize = size + alignment + pointerSize;
+
+		// Allocate memory
+		void* addr = MemoryAllocator::getInstancePtr()->allocate(requestSize);
+
+		// The base return address must be at least POINTERSIZE away from the raw address
+		SCHAR* base = static_cast<SCHAR*>(addr) + pointerSize;
+
+		// The base alignment address is <alignment size> bytes forward from the base address
+		base += alignment - 1;
+
+		// The acutal aligned address is the new base & ~(align - 1) to ensure all addresses must be alligned properly
+		base = reinterpret_cast<SCHAR*>(reinterpret_cast<SUINT>(base) & ~(alignment - 1));
+
+		// Now that we have our aligned address, save the raw address
+		SUINT* save = reinterpret_cast<SUINT*>(base - pointerSize);
+		*save = reinterpret_cast<SUINT>(addr);
+
+		// Return the aligned address
+		return static_cast<void*>(base);
 	}
 
 	// Memory-aligned free
 	SUMINLINE static void aligned_free(void* mem) {
-		void* raw = *(void**)((char*)mem - sizeof(void*));
-		MemoryAllocator::getInstancePtr()->free(raw);
+		// Get the size of a pointer
+		SUINT pointerSize = sizeof(SUINT*);
+
+		// Get the original address of the memory
+		SUINT* saved = reinterpret_cast<SUINT*>(mem) - 1;
+		void* addr = reinterpret_cast<void*>(*saved);
+
+		// Free the address
+		MemoryAllocator::getInstancePtr()->free(addr);
 	}
 }
 

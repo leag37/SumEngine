@@ -13,38 +13,49 @@
 #include "SumInclude.h"
 #include "SumRenderCore.h"
 
-class Renderable
+class Mesh;
+
+class SUM_DECLSPEC_ALIGN_16 Renderable
 {
+public:
+	_SUM_ALIGN(Renderable);
+
 public:
 	// Constructor
 	Renderable();
+
+	// Constructor
+	Renderable(const String& name, const String& mesh);
 
 	// Destructor
 	~Renderable();
 
 private:
-	// Mesh
-//	Mesh* _mesh;
+	// Renderable name
+	String _name;
 
-	// World matrix of the object
-	Float4x4 _world;
+	// Mesh
+	Mesh* _mesh;
+
+	// World information matrix
+	Matrix _world;
 
 // Inline functions
 public:
-	// Set the mesh for the renderable
-//	SUMINLINE void setMesh(Mesh* mesh)
-//	{
-//		_mesh = mesh;
-//	}
+	// Get the name
+	SUMINLINE const String& name() const
+	{
+		return _name;
+	}
 
 	// Retrieve the mesh
-//	SUMINLINE const Mesh* mesh() const
-//	{
-//		return _mesh;
-//	}
+	SUMINLINE Mesh* mesh() const
+	{
+		return _mesh;
+	}
 
-	// Get the world object
-	SUMINLINE const Float4x4& world() const
+	// Get the world
+	SUMINLINE const Matrix& world()
 	{
 		return _world;
 	}

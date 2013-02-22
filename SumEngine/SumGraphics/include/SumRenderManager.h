@@ -75,8 +75,7 @@ private:
 	EffectsManager* _effectsManager;
 
 	// TEMP
-	Mesh* _mesh;
-	Float4x4 _world;
+	Renderable* _renderable;
 	Float4x4 _view;
 	Float4x4 _proj;
 	Float3 _eyePosW;

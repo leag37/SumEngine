@@ -51,12 +51,13 @@ void RenderManager::startUp()
 	InputLayouts::InitAll(_renderContext->d3dDevice());
 
 	// TEMP
-	_mesh = ResourceManager::getSingletonPtr()->getResourceById<Mesh>("box", "mesh");
+	_renderable = new Renderable("box", "box");
+	//_mesh = ResourceManager::getSingletonPtr()->getResourceById<Mesh>("box", "mesh");
 	Matrix p = MatrixPerspectiveFovLH(0.25f * S_PI, _renderWindow->aspectRatio(), 1.0f, 1000.0f);
 	StoreFloat4x4(&_proj, p);
 	Matrix i = MatrixIdentity();
 	StoreFloat4x4(&_view, i);
-	StoreFloat4x4(&_world, i);
+	//StoreFloat4x4(&_world, i);
 	
 	_eyePosW = Float3(0.0f, 0.0f, 0.0f);
 	_theta = 1.5f * S_PI;
@@ -118,20 +119,19 @@ void RenderManager::renderScene()
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Camera
-	Matrix world = LoadFloat4x4(&_world);
 	Matrix view = LoadFloat4x4(&_view);
 	Matrix proj = LoadFloat4x4(&_proj);
-	Matrix worldViewProj = MatrixMultiply(view, proj);
-	//worldViewProj = MatrixMultiply(world, worldViewProj);
+	Matrix viewProj = MatrixMultiply(view, proj);
 	PrimitiveEffect* effect = static_cast<PrimitiveEffect*>(_effectsManager->getEffectByName("primitive"));
-	effect->viewProj()->SetMatrix(reinterpret_cast<float*>(&worldViewProj));
-	effect->world()->SetMatrix(reinterpret_cast<float*>(&world));
+	effect->viewProj()->SetMatrix(reinterpret_cast<float*>(&viewProj));
+	effect->world()->SetMatrix(reinterpret_cast<const float*>(&_renderable->world()));
 
 	// Set vertex buffers
 	SUINT stride = sizeof(Vertex);
 	SUINT offset = 0;
-	context->IASetVertexBuffers(0, 1, _mesh->vertexBufferPtr(), &stride, &offset);
-	context->IASetIndexBuffer(_mesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+	Mesh* currMesh = _renderable->mesh();
+	context->IASetVertexBuffers(0, 1, currMesh->vertexBufferPtr(), &stride, &offset);
+	context->IASetIndexBuffer(currMesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
 
 	// Technique description
 	D3DX11_TECHNIQUE_DESC techDesc;
@@ -141,7 +141,7 @@ void RenderManager::renderScene()
 		effect->technique()->GetPassByIndex(p)->Apply(0, context);
 
 		// Draw indices
-		context->DrawIndexed(_mesh->indexCount(), 0, 0);
+		context->DrawIndexed(currMesh->indexCount(), 0, 0);
 	}
 
 	// Present the swap chain

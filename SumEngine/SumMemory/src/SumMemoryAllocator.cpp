@@ -161,7 +161,7 @@ namespace SumMemory
 				void* rPtr = _designatedVictim.pop();
 
 				// If the pointer size is not exact, push back remnant onto DV
-				if(ptrSize == size)
+				if(ptrSize != size)
 				{
 					// Find new pointer location
 					SCHAR* nPtr = static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;

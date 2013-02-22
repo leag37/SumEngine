@@ -104,12 +104,26 @@ Mesh* CreateBox(const String& name, SFLOAT width, SFLOAT height, SFLOAT depth)
 //*************************************************************************************************
 void CreateMeshFromData(const MeshData& data, Mesh* pOut)
 {
-	// Get the device
-	ID3D11Device* device = RenderManager::getSingletonPtr()->d3dDevice();
-
 	// Buffers
 	ID3D11Buffer* vertexBuffer = 0;
 	ID3D11Buffer* indexBuffer = 0;
+
+	CreateBuffersFromData(data, &vertexBuffer, &indexBuffer);
+
+	// Set mesh data
+	pOut->vertexBuffer(vertexBuffer);
+	pOut->indexBuffer(indexBuffer);
+	pOut->vertexCount(data.vertices.getCount());
+	pOut->indexCount(data.indices.getCount());
+}
+
+//*************************************************************************************************
+// Create buffers from data
+//*************************************************************************************************
+void CreateBuffersFromData(const MeshData& data, ID3D11Buffer** vertexBuffer, ID3D11Buffer** indexBuffer)
+{	
+	// Get the device
+	ID3D11Device* device = RenderManager::getSingletonPtr()->d3dDevice();
 
 	// Create the buffer description for vertex buffer
 	D3D11_BUFFER_DESC bd;
@@ -122,7 +136,7 @@ void CreateMeshFromData(const MeshData& data, Mesh* pOut)
 	// Vertex resource data
 	D3D11_SUBRESOURCE_DATA initData;
 	initData.pSysMem = &data.vertices[0];
-	HR(device->CreateBuffer(&bd, &initData, &vertexBuffer));
+	HR(device->CreateBuffer(&bd, &initData, vertexBuffer));
 
 	// Alter buffer description for index buffer
 	bd.ByteWidth = sizeof(SUINT) * data.indices.getCount();
@@ -130,13 +144,7 @@ void CreateMeshFromData(const MeshData& data, Mesh* pOut)
 	
 	// Index resource data
 	initData.pSysMem = &data.indices[0];
-	HR(device->CreateBuffer(&bd, &initData, &indexBuffer));
-
-	// Set mesh data
-	pOut->vertexBuffer(vertexBuffer);
-	pOut->indexBuffer(indexBuffer);
-	pOut->vertexCount(data.vertices.getCount());
-	pOut->indexCount(data.indices.getCount());
+	HR(device->CreateBuffer(&bd, &initData, indexBuffer));
 }
 
-}
+} // namespace Geometry

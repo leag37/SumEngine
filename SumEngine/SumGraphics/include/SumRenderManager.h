@@ -25,6 +25,7 @@
 #include "SumEffectsManager.h"
 #include "SumInputLayout.h"
 #include "SumConfigurationManager.h"
+#include "SumResourceManager.h"
 
 class RenderManager : public Singleton<RenderManager>
 {

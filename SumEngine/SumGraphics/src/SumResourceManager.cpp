@@ -28,7 +28,7 @@ ResourceManager::~ResourceManager()
 void ResourceManager::startUp()
 {
 	// Create the resource pools
-	_resourcePools = Dictionary<String, Dictionary<String, BaseResource*>>();
+	_resources = Dictionary<String, Dictionary<String, BaseResource*>>();
 
 	// Iterate through configurations and load file names
 	loadFromConfig();
@@ -90,15 +90,18 @@ void ResourceManager::loadFromDir(const String& dir)
 
 				// Create an entry for the resource
 				Dictionary<String, Dictionary<String, BaseResource*>>::Iterator itr;
-				itr = _resourcePools.find(type);
+				itr = _resources.find(type);
 			
 				// If the key does not exist, create it
-				if(itr == _resourcePools.end())
+				if(itr == _resources.end())
 				{
-					_resourcePools[type] = Dictionary<String, BaseResource*>();
+					_resources[type] = Dictionary<String, BaseResource*>();
 				}
 
-				_resourcePools[type][name] = new BaseResource(name, dir + fullName, type);
+				String path = dir;
+				path.append('/');
+				path += fullName;
+				_resources[type][name] = new BaseResource(name, path, type);
 			}
 		} 
 		
@@ -106,11 +109,4 @@ void ResourceManager::loadFromDir(const String& dir)
 		closedir(pDir);
 	}
 
-}
-
-
-// Create a resource pool
-void ResourceManager::createResourcePool(const String& type)
-{
-	_resourcePools[type] = Dictionary<String, BaseResource*>();
 }

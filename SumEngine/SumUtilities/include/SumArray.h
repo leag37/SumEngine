@@ -46,6 +46,7 @@ public:
 	Iterator end(void) const;	// Returns an iterator pointing to the ending value in the array
 	void clear(void);	// Clears the contents of the container
 	Type* getPtrToCopy(void) const;		// Returns a pointer to a copy of the data as a standard array
+	void resize();	// Resize the array to exactly fit the count
 
 private:
 	Type* data;		// Contains the array of data

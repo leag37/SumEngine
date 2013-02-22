@@ -7,12 +7,16 @@
 #define __SUMMESH_H__
 
 #include "SumRenderCore.h"
+#include "SumBaseResource.h"
 
-class Mesh
+class Mesh : public BaseResource
 {
 public:
 	// Constructor
 	Mesh();
+
+	// Constructor
+	Mesh(const String& name, const String& filePath, const String& fileType);
 
 	// Constructor from name
 	Mesh(const String& name);
@@ -22,6 +26,12 @@ public:
 
 	// Destructor
 	~Mesh();
+
+	// Load the mesh
+	void load();
+
+	// Free the mesh
+	void unload();
 
 private:
 	// Vertex buffer
@@ -37,7 +47,7 @@ private:
 	SUINT _indexCount;
 
 	// Mesh name
-	String _name;
+	//String _name;
 
 // Inline functions
 public:
@@ -97,10 +107,10 @@ public:
 	}
 
 	// Return the name
-	SUMINLINE const String& name() const
-	{
-		return _name;
-	}
+	//SUMINLINE const String& name() const
+	//{
+	//	return _name;
+	//}
 	
 };
 

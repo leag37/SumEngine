@@ -36,6 +36,10 @@ public:
 	template <typename ResourceType>
 	ResourceType* getResourceById(const String& name, const String& type);
 
+	// Get a resource from the resource pool asynchronously
+	//template <typename ResourceType>
+	//ResourceType* getResourceByIdAsync(const String& name, const String& type);
+
 private:
 	// Load the resource file names from configuration
 	void loadFromConfig();
@@ -43,12 +47,9 @@ private:
 	// Load resource files from a directory
 	void loadFromDir(const String& dir);
 
-	// Create a resource pool
-	void createResourcePool(const String& type);
-
 private:
 	// A resource pool
-	Dictionary<String, Dictionary<String, BaseResource*>> _resourcePools;
+	Dictionary<String, Dictionary<String, BaseResource*>> _resources;
 
 public:
 	// Get the singleton instance

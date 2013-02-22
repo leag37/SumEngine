@@ -518,3 +518,28 @@ Type* Array<Type>::getPtrToCopy(void) const {
 	// Return the new array
 	return arr;
 }
+
+//*************************************************************************************************
+// Resize the array to exactly fit the count
+//*************************************************************************************************
+template <typename Type>
+void Array<Type>::resize()
+{
+	// Reset capacity
+	capacity = count;
+
+	// Create new space
+	Type* newData = new Type[capacity];
+
+	// Copy data
+	for(SUINT i = 0; i < count; ++i) 
+	{
+		newData[i] = data[i];	
+	}
+
+	// Delete old data
+	delete[] data;
+
+	// Set new data
+	data = newData;
+}

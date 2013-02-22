@@ -28,7 +28,7 @@ template <typename Type>
 Resource<Type>::~Resource()
 {
 	// Release the resource
-	_unload();
+	unload();
 }
 
 //*************************************************************************************************
@@ -37,6 +37,14 @@ Resource<Type>::~Resource()
 template <typename Type>
 Type* Resource<Type>::resource()
 {
+	// If the resource is not loaded, do so
+	if(!_isLoaded)
+	{
+		_load();
+		_isLoaded = true;
+	}
+
+	// Return the resources
 	return _resource;
 }
 
@@ -50,15 +58,42 @@ const String& Resource<Type>::name() const
 }
 
 //*************************************************************************************************
+// Get the resource path
+//*************************************************************************************************
+template <typename Type>
+const String& Resource<Type>::filePath() const
+{
+	return _filePath;
+}
+
+//*************************************************************************************************
+// Get the resource type
+//*************************************************************************************************
+template <typename Type>
+const String& Resource<Type>::fileType() const
+{
+	return _fileType;
+}
+	
+//*************************************************************************************************
+// Get whether the resource is loaded
+//*************************************************************************************************
+template <typename Type>
+const SBOOL Resource<Type>::isLoaded() const
+{
+	return _isLoaded;
+}
+
+//*************************************************************************************************
 // Load the resource
 //*************************************************************************************************
 template <typename Type>
-void Resource<Type>::_load()
+void Resource<Type>::load()
 { }
 
 //*************************************************************************************************
 // Free the resource
 //*************************************************************************************************
 template <typename Type>
-void Resource<Type>::_unload()
+void Resource<Type>::unload()
 { }

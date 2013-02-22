@@ -29,12 +29,20 @@ public:
 	// Get the name
 	const String& name() const;
 
-protected:
+	// Get the resource path
+	const String& filePath() const;
+
+	// Get the resource type
+	const String& fileType() const;
+
+	// Get whether the resource is loaded
+	const SBOOL isLoaded() const;
+
 	// Load the resource
-	void _load();
+	void load();
 
 	// Free the resource
-	void _unload();
+	void unload();
 
 protected:
 	// The loaded resource

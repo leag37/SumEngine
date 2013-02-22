@@ -51,7 +51,7 @@ void RenderManager::startUp()
 	InputLayouts::InitAll(_renderContext->d3dDevice());
 
 	// TEMP
-	_mesh = Geometry::CreateBox("box", 1.0f, 1.0f, 1.0f);
+	_mesh = ResourceManager::getSingletonPtr()->getResourceById<Mesh>("box", "mesh");
 	Matrix p = MatrixPerspectiveFovLH(0.25f * S_PI, _renderWindow->aspectRatio(), 1.0f, 1000.0f);
 	StoreFloat4x4(&_proj, p);
 	Matrix i = MatrixIdentity();

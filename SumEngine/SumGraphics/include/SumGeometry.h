@@ -19,6 +19,9 @@ namespace Geometry
 
 	// Create a mesh from mesh data
 	void CreateMeshFromData(const MeshData& data, Mesh* pOut);
+
+	// Create buffers from data
+	void CreateBuffersFromData(const MeshData& data, ID3D11Buffer** vertexBuffer, ID3D11Buffer** indexBuffer);
 }
 
 #endif

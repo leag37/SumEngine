@@ -22,6 +22,23 @@ namespace delegate_details
 		return input;
 	}
 
+	// Union between two classes
+	template <class OutputClass, class InputClass>
+	union ClassUnion
+	{
+		OutputClass out;
+		InputClass in;
+	};
+
+	// Class Cast between two classes
+	template <class OutputClass, class InputClass>
+	SUMINLINE OutputClass class_cast(InputClass input)
+	{
+		ClassUnion<OutputClass, InputClass> u;
+		u.in = input;
+		return u.out;
+	}
+
 	// Class that provides closure for class delegates
 	class Closure
 	{
@@ -47,7 +64,7 @@ namespace delegate_details
 		SUMINLINE void bind(X instance, XMemFunc function)
 		{
 			_this = reinterpret_cast<GenericClass*>(instance);
-			_function = reinterpret_cast<GenericMemberFunctionPtr>(function);
+			_function = class_cast<GenericMemberFunctionPtr>(function);
 		}
 
 		// Clear the functions
@@ -86,10 +103,10 @@ public:
 	}
 
 	// Constructor for non-const member functions
-	template <typename X, typename Y>
-	SUMINLINE Delegate0(Y *pThis, void (X::*function)())
+	template <typename X>
+	SUMINLINE Delegate0(X *pThis, void (X::*function)())
 	{
-		_closure.bind(implicit_cast<X*>(pThis), function);
+		_closure.bind(pThis, function);
 	}
 
 	// Bind function for non-const member function

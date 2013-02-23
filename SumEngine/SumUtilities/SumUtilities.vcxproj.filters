@@ -38,6 +38,9 @@
     <Filter Include="Threading">
       <UniqueIdentifier>{3b547bbc-44bc-445a-8ee8-b30d0e09910a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{5e81e9aa-9664-4e26-9c60-ecc19f22dfa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumForwardList.h">
@@ -75,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="include\SumCriticalSection.h">
       <Filter>Threading</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumInputManager.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="src\SumJobManager.cpp">
       <Filter>Threading</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumInputManager.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

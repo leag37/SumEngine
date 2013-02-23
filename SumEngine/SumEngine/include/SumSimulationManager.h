@@ -9,6 +9,7 @@
 #include "SumInclude.h"
 #include "SumJobManager.h"
 #include "SumRenderManager.h"
+#include "SumInputManager.h"
 #include "SumConfigurationManager.h"
 #include "SumResourceManager.h"
 #include "SumDelegate.h"
@@ -36,6 +37,9 @@ private:
 	void gameLoop();
 
 private:
+	// Input manager
+	InputManager* _inputManager;
+
 	// Manager for threading and job subsystem
 	JobManager* _jobManager;
 
@@ -48,8 +52,9 @@ private:
 	// Configuration manager
 	ConfigurationManager* _configurationManager;
 
-	// Render job
+	// Jobs
 	Job renderJob;
+	Job inputJob;
 
 // Inline functions
 public:

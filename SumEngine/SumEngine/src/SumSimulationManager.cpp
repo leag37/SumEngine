@@ -14,7 +14,8 @@ template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 // Constructor
 //*************************************************************************************************
 SimulationManager::SimulationManager()
-	:	_jobManager(0),
+	:	_inputManager(0),
+		_jobManager(0),
 		_renderManager(0),
 		_resourceManager(0),
 		_configurationManager(0)
@@ -28,7 +29,7 @@ SimulationManager::~SimulationManager()
 	SafeDelete(_jobManager);
 	SafeDelete(_renderManager);
 	SafeDelete(_resourceManager);
-	// TODO: Shut down input system
+	SafeDelete(_inputManager);
 	// TODO: Shut down physics
 	// TODO: Shut down resource manager
 	SafeDelete(_configurationManager);
@@ -63,7 +64,9 @@ void SimulationManager::startUp()
 
 	// TODO: Initialize physics
 
-	// TODO: Initialize input system
+	// Initialize input system
+	_inputManager = new InputManager();
+	_inputManager->startUp();
 
 	// The engine can now run
 	gCanRun = true;
@@ -77,7 +80,8 @@ void SimulationManager::shutDown()
 	// Shut down job manager
 	_jobManager->shutDown();
 
-	// TODO: Shut down input system
+	// Shut down input system
+	_inputManager->shutDown();
 
 	// TODO: Shut down physics
 
@@ -108,6 +112,7 @@ void SimulationManager::gameLoop()
 {
 	// Jobs for major for engine components
 	renderJob = Job(Delegate0(_renderManager, &RenderManager::update));
+	inputJob = Job(Delegate0(_inputManager, &InputManager::update));
 	
 	// Define a struct to hold a Windows event message
 	MSG msg;
@@ -125,8 +130,14 @@ void SimulationManager::gameLoop()
 			DispatchMessage(&msg);
 		}
 
+		// Poll for input
+		RequestJob(inputJob);
+
 		// Wait for rendering job to finish
 		WaitForJob(renderJob);
+
+		// Wait for input
+		WaitForJob(inputJob);
 
 		// Render the scene
 		RequestJob(renderJob);

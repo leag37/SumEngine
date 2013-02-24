@@ -71,6 +71,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\SumBaseResource.h" />
+    <ClInclude Include="include\SumCamera.h" />
     <ClInclude Include="include\SumEffect.h" />
     <ClInclude Include="include\SumEffectsManager.h" />
     <ClInclude Include="include\SumGeometry.h" />

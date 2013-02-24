@@ -82,6 +82,12 @@
     <ClInclude Include="include\SumInputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumInputDevice.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumInputDeviceMouse.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\SumForwardList.inl">
@@ -159,6 +165,12 @@
       <Filter>Threading</Filter>
     </ClCompile>
     <ClCompile Include="src\SumInputManager.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumInputDevice.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumInputDeviceMouse.cpp">
       <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>

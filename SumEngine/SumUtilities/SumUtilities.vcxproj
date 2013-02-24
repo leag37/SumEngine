@@ -18,6 +18,8 @@
     <ClInclude Include="include\SumDictionary.h" />
     <ClInclude Include="include\SumForwardList.h" />
     <ClInclude Include="include\SumHashMap.h" />
+    <ClInclude Include="include\SumInputDevice.h" />
+    <ClInclude Include="include\SumInputDeviceMouse.h" />
     <ClInclude Include="include\SumInputManager.h" />
     <ClInclude Include="include\SumJob.h" />
     <ClInclude Include="include\SumJobManager.h" />
@@ -48,6 +50,8 @@
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp" />
     <ClCompile Include="src\SumHashMapFunctions.cpp" />
+    <ClCompile Include="src\SumInputDevice.cpp" />
+    <ClCompile Include="src\SumInputDeviceMouse.cpp" />
     <ClCompile Include="src\SumInputManager.cpp" />
     <ClCompile Include="src\SumJobManager.cpp" />
     <ClCompile Include="src\SumRandom.cpp" />
@@ -92,6 +96,12 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>dinput8.lib;</AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)Lib\x86</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

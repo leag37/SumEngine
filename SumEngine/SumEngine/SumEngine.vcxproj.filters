@@ -8,6 +8,9 @@
     <Filter Include="Core">
       <UniqueIdentifier>{50e6dbd3-7994-43ba-ba1b-aa3e6163488a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Simulation">
+      <UniqueIdentifier>{240f0961-d1d5-42d0-aa1a-21a7786e03b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMain.cpp">
@@ -20,6 +23,9 @@
   <ItemGroup>
     <ClInclude Include="include\SumSimulationManager.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumSimulation.h">
+      <Filter>Simulation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -67,6 +67,7 @@
     <ClCompile Include="src\SumSimulationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumSimulation.h" />
     <ClInclude Include="include\SumSimulationManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -122,4 +122,10 @@ typedef wchar_t SWCHAR_T;
 //***********************************************
 #define SUMCALLBACK __stdcall
 
+// Input
+//***********************************************
+#ifndef DIRECTINPUT_VERSION
+#define DIRECTINPUT_VERSION 0x0800
+#endif
+
 #endif

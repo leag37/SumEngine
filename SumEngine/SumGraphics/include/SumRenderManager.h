@@ -14,6 +14,7 @@
 //
 // TODO: Read configuration file and initialize based on RenderConfig
 // TODO: Add debugging information to the top of the window
+// TODO: Add actual camera for register camera
 //*************************************************************************************************
 #ifndef __SUMRENDERMANAGER_H__
 #define __SUMRENDERMANAGER_H__
@@ -57,6 +58,9 @@ public:
 	// Update the manager
 	void update();
 
+	// Register a camera
+	void registerCamera(const Matrix& camera);
+
 private:
 	// Render the current scene
 	void renderScene();
@@ -88,6 +92,12 @@ public:
 	SUMINLINE ID3D11Device* d3dDevice() const
 	{
 		return _renderContext->d3dDevice();
+	}
+
+	// Return the current window handle
+	SUMINLINE HWND handle() const
+	{
+		return _renderWindow->clientHandle();
 	}
 };
 

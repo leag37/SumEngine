@@ -66,7 +66,9 @@ void SimulationManager::startUp()
 
 	// Initialize input system
 	_inputManager = new InputManager();
-	_inputManager->startUp();
+	_inputManager->startUp(_renderManager->handle());
+
+	// TODO: Initialize simulation
 
 	// The engine can now run
 	gCanRun = true;
@@ -79,6 +81,8 @@ void SimulationManager::shutDown()
 {
 	// Shut down job manager
 	_jobManager->shutDown();
+
+	// TODO: Shut down simulation
 
 	// Shut down input system
 	_inputManager->shutDown();
@@ -130,14 +134,20 @@ void SimulationManager::gameLoop()
 			DispatchMessage(&msg);
 		}
 
+		// Wait for input
+		WaitForJob(inputJob);
+
+		// Update simulation logic
+
+
+		// Wait for simulation update
+
+
 		// Poll for input
 		RequestJob(inputJob);
 
 		// Wait for rendering job to finish
 		WaitForJob(renderJob);
-
-		// Wait for input
-		WaitForJob(inputJob);
 
 		// Render the scene
 		RequestJob(renderJob);

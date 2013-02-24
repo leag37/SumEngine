@@ -18,5 +18,6 @@
 #include <immintrin.h>
 #endif
 
+#include <dinput.h>
 
 #endif

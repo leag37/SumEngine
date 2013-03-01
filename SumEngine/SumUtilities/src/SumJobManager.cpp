@@ -17,7 +17,9 @@ template <> JobManager* Singleton<JobManager>::singleton = 0;
 //*************************************************************************************************
 JobManager::JobManager(void) 
 	: workerThreads(0), _runManager(false)
-{ }
+{ 
+	_criticalSection = CriticalSection();
+}
 
 //*************************************************************************************************
 // Destructor
@@ -50,7 +52,13 @@ void JobManager::startUp(SINT numExecutors)
 //*************************************************************************************************
 void JobManager::shutDown(void) 
 {
+	// Stop the manager
 	_runManager = false;
+	
+	// Clear the job queue
+	clearJobs();
+
+	// Wait for the threads
 	WaitForMultipleObjects(numWorkerThreads, workerThreads, TRUE, 0x000000FF);
 	free(workerThreads);
 }
@@ -61,12 +69,12 @@ void JobManager::shutDown(void)
 void JobManager::clearJobs(void) 
 {
 	// Empty job queue
-	cs.enter();
+	_criticalSection.enter();
 	while(jobs.hasHead()) {
 		Job* j(jobs.pop_front());
 		j->setStatus(Job::DONE);
 	}
-	cs.leave();
+	_criticalSection.leave();
 }
 
 
@@ -76,27 +84,37 @@ void JobManager::clearJobs(void)
 DWORD WINAPI JobManager::WorkerThread(LPVOID param) 
 {
 	JobManager* manager = static_cast<JobManager*>(param);
+
+	// Get the thread priority
+	//int priority = GetThreadPriority(GetCurrentThread());
+	//SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
 	
 	// Run provided that the simulation is active
-	while(manager->runManager()) {
+	while(manager->runManager()) 
+	{
 		// Check whether there is a job to perform
-		while(!manager->jobExists()) {
-			// If we still need to run the thread, go to sleep, otherwise return 0
-			if(manager->runManager())
-				Sleep(THREAD_SLEEP_TIME);
-			else
-				return 0;
-		}
+		while(manager->jobExists()) 
+		{
+			// If there is a job to perform, get the job
+			Job* j(manager->requestJob());
 
-		// If there is a job to perform, get the job
-		Job* j(manager->requestJob());
-
-		// If the acquisition was successful, run the job
-		if(j) {
-			j->setStatus(Job::IN_PROGRESS);
-			j->operator()();
-			j->setStatus(Job::DONE);
+			// If the acquisition was successful, run the job
+			if(j) {
+				j->setStatus(Job::IN_PROGRESS);
+				j->operator()();
+				j->setStatus(Job::DONE);
+			}
 		}
+		
+		// If we still need to run the thread, go to sleep, otherwise return 0
+		//if(manager->runManager())
+		//{
+			Sleep(THREAD_SLEEP_TIME);
+		//}
+		//else
+		//{
+		//	return 0;
+		//}
 	}
 
 	return 0;

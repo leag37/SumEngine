@@ -43,7 +43,7 @@ namespace SumMemory
 	// Memory-aligned free
 	SUMINLINE static void aligned_free(void* mem) {
 		// Get the size of a pointer
-		SUINT pointerSize = sizeof(SUINT*);
+		//SUINT pointerSize = sizeof(SUINT*);
 
 		// Get the original address of the memory
 		SUINT* saved = reinterpret_cast<SUINT*>(mem) - 1;

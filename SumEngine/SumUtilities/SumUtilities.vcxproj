@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClInclude Include="include\SumArray.h" />
     <ClInclude Include="include\SumConfigurationManager.h" />
-    <ClInclude Include="include\SumCriticalSection.h" />
     <ClInclude Include="Include\SumDelegate.h" />
     <ClInclude Include="include\SumDictionary.h" />
     <ClInclude Include="include\SumForwardList.h" />
@@ -26,6 +25,7 @@
     <ClInclude Include="include\SumList.h" />
     <ClInclude Include="include\SumRandom.h" />
     <ClInclude Include="include\SumString.h" />
+    <ClInclude Include="include\SumTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\SumArray.inl" />
@@ -57,6 +57,7 @@
     <ClCompile Include="src\SumRandom.cpp" />
     <ClCompile Include="src\SumString.cpp" />
     <ClCompile Include="src\SumStringIterator.cpp" />
+    <ClCompile Include="src\SumTimer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{26DEF8EF-6AFC-446D-B04B-B906D72A2CB9}</ProjectGuid>

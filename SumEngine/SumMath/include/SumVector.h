@@ -47,6 +47,7 @@ Vector VectorSetX(const Vector v, SFLOAT x);
 Vector VectorSetY(const Vector v, SFLOAT y);
 Vector VectorSetZ(const Vector v, SFLOAT z);
 Vector VectorSetW(const Vector v, SFLOAT w);
+Vector VectorAnd(const Vector v1, const Vector v2);
 
 #include "SumVector.inl"
 

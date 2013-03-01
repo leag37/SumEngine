@@ -72,6 +72,7 @@ void SimulationManager::startUp()
 
 	// The engine can now run
 	gCanRun = true;
+	_timer.reset();
 }
 
 //*************************************************************************************************
@@ -124,6 +125,10 @@ void SimulationManager::gameLoop()
 	// While windows message queue is populated and the program has not been exited
 	while(gCanRun)
 	{
+		// Timer tick
+		_timer.tick();
+		calculateFrameStats();
+
 		// Check for any Windows messages
 		if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 		{
@@ -151,5 +156,34 @@ void SimulationManager::gameLoop()
 
 		// Render the scene
 		RequestJob(renderJob);
+	}
+}
+
+//*************************************************************************************************
+// Calculate the frame statistics
+//*************************************************************************************************
+void SimulationManager::calculateFrameStats()
+{
+	// Compute average frames per second and average time it takes to render one frame
+	static int frameCnt = 0;
+	static float timeElapsed = 0.0f;
+
+	++frameCnt;
+
+	// Compute averages over one second period
+	if((_timer.totalTime() - timeElapsed) >= 1.0f) {
+		float fps = (float)frameCnt;
+		float mspf = 1000.0f / fps;
+
+		std::ostringstream outs;
+		outs.precision(6);
+		outs << "SumEngine v0.0.1 " << "    "
+			 << "FPS: " << fps << "    "
+			 << "Frame Time: " << mspf << " (ms)";
+		SetWindowText(gWindowHandle, (LPCSTR) outs.str().c_str());
+
+		// Reset for next average
+		frameCnt = 0;
+		timeElapsed += 1.0f;
 	}
 }

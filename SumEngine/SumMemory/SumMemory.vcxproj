@@ -13,8 +13,10 @@
   <ItemGroup>
     <ClInclude Include="include\SumAlign.h" />
     <ClInclude Include="include\SumChunk.h" />
+    <ClInclude Include="include\SumCriticalSection.h" />
     <ClInclude Include="include\SumMemoryAllocator.h" />
     <ClInclude Include="include\SumMemory.h" />
+    <ClInclude Include="include\SumMutex.h" />
     <ClInclude Include="include\SumUnaligned.h" />
   </ItemGroup>
   <ItemGroup>

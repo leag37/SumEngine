@@ -7,6 +7,11 @@
 #define __SUMRENDERWINDOW_H__
 
 #include "SumInclude.h"
+#include "SumString.h"
+
+// Temp
+#include <sstream>
+#include <iostream>
 
 class RenderWindow
 {
@@ -32,6 +37,9 @@ private:
 
 	// Is the window active?
 	SBOOL _windowActive;
+
+	// Window caption
+	String _caption;
 
 // Inline functions
 public:
@@ -63,6 +71,12 @@ public:
 	SUMINLINE SFLOAT aspectRatio() const
 	{
 		return static_cast<float>(_clientWidth) / _clientHeight;
+	}
+
+	// Return the window caption
+	SUMINLINE const String& caption() const
+	{
+		return _caption;
 	}
 };
 

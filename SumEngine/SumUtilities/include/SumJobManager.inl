@@ -12,13 +12,14 @@
 SUMINLINE void JobManager::addJob(Job& j) 
 {
 	// Enter the critical section
-	cs.enter();
+	_criticalSection.enter();
+	//_mutex.enter();
 
 	// Add a the job to the list
 	jobs.push_back(&j);
 
 	// Leave the section
-	cs.leave();
+	_criticalSection.leave();
 }
 
 //*************************************************************************************************
@@ -26,17 +27,26 @@ SUMINLINE void JobManager::addJob(Job& j)
 //*************************************************************************************************
 SUMINLINE Job* JobManager::requestJob(void) 
 {
-	// Peek at the job list
-	cs.enter();
+
 
 	// Get the next job if it exists (we might have concurrency problems, so check once more for 
 	// existence now that we have properly acquired the lock
 	Job* j(0);
 	if(jobExists())
-		j = jobs.pop_front();
-	
-	// Enter critical section
-	cs.leave();
+	{
+		// Enter CS
+		_criticalSection.enter();
+		//_mutex.enter();
+
+		if(jobExists())
+		{
+			// Grab job
+			j = jobs.pop_front();
+		}
+
+		// Enter critical section
+		_criticalSection.leave();
+	}
 
 	return j;
 }

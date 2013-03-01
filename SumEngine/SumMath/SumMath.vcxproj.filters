@@ -89,5 +89,8 @@
     <None Include="include\SumQuaternion.inl">
       <Filter>Quaternions</Filter>
     </None>
+    <None Include="include\SumMiscMath.inl">
+      <Filter>Miscellaneous</Filter>
+    </None>
   </ItemGroup>
 </Project>

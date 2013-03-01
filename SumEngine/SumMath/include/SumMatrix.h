@@ -70,36 +70,36 @@ Matrix MatrixTranslation(Vector t);
 
 // Build a matrix which rotates around the X axis
 Matrix MatrixRotationX(float angle);
-//
-//// Build a matrix which rotates around the X axis
-//Matrix MatrixRotationX(Vector angle);
-//
+
+// Build a matrix which rotates around the X axis
+Matrix MatrixRotationX(Vector angle);
+
 // Build a matrix which rotates around the Y axis
 Matrix MatrixRotationY(float angle);
-//
-//// Build a matrix which rotates around the Y axis
-//Matrix MatrixRotationY(Vector angle);
-//
+
+// Build a matrix which rotates around the Y axis
+Matrix MatrixRotationY(Vector angle);
+
 // Build a matrix which rotates around the Z axis
 Matrix MatrixRotationZ(float angle);
-//
-//// Build a matrix which rotates around the Z axis
-//Matrix MatrixRotationZ(Vector angle);
-//
-//// Build a matrix which rotates around an arbitrary axis
-//Matrix MatrixRotationAxis(const Vector v, float angle);
-//
-//// Build a matrix which rotates around an arbitrary axis
-//Matrix MatrixRotationAxis(const Vector v, Vector angle);
+
+// Build a matrix which rotates around the Z axis
+Matrix MatrixRotationZ(Vector angle);
+
+// Build a matrix which rotates around an arbitrary axis
+Matrix MatrixRotationAxis(const Vector v, float angle);
+
+// Build a matrix which rotates around an arbitrary axis
+Matrix MatrixRotationAxis(const Vector v, Vector angle);
 //
 //// Build a matrix from a quaternion
 //Matrix MatrixRotationQuaternion(const Vector q);
-//
-//// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
-//Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll);
-//
-//// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
-//Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
+
+// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
+Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll);
+
+// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
+Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
 //
 //// Build transformation matrix with null arguments being treated as identity. 
 //// Mout = Msc-1 * Msr-1 * Ms * Msr * Msc * Mrc-1 * Mr * Mrc * Mt

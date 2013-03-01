@@ -449,12 +449,19 @@ Matrix MatrixTranslation(Vector t)
 //*************************************************************************************************
 Matrix MatrixRotationX(float angle)
 {
-	// Load sin and cos values
-	SFLOAT sin = sinf(angle);
-	SFLOAT cos = cosf(angle);
+	Vector vAngle = VectorReplicate(angle);
+	return MatrixRotationX(vAngle);
+	
+}
 
-	Vector vSin = _mm_set_ss(sin);
-	Vector vCos = _mm_set_ss(cos);
+//*************************************************************************************************
+// Build a matrix which rotates around the X axis 
+//*************************************************************************************************
+Matrix MatrixRotationX(Vector angle)
+{
+	// Load sin and cos values
+	Vector sin, cos;
+	VectorSinCos(&sin, &cos, angle);
 
 	Matrix m;
 
@@ -462,119 +469,189 @@ Matrix MatrixRotationX(float angle)
 	m.r[0] = gVIdentityR0;
 
 	// Load second row [0 cos sin 0]
-	m.r[1] = _mm_shuffle_ps(vCos, vSin, _MM_SHUFFLE(1, 0, 0, 1));
+	m.r[1] = _mm_shuffle_ps(cos, sin, _MM_SHUFFLE(1, 0, 0, 1));
 
 	// Get third row [0 -sin cos 0]
-	vCos = _mm_shuffle_ps(vCos, vCos, _MM_SHUFFLE(3, 1, 2, 0));
-	vCos = _mm_mul_ps(vCos, gVNegateY);
-	m.r[2] = vCos;
+	cos = _mm_shuffle_ps(cos, cos, _MM_SHUFFLE(3, 1, 2, 0));
+	cos = _mm_mul_ps(cos, gVNegateY);
+	m.r[2] = cos;
 
 	// Load fourth row
 	m.r[3] = gVIdentityR3;
 
 	return m;
 }
-
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a matrix which rotates around the X axis
-//Matrix MatrixRotationX(Vector angle);
 //
 //*************************************************************************************************
 // Build a matrix which rotates around the Y axis 
 //*************************************************************************************************
 Matrix MatrixRotationY(float angle)
 {
-	// Load sin and cos
-	SFLOAT sin = sinf(angle);
-	SFLOAT cos = cosf(angle);
+	Vector vAngle = VectorReplicate(angle);
+	return MatrixRotationY(vAngle);
+}
 
-	Vector vSin = _mm_set_ss(sin);
-	Vector vCos = _mm_set_ss(cos);
+//*************************************************************************************************
+// Build a matrix which rotates around the Y axis
+//*************************************************************************************************
+Matrix MatrixRotationY(Vector angle)
+{
+	// Load sin and cos
+	Vector sin, cos;
+	VectorSinCos(&sin, &cos, angle);
 
 	// Load first and third rows
-	vSin = _mm_shuffle_ps(vSin, vCos, _MM_SHUFFLE(3, 0, 3, 0));
-	vCos = _mm_shuffle_ps(vSin, vSin, _MM_SHUFFLE(3, 0, 1, 2));
-	vCos = _mm_mul_ps(vCos, gVNegateZ);
+	sin = _mm_shuffle_ps(sin, cos, _MM_SHUFFLE(3, 0, 3, 0));
+	cos = _mm_shuffle_ps(sin, sin, _MM_SHUFFLE(3, 0, 1, 2));
+	cos = _mm_mul_ps(cos, gVNegateZ);
 
 	// Set all rows
 	Matrix m;
-	m.r[0] = vCos;
+	m.r[0] = cos;
 	m.r[1] = gVIdentityR1;
-	m.r[2] = vSin;
+	m.r[2] = sin;
 	m.r[3] = gVIdentityR3;
 	return m;
 }
 
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a matrix which rotates around the Y axis
-//Matrix MatrixRotationY(Vector angle);
-//
 //*************************************************************************************************
 // Build a matrix which rotates around the Z axis 
 //*************************************************************************************************
 Matrix MatrixRotationZ(float angle)
 {
-	// Load sin and cos
-	SFLOAT sin = sinf(angle);
-	SFLOAT cos = cosf(angle);
+	Vector vAngle = VectorReplicate(angle);
+	return MatrixRotationZ(vAngle);
+}
 
-	Vector vSin = _mm_set_ss(sin);
-	Vector vCos = _mm_set_ss(cos);
+//*************************************************************************************************
+// Build a matrix which rotates around the Z axis
+//************************************************************************************************* 
+Matrix MatrixRotationZ(Vector angle)
+{
+	// Load sin and cos
+	Vector sin, cos;
+	VectorSinCos(&sin, &cos, angle);
 
 	// Load first and second rows
-	vSin = _mm_unpacklo_ps(vSin, vCos);
-	vCos = _mm_shuffle_ps(vSin, vSin, _MM_SHUFFLE(3, 3, 0, 1));
-	vCos = _mm_mul_ps(vCos, gVNegateX);
+	sin = _mm_unpacklo_ps(sin, cos);
+	cos = _mm_shuffle_ps(sin, sin, _MM_SHUFFLE(3, 3, 0, 1));
+	cos = _mm_mul_ps(cos, gVNegateX);
 
 	// Construct matrix
 	Matrix m;
-	m.r[0] = vSin;
-	m.r[1] = vCos;
+	m.r[0] = sin;
+	m.r[1] = cos;
 	m.r[2] = gVIdentityR2;
 	m.r[3] = gVIdentityR3;
 	return m;
 }
 
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a matrix which rotates around the Z axis
-//Matrix MatrixRotationZ(Vector angle);
-//
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a matrix which rotates around an arbitrary axis
-//Matrix MatrixRotationAxis(const Vector v, float angle);
-//
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a matrix which rotates around an arbitrary axis
-//Matrix MatrixRotationAxis(const Vector v, Vector angle);
-//
+//*************************************************************************************************
+// Build a matrix which rotates around an arbitrary axis
+//*************************************************************************************************
+Matrix MatrixRotationAxis(const Vector v, float angle)
+{
+	Vector vAngle = VectorReplicate(angle);
+	return MatrixRotationAxis(v, vAngle);
+}
+
+//*************************************************************************************************
+// Build a matrix which rotates around an arbitrary axis
+//*************************************************************************************************
+Matrix MatrixRotationAxis(const Vector v, Vector angle)
+{
+	// Sin and cos
+	Vector sin, cos;
+	VectorSinCos(&sin, &cos, angle);
+	Vector diffCos = Vec3Sub(gVOne, cos);
+	
+	// Construct the following vectors
+	// x * x * dc + c
+	// x * y * dc + (z * s)
+	// x * z * dc - (y * s)
+	//
+	// x * y * dc - (z * s)
+	// y * y * dc + c
+	// y * z * dc + (x * s)
+	//
+	// x * z * dc + (y * s)
+	// y * z * dc - (x * s)
+	// z * z * dc + c
+	Vector vTempX = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
+	Vector vTempZ = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+	Vector vTempXY = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 0, 0));
+	Vector vTempYZ = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 1, 1));
+
+	Vector vTempSV = VectorMul(v, sin);
+	Vector vTempCS = _mm_shuffle_ps(vTempSV, cos, _MM_SHUFFLE(2, 2, 0, 0));
+	vTempCS = _mm_shuffle_ps(vTempSV, vTempCS, _MM_SHUFFLE(2, 1, 1, 0));
+
+	Vector vTemp0 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 1, 2, 3));
+	vTemp0 = VectorMul(vTemp0, gVNegateZ);
+	Vector vTemp1 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 0, 3, 2));
+	vTemp1 = VectorMul(vTemp1, gVNegateX);
+	Vector vTemp2 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 3, 0, 1));
+	vTemp2 = VectorMul(vTemp2, gVNegateY);
+	
+	// Construct matrix
+	Vector vTemp = VectorMul(vTempX, v);
+	vTemp = VectorMul(vTemp, diffCos);
+	vTemp0 = VectorAdd(vTemp, vTemp0);
+
+	vTemp = VectorMul(vTempXY, vTempYZ);
+	vTemp = VectorMul(vTemp, diffCos);
+	vTemp1 = VectorAdd(vTemp, vTemp1);
+
+	vTemp = VectorMul(v, vTempZ);
+	vTemp = VectorMul(vTemp, diffCos);
+	vTemp2 = VectorAdd(vTemp, vTemp2);
+
+	Matrix m;
+	m.r[0] = VectorAnd(vTemp0, gVMask3);
+	m.r[1] = VectorAnd(vTemp1, gVMask3);
+	m.r[2] = VectorAnd(vTemp2, gVMask3);
+	m.r[3] = gVIdentityR3;
+
+	return m;	
+}
 ////*************************************************************************************************
 //// 
 ////*************************************************************************************************
 //// Build a matrix from a quaternion
 //Matrix MatrixRotationQuaternion(const Vector q);
-//
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
-//Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll);
-//
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
-//Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll);
-//
+
+//*************************************************************************************************
+// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis 
+//*************************************************************************************************
+Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll)
+{
+	Vector vYaw = VectorReplicate(yaw);
+	Vector vPitch = VectorReplicate(pitch);
+	Vector vRoll = VectorReplicate(roll);
+	return MatrixRotationYawPitchRoll(vYaw, vPitch, vRoll);
+}
+
+//*************************************************************************************************
+// Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis 
+//*************************************************************************************************
+Matrix MatrixRotationYawPitchRoll(Vector yaw, Vector pitch, Vector roll)
+{
+	Matrix m1, m2;
+
+	// Get the yaw and pitch rotation matrices
+	m1 = MatrixRotationY(yaw);
+	m2 = MatrixRotationX(pitch);
+
+	// Get cumulative rotation matrix
+	m1 = MatrixMultiply(m1, m2);
+
+	// Get the roll matrix
+	m2 = MatrixRotationZ(roll);
+
+	// Find rotation matrix
+	return MatrixMultiply(m1, m2);
+}
+
 ////*************************************************************************************************
 //// 
 ////*************************************************************************************************

@@ -36,6 +36,9 @@ private:
 	// Game loop for the engine
 	void gameLoop();
 
+	// Frame stats
+	void calculateFrameStats();
+
 private:
 	// Input manager
 	InputManager* _inputManager;
@@ -55,6 +58,9 @@ private:
 	// Jobs
 	Job renderJob;
 	Job inputJob;
+
+	// Timer
+	Timer _timer;
 
 // Inline functions
 public:

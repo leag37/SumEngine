@@ -132,6 +132,9 @@
     <ClCompile Include="src\SumBaseResource.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumCamera.cpp">
+      <Filter>Cameras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">

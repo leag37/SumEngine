@@ -306,3 +306,13 @@ SUMINLINE Vector VectorReplicate(SFLOAT v)
 //Vector VectorSetZ(const Vector v, SFLOAT z);
 //Vector VectorSetW(const Vector v, SFLOAT w);
 	
+//*************************************************************************************************
+// And operation on vector
+//*************************************************************************************************
+SUMINLINE Vector VectorAnd(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_and_ps(v1, v2);
+#else
+#endif
+}

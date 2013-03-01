@@ -30,6 +30,7 @@
   <ItemGroup>
     <None Include="include\SumFloat.inl" />
     <None Include="include\SumMatrix.inl" />
+    <None Include="include\SumMiscMath.inl" />
     <None Include="include\SumQuaternion.inl" />
     <None Include="include\SumVector.inl" />
     <None Include="include\SumVector2.inl" />

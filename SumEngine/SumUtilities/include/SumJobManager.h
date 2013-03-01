@@ -49,7 +49,7 @@ private:
 	HANDLE* workerThreads;		// Array of worker threads
 	SINT numWorkerThreads;		// The number of worker threads
 
-	CriticalSection cs;		// Used to manage access for job requests
+	CriticalSection _criticalSection;	// Used to manage access for job requests
 
 	SBOOL _runManager;		// Is the manager currently running
 

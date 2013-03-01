@@ -58,8 +58,6 @@ void RenderManager::startUp()
 	Matrix i = MatrixIdentity();
 	StoreFloat4x4(&_view, i);
 	//StoreFloat4x4(&_world, i);
-	
-	_eyePosW = Float3(0.0f, 0.0f, 0.0f);
 	_theta = 1.5f * S_PI;
 	_phi = 0.25f * S_PI;
 	_radius = 5.0f;
@@ -86,7 +84,6 @@ void RenderManager::update()
 	SFLOAT x = _radius * sinf(_phi) * cosf(_theta);
 	SFLOAT z = _radius * sinf(_phi) * sinf(_theta);
 	SFLOAT y = _radius * cosf(_phi);
-	_eyePosW = Float3(x, y, z);
 	
 	Vector pos = VectorSet(x, y, z, 1.0f);
 	Vector target = VectorZero();

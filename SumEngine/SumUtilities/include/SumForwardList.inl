@@ -187,11 +187,14 @@ const Type ForwardList<Type>::pop_front(void) {
 	// Create a temporary head (the second node)
 	Node* tHead = head->getNext();
 
-	// Delete the head
-	delete head;
+	// Save old head
+	Node* oldHead = head;
 
 	// Set the new head
 	head = tHead;
+
+	// Delete old head
+	delete oldHead;
 
 	// Decrement count
 	--count;

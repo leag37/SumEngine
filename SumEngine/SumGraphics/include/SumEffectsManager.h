@@ -11,6 +11,7 @@
 #define __SUMEFFECTSMANAGER_H__
 
 #include "SumRenderCore.h"
+#include "SumDictionary.h"
 
 // TEMPORARY
 #include <unordered_map>
@@ -32,7 +33,7 @@ public:
 
 private:
 	// TEMP: map of effects
-	std::unordered_map<std::string, Effect*> _effects;
+	Dictionary<String, Effect*> _effects;//std::unordered_map<std::string, Effect*> _effects;
 
 // Inline functions
 public:
@@ -50,7 +51,7 @@ public:
 	}
 
 	// Get an effect
-	SUMINLINE Effect* getEffectByName(const std::string& name)
+	SUMINLINE Effect* getEffectByName(const String& name)
 	{
 		return _effects[name];
 	}

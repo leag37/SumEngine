@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumBaseResource.cpp" />
+    <ClCompile Include="src\SumCamera.cpp" />
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
     <ClCompile Include="src\SumGeometry.cpp" />

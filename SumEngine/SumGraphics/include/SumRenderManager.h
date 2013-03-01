@@ -28,6 +28,9 @@
 #include "SumConfigurationManager.h"
 #include "SumResourceManager.h"
 
+// TEMP
+#include "SumTimer.h"
+
 class RenderManager : public Singleton<RenderManager>
 {
 public:
@@ -82,7 +85,6 @@ private:
 	Renderable* _renderable;
 	Float4x4 _view;
 	Float4x4 _proj;
-	Float3 _eyePosW;
 	SFLOAT _theta;
 	SFLOAT _phi;
 	SFLOAT _radius;

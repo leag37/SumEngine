@@ -85,6 +85,9 @@ namespace SumMemory
 		_variableSize[29] = Chunk(0, 8388608);
 		_variableSize[30] = Chunk(0, 12582912);
 		_variableSize[31] = Chunk(0, 384);
+
+		// Initialize critical section
+		_criticalSection = CriticalSection();
 	}
 
 	//************************************************************************************************
@@ -109,6 +112,9 @@ namespace SumMemory
 		{
 			return 0;
 		}
+
+		// Enter the critical section
+		_criticalSection.enter();
 
 		// Check against minimum size
 		size = size < 8 ? 8 : size;
@@ -155,7 +161,7 @@ namespace SumMemory
 		{
 			// Get the pointer value at memory offset
 			SUINT ptrSize = *reinterpret_cast<SUINT*>(_designatedVictim.ptr);
-			if(ptrSize >= size)//reinterpret_cast<SUINT*>(_designatedVictim.ptr) >= size)
+			if(ptrSize >= size)
 			{
 				// Get the return pointer from the DV
 				void* rPtr = _designatedVictim.pop();
@@ -269,6 +275,9 @@ namespace SumMemory
 			return;
 		}
 
+		// Enter the critical section
+		_criticalSection.enter();
+
 		// Get data pointer location
 		void* nPtr = static_cast<void*>(reinterpret_cast<SCHAR*>(ptr) - MEM_OFFSET);
 
@@ -296,6 +305,7 @@ namespace SumMemory
 				if(size >= fitBinSize && size < bigBinSize)
 				{
 					chk->push(ptr);
+					_criticalSection.leave();
 					return;
 				}
 				else if(size < fitBinSize)
@@ -318,5 +328,8 @@ namespace SumMemory
 			SUINT bin = (size >> 3) - 1;
 			_fixedSize[bin].push(ptr);
 		}
+
+		// Leave the critical section
+		_criticalSection.leave();
 	}
 }

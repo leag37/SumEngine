@@ -76,9 +76,6 @@
     <ClInclude Include="include\SumJobManager.h">
       <Filter>Threading</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumCriticalSection.h">
-      <Filter>Threading</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumInputManager.h">
       <Filter>Input</Filter>
     </ClInclude>
@@ -87,6 +84,9 @@
     </ClInclude>
     <ClInclude Include="include\SumInputDeviceMouse.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumTimer.h">
+      <Filter>Misc</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="src\SumInputDeviceMouse.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumTimer.cpp">
+      <Filter>Misc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

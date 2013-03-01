@@ -13,8 +13,11 @@
 
 #include "SumRenderCore.h"
 
-class Camera
+class SUM_DECLSPEC_ALIGN_16 Camera
 {
+public:
+	_SUM_ALIGN(Camera);
+
 public:
 	// Constructor
 	Camera();
@@ -23,64 +26,61 @@ public:
 	virtual ~Camera();
 
 	// Set the lens
-	void setLens();
+	void setLens(SFLOAT fovy, SFLOAT aspect, SFLOAT nearZ, SFLOAT farZ);
 
 	// Retrieve the position
-	void position();
+	Vector position();
 
 	// Set the position
-	void setPosition();
+	void setPosition(const Vector position);
 
 	// Move the camera relative to world axes
-	void translate();
+	void translate(const Vector v);
 
 	// Move the camera along the X axis
-	void translateX();
+	void translateX(SFLOAT x);
 
 	// Move the camera along the Y axis
-	void translateY();
+	void translateY(SFLOAT y);
 
 	// Move the camera along the Z axis
-	void translateZ();
+	void translateZ(SFLOAT z);
 
 	// Move the camera relative to local axes
-	void translateRelative();
+	void translateRelative(const Vector v);
 
 	// Move the camera relative to local X axis
-	void translateXRelative();
+	void translateXRelative(SFLOAT x);
 
 	// Move the camera relative to the local Y axis
-	void translateYRelative();
+	void translateYRelative(SFLOAT y);
 
 	// Move the camera relative to the local Z axis
-	void translateZRelative();
-
-	// Rotate the camera
-	void rotate();
+	void translateZRelative(SFLOAT z);
 
 	// Rotate about the world X axis
-	void rotateX();
+	void rotateX(SFLOAT x);
 
 	// Rotate about the world Y axis
-	void rotateY();
+	void rotateY(SFLOAT y);
 
 	// Rotate about the world Z axis
-	void rotateZ();
+	void rotateZ(SFLOAT z);
 
 	// Rotate about the relative X axis
-	void pitch();
+	void pitch(SFLOAT p);
 
 	// Rotate about the relative Y axis
-	void yaw();
+	void yaw(SFLOAT y);
 
 	// Rotate about the relative Z axis
-	void roll();
+	void roll(SFLOAT r);
 
 	// Set the camera rotation
-	void setRotation();
+	void setRotation(SFLOAT yaw, SFLOAT pitch, SFLOAT roll);
 
 	// Look at a point in space
-	void lookAt();
+	void lookAt(const Vector pos, const Vector target, const Vector up);
 
 	// Update the matrices based on current information and return the world-view matrix for this camera
 	const Matrix viewProj();
@@ -90,23 +90,31 @@ private:
 	//**********************************************
 	
 	// Position vector
+	Vector _position;
 
 	// Right vector
+	Vector _right;
 	
 	// Up vector
+	Vector _up;
 
 	// Look/forward vector
+	Vector _forward;
 
 	// Frustrum properties
 	//**********************************************
 
-	// Near z
-
-	// Far z
+	// Field of view
+	SFLOAT _fovy;
 
 	// Aspect ratio
+	SFLOAT _aspect;
 
-	// Field of view
+	// Near z
+	SFLOAT _nearZ;
+
+	// Far z
+	SFLOAT _farZ;
 
 	// Near window height
 
@@ -116,8 +124,10 @@ private:
 	//**********************************************
 	
 	// View matrix
+	Matrix _view;
 
 	// Projection matrix
+	Matrix _proj;
 };
 
 #endif

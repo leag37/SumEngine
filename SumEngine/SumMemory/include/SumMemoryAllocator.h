@@ -8,6 +8,7 @@
 
 #include "SumChunk.h"
 #include "SumPlatform.h"
+#include "SumCriticalSection.h"
 #include <malloc.h>
 #include <climits>
 
@@ -49,6 +50,10 @@ namespace SumMemory
 			// Set size of this chunk
 			*nPtr = size;
 
+			// Validate pointer only gets called by allocator, so we can leave the critical section here as
+			// all allocation-dependent calls have been made
+			_criticalSection.leave();
+
 			// Return original pointer
 			return ptr;
 		}
@@ -75,6 +80,9 @@ namespace SumMemory
 
 		// Array of 32 variable-size memory bins up to 12MB
 		Chunk _variableSize[32];
+
+		// Critical section
+		CriticalSection _criticalSection;
 	};
 }
 

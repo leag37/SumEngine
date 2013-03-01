@@ -35,7 +35,7 @@ RenderWindow::RenderWindow(SUINT clientWidth, SUINT clientHeight)
 	wc.lpfnWndProc = MainWndProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
-	wc.hInstance = GetModuleHandle(0);
+	wc.hInstance = gHInstance;//GetModuleHandle(0);
 	wc.hIcon = LoadIcon(0, IDI_APPLICATION);
 	wc.hCursor = LoadCursor(0, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH) GetStockObject(NULL_BRUSH);
@@ -54,9 +54,11 @@ RenderWindow::RenderWindow(SUINT clientWidth, SUINT clientHeight)
 	int width = r.right - r.left;
 	int height = r.bottom - r.top;
 
+	_caption = "SumEngine v0.0.1";
+
 	_clientWindow = CreateWindow(
-		wc.lpszClassName, 
-		"SumEngine v0.0.1",
+		wc.lpszClassName,
+		LPCSTR(_caption.c_str()),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
@@ -72,6 +74,8 @@ RenderWindow::RenderWindow(SUINT clientWidth, SUINT clientHeight)
 		MessageBox(0, "CreateWindow failed", 0, 0);
 		return;
 	}
+
+	gWindowHandle = _clientWindow;
 
 	ShowWindow(_clientWindow, SW_SHOW);
 	UpdateWindow(_clientWindow);
@@ -92,7 +96,7 @@ RenderWindow::~RenderWindow()
 //*************************************************************************************************
 LRESULT RenderWindow::processMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	switch(msg)
+	switch(msg)		
 	{
 	// The window is being destroyed, quit application
 	case WM_DESTROY:
@@ -108,4 +112,3 @@ LRESULT RenderWindow::processMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM 
 	// Return default process
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-

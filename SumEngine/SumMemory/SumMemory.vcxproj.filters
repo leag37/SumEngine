@@ -28,6 +28,12 @@
     <ClInclude Include="include\SumUnaligned.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumCriticalSection.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMutex.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMemory.cpp">

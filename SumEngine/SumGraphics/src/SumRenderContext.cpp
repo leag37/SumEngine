@@ -56,6 +56,12 @@ RenderContext::~RenderContext()
 //*************************************************************************************************
 SBOOL RenderContext::createDevice()
 {
+	// Create the device and device context
+	UINT createDeviceFlags = 0;
+#if defined(DEBUG) || defined(_DEBUG)
+	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
 	// Set the desired feature level
 	D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
 
@@ -64,7 +70,7 @@ SBOOL RenderContext::createDevice()
 		0,	// Default adapter
 		_d3dDriverType,
 		0,
-		0,	// ONLY support non-debug mode right now
+		createDeviceFlags,	// Support debug mode
 		0, 0,	// Default feature level array
 		D3D11_SDK_VERSION,
 		&_d3dDevice,

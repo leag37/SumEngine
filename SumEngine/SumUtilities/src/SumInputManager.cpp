@@ -31,7 +31,7 @@ void InputManager::startUp(HWND handle)
 {
 	// Create the DirectInput device
 	DirectInput8Create(	
-		GetModuleHandle(0),							// Application handle
+		gHInstance,//GetModuleHandle(0),							// Application handle
 		DIRECTINPUT_VERSION,						// Current DirectInput version
 		IID_IDirectInput8,							// DirectInput interface version
 		reinterpret_cast<void**>(&_inputDevice),	// DirectInput interface pointer

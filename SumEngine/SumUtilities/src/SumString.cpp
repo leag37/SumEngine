@@ -238,6 +238,27 @@ const bool String::operator==(const char* rhs) const {
 	return true;
 }
 
+//*************************************************************************************************
+// Equivalence
+//*************************************************************************************************
+const bool String::operator==(const wchar_t* rhs) const
+{
+	// Test lengths
+	if(Sum::strlen(rhs) != length) {
+		return false;
+	}
+
+	// Test individual letters
+	for(int i = 0; i < length; ++i) {
+		if(s[i] != rhs[i]) {
+			return false;
+		}
+	}
+
+	// Passed tests so return true
+	return true;
+}
+
 /**************************************************************************************************
 * Non-equivalence
 **************************************************************************************************/
@@ -1556,18 +1577,6 @@ const int String::compare(const String& str) const {
 }
 
 /**************************************************************************************************
-* Determines the length of a string
-**************************************************************************************************/
-const int strLen(const char* s) {
-	int count = 0;
-	while(*(s++)) {
-		++count;
-	}
-	
-	return count;
-}
-
-/**************************************************************************************************
 * Determine the capacity given a known length
 **************************************************************************************************/
 void String::_determineCapacity(void) {
@@ -1609,3 +1618,32 @@ void String::_grow(void) {
 	// Assign the new array
 	s = c;
 }
+
+//*************************************************************************************************
+// Determines the length of a string
+//*************************************************************************************************
+const int strLen(const char* s) {
+	int count = 0;
+	while(*(s++)) {
+		++count;
+	}
+	
+	return count;
+}
+
+namespace Sum
+{
+
+//*************************************************************************************************
+// Determines the length of a string
+//*************************************************************************************************
+const SUINT strlen(const wchar_t* s) {
+	int count = 0;
+	while(*(s++)) {
+		++count;
+	}
+	
+	return count;
+}
+
+};

@@ -26,6 +26,7 @@
 #include "SumEffect.h"
 #include "SumVertex.h"
 #include "SumMesh.h"
+#include "SumCamera.h"
 
 #include "SumRenderable.h"
 

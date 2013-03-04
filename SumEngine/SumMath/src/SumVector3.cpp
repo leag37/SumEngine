@@ -27,7 +27,7 @@ Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vect
 // c = s^3 - 2s^2 + s
 // d = s^3 - s^2
 //*************************************************************************************************
-Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector& t2, Vector& s)
+Vector Vec3Hermite(const Vector v1, const Vector t1, const Vector v2, const Vector& t2, const Vector& s)
 {
 	// Find double and triple of s
 	Vector vS2 = _mm_mul_ps(s, s);

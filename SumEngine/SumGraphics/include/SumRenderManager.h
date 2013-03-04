@@ -62,7 +62,7 @@ public:
 	void update();
 
 	// Register a camera
-	void registerCamera(const Matrix& camera);
+	void registerCamera(Camera* camera);
 
 private:
 	// Render the current scene
@@ -83,11 +83,7 @@ private:
 
 	// TEMP
 	Renderable* _renderable;
-	Float4x4 _view;
-	Float4x4 _proj;
-	SFLOAT _theta;
-	SFLOAT _phi;
-	SFLOAT _radius;
+	Camera* _camera;
 
 // Inline accessor functions
 public:
@@ -100,6 +96,12 @@ public:
 	SUMINLINE HWND handle() const
 	{
 		return _renderWindow->clientHandle();
+	}
+
+	// Get the aspect ratio for the window
+	SUMINLINE SFLOAT aspectRatio() const
+	{
+		return _renderWindow->aspectRatio();
 	}
 };
 

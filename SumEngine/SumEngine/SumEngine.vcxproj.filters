@@ -19,6 +19,9 @@
     <ClCompile Include="src\SumSimulationManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumSimulation.cpp">
+      <Filter>Simulation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumSimulationManager.h">

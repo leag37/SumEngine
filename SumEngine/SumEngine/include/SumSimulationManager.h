@@ -13,6 +13,7 @@
 #include "SumConfigurationManager.h"
 #include "SumResourceManager.h"
 #include "SumDelegate.h"
+#include "SumSimulation.h"
 
 class SimulationManager : public Singleton<SimulationManager>
 {
@@ -54,6 +55,9 @@ private:
 
 	// Configuration manager
 	ConfigurationManager* _configurationManager;
+
+	// Game simulation
+	Simulation* _simulation;
 
 	// Jobs
 	Job renderJob;

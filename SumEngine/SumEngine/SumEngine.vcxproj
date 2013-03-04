@@ -64,6 +64,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMain.cpp" />
+    <ClCompile Include="src\SumSimulation.cpp" />
     <ClCompile Include="src\SumSimulationManager.cpp" />
   </ItemGroup>
   <ItemGroup>

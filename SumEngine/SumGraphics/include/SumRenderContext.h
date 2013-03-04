@@ -9,11 +9,14 @@
 // TODO: Add support for debug mode
 // TODO: Enable support for enabling/disabling multisampling
 // TODO: Enable support for variable multisampling
+// TODO: Support selecting different video cards as long as they support D3D11 (or whatever feature
+//	sets are supported)
 //*************************************************************************************************
 #ifndef __SUMRENDERCONTEXT_H__
 #define __SUMRENDERCONTEXT_H__
 
 #include "SumRenderCore.h"
+#include "SumConfigurationManager.h"
 
 class RenderContext
 {

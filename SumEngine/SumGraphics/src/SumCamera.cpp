@@ -255,6 +255,9 @@ void Camera::lookAt(const Vector pos, const Vector target, const Vector up)
 	_right = Vec3TransformNormal(gVIdentityR0, r);
 	_up = Vec3TransformNormal(gVIdentityR1, r);
 	_forward = Vec3TransformNormal(gVIdentityR2, r);
+
+	// Set position
+	_position = r.r[3];
 }
 
 //*************************************************************************************************
@@ -289,33 +292,35 @@ const Matrix Camera::viewProj()
 	// Construct the view matrix from the various component vectors
 	// R, U, F, P
 	//
-	// rx ry rz px
-	// ux uy uz py
-	// fx fy fz pz
-	// 0  0  0  1
+	// rx ry rz 0
+	// ux uy uz 0
+	// fx fy fz 0
+	// px py pz 1
 	//
 	// V0 = movelh(R, U) => rx ry ux uy
 	// V1 = unpackhi(R, U) => rz uz rw uw
-	// V1 = unpacklo(V1, P) => rz px uz py
+	// V1 = unpacklo(V1, gVIdentityR3) => rz 0 uz 0
 	//
-	// V2 = movelh(F, F) => fx fy fx fy
-	// V3 = unpackhi(F, P) => fz pz fw uw
+	// V2 = movelh(F, P) => fx fy px py
+	// V3 = unpackhi(F, P) => fz pz fw pw
+	// V3 = unpacklo(V3, gVIdentityR1) => fz 0 pz 1
 	//
-	// M0 = movelh(V0, V1) => rx ry rz px
-	// M1 = movehl(V1, V0) => ux uy uz py
-	// M2 = movelh(V2, V3) => fx fy fz pz
-	// M3 = gVIdentityR3   => 0  0  0  1
+	// M0 = movelh(V0, V1) => rx ry rz 0
+	// M1 = movehl(V1, V0) => ux uy uz 0
+	// M2 = movelh(V2, V3) => fx fy fz 0
+	// M3 = movehl(V3, V2) => px py pz 1
 	Vector v0 = _mm_movelh_ps(r, u);
 	Vector v1 = _mm_unpackhi_ps(r, u);
 	v1 = _mm_unpacklo_ps(v1, p);
 
-	Vector v2 = _mm_movelh_ps(f, f);
+	Vector v2 = _mm_movelh_ps(f, p);
 	Vector v3 = _mm_unpackhi_ps(f, p);
+	v3 = _mm_unpacklo_ps(v3, gVIdentityR1);
 
 	_view.r[0] = _mm_movelh_ps(v0, v1);
 	_view.r[1] = _mm_movehl_ps(v1, v0);
 	_view.r[2] = _mm_movelh_ps(v2, v3);
-	_view.r[3] = gVIdentityR3;
+	_view.r[3] = _mm_movehl_ps(v3, v2);
 
 	// View projection matrix
 	return MatrixMultiply(_view, _proj);

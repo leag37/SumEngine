@@ -18,7 +18,8 @@ SimulationManager::SimulationManager()
 		_jobManager(0),
 		_renderManager(0),
 		_resourceManager(0),
-		_configurationManager(0)
+		_configurationManager(0),
+		_simulation(0)
 { }
 
 //*************************************************************************************************
@@ -33,6 +34,7 @@ SimulationManager::~SimulationManager()
 	// TODO: Shut down physics
 	// TODO: Shut down resource manager
 	SafeDelete(_configurationManager);
+	SafeDelete(_simulation);
 }
 
 //*************************************************************************************************
@@ -68,7 +70,9 @@ void SimulationManager::startUp()
 	_inputManager = new InputManager();
 	_inputManager->startUp(_renderManager->handle());
 
-	// TODO: Initialize simulation
+	// Initialize simulation
+	_simulation = new Simulation();
+	_simulation->startUp();
 
 	// The engine can now run
 	gCanRun = true;
@@ -83,7 +87,8 @@ void SimulationManager::shutDown()
 	// Shut down job manager
 	_jobManager->shutDown();
 
-	// TODO: Shut down simulation
+	// Shut down simulation
+	_simulation->shutDown();
 
 	// Shut down input system
 	_inputManager->shutDown();

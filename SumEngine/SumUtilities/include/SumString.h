@@ -33,6 +33,7 @@ public:
 	const String& operator=(const char* rhs);		// Assignment
 	const bool operator==(const String& rhs) const;	// Equivalence
 	const bool operator==(const char* rhs) const;	// Equivalence
+	const bool operator==(const wchar_t* rhs) const;	// Equivalence
 	const bool operator!=(const String& rhs) const;	// Non-equivalence
 	const bool operator!=(const char* rhs) const;	// Non-quivalence
 	const bool operator<(const String& rhs) const;	// Less than
@@ -161,6 +162,12 @@ private:
 };
 
 const int strLen(const char* s);	// Determines the length of a string
+
+namespace Sum
+{
+	// String length
+	const SUINT strlen(const wchar_t* s);
+};
 
 #include "SumString.inl"
 

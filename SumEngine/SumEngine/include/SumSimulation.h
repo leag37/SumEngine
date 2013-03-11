@@ -25,6 +25,11 @@ public:
 	// Shut down the simulation
 	void shutDown();
 
+	// Update the world
+	void update();
+
+	void test(int a);
+
 private:
 	// Camera
 	Camera* _camera;

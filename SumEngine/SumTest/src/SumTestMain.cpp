@@ -6,6 +6,7 @@
 #include "SumTestDriver.h"
 
 #include <string>
+#include <cstdio>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ bool processInput(string);
 int main()
 {
 	bool run = true;
-
+	
 	cout << "Welcome to the Sum Engine Test Suite!" << endl;
 
 	while(run)
@@ -47,6 +48,12 @@ bool processInput(string input)
 	// Math
 	else if(input == "math")
 		runMathSuite();
+
+	// Utilities
+	else if(input == "utilities")
+	{
+		runUtilitiesSuite();
+	}
 
 	return true;
 }

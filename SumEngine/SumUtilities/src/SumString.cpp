@@ -1646,4 +1646,4 @@ const SUINT strlen(const wchar_t* s) {
 	return count;
 }
 
-};
+}

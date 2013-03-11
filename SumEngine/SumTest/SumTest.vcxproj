@@ -13,13 +13,17 @@
   <ItemGroup>
     <ClInclude Include="include\SumMathTest.h" />
     <ClInclude Include="include\SumMatrixTest.h" />
+    <ClInclude Include="include\SumQueueTest.h" />
     <ClInclude Include="include\SumTestDriver.h" />
     <ClInclude Include="include\SumTestHelper.h" />
+    <ClInclude Include="include\SumUtilitiesTest.h" />
     <ClInclude Include="include\SumVectorTest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMatrixTest.cpp" />
+    <ClCompile Include="src\SumQueueTest.cpp" />
     <ClCompile Include="src\SumTestMain.cpp" />
+    <ClCompile Include="src\SumUtilitiesTest.cpp" />
     <ClCompile Include="src\SumVectorTest.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -53,12 +57,12 @@
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src;include;../SumMath/include;../SumPlatform/include;../SumMemory/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include;../SumMath/include;../SumUtilities/include;../SumPlatform/include;../SumMemory/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SumMath.lib;SumMemory.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SumMath.lib;SumMemory.lib;SumUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

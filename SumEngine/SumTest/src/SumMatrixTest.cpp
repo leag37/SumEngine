@@ -7,7 +7,7 @@
 
 void matrixSuite(int& errors, int& tests)
 {
-	errors += matrixInit(tests);
+	//errors += matrixInit(tests);
 	errors += matrixEqual(tests);
 	errors += matrixNotEqual(tests);
 	errors += matrixTranspose(tests);
@@ -19,6 +19,7 @@ int matrixInit(int& tests)
 	int errors = 0;
 
 	// Test case 1 - load individually
+	++tests;
 	
 	return errors;
 }
@@ -118,6 +119,6 @@ int matrixTranspose(int& tests)
 	}
 	++tests;
 
-	Test::printResult(errors, "MatrixTranpose");
+	Test::printResult(errors, tests, "MatrixTranpose");
 	return errors;
 }

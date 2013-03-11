@@ -71,7 +71,7 @@ void JobManager::clearJobs(void)
 	// Empty job queue
 	_criticalSection.enter();
 	while(jobs.hasHead()) {
-		Job* j(jobs.pop_front());
+		Job* j(&jobs.pop_front());
 		j->setStatus(Job::DONE);
 	}
 	_criticalSection.leave();
@@ -106,15 +106,8 @@ DWORD WINAPI JobManager::WorkerThread(LPVOID param)
 			}
 		}
 		
-		// If we still need to run the thread, go to sleep, otherwise return 0
-		//if(manager->runManager())
-		//{
-			Sleep(THREAD_SLEEP_TIME);
-		//}
-		//else
-		//{
-		//	return 0;
-		//}
+		// No more jobs exist, so sleep
+		Sleep(THREAD_SLEEP_TIME);
 	}
 
 	return 0;

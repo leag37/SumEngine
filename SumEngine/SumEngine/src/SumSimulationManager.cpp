@@ -121,8 +121,15 @@ void SimulationManager::run()
 void SimulationManager::gameLoop()
 {
 	// Jobs for major for engine components
-	renderJob = Job(Delegate0(_renderManager, &RenderManager::update));
-	inputJob = Job(Delegate0(_inputManager, &InputManager::update));
+	renderJob = Job(new Delegate(_renderManager, &RenderManager::update));
+	inputJob = Job(new Delegate(_inputManager, &InputManager::update));
+
+	//Job job = Job(new Delegate1<int>(_simulation, &Simulation::test, 2));
+	//RequestJob(job);
+	//Delegate1<int> woo = Delegate1<int>(_simulation, &Simulation::test, 2);
+	//woo();
+
+
 	
 	// Define a struct to hold a Windows event message
 	MSG msg;

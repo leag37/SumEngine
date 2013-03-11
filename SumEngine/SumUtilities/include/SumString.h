@@ -167,7 +167,7 @@ namespace Sum
 {
 	// String length
 	const SUINT strlen(const wchar_t* s);
-};
+}
 
 #include "SumString.inl"
 

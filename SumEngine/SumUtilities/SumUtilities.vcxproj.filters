@@ -41,6 +41,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{5e81e9aa-9664-4e26-9c60-ecc19f22dfa6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data Structures\Queue">
+      <UniqueIdentifier>{b934f221-272b-4f59-a7e4-9d9fe81b2675}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumForwardList.h">
@@ -87,6 +90,9 @@
     </ClInclude>
     <ClInclude Include="include\SumTimer.h">
       <Filter>Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumQueue.h">
+      <Filter>Data Structures\Queue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +149,12 @@
     </None>
     <None Include="include\SumJobManager.inl">
       <Filter>Threading</Filter>
+    </None>
+    <None Include="include\SumDelegate.inl">
+      <Filter>Delegates</Filter>
+    </None>
+    <None Include="include\SumQueue.inl">
+      <Filter>Data Structures\Queue</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

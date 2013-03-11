@@ -15,12 +15,12 @@ namespace delegate_details
 	// Define a generic class
 	class __single_inheritance GenericClass;
 
+	// Define a generic member function pointer
+	typedef void (GenericClass::*GenericMemberFunctionPtr)();
+
 	// Implicit cast from a given type to another
 	template <class OutputClass, class InputClass>
-	SUMINLINE OutputClass implicit_cast(InputClass input)
-	{
-		return input;
-	}
+	OutputClass implicit_cast(InputClass input);
 
 	// Union between two classes
 	template <class OutputClass, class InputClass>
@@ -32,20 +32,12 @@ namespace delegate_details
 
 	// Class Cast between two classes
 	template <class OutputClass, class InputClass>
-	SUMINLINE OutputClass class_cast(InputClass input)
-	{
-		ClassUnion<OutputClass, InputClass> u;
-		u.in = input;
-		return u.out;
-	}
+	OutputClass class_cast(InputClass input);
 
 	// Class that provides closure for class delegates
 	class Closure
 	{
 	private:
-		// Define a generic member function pointer
-		typedef void (GenericClass::*GenericMemberFunctionPtr)();
-
 		// Pointer to the class instance
 		GenericClass* _this;
 
@@ -54,76 +46,91 @@ namespace delegate_details
 
 	public:
 		// Constructor
-		SUMINLINE Closure()
-			:	_this(0),
-				_function(0)
-		{ }
+		Closure();
+
+		// Copy constructor
+		Closure(const Closure& rhs);
 
 		// Bind	the functions
 		template <typename X, typename XMemFunc>
-		SUMINLINE void bind(X instance, XMemFunc function)
-		{
-			_this = reinterpret_cast<GenericClass*>(instance);
-			_function = class_cast<GenericMemberFunctionPtr>(function);
-		}
+		void bind(X instance, XMemFunc function);
 
 		// Clear the functions
-		SUMINLINE void clear()
-		{
-			_this = 0;
-			_function = 0;
-		}
+		void clear();
 
 	// Inline functions
 	public:
 		// Return an instance of this class
-		SUMINLINE GenericClass* pThis() const
-		{
-			return _this;
-		}
+		GenericClass* pThis() const;
 
 		// Return an instance of the function pointer
-		SUMINLINE GenericMemberFunctionPtr pFunction() const
-		{
-			return _function;
-		}
+		GenericMemberFunctionPtr pFunction() const;
 	};
 }
 
 using namespace delegate_details;
 
-// Delegate with no parameter
-class Delegate0
+// Basic delegate
+class Delegate
 {
 public:
 	// Constructor
-	SUMINLINE Delegate0()
-	{
-		_closure.clear();
-	}
+	Delegate();
+
+	// Copy constructor
+	Delegate(const Delegate& rhs);
 
 	// Constructor for non-const member functions
 	template <typename X>
-	SUMINLINE Delegate0(X *pThis, void (X::*function)())
-	{
-		_closure.bind(pThis, function);
-	}
+	Delegate(X* pThis, void (X::*function)());
 
-	// Bind function for non-const member function
-	SUMINLINE void bind()
-	{
-
-	}
+	// Destructor
+	~Delegate();
 
 	// Invoke the delegate
-	SUMINLINE void operator() () const
-	{
-		return (_closure.pThis()->*(_closure.pFunction()))();
-	}
+	virtual void operator() () const;
 
-private:
+protected:
 	// Closure for the delegate
 	Closure _closure;
 };
+
+// Delegate with no parameter
+template <typename Param1>
+class Delegate1 : public Delegate
+{
+private:
+	typedef void (delegate_details::GenericClass::*GenericMemberFunction)(Param1 p1);
+
+public:
+	// Constructor
+	Delegate1();
+
+	// Copy constructor
+	Delegate1(const Delegate1& rhs);
+
+	// Constructor for non-const member functions
+	template <typename X>
+	Delegate1(X* pThis, void (X::*function)(Param1 p1));
+
+	// Constructor for non-const member functions with pre-set data (useful for calling the function asynchronously)
+	template <typename X>
+	Delegate1(X *pThis, void (X::*function)(Param1 p1), Param1 param1);
+
+	// Destructor
+	~Delegate1();
+
+	// Invoke the delegate
+	void operator() () const;
+
+	// Invoke the delegate with parametrized data
+	void operator() (Param1 p1) const;
+
+private:
+	// Closure for the delegate
+	Param1 _param1;
+};
+
+#include "SumDelegate.inl"
 
 #endif

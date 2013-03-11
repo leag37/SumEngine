@@ -11,7 +11,7 @@
 #define __SUMTESTDRIVER_H__
 
 #include "SumMathTest.h"
-//#include "SumUtilitiesTest.h"
+#include "SumUtilitiesTest.h"
 
 // Run help
 void runHelp()
@@ -28,7 +28,7 @@ void runMathSuite()
 // Utilities
 void runUtilitiesSuite()
 {
-//	runUtilitiesTests();
+	RunUtilitiesTests();
 }
 
 // All

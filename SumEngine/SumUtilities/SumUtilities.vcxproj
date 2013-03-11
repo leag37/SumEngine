@@ -23,6 +23,7 @@
     <ClInclude Include="include\SumJob.h" />
     <ClInclude Include="include\SumJobManager.h" />
     <ClInclude Include="include\SumList.h" />
+    <ClInclude Include="include\SumQueue.h" />
     <ClInclude Include="include\SumRandom.h" />
     <ClInclude Include="include\SumString.h" />
     <ClInclude Include="include\SumTimer.h" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <None Include="include\SumArray.inl" />
     <None Include="include\SumArrayIterator.inl" />
+    <None Include="include\SumDelegate.inl" />
     <None Include="include\SumDictionary.inl" />
     <None Include="include\SumDictionaryIterator.inl" />
     <None Include="include\SumDictionaryNode.inl" />
@@ -45,6 +47,7 @@
     <None Include="include\SumList.inl" />
     <None Include="include\SumListIterator.inl" />
     <None Include="include\SumListNode.inl" />
+    <None Include="include\SumQueue.inl" />
     <None Include="include\SumString.inl" />
   </ItemGroup>
   <ItemGroup>

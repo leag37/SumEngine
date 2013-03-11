@@ -16,7 +16,7 @@ SUMINLINE void JobManager::addJob(Job& j)
 	//_mutex.enter();
 
 	// Add a the job to the list
-	jobs.push_back(&j);
+	jobs.push_back(j);
 
 	// Leave the section
 	_criticalSection.leave();
@@ -41,7 +41,7 @@ SUMINLINE Job* JobManager::requestJob(void)
 		if(jobExists())
 		{
 			// Grab job
-			j = jobs.pop_front();
+			j = &jobs.pop_front();
 		}
 
 		// Enter critical section

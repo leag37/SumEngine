@@ -45,7 +45,7 @@ public:
 	void clearJobs(void);		// Clear out all existing jobs
 
 private:
-	ForwardList<Job*> jobs;		// List of all jobs to perform
+	ForwardList<Job&> jobs;		// List of all jobs to perform
 	HANDLE* workerThreads;		// Array of worker threads
 	SINT numWorkerThreads;		// The number of worker threads
 

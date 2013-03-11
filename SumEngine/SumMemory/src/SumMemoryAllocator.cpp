@@ -169,14 +169,12 @@ namespace SumMemory
 				// If the pointer size is not exact, push back remnant onto DV
 				if(ptrSize != size)
 				{
-					// Find new pointer location
-					SCHAR* nPtr = static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;
+					// Get pointer at new location for designated victim
+					void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
-					// Set size of new pointer
-					*reinterpret_cast<SUINT*>(nPtr) = ptrSize - size - MEM_OFFSET;
-
-					// Push onto DV
-					_designatedVictim.push(static_cast<void*>(nPtr));
+					// Set pointer size and push onto DV
+					validatePointer(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
+					_designatedVictim.push(nPtr);
 				}
 
 				return validatePointer(rPtr, size);
@@ -199,11 +197,11 @@ namespace SumMemory
 					// Get pointer to return
 					void* rPtr = _fixedSize[bin].pop();//static_cast<void*>(reinterpret_cast<SCHAR*>(_fixedSize[bin].pop()) - MEM_OFFSET);
 					
-					// Get pointer at new location
-					void* nPtr =  static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET;
+					// Get pointer at new location for designated victim
+					void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
 					// Set pointer size and push onto DV
-					*reinterpret_cast<SUINT*>(nPtr) = *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET;
+					validatePointer(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
 					_designatedVictim.push(nPtr);
 
 					// Return value
@@ -236,9 +234,7 @@ namespace SumMemory
 				void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
 				// Set pointer size and push onto DV
-				SUINT* oldSize = reinterpret_cast<SUINT*>(static_cast<SCHAR*>(rPtr) - MEM_OFFSET);
-				validatePointer(nPtr, *oldSize - size - MEM_OFFSET);
-				//*reinterpret_cast<SUINT*>(nPtr) = *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET;
+				validatePointer(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
 				_designatedVictim.push(nPtr);
 
 				// Return value

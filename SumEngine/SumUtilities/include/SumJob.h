@@ -28,17 +28,32 @@ public:
 	{ }
 
 	// Constructor given the function pointer
-	SUMINLINE Job(Delegate0 del)
+	SUMINLINE Job(Delegate* del)
 		: jobStatus(Job::DONE), _delegate(del)
 	{ }
 
-	// Destructor
-	~Job(void)
+	// Copy constructor!
+	SUMINLINE Job(const Job& rhs)
+		: jobStatus(rhs.jobStatus), _delegate(rhs._delegate)
 	{ }
+
+	// Destructor
+	SUMINLINE ~Job(void)
+	{
+		SafeDelete(_delegate);
+	}
+
+	// Assignment
+	SUMINLINE const Job& operator=(const Job& rhs)
+	{
+		jobStatus = rhs.jobStatus;
+		_delegate = rhs._delegate;
+		return *this;
+	}
 
 	// Invoke the function
 	SUMINLINE void operator()(void) const {
-		_delegate();
+		(*_delegate)();
 	}
 
 	// Return the status of the job
@@ -65,7 +80,7 @@ private:
 	Job::Status jobStatus;
 
 	// Delegate containing job function
-	Delegate0 _delegate;
+	Delegate* _delegate;
 };
 
 #endif

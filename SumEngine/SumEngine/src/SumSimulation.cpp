@@ -58,3 +58,9 @@ void Simulation::shutDown()
 {
 
 }
+
+void Simulation::test(int a)
+{
+	int b = a;
+	b += 3;
+}

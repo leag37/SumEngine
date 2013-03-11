@@ -33,7 +33,7 @@ int vectorInit(int& tests)
 		++errors;
 	++tests;
 	
-	Test::printResult(errors, "VectorInit");
+	Test::printResult(errors, tests, "VectorInit");
 	return errors;
 }
 
@@ -64,7 +64,7 @@ int vectorSet(int& tests)
 		++errors;
 	++tests;
 
-	Test::printResult(errors, "VectorSet");
+	Test::printResult(errors, tests, "VectorSet");
 	return errors;
 }
 

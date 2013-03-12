@@ -121,11 +121,14 @@ void SimulationManager::run()
 void SimulationManager::gameLoop()
 {
 	// Jobs for major for engine components
-	renderJob = Job(new Delegate(_renderManager, &RenderManager::update));
-	inputJob = Job(new Delegate(_inputManager, &InputManager::update));
+	renderDelegate = new Delegate(_renderManager, &RenderManager::update); 
+	renderJob = Job(renderDelegate);
 
-	//Job job = Job(new Delegate1<int>(_simulation, &Simulation::test, 2));
-	//RequestJob(job);
+	inputDelegate = new Delegate(_inputManager, &InputManager::update);
+	inputJob = Job(inputDelegate);
+
+	Job job = Job(new Delegate1<int>(_simulation, &Simulation::test, 2));
+	RequestJob(job);
 	//Delegate1<int> woo = Delegate1<int>(_simulation, &Simulation::test, 2);
 	//woo();
 

@@ -47,6 +47,9 @@ public:
 	// Return the size of the queue
 	SUINT size();
 
+	// Return the size of the queue
+	const SUINT size() const;
+
 	// Return the max size of the queue
 	SUINT maxSize();
 
@@ -59,16 +62,19 @@ private:
 	Type* _data;
 
 	// Start index
-	SUINT _start;
+	SUINT _head;
 
 	// End index
-	SUINT _end;
+	SUINT _tail;
 
 	// Size of the queue
 	SUINT _size;
 
 	// Max size of the queue
 	SUINT _maxSize;
+
+	// Array length is always _maxSize + 1
+	SUINT _arrLength;
 };
 
 #include "SumQueue.inl"

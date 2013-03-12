@@ -37,7 +37,7 @@ inline void printResult(SUINT errors, SUINT tests, const String& title)
 	// Failure
 	else
 	{
-		cout << "Failed! " << title.c_str() << " completed " << tests << " with " << errors << " errors." << endl;
+		cout << "Failed! " << title.c_str() << " completed " << tests << " tests with " << errors << " errors." << endl;
 	}
 }
 
@@ -83,6 +83,12 @@ struct TestStruct
 		c = this;
 	}
 
+	TestStruct(SINT a, SINT b)
+		: a(a), b(b)
+	{
+		c = this;
+	}
+
 	SBOOL operator==(const TestStruct& rhs)
 	{
 		return a == rhs.a && b == rhs.b && c == rhs.c;
@@ -107,6 +113,12 @@ public:
 	TestClass()
 		: a(2), b(3)
 	{ 
+		c = this;
+	}
+
+	TestClass(SINT a, SINT b)
+		: a(a), b(b)
+	{
 		c = this;
 	}
 

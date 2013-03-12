@@ -14,7 +14,7 @@
 #include "SumInclude.h"
 #include "SumCriticalSection.h"
 //#include "SumGlobals.h"
-#include "SumForwardList.h"
+#include "SumQueue.h"
 #include "SumJob.h"
 //#include <Windows.h>
 
@@ -39,13 +39,13 @@ public:
 	void startUp(int numExecutors);		// Initialize job manager w/ number of executors
 	void shutDown(void);	// Shut down job manager
 
-	void addJob(Job& j);			// Add job to the job queue
+	void addJob(Job* j);			// Add job to the job queue
 	Job* requestJob(void);	// Return first available job to perform
 	SBOOL jobExists(void) const;		// Returns whether a job currently exists
 	void clearJobs(void);		// Clear out all existing jobs
 
 private:
-	ForwardList<Job&> jobs;		// List of all jobs to perform
+	Queue<Job*> jobs;			// List of all jobs to perform
 	HANDLE* workerThreads;		// Array of worker threads
 	SINT numWorkerThreads;		// The number of worker threads
 
@@ -87,7 +87,7 @@ SUMINLINE void RequestJob(Job& job)
 	job.setStatus(Job::PENDING);
 
 	// Add job to the queue
-	JobManager::getSingletonPtr()->addJob(job);
+	JobManager::getSingletonPtr()->addJob(&job);
 }
 
 #endif

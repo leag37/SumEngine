@@ -9,14 +9,13 @@
 //*************************************************************************************************
 // Add a job to the job queue
 //*************************************************************************************************
-SUMINLINE void JobManager::addJob(Job& j) 
+SUMINLINE void JobManager::addJob(Job* j) 
 {
 	// Enter the critical section
 	_criticalSection.enter();
-	//_mutex.enter();
 
 	// Add a the job to the list
-	jobs.push_back(j);
+	jobs.enqueue(j);
 
 	// Leave the section
 	_criticalSection.leave();
@@ -36,12 +35,11 @@ SUMINLINE Job* JobManager::requestJob(void)
 	{
 		// Enter CS
 		_criticalSection.enter();
-		//_mutex.enter();
 
 		if(jobExists())
 		{
 			// Grab job
-			j = &jobs.pop_front();
+			j = jobs.dequeue();
 		}
 
 		// Enter critical section
@@ -56,5 +54,5 @@ SUMINLINE Job* JobManager::requestJob(void)
 //*************************************************************************************************
 SUMINLINE SBOOL JobManager::jobExists(void) const 
 {
-	return jobs.hasHead();
+	return jobs.size() > 0;
 }

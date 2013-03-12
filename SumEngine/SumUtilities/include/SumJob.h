@@ -40,7 +40,7 @@ public:
 	// Destructor
 	SUMINLINE ~Job(void)
 	{
-		SafeDelete(_delegate);
+		//SafeDelete(_delegate);
 	}
 
 	// Assignment

@@ -13,6 +13,8 @@ void QueueSuite(SUINT& errors, SUINT& tests)
 	TestQueueInit(errors, tests);
 	TestQueueEnqueue(errors, tests);
 	TestQueueDequeue(errors, tests);
+	TestQueueGrowth(errors, tests);
+	TestQueueEnqueueDequeue(errors, tests);
 }
 
 //*************************************************************************************************
@@ -299,11 +301,186 @@ void TestQueueDequeue(SUINT& errors, SUINT& tests)
 	tests += tTests;
 }
 
-////*************************************************************************************************
-//// Queue growth
-////*************************************************************************************************
-//void TestQueueGrowth(SUINT& errors, SUINT& tests);
-//
+//*************************************************************************************************
+// Queue growth
+//*************************************************************************************************
+void TestQueueGrowth(SUINT& errors, SUINT& tests)
+{
+	const String& title = "QueueGrowth";
+
+	// Number of errors in this test
+	SUINT tErrors = 0;
+	SUINT tTests = 0;
+
+	// Test variables
+	Test::TestStruct str[10];
+	Test::TestClass cls[10];
+	for(SINT i = 0; i < 10; ++i)
+	{
+		str[i] = TestStruct(i, i + 1);
+		cls[i] = TestClass(i, i + 1);
+	}
+
+	// Test case 1: Primitive queue: Queue<SINT>
+	Queue<SINT> q1 = Queue<SINT>();
+	SBOOL result = false;
+	for(SINT i = 0; i < 10; ++i)
+	{
+		q1.enqueue(i);
+	}
+	for(SINT i = 0; i < 10; ++i)
+	{
+		SINT val = q1.dequeue();
+		result |= val != i;
+	}
+	result |= q1.size() != 0;
+	if(result)
+	{
+		Test::printError(title, 1);
+		++tErrors;
+	}
+	++tTests;
+
+	// Test case 2: Struct queue: Queue<Struct>
+	Queue<Test::TestStruct> q2 = Queue<Test::TestStruct>();
+	result = false;
+	for(SINT i = 0; i < 10; ++i)
+	{
+		q2.enqueue(str[i]);
+	}
+	for(SINT i = 0; i < 10; ++i)
+	{
+		TestStruct val = q2.dequeue();
+		result |= val != str[i];
+	}
+	if(result || q2.size() != 0)
+	{
+		Test::printError(title, 2);
+		++tErrors;
+	}
+	++tTests;
+
+	// Test case 3: Struct pointer queue: Queue<Struct*>
+	Queue<Test::TestStruct*> q3 = Queue<Test::TestStruct*>();
+	result = false;
+	for(SINT i = 0; i < 10; ++i)
+	{
+		q3.enqueue(&str[i]);
+	}
+	for(SINT i = 0; i < 10; ++i)
+	{
+		TestStruct val = *q3.dequeue();
+		result |= val != str[i];
+	}
+	if(result || q3.size() != 0)
+	{
+		Test::printError(title, 3);
+		++tErrors;
+	}
+	++tTests;
+
+	// Test case 4: Class queue: Queue<Class>
+	Queue<Test::TestClass> q4 = Queue<Test::TestClass>();
+	result = false;
+	for(SINT i = 0; i < 10; ++i)
+	{
+		q4.enqueue(cls[i]);
+	}
+	for(SINT i = 0; i < 10; ++i)
+	{
+		TestClass val = q4.dequeue();
+		result |= val != cls[i];
+	}
+	if(result || q4.size() != 0)
+	{
+		Test::printError(title, 4);
+		++tErrors;
+	}
+	++tTests;
+
+	// Test case 5: Class pointer queue: Queue<Class*>
+	Queue<Test::TestClass*> q5 = Queue<Test::TestClass*>();
+	result = false;
+	for(SINT i = 0; i < 10; ++i)
+	{
+		q5.enqueue(&cls[i]);
+	}
+	for(SINT i = 0; i < 10; ++i)
+	{
+		TestClass* val = q5.dequeue();
+		result |= *val != cls[i];
+	}
+	if(result || q5.size() != 0)
+	{
+		Test::printError(title, 5);
+		++tErrors;
+	}
+	++tTests;
+
+	// Print results
+	Test::printResult(tErrors, tTests, title);
+
+	// Increase total error count
+	errors += tErrors;
+	tests += tTests;
+}
+
+//*************************************************************************************************
+// Enqueue and dequeue
+//*************************************************************************************************
+void TestQueueEnqueueDequeue(SUINT& errors, SUINT& tests)
+{
+	const String& title = "QueueEnqueueDequeue";
+
+	// Number of errors in this test
+	SUINT tErrors = 0;
+	SUINT tTests = 0;
+
+	// Test variables
+	Test::TestStruct str[10];
+	Test::TestClass cls[10];
+	for(SINT i = 0; i < 10; ++i)
+	{
+		str[i] = TestStruct(i, i + 1);
+		cls[i] = TestClass(i, i + 1);
+	}
+
+	// Test case 1: Primitive queue: Queue<SINT>
+	Queue<SINT> q1 = Queue<SINT>();
+	SBOOL result = false;
+	SINT expected = 0;
+	for(SINT i = 0; i < 10; ++i)
+	{
+		q1.enqueue(i);
+		q1.enqueue(i*2);
+
+		SINT val = q1.dequeue();
+		if(i % 2 == 0)
+		{
+			result |= val != expected;
+		}
+		else
+		{
+			result |= val != expected * 2;
+			++expected;
+		}
+	}
+	result |= q1.size() != 10;
+	if(result)
+	{
+		Test::printError(title, 1);
+		++tErrors;
+	}
+	++tTests;
+
+	// Print results
+	Test::printResult(tErrors, tTests, title);
+
+	// Increase total error count
+	errors += tErrors;
+	tests += tTests;
+}
+	
 ////*************************************************************************************************
 //// Queue deletion
 ////*************************************************************************************************

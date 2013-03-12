@@ -59,9 +59,15 @@ private:
 	// Game simulation
 	Simulation* _simulation;
 
-	// Jobs
+	// Jobs and delegate functions
 	Job renderJob;
+	Delegate* renderDelegate;
+
 	Job inputJob;
+	Delegate* inputDelegate;
+
+	Job simulationJob;
+	Delegate1<int>* simulationDelegate;
 
 	// Timer
 	Timer _timer;

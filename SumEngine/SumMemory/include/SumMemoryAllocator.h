@@ -57,6 +57,13 @@ namespace SumMemory
 			// Return original pointer
 			return ptr;
 		}
+
+		// Validate the pointer by setting the size
+		SUMINLINE void validateChunk(void* ptr, size_t size)
+		{
+			// Set the size of the pointer
+			*reinterpret_cast<SUINT*>(ptr) = size;
+		}
 		
 	public:
 		// Destructor

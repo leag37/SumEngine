@@ -43,6 +43,14 @@ SUMINLINE Closure::Closure(const Closure& rhs)
 	_function = rhs._function;
 }
 
+// Assignment operator
+SUMINLINE Closure& Closure::operator=(const Closure& rhs)
+{
+	_this = rhs._this;
+	_function = rhs._function;
+	return *this;
+}
+
 //*************************************************************************************************
 // Bind	the functions
 //*************************************************************************************************
@@ -118,6 +126,12 @@ SUMINLINE void Delegate::operator() () const
 	return (_closure.pThis()->*(_closure.pFunction()))();
 }
 
+// Clone
+SUMINLINE Delegate* Delegate::clone()
+{
+	return new Delegate(*this);
+}
+
 //*************************************************************************************************
 //
 //*************************************************************************************************
@@ -172,4 +186,18 @@ template <typename Param1>
 SUMINLINE void Delegate1<Param1>::operator() (Param1 p1) const
 {
 	return (_closure.pThis()->*(reinterpret_cast<GenericMemberFunction>(_closure.pFunction())))(p1);
+}
+
+// Clone
+template <typename Param1>
+SUMINLINE Delegate* Delegate1<Param1>::clone()
+{
+	return static_cast<Delegate*>(new Delegate1(*this));
+}
+
+// Set param1
+template <typename Param1>
+SUMINLINE void Delegate1<Param1>::setParam1(Param1 param)
+{
+	_param1 = param;
 }

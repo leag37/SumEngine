@@ -70,8 +70,8 @@ void JobManager::clearJobs(void)
 {
 	// Empty job queue
 	_criticalSection.enter();
-	while(jobs.hasHead()) {
-		Job* j(&jobs.pop_front());
+	while(jobs.size() > 0) {
+		Job* j(jobs.dequeue());
 		j->setStatus(Job::DONE);
 	}
 	_criticalSection.leave();

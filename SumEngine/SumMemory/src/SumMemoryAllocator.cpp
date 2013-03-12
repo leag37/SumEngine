@@ -173,7 +173,7 @@ namespace SumMemory
 					void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
 					// Set pointer size and push onto DV
-					validatePointer(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
+					validateChunk(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
 					_designatedVictim.push(nPtr);
 				}
 
@@ -195,13 +195,13 @@ namespace SumMemory
 				if(_fixedSize[bin].ptr)
 				{
 					// Get pointer to return
-					void* rPtr = _fixedSize[bin].pop();//static_cast<void*>(reinterpret_cast<SCHAR*>(_fixedSize[bin].pop()) - MEM_OFFSET);
+					void* rPtr = _fixedSize[bin].pop();
 					
 					// Get pointer at new location for designated victim
 					void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
 					// Set pointer size and push onto DV
-					validatePointer(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
+					validateChunk(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
 					_designatedVictim.push(nPtr);
 
 					// Return value
@@ -234,7 +234,7 @@ namespace SumMemory
 				void* nPtr =  static_cast<void*>(static_cast<SCHAR*>(rPtr) + size + MEM_OFFSET);
 					
 				// Set pointer size and push onto DV
-				validatePointer(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
+				validateChunk(nPtr, *reinterpret_cast<SUINT*>(rPtr) - size - MEM_OFFSET);
 				_designatedVictim.push(nPtr);
 
 				// Return value

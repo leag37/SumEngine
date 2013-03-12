@@ -51,6 +51,9 @@ namespace delegate_details
 		// Copy constructor
 		Closure(const Closure& rhs);
 
+		// Assignment operator
+		Closure& operator=(const Closure& rhs);
+
 		// Bind	the functions
 		template <typename X, typename XMemFunc>
 		void bind(X instance, XMemFunc function);
@@ -90,6 +93,9 @@ public:
 	// Invoke the delegate
 	virtual void operator() () const;
 
+	// Virtual clone function
+	virtual Delegate* clone();
+
 protected:
 	// Closure for the delegate
 	Closure _closure;
@@ -125,6 +131,12 @@ public:
 
 	// Invoke the delegate with parametrized data
 	void operator() (Param1 p1) const;
+
+	// Virtual clone function
+	Delegate* clone();
+
+	// Set param1
+	void setParam1(Param1 param);
 
 private:
 	// Closure for the delegate

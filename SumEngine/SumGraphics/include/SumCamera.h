@@ -101,6 +101,8 @@ private:
 	// Look/forward vector
 	Vector _forward;
 
+	Matrix _orientation;
+
 	// Frustrum properties
 	//**********************************************
 

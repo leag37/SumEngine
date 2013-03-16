@@ -41,6 +41,7 @@ void InputManager::startUp(HWND handle)
 	_handle = handle;
 
 	// Create the keyboard
+	_keyboard = new InputDeviceKeyboard(_inputDevice, _handle);
 
 	// Create the mouse
 	_mouse = new InputDeviceMouse(_inputDevice, _handle);
@@ -63,6 +64,11 @@ void InputManager::update()
 	if(_mouse && _mouse->enabled())
 	{
 		_mouse->update();
+	}
+
+	if(_keyboard && _keyboard->enabled())
+	{
+		_keyboard->update();
 	}
 }
 

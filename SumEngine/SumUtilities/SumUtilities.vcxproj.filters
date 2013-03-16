@@ -94,6 +94,9 @@
     <ClInclude Include="include\SumQueue.h">
       <Filter>Data Structures\Queue</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumInputDeviceKeyboard.h">
+      <Filter>Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\SumForwardList.inl">
@@ -187,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="src\SumTimer.cpp">
       <Filter>Misc</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumInputDeviceKeyboard.cpp">
+      <Filter>Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

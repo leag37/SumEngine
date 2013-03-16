@@ -121,18 +121,14 @@ void SimulationManager::run()
 void SimulationManager::gameLoop()
 {
 	// Jobs for major for engine components
+	simulationDelegate = new Delegate1<SFLOAT>(_simulation, &Simulation::update);
+	simulationJob = Job(simulationDelegate);
+
 	renderDelegate = new Delegate(_renderManager, &RenderManager::update); 
 	renderJob = Job(renderDelegate);
 
 	inputDelegate = new Delegate(_inputManager, &InputManager::update);
 	inputJob = Job(inputDelegate);
-
-	Job job = Job(new Delegate1<int>(_simulation, &Simulation::test, 2));
-	RequestJob(job);
-	//Delegate1<int> woo = Delegate1<int>(_simulation, &Simulation::test, 2);
-	//woo();
-
-
 	
 	// Define a struct to hold a Windows event message
 	MSG msg;
@@ -158,10 +154,11 @@ void SimulationManager::gameLoop()
 		WaitForJob(inputJob);
 
 		// Update simulation logic
-
+		simulationDelegate->setParam1(_timer.deltaTime());
+		RequestJob(simulationJob);
 
 		// Wait for simulation update
-
+		WaitForJob(simulationJob);	
 
 		// Poll for input
 		RequestJob(inputJob);

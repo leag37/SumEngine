@@ -24,17 +24,38 @@ public:
 	void update();
 
 	// Current X
-	// Current Y
-	// Relative X
-	// Relative Y
+	SINT absX();
 
+	SFLOAT absXf();
+
+	// Current Y
+	SINT absY();
+
+	// Current z
+	SINT absZ();
+
+	// Relative X
+	SINT relX();
+
+	// Relative x as a float
+	SFLOAT relXf();
+
+	SFLOAT relXf() const;
+
+	// Relative Y
+	SINT relY();
+
+	// Relative y as a float
+	SFLOAT relYf();
+
+	const SFLOAT relYf() const;
+
+	// Relative z
+	SINT relZ();
 
 private:
-	// Previous mouse state
-	DIMOUSESTATE _prevState;
-
 	// Current mouse state
-	DIMOUSESTATE _currState;
+	DIMOUSESTATE _state;
 };
 
 #endif

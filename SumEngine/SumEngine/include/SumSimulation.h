@@ -26,9 +26,7 @@ public:
 	void shutDown();
 
 	// Update the world
-	void update();
-
-	void test(int a);
+	void update(SFLOAT dTime);
 
 private:
 	// Camera

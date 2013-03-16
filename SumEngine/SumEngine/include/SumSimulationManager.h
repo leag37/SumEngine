@@ -67,7 +67,7 @@ private:
 	Delegate* inputDelegate;
 
 	Job simulationJob;
-	Delegate1<int>* simulationDelegate;
+	Delegate1<SFLOAT>* simulationDelegate;
 
 	// Timer
 	Timer _timer;

@@ -297,10 +297,26 @@ SUMINLINE Vector VectorReplicate(SFLOAT v)
 #endif
 }
 
-//Vector VectorSplatX(const Vector v);
-//Vector VectorSplatY(const Vector v);
-//Vector VectorSplatZ(const Vector v);
-//Vector VectorSplatW(const Vector v);
+SUMINLINE Vector VectorSplatX(const Vector v)
+{
+	return _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
+}
+
+SUMINLINE Vector VectorSplatY(const Vector v)
+{
+	return _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 1, 1));
+}
+
+SUMINLINE Vector VectorSplatZ(const Vector v)
+{
+	return _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
+}
+
+SUMINLINE Vector VectorSplatW(const Vector v)
+{
+	return _mm_shuffle_ps(v, v, _MM_SHUFFLE(3, 3, 3, 3));
+}
+
 //Vector VectorSetX(const Vector v, SFLOAT x);
 //Vector VectorSetY(const Vector v, SFLOAT y);
 //Vector VectorSetZ(const Vector v, SFLOAT z);

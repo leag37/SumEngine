@@ -456,6 +456,10 @@ Matrix MatrixRotationX(float angle)
 
 //*************************************************************************************************
 // Build a matrix which rotates around the X axis 
+// 1  0  0  0
+// 0  c  s  0
+// 0 -s  c  0
+// 0  0  0  1
 //*************************************************************************************************
 Matrix MatrixRotationX(Vector angle)
 {
@@ -463,20 +467,18 @@ Matrix MatrixRotationX(Vector angle)
 	Vector sin, cos;
 	VectorSinCos(&sin, &cos, angle);
 
+	// Load second and third rows
+	Vector vTemp1 = _mm_unpacklo_ps(sin, gVZero);	// s 0 s 0
+	Vector vTemp2 = _mm_unpacklo_ps(gVZero, sin);	// 0 s 0 s
+	Vector vTemp3 = VectorMul(gVNegateXZ, vTemp2);	// 0 -s 0 -s
+	Vector vTemp4 = _mm_unpacklo_ps(cos, gVZero);	// c 0 c 0
+	Vector vTemp5 = _mm_unpackhi_ps(gVZero, cos);	// 0 c 0 c
+
+	// Populate the matrix
 	Matrix m;
-
-	// Load first row
 	m.r[0] = gVIdentityR0;
-
-	// Load second row [0 cos sin 0]
-	m.r[1] = _mm_shuffle_ps(cos, sin, _MM_SHUFFLE(1, 0, 0, 1));
-
-	// Get third row [0 -sin cos 0]
-	cos = _mm_shuffle_ps(cos, cos, _MM_SHUFFLE(3, 1, 2, 0));
-	cos = _mm_mul_ps(cos, gVNegateY);
-	m.r[2] = cos;
-
-	// Load fourth row
+	m.r[1] = _mm_movelh_ps(vTemp5, vTemp2);
+	m.r[2] = _mm_movelh_ps(vTemp3, vTemp4);
 	m.r[3] = gVIdentityR3;
 
 	return m;
@@ -493,6 +495,10 @@ Matrix MatrixRotationY(float angle)
 
 //*************************************************************************************************
 // Build a matrix which rotates around the Y axis
+// c  0 -s 0
+// 0  1  0 0
+// s  0  c 0
+// 0  0  0 1
 //*************************************************************************************************
 Matrix MatrixRotationY(Vector angle)
 {
@@ -501,15 +507,15 @@ Matrix MatrixRotationY(Vector angle)
 	VectorSinCos(&sin, &cos, angle);
 
 	// Load first and third rows
-	sin = _mm_shuffle_ps(sin, cos, _MM_SHUFFLE(3, 0, 3, 0));
-	cos = _mm_shuffle_ps(sin, sin, _MM_SHUFFLE(3, 0, 1, 2));
-	cos = _mm_mul_ps(cos, gVNegateZ);
+	Vector vTemp1 = _mm_unpacklo_ps(sin, gVZero);	// s 0 s 0
+	Vector vTemp2 = VectorMul(vTemp1, gVNegateXZ);	// -s 0 -s 0
+	Vector vTemp3 = _mm_unpacklo_ps(cos, gVZero);	// c 0 c 0
 
 	// Set all rows
 	Matrix m;
-	m.r[0] = cos;
+	m.r[0] = _mm_movelh_ps(vTemp3, vTemp2);
 	m.r[1] = gVIdentityR1;
-	m.r[2] = sin;
+	m.r[2] = _mm_movelh_ps(vTemp1, vTemp3);
 	m.r[3] = gVIdentityR3;
 	return m;
 }
@@ -525,6 +531,10 @@ Matrix MatrixRotationZ(float angle)
 
 //*************************************************************************************************
 // Build a matrix which rotates around the Z axis
+//pOut->_11 = c;		pOut->_12 = s;		pOut->_13 = 0.0f;	pOut->_14 = 0.0f;
+//	pOut->_21 = -s;		pOut->_22 = c;		pOut->_23 = 0.0f;	pOut->_24 = 0.0f;
+//	pOut->_31 = 0.0f;	pOut->_32 = 0.0f;	pOut->_33 = 0.0f;	pOut->_34 = 0.0f;
+//	pOut->_41 = 0.0f;	pOut->_42 = 0.0f;	pOut->_43 = 0.0f;	pOut->_44 = 1.0f;
 //************************************************************************************************* 
 Matrix MatrixRotationZ(Vector angle)
 {
@@ -549,71 +559,129 @@ Matrix MatrixRotationZ(Vector angle)
 //*************************************************************************************************
 // Build a matrix which rotates around an arbitrary axis
 //*************************************************************************************************
-Matrix MatrixRotationAxis(const Vector v, float angle)
+Matrix MatrixRotationAxis(const Vector axis, float angle)
 {
 	Vector vAngle = VectorReplicate(angle);
-	return MatrixRotationAxis(v, vAngle);
+	return MatrixRotationAxis(axis, vAngle);
 }
 
 //*************************************************************************************************
 // Build a matrix which rotates around an arbitrary axis
 //*************************************************************************************************
-Matrix MatrixRotationAxis(const Vector v, Vector angle)
+Matrix MatrixRotationAxis(const Vector axis, Vector angle)
 {
-	// Sin and cos
+	Vector normal = Vec3Normalize(axis);
+	return MatrixRotationNormal(axis, angle);
+	//// Sin and cos
+	//Vector sin, cos;
+	//VectorSinCos(&sin, &cos, angle);
+	//Vector diffCos = Vec3Sub(gVOne, cos);
+	//
+	//// Construct the following vectors
+	//// x * x * dc + c
+	//// x * y * dc + (z * s)
+	//// x * z * dc - (y * s)
+	////
+	//// x * y * dc - (z * s)
+	//// y * y * dc + c
+	//// y * z * dc + (x * s)
+	////
+	//// x * z * dc + (y * s)
+	//// y * z * dc - (x * s)
+	//// z * z * dc + c
+	//Vector vTempX = _mm_shuffle_ps(axis, axis, _MM_SHUFFLE(0, 0, 0, 0));
+	//Vector vTempZ = _mm_shuffle_ps(axis, axis, _MM_SHUFFLE(2, 2, 2, 2));
+	//Vector vTempXY = _mm_shuffle_ps(axis, axis, _MM_SHUFFLE(1, 1, 0, 0));
+	//Vector vTempYZ = _mm_shuffle_ps(axis, axis, _MM_SHUFFLE(2, 2, 1, 1));
+
+	//Vector vTempSV = VectorMul(axis, sin);
+	//Vector vTempCS = _mm_shuffle_ps(vTempSV, cos, _MM_SHUFFLE(2, 2, 0, 0));
+	//vTempCS = _mm_shuffle_ps(vTempSV, vTempCS, _MM_SHUFFLE(2, 1, 1, 0));
+
+	//Vector vTemp0 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 1, 2, 3));
+	//vTemp0 = VectorMul(vTemp0, gVNegateZ);
+	//Vector vTemp1 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 0, 3, 2));
+	//vTemp1 = VectorMul(vTemp1, gVNegateX);
+	//Vector vTemp2 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 3, 0, 1));
+	//vTemp2 = VectorMul(vTemp2, gVNegateY);
+	//
+	//// Construct matrix
+	//Vector vTemp = VectorMul(vTempX, axis);
+	//vTemp = VectorMul(vTemp, diffCos);
+	//vTemp0 = VectorAdd(vTemp, vTemp0);
+
+	//vTemp = VectorMul(vTempXY, vTempYZ);
+	//vTemp = VectorMul(vTemp, diffCos);
+	//vTemp1 = VectorAdd(vTemp, vTemp1);
+
+	//vTemp = VectorMul(v, vTempZ);
+	//vTemp = VectorMul(vTemp, diffCos);
+	//vTemp2 = VectorAdd(vTemp, vTemp2);
+
+	//Matrix m;
+	//m.r[0] = VectorAnd(vTemp0, gVMask3);
+	//m.r[1] = VectorAnd(vTemp1, gVMask3);
+	//m.r[2] = VectorAnd(vTemp2, gVMask3);
+	//m.r[3] = gVIdentityR3;
+
+	//return m;	
+}
+
+//*************************************************************************************************
+// Build a matrix which rotates around an arbitrary normal axis
+//*************************************************************************************************
+Matrix MatrixRotationNormal(const Vector normal, float angle)
+{
+	Vector vAngle = VectorReplicate(angle);
+	return MatrixRotationNormal(normal, vAngle);
+}
+
+//*************************************************************************************************
+// Build a matrix which rotates around an arbitrary normal axis
+//
+// R = I*cos(theta) + sin(theta) * [u]x + (1 - cos(theta) u(x)u
+// Where I is the identity matrix, [u]x is the cross product matrix of u, and u(x)u is the tensor
+// product of u.
+//*************************************************************************************************
+Matrix MatrixRotationNormal(const Vector normal, Vector angle)
+{
+	// Get sin and cos values of angle
 	Vector sin, cos;
 	VectorSinCos(&sin, &cos, angle);
-	Vector diffCos = Vec3Sub(gVOne, cos);
+
+	// Load identity matrix
+	Matrix m1 = MatrixIdentity();
+
+	// Scale by cos
+	m1 = MatrixScale(m1, cos);
+
+	// Determine the cross product matrix
+	Matrix m2 = MatrixCrossProduct(normal);
 	
-	// Construct the following vectors
-	// x * x * dc + c
-	// x * y * dc + (z * s)
-	// x * z * dc - (y * s)
-	//
-	// x * y * dc - (z * s)
-	// y * y * dc + c
-	// y * z * dc + (x * s)
-	//
-	// x * z * dc + (y * s)
-	// y * z * dc - (x * s)
-	// z * z * dc + c
-	Vector vTempX = _mm_shuffle_ps(v, v, _MM_SHUFFLE(0, 0, 0, 0));
-	Vector vTempZ = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 2, 2));
-	Vector vTempXY = _mm_shuffle_ps(v, v, _MM_SHUFFLE(1, 1, 0, 0));
-	Vector vTempYZ = _mm_shuffle_ps(v, v, _MM_SHUFFLE(2, 2, 1, 1));
+	// Scale by sin
+	m2 = MatrixScale(m2, sin);
 
-	Vector vTempSV = VectorMul(v, sin);
-	Vector vTempCS = _mm_shuffle_ps(vTempSV, cos, _MM_SHUFFLE(2, 2, 0, 0));
-	vTempCS = _mm_shuffle_ps(vTempSV, vTempCS, _MM_SHUFFLE(2, 1, 1, 0));
+	// Get current return value
+	m1 = MatrixAdd(m1, m2);
 
-	Vector vTemp0 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 1, 2, 3));
-	vTemp0 = VectorMul(vTemp0, gVNegateZ);
-	Vector vTemp1 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 0, 3, 2));
-	vTemp1 = VectorMul(vTemp1, gVNegateX);
-	Vector vTemp2 = _mm_shuffle_ps(vTempCS, vTempCS, _MM_SHUFFLE(3, 3, 0, 1));
-	vTemp2 = VectorMul(vTemp2, gVNegateY);
-	
-	// Construct matrix
-	Vector vTemp = VectorMul(vTempX, v);
-	vTemp = VectorMul(vTemp, diffCos);
-	vTemp0 = VectorAdd(vTemp, vTemp0);
+	// Get (1-cos)
+	cos = VectorSub(gVOne, cos);
 
-	vTemp = VectorMul(vTempXY, vTempYZ);
-	vTemp = VectorMul(vTemp, diffCos);
-	vTemp1 = VectorAdd(vTemp, vTemp1);
+	// Get tensor product of u and u
+	m2 = MatrixTensorProduct(normal, normal);
 
-	vTemp = VectorMul(v, vTempZ);
-	vTemp = VectorMul(vTemp, diffCos);
-	vTemp2 = VectorAdd(vTemp, vTemp2);
+	// Scale by cos
+	m2 = MatrixScale(m2, cos);
 
-	Matrix m;
-	m.r[0] = VectorAnd(vTemp0, gVMask3);
-	m.r[1] = VectorAnd(vTemp1, gVMask3);
-	m.r[2] = VectorAnd(vTemp2, gVMask3);
-	m.r[3] = gVIdentityR3;
+	// Add final product and return
+	m1 = MatrixAdd(m1, m2);
 
-	return m;	
+	// Reset last row
+	m1.r[3] = gVIdentityR3;
+
+	return m1;
 }
+
 ////*************************************************************************************************
 //// 
 ////*************************************************************************************************
@@ -915,8 +983,56 @@ Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vect
 //// Build a matrix which reflects the coordinate system about a plane
 //Matrix MatrixReflect(const Vector plane);
 //
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Creates a tensor product of given two 3D vectors
-//Matrix MatrixTensorProduct(const Vector v1, const Vector v2);
+//*************************************************************************************************
+// Creates a tensor product of given two 3D vectors
+// uxvx uxvy uxvz
+// uxvy uyvy uyvz
+// uxvz uyvz uzvz
+//*************************************************************************************************
+Matrix MatrixTensorProduct(const Vector v1, const Vector v2)
+{
+	Matrix m;
+
+	// Row 0
+	Vector t = VectorSplatX(v1);
+	m.r[0] = VectorMul(t, v2);
+
+	// Row 1
+	t = _mm_shuffle_ps(v1, v1, _MM_SHUFFLE(3, 1, 1, 0));
+	Vector t2 = _mm_shuffle_ps(v2, v2, _MM_SHUFFLE(3, 2, 1, 1));
+	m.r[1] = VectorMul(t, t2);
+
+	// Row 2
+	t = VectorSplatZ(v2);
+	m.r[2] = VectorMul(t, v1);
+
+	// Row 3
+	m.r[3] = gVIdentityR3;
+
+	return m;
+}
+
+//*************************************************************************************************
+// Create the cross product matrix from a vector
+// 0   -uz uy
+// uz   0  -ux
+// -uy  ux  0
+//*************************************************************************************************
+Matrix MatrixCrossProduct(const Vector v)
+{
+	// Negate the original vector
+	Vector vNeg = VectorNegate(v);
+
+	Vector v1 = _mm_unpacklo_ps(vNeg, gVZero);	// -ux 0 -uy 0
+	Vector v2 = _mm_unpackhi_ps(gVZero, vNeg);	// 0 -uz 0 -uw
+	Vector v3 = _mm_unpacklo_ps(v, gVZero);		// ux 0 uy 0
+	Vector v4 = _mm_unpackhi_ps(v, gVZero);		// uz 0 uw 0
+	Vector v5 = _mm_unpacklo_ps(v, vNeg);		// ux -ux uy -uy
+
+	Matrix m;
+	m.r[0] = _mm_shuffle_ps(v2, v3, _MM_SHUFFLE(3, 2, 1, 0));
+	m.r[1] = _mm_movelh_ps(v4, v1);
+	m.r[2] = _mm_shuffle_ps(v5, gVZero, _MM_SHUFFLE(0, 0, 0, 3));
+	m.r[3] = gVIdentityR3;
+	return m;
+}

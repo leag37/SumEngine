@@ -8,6 +8,7 @@
 
 #include "SumInclude.h"
 #include "SumInputDeviceMouse.h"
+#include "SumInputDeviceKeyboard.h"
 
 #define SUM_MOUSE 0
 #define SUM_KEYBOARD 1
@@ -38,7 +39,7 @@ private:
 	HWND _handle;
 
 	// Keyboard
-	//Keyboard* _keyboard;
+	InputDeviceKeyboard* _keyboard;
 
 	// Mouse
 	InputDeviceMouse* _mouse;
@@ -53,6 +54,11 @@ public:
 	SUMINLINE static InputManager* getSingletonPtr()
 	{
 		return singleton;
+	}
+
+	SUMINLINE const InputDeviceKeyboard* keyboard() const
+	{
+		return _keyboard;
 	}
 
 	SUMINLINE const InputDeviceMouse* mouse() const

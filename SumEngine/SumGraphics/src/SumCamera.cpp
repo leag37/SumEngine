@@ -14,7 +14,7 @@
 // Constructor
 //*************************************************************************************************
 Camera::Camera()
-	:	_position(VectorZero()), _right(gVIdentityR0), _up(gVIdentityR1), _forward(gVIdentityR2),
+	:	_position(VectorZero()), _right(gVIdentityR0), _up(gVIdentityR1), _forward(gVIdentityR2), _orientation(MatrixIdentity()),
 		_nearZ(0.0f), _farZ(0.0f), _aspect(0.0f), _fovy(0.0f),
 		_view(MatrixIdentity()), _proj(MatrixIdentity())
 { }
@@ -43,7 +43,7 @@ void Camera::setLens(SFLOAT fovy, SFLOAT aspect, SFLOAT nearZ, SFLOAT farZ)
 //*************************************************************************************************
 Vector Camera::position()
 {
-	return _position;
+	return _orientation.r[3];//_position;
 }
 
 //*************************************************************************************************
@@ -51,6 +51,7 @@ Vector Camera::position()
 //*************************************************************************************************
 void Camera::setPosition(const Vector position)
 {
+	_orientation.r[3] = position;
 	_position = position;
 }
 
@@ -159,6 +160,8 @@ void Camera::rotateX(SFLOAT x)
 	// Create rotation basis about X axis
 	Matrix r = MatrixRotationX(x);
 
+	_orientation = MatrixMultiply(_orientation, r);
+
 	// Transform the axis normals
 	_right = Vec3TransformNormal(_right, r);
 	_up = Vec3TransformNormal(_up, r);
@@ -172,6 +175,8 @@ void Camera::rotateY(SFLOAT y)
 {
 	// Create rotation basis about Y axis
 	Matrix r = MatrixRotationY(y);
+
+	_orientation = MatrixMultiply(_orientation, r);
 
 	// Transform the axis normals
 	_right = Vec3TransformNormal(_right, r);
@@ -200,6 +205,8 @@ void Camera::pitch(SFLOAT p)
 {
 	// Rotate look and up about the right vector
 	Matrix r = MatrixRotationAxis(_right, p);
+
+	_orientation = MatrixMultiply(_orientation, r);
 
 	_up = Vec3TransformNormal(_up, r);
 	_forward = Vec3TransformNormal(_forward, r);
@@ -251,13 +258,15 @@ void Camera::lookAt(const Vector pos, const Vector target, const Vector up)
 	// Get the rotation matrix
 	Matrix r = MatrixLookAtLH(pos, target, up);
 
+	_orientation = r;
+
 	// Rotate each basis vector by the rotation matrix
 	_right = Vec3TransformNormal(gVIdentityR0, r);
 	_up = Vec3TransformNormal(gVIdentityR1, r);
 	_forward = Vec3TransformNormal(gVIdentityR2, r);
 
 	// Set position
-	_position = r.r[3];
+	_position = pos;//r.r[3];
 }
 
 //*************************************************************************************************
@@ -288,27 +297,32 @@ const Matrix Camera::viewProj()
 	y = VectorNegate(y);
 	Vector z = Vec3Dot(p, f);
 	z = VectorNegate(z);
+	z = _mm_unpacklo_ps(z, gVOne);
+//	z = VectorAnd(z, gVXMask);
 
-	// Construct the view matrix from the various component vectors
-	// R, U, F, P
-	//
-	// rx ry rz 0
-	// ux uy uz 0
-	// fx fy fz 0
-	// px py pz 1
-	//
-	// V0 = movelh(R, U) => rx ry ux uy
-	// V1 = unpackhi(R, U) => rz uz rw uw
-	// V1 = unpacklo(V1, gVIdentityR3) => rz 0 uz 0
-	//
-	// V2 = movelh(F, P) => fx fy px py
-	// V3 = unpackhi(F, P) => fz pz fw pw
-	// V3 = unpacklo(V3, gVIdentityR1) => fz 0 pz 1
-	//
-	// M0 = movelh(V0, V1) => rx ry rz 0
-	// M1 = movehl(V1, V0) => ux uy uz 0
-	// M2 = movelh(V2, V3) => fx fy fz 0
-	// M3 = movehl(V3, V2) => px py pz 1
+	p = _mm_unpacklo_ps(x, y);
+	p = _mm_shuffle_ps(p, z, _MM_SHUFFLE(3, 0, 1, 0)); 
+
+	//// Construct the view matrix from the various component vectors
+	//// R, U, F, P
+	////
+	//// rx ry rz 0
+	//// ux uy uz 0
+	//// fx fy fz 0
+	//// px py pz 1
+	////
+	//// V0 = movelh(R, U) => rx ry ux uy
+	//// V1 = unpackhi(R, U) => rz uz rw uw
+	//// V1 = unpacklo(V1, gVIdentityR3) => rz 0 uz 0
+	////
+	//// V2 = movelh(F, P) => fx fy px py
+	//// V3 = unpackhi(F, P) => fz pz fw pw
+	//// V3 = unpacklo(V3, gVIdentityR1) => fz 0 pz 1
+	////
+	//// M0 = movelh(V0, V1) => rx ry rz 0
+	//// M1 = movehl(V1, V0) => ux uy uz 0
+	//// M2 = movelh(V2, V3) => fx fy fz 0
+	//// M3 = movehl(V3, V2) => px py pz 1
 	Vector v0 = _mm_movelh_ps(r, u);
 	Vector v1 = _mm_unpackhi_ps(r, u);
 	v1 = _mm_unpacklo_ps(v1, p);
@@ -322,6 +336,38 @@ const Matrix Camera::viewProj()
 	_view.r[2] = _mm_movelh_ps(v2, v3);
 	_view.r[3] = _mm_movehl_ps(v3, v2);
 
+	// R, U, F, P
+	//
+	// rx ux fx 0
+	// ry uy fy 0
+	// rz uz fz 0
+	// px py pz 1
+	//
+	// V0 = unpacklo(R, U) => rx ux ry uy
+	// V1 = unpackhi(R, U) => rz uz rw uw
+	// V2 = unpacklo(F, gVIdentityR3) => fx 0 fy 0
+	// V3 = unpackhi(F, gVIdentityR3) => fz 0 fw 1
+	// V4 = movelh(P, gVIdentityR3) => px py 0 0
+	// V5 = unpackhi(P, gVIdentityR2) => pz 1 pw 0
+	//
+	// M0 = movelh(V0, V2) => rx ux fx 0
+	// M1 = movehl(V0, V2) => ry uy fy 0
+	// M2 = movelh(V1, V3) => rz uz fz 0
+	// M3 = movelh(V4, V5) => px py pz 1
+	//Vector v0 = _mm_unpacklo_ps(r, u);
+	//Vector v1 = _mm_unpackhi_ps(r, u);
+	//Vector v2 = _mm_unpacklo_ps(f, gVIdentityR3);
+	//Vector v3 = _mm_unpackhi_ps(f, gVIdentityR3);
+	//Vector v4 = _mm_movelh_ps(p, gVIdentityR3);
+	//Vector v5 = _mm_unpackhi_ps(p, gVIdentityR2);
+
+	//_view.r[0] = _mm_movelh_ps(v0, v2);
+	//_view.r[1] = _mm_movehl_ps(v0, v2);
+	//_view.r[2] = _mm_movelh_ps(v1, v3);
+	//_view.r[3] = _mm_movelh_ps(v4, v5);
+
+	//_view = _orientation;
+	
 	// View projection matrix
 	return MatrixMultiply(_view, _proj);
 }

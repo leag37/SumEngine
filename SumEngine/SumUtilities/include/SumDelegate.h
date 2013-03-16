@@ -3,6 +3,8 @@
 // Author: Gael Huber
 // Description: Delegates permit binding and execution of functions in a general state, acting as
 //	general-purpose function templates.
+//
+// TODO: Split various details out into seperate files
 //*************************************************************************************************
 #ifndef __SUMDELEGATE_H__
 #define __SUMDELEGATE_H__

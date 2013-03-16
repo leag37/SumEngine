@@ -22,10 +22,11 @@ namespace Math
 #define S_2PI 6.283185307f
 #define S_2PId 6.283185307
 
-#define ToRadian(degree) ((degree) * (S_PI / 180.0f))
-#define ToDegree(radian) ((radian) * (180.0f / S_PI))
-#define ToRadian_d(degree) ((degree) * (S_PId / 180.0))
-#define ToDegree_d(radian) ((radian * (180.0 / S_PId))
+SUMINLINE SFLOAT ToRadian(SFLOAT degree) { return (degree) * (S_PI / 180.0f); }
+
+#define ToDegree(radian) { (radian) * (180.0f / S_PI); }
+#define ToRadian_d(degree) { (degree) * (S_PId / 180.0); }
+#define ToDegree_d(radian) { (radian * (180.0 / S_PId); }
 }
 
 //*************************************************************************************************
@@ -186,6 +187,8 @@ SUMGLOBALCONST VectorF32 gVNegateX = {-1.0f, 1.0f, 1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateY = {1.0f, -1.0f, 1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateZ = {1.0f, 1.0f, -1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateW = {1.0f, 1.0f, 1.0f, -1.0f};
+SUMGLOBALCONST VectorF32 gVNegateXY = {-1.0f, -1.0f, 1.0f, 1.0f};
+SUMGLOBALCONST VectorF32 gVNegateXZ = {-1.0f, 1.0f, -1.0f, 1.0f};
 
 // Matrix
 //***********************************************

@@ -87,10 +87,16 @@ Matrix MatrixRotationZ(float angle);
 Matrix MatrixRotationZ(Vector angle);
 
 // Build a matrix which rotates around an arbitrary axis
-Matrix MatrixRotationAxis(const Vector v, float angle);
+Matrix MatrixRotationAxis(const Vector axis, float angle);
 
 // Build a matrix which rotates around an arbitrary axis
-Matrix MatrixRotationAxis(const Vector v, Vector angle);
+Matrix MatrixRotationAxis(const Vector axis, Vector angle);
+
+// Build a matrix which rotates around an arbitrary normal axis
+Matrix MatrixRotationNormal(const Vector normal, float angle);
+
+// Build a matrix which rotates around an arbitrary normal axis
+Matrix MatrixRotationNormal(const Vector normal, Vector angle);
 //
 //// Build a matrix from a quaternion
 //Matrix MatrixRotationQuaternion(const Vector q);
@@ -165,8 +171,11 @@ Matrix MatrixPerspectiveFovLH(const Vector fovy, const Vector aspect, const Vect
 //// Build a matrix which reflects the coordinate system about a plane
 //Matrix MatrixReflect(const Vector plane);
 //
-//// Creates a tensor product of given two 3D vectors
-//Matrix MatrixTensorProduct(const Vector v1, const Vector v2);
+// Creates a tensor product of given two 3D vectors
+Matrix MatrixTensorProduct(const Vector v1, const Vector v2);
+
+// Create the cross product matrix from a vector
+Matrix MatrixCrossProduct(const Vector v);
 }
 
 #include "SumMatrix.inl"

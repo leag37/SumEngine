@@ -99,7 +99,11 @@ void Mesh::load()
 					// Process vertex data
 					if(type == 0)
 					{
-						_data.vertices.push_back(Vertex(line[0].toFloat(), line[1].toFloat(), line[2].toFloat()));
+						_data.vertices.push_back(
+							Vertex(
+								line[0].toFloat(), line[1].toFloat(), line[2].toFloat(),
+								line[3].toFloat(), line[4].toFloat(), line[5].toFloat()
+							));
 					}
 
 					// Process index data

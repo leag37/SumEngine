@@ -20,6 +20,7 @@ extern "C"
 	int matrixEqual(int& tests);
 	int matrixNotEqual(int& tests);
 	int matrixTranspose(int& tests);
+	int matrixInverse(int& tests);
 }
 
 #endif

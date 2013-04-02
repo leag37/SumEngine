@@ -189,6 +189,7 @@ SUMGLOBALCONST VectorF32 gVNegateZ = {1.0f, 1.0f, -1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateW = {1.0f, 1.0f, 1.0f, -1.0f};
 SUMGLOBALCONST VectorF32 gVNegateXY = {-1.0f, -1.0f, 1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateXZ = {-1.0f, 1.0f, -1.0f, 1.0f};
+SUMGLOBALCONST VectorF32 gVNegateYW = {1.0f, -1.0f, 1.0f, -1.0f};
 
 // Matrix
 //***********************************************

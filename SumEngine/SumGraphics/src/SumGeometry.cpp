@@ -23,71 +23,34 @@ Mesh* CreateBox(const String& name, SFLOAT width, SFLOAT height, SFLOAT depth)
 	SFLOAT h2 = 0.5f * height;
 	SFLOAT d2 = 0.5f * depth;
 
-	// Fill in front face vertex data
-	v.push_back(Vertex(Float3(-w2, -h2, -d2)));
-	v.push_back(Vertex(Float3(-w2, +h2, -d2)));
-	v.push_back(Vertex(Float3(+w2, +h2, -d2)));
-	v.push_back(Vertex(Float3(+w2, -h2, -d2)));
-
-	// Fill in back face vertex data
-	v.push_back(Vertex(Float3(-w2, -h2, +d2)));
-	v.push_back(Vertex(Float3(+w2, -h2, +d2)));
-	v.push_back(Vertex(Float3(+w2, +h2, +d2)));
-	v.push_back(Vertex(Float3(-w2, +h2, +d2)));
-
-	// Fill in top face vertex data
-	v.push_back(Vertex(Float3(-w2, +h2, -d2)));
-	v.push_back(Vertex(Float3(-w2, +h2, +d2)));
-	v.push_back(Vertex(Float3(+w2, +h2, +d2)));
-	v.push_back(Vertex(Float3(+w2, +h2, -d2)));
-
-	// Fill in bottom face vertex data
-	v.push_back(Vertex(Float3(-w2, -h2, -d2)));
-	v.push_back(Vertex(Float3(+w2, -h2, -d2)));
-	v.push_back(Vertex(Float3(+w2, -h2, +d2)));
-	v.push_back(Vertex(Float3(-w2, -h2, +d2)));
-
-	// Fill in left face vertex data
-	v.push_back(Vertex(Float3(-w2, -h2, +d2)));
-	v.push_back(Vertex(Float3(-w2, +h2, +d2)));
-	v.push_back(Vertex(Float3(-w2, +h2, -d2)));
-	v.push_back(Vertex(Float3(-w2, -h2, -d2)));
-
-	// Fill in right face vertex data
-	v.push_back(Vertex(Float3(+w2, -h2, -d2)));
-	v.push_back(Vertex(Float3(+w2, +h2, -d2)));
-	v.push_back(Vertex(Float3(+w2, +h2, +d2)));
-	v.push_back(Vertex(Float3(+w2, -h2, +d2)));
+	// Fill in vertex data
+	v.push_back(Vertex(Float3(+w2, +h2, -d2), Float3(+0.333333f, +0.666667f, -0.666667f)));
+	v.push_back(Vertex(Float3(-w2, +h2, -d2), Float3(-0.816497f, +0.408248f, -0.408248f)));
+	v.push_back(Vertex(Float3(-w2, +h2, +d2), Float3(-0.333333f, +0.666667f, +0.666667f)));
+	v.push_back(Vertex(Float3(+w2, +h2, +d2), Float3(+0.816497f, +0.408248f, +0.408248f)));
+	v.push_back(Vertex(Float3(+w2, -h2, -d2), Float3(+0.666667f, -0.666667f, -0.333333f)));
+	v.push_back(Vertex(Float3(-w2, -h2, -d2), Float3(-0.408248f, -0.408248f, -0.816497f)));
+	v.push_back(Vertex(Float3(-w2, -h2, +d2), Float3(-0.666667f, -0.666667f, +0.333333f)));
+	v.push_back(Vertex(Float3(+w2, -h2, +d2), Float3(+0.408248f, -0.408248f, +0.816497f)));
 
 	// Assign to data
 	data.vertices = v;
 
 	// Create the indicies
 	Array<SUINT> i = Array<SUINT>(36);
-
-	// Front face
-	i.push_back(0);		i.push_back(1);		i.push_back(2);
-	i.push_back(0);		i.push_back(2);		i.push_back(3);
-
-	// Back face
-	i.push_back(4);		i.push_back(5);		i.push_back(6);
-	i.push_back(4);		i.push_back(6);		i.push_back(7);
-
-	// Top face
-	i.push_back(8);		i.push_back(9);		i.push_back(10);
-	i.push_back(8);		i.push_back(10);	i.push_back(11);
-
-	// Bottom face
-	i.push_back(12);	i.push_back(13);	i.push_back(14);
-	i.push_back(12);	i.push_back(14);	i.push_back(15);
-
-	// Left face
-	i.push_back(16);	i.push_back(17);	i.push_back(18);
-	i.push_back(16);	i.push_back(18);	i.push_back(19);
-
-	// Right face
-	i.push_back(20);	i.push_back(21);	i.push_back(22);
-	i.push_back(20);	i.push_back(22);	i.push_back(23);
+	i.push_back(0);	i.push_back(1);	i.push_back(2);
+	i.push_back(0);	i.push_back(2);	i.push_back(3);
+	i.push_back(0);	i.push_back(4);	i.push_back(5);
+	i.push_back(0);	i.push_back(5);	i.push_back(1);
+	i.push_back(1);	i.push_back(5);	i.push_back(6);
+	i.push_back(1);	i.push_back(6);	i.push_back(2);
+	i.push_back(2);	i.push_back(6);	i.push_back(7);
+	i.push_back(2);	i.push_back(7);	i.push_back(3);
+	i.push_back(3);	i.push_back(7);	i.push_back(4);
+	i.push_back(3);	i.push_back(4);	i.push_back(0);
+	i.push_back(4);	i.push_back(7);	i.push_back(6);
+	i.push_back(4);	i.push_back(6);	i.push_back(5);
+	
 
 	// Assign the indices
 	data.indices = i;

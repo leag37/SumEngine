@@ -37,10 +37,10 @@ void InputLayouts::InitAll(ID3D11Device* device)
 {
 	// PosNormal
 	D3DX11_PASS_DESC passDesc;
-	PrimitiveEffect* effect = static_cast<PrimitiveEffect*>(EffectsManager::getSingletonPtr()->getEffectByName("primitive"));
-	effect->technique()->GetPassByIndex(0)->GetDesc(&passDesc);
-	HR(device->CreateInputLayout(InputLayoutDesc::Pos, 1, passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &Pos));	
-//	HR(device->CreateInputLayout(InputLayoutDesc::PosNormal, 2, passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &PosNormal));
+	BasicEffect* effect = static_cast<BasicEffect*>(EffectsManager::getSingletonPtr()->getEffectByName("basic"));
+	effect->light1Tech()->GetPassByIndex(0)->GetDesc(&passDesc);
+	//HR(device->CreateInputLayout(InputLayoutDesc::Pos, 1, passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &Pos));	
+	HR(device->CreateInputLayout(InputLayoutDesc::PosNormal, 2, passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &PosNormal));
 //	HR(device->CreateInputLayout(InputLayoutDesc::Basic32, 3, passDesc.pIAInputSignature, passDesc.IAInputSignatureSize, &Basic32));
 }
 

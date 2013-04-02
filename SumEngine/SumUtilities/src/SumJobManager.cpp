@@ -55,12 +55,12 @@ void JobManager::shutDown(void)
 	// Stop the manager
 	_runManager = false;
 
+	// Clear the job queue
+	clearJobs();
+
 	// Wait for the threads
 	WaitForMultipleObjects(numWorkerThreads, workerThreads, TRUE, INFINITE);
 	free(workerThreads);
-
-	// Clear the job queue
-	clearJobs();
 }
 
 //*************************************************************************************************

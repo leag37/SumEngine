@@ -21,7 +21,7 @@ cbuffer cbPerObject
 {
 	float4x4 gWorld;
 	float4x4 gWorldInvTranspose;
-	float4x4 gWorldViewProj;
+	float4x4 gViewProj;
 	float4x4 gTexTransform;
 	Material gMaterial;
 };
@@ -62,7 +62,8 @@ VertexOut VS(VertexIn vIn)
 	vOut.NormalW = mul(vIn.NormalL, (float3x3)gWorldInvTranspose);
 
 	// Transform to homogeneous clip space
-	vOut.PosH = mul(float4(vIn.PosL, 1.0f), gWorldViewProj);
+	float4x4 wvp = mul(gWorld, gViewProj);
+	vOut.PosH = mul(float4(vIn.PosL, 1.0f), gViewProj);
 
 	// Output vertex attributes for interpolation across triangle
 	vOut.Tex = mul(float4(vIn.Tex, 0.0f, 1.0f), gTexTransform).xy;

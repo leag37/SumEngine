@@ -84,6 +84,8 @@ private:
 	// TEMP
 	Renderable* _renderable;
 	Camera* _camera;
+	DirectionalLight _dirLight;
+	Material _material;
 
 // Inline accessor functions
 public:

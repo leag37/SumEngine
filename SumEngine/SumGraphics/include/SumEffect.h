@@ -78,9 +78,18 @@ public:
 	// Destructor
 	~BasicEffect();
 
-	void setWorldViewProj(const Matrix& m);
-	void setWorld(const Matrix& m);
-	void setWorldInvTranspose(const Matrix& m);
+	void setViewProj(const Matrix& m)
+	{
+		_viewProj->SetMatrix(reinterpret_cast<const float*>(&m));
+	}
+	void setWorld(const Matrix& m)
+	{
+		_world->SetMatrix(reinterpret_cast<const float*>(&m));
+	}
+	void setWorldInvTranspose(const Matrix& m)
+	{
+		_worldInvTranspose->SetMatrix(reinterpret_cast<const float*>(&m));
+	}
 	void setTexTransform(const Matrix& m);
 	void setEyePosW(const Float3& v);
 	void setDirLights(const DirectionalLight* lights);
@@ -95,6 +104,19 @@ private:
 	ID3DX11EffectTechnique* _light2Tech;
 	ID3DX11EffectTechnique* _light3Tech;
 
+	ID3DX11EffectTechnique* _light0TexTech;
+	ID3DX11EffectTechnique* _light1TexTech;
+	ID3DX11EffectTechnique* _light2TexTech;
+	ID3DX11EffectTechnique* _light3TexTech;
+
+	// Effect variables
+	ID3DX11EffectMatrixVariable* _viewProj;
+	ID3DX11EffectMatrixVariable* _world;
+	ID3DX11EffectMatrixVariable* _worldInvTranspose;
+	ID3DX11EffectVectorVariable* _eyePosW;
+	ID3DX11EffectVariable* _dirLights;
+	ID3DX11EffectVariable* _material;
+	ID3DX11EffectShaderResourceVariable* _diffuseMap;
 };
 
 #include "SumEffect.inl"

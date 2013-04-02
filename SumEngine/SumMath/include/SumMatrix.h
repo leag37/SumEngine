@@ -54,7 +54,10 @@ Matrix MatrixMultiply(const Matrix& m1, const Matrix& m2);
 Matrix MatrixMultiplyTranspose(const Matrix& m1, const Matrix& m2);
 
 // Inverse
-//Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m);
+Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m);
+
+// Matrix inverse transpose
+Matrix MatrixInverseTranspose(const Matrix& m);
 
 // Build a matrix which scales by (sx, sy, sz)
 Matrix MatrixScaling(float sx, float sy, float sz);

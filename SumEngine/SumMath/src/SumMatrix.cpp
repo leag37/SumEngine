@@ -239,15 +239,15 @@ Matrix MatrixTranspose(const Matrix& m)
 	Vector vTemp2 = _mm_unpacklo_ps(m.r[2], m.r[3]);
 
 	Matrix result;
-	result.r[0] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(1, 0, 1, 0));
-	result.r[1] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(3, 2, 3, 2));
+	result.r[0] = _mm_movelh_ps(vTemp1, vTemp2);
+	result.r[1] = _mm_movehl_ps(vTemp2, vTemp1);
 
 	// Unpack hi and solve for last two rows
 	vTemp1 = _mm_unpackhi_ps(m.r[0], m.r[1]);
 	vTemp2 = _mm_unpackhi_ps(m.r[2], m.r[3]);
 
-	result.r[2] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(1, 0, 1, 0));
-	result.r[3] = _mm_shuffle_ps(vTemp1, vTemp2, _MM_SHUFFLE(3, 2, 3, 2));
+	result.r[2] = _mm_movelh_ps(vTemp1, vTemp2);
+	result.r[3] = _mm_movehl_ps(vTemp2, vTemp1);
 
 	return result;
 }
@@ -373,24 +373,294 @@ Matrix MatrixMultiplyTranspose(const Matrix& m1, const Matrix& m2)
 
 //*************************************************************************************************
 // Inverse
+//
+// a b c d
+// e f g h
+// i j k l
+// m n o p
+//
+// POSITIVES
+// vTemp1 = aabb ghgh -> ag ah bg bh
+// vTemp2 = aabb klkl -> ak al bk bl
+// vTemp3 = aabb opop -> ao ap bo bp
+//
+// vTemp4 = aceg jljl -> aj cl ej gl
+// vTemp5 = aceg npnp -> an cp en gp
+// vTemp6 = acik fhnp -> af ch in kp
+//
+// vTemp7 = eeff klkl -> ek el fk fl
+// vTemp8 = eeff opop -> eo ep fo fp
+// vTemp9 = iijj opop -> io ip jo jp
+//
+// NEGATIVES
+// vTemp10 = mmnn cdcd -> mc md nc nd
+// vTemp11 = mmnn ghgh -> mg mh ng nh
+// vTemp12 = mmnn klkl -> mk ml nk nl
+//
+// vTemp13 = ikik bdfh -> ib kd if kh
+// vTemp14 = momo bdfh -> mb od mf oh
+// vTemp15 = egmo bdjl -> eb gd mj ol
+//
+// vTemp16 = iijj cdcd -> ic id jc jd
+// vTemp17 = iijj ghgh -> ig ih jg jh
+// vTemp18 = eeff cdcd -> ec ed fc fd
+//
+// vTemp1-vTemp18 -> ag-ec ah-ed bg-fc bh-fd
+// vTemp2-vTemp16 -> ak-ci al-di bk-cj bl-dj
+// vTemp3-vTemp10 -> ao-cm ap-dm bo-cn bp-dn
+// vTemp4-vTemp13 -> aj-bi cl-dk ej-fi gl-hk
+// vTemp5-vTemp14 -> an-bm cp-do en-mf gp-ho
+// vTemp6-vTemp15 -> af-eb ch-dg in-mj kp-lo
+// vTemp7-vTemp17 -> ek-gi el-hi fk-gj fl-hj
+// vTemp8-vTemp11 -> eo-gm ep-mh fo-gn fp-hn
+// vTemp9-vTemp12 -> io-km ip-ml jo-kn jp-ln
+//
+//Calc row 0 det values
+//00  01  02  03
+//6.3 6.3 9.3 9.2
+//9.3 9.1 9.1 9.0
+//9.2 9.0 6.2 6.2
+//5.3 5.3 8.3 8.2
+//8.3 8.1 8.1 8.0
+//8.2 8.0 5.2 5.2
+//4.3 4.3 7.3 7.2
+//7.3 7.1 7.1 7.0
+//7.2 7.0 4.2 4.2
+//
+//feee
+//ggff
+//hhhg
+//jiii
+//kkjj
+//lllk
+//nmmm
+//oonn
+//pppo
+//
+//Calc row 1 det vectors
+//10  11  12  13
+//6.3 6.3 9.3 9.2
+//9.3 9.1 9.1 9.0
+//9.2 9.0 6.2 6.2
+//5.1 5.1 3.3 3.2
+//3.3 3.1 3.1 3.0
+//3.2 3.0 5.0 5.0
+//4.1 4.1 2.3 2.2
+//2.3 2.1 2.1 2.0
+//2.2 2.0 4.0 4.0
+//
+//baaa
+//ccbb
+//dddc
+//jiii
+//kkjj
+//lllk
+//nmmm
+//oonn
+//pppo
+//
+//Calc row 2 det vectors
+//20  21  22  23
+//5.3 5.3 8.3 8.2
+//8.3 8.1 8.1 8.0
+//8.2 8.0 5.2 5.2
+//5.1 5.1 3.3 3.2
+//3.3 3.1 3.1 3.0
+//3.2 3.0 5.0 5.0
+//6.1 6.1 1.3 1.2
+//1.3 1.1 1.1 1.0
+//1.2 1.0 6.0 6.0
+//
+//baaa
+//ccbb
+//dddc
+//feee
+//ggff
+//hhhg
+//nmmm
+//oonn
+//pppo
+//
+//Calc row 3 det vectors
+//30  31  32  33
+//4.3 4.3 7.3 7.2
+//7.3 7.1 7.1 7.0
+//7.2 7.0 4.2 4.2
+//4.1 4.1 2.3 2.2
+//2.3 2.1 2.1 2.0
+//2.2 2.0 4.0 4.0
+//6.1 6.1 1.3 1.2
+//1.3 1.1 1.1 1.0
+//1.2 1.0 6.0 6.0
+//
+//baaa
+//ccbb
+//dddc
+//feee
+//ggff
+//hhhg
+//jiii
+//kkjj
+//lllk
 //*************************************************************************************************
-//Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m)
-//{
-//	// Get the determinant
-//	Vector determinant = MatrixDeterminant(m);
-//
-//	// If the determinant is not equal to 0
-//	if(Vec4NotEqual(determinant, gVZero))
-//	{
-//		// Start with two base matrices - one as identity matrix, the other as the parametrized matrix
-//		Matrix m1 = MatrixIdentity();
-//		Matrix m2 = m;
-//
-//
-//	}
-//
-//	return m;
-//}
+Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m)
+{
+	// Cache rows
+	Vector r0 = m.r[0];
+	Vector r1 = m.r[1];
+	Vector r2 = m.r[2];
+	Vector r3 = m.r[3];
+
+	// Calculate possible 2x2 determinant values
+	Vector vTemp00 = _mm_unpacklo_ps(r0, r0);							// aabb
+	Vector vTemp01 = _mm_movehl_ps(r1, r1);								// ghgh
+	Vector vTemp02 = _mm_movehl_ps(r2, r2);								// klkl
+	Vector vTemp03 = _mm_movehl_ps(r3, r3);								// opop
+	Vector vTemp04 = _mm_shuffle_ps(r0, r1, _MM_SHUFFLE(2, 0, 2, 0));	// aceg
+	Vector vTemp05 = _mm_shuffle_ps(r2, r2, _MM_SHUFFLE(3, 1, 3, 1));	// jljl
+	Vector vTemp06 = _mm_shuffle_ps(r3, r3, _MM_SHUFFLE(3, 1, 3, 1));	// npnp
+	Vector vTemp07 = _mm_shuffle_ps(r0, r2, _MM_SHUFFLE(2, 0, 2, 0));	// acik
+	Vector vTemp08 = _mm_shuffle_ps(r1, r3, _MM_SHUFFLE(3, 1, 3, 1));	// fhnp
+	Vector vTemp09 = _mm_unpacklo_ps(r1, r1);							// eeff
+	Vector vTemp10 = _mm_unpacklo_ps(r2, r2);							// iijj
+	Vector vTemp11 = _mm_unpacklo_ps(r3, r3);							// mmnn
+	Vector vTemp12 = _mm_movehl_ps(r0, r0);								// cdcd
+	Vector vTemp13 = _mm_shuffle_ps(r2, r2, _MM_SHUFFLE(2, 0, 2, 0));	// ikik
+	Vector vTemp14 = _mm_shuffle_ps(r0, r1, _MM_SHUFFLE(3, 1, 3, 1));	// bdfh
+	Vector vTemp15 = _mm_shuffle_ps(r3, r3, _MM_SHUFFLE(2, 0, 2, 0));	// momo
+	Vector vTemp16 = _mm_shuffle_ps(r1, r3, _MM_SHUFFLE(2, 0, 2, 0));	// egmo
+	Vector vTemp17 = _mm_shuffle_ps(r0, r2, _MM_SHUFFLE(3, 1, 3, 1));	// bdjl
+
+	// aceg jljl	ikik bdfh
+	Vector vPos = VectorMul(vTemp04, vTemp05);
+	Vector vNeg = VectorMul(vTemp13, vTemp14);
+	Vector vTemp4 = VectorSub(vPos, vNeg);
+
+	// aceg npnp	momo bdfh
+	vPos = VectorMul(vTemp04, vTemp06);
+	vNeg = VectorMul(vTemp15, vTemp14);
+	Vector vTemp5 = VectorSub(vPos, vNeg);
+	
+	// acik fhnp	egmo bdjl
+	vPos = VectorMul(vTemp07, vTemp08);
+	vNeg = VectorMul(vTemp16, vTemp17);
+	Vector vTemp6 = VectorSub(vPos, vNeg);
+	
+	// eeff klkl	iijj ghgh
+	vPos = VectorMul(vTemp09, vTemp02);
+	vNeg = VectorMul(vTemp10, vTemp01);
+	Vector vTemp7 = VectorSub(vPos, vNeg);
+	
+	// eeff opop	mmnn ghgh	eo ep fo fp -> mg mh ng nh
+	vPos = VectorMul(vTemp09, vTemp03);
+	vNeg = VectorMul(vTemp11, vTemp01);
+	Vector vTemp8 = VectorSub(vPos, vNeg);
+	
+	// iijj opop	mmnn klkl
+	vPos = VectorMul(vTemp10, vTemp03);
+	vNeg = VectorMul(vTemp11, vTemp02);
+	Vector vTemp9 = VectorSub(vPos, vNeg);
+	
+	// Build matrix of minors
+	//--------------------------
+	// Create row constants
+	vTemp00 = _mm_shuffle_ps(r0, r0, _MM_SHUFFLE(0, 0, 0, 1));	// baaa
+	vTemp01 = _mm_shuffle_ps(r0, r0, _MM_SHUFFLE(1, 1, 2, 2));	// ccbb
+	vTemp02 = _mm_shuffle_ps(r0, r0, _MM_SHUFFLE(2, 3, 3, 3));	// dddc
+	vTemp03 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(0, 0, 0, 1));	// feee
+	vTemp04 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(1, 1, 2, 2));	// ggff
+	vTemp05 = _mm_shuffle_ps(r1, r1, _MM_SHUFFLE(2, 3, 3, 3));	// hhhg
+
+	// Calculate row 0 determinant values
+	Vector vTR0 = _mm_shuffle_ps(vTemp6, vTemp9, _MM_SHUFFLE(2, 3, 3, 3));
+	vTR0 = VectorMul(vTR0, vTemp03);
+	Vector vTR1 = _mm_shuffle_ps(vTemp9, vTemp9, _MM_SHUFFLE(0, 1, 1, 3));
+	vTR1 = VectorMul(vTR1, vTemp04);
+	vTR0 = VectorSub(vTR0, vTR1);
+
+	vTR1 = _mm_shuffle_ps(vTemp9, vTemp6, _MM_SHUFFLE(2, 2, 0, 2));
+	vTR1 = VectorMul(vTR1, vTemp05);
+	Vector vRes0 = VectorAdd(vTR0, vTR1);
+	
+	// Calculate row 1 determinant values
+	vTR0 = _mm_shuffle_ps(vTemp6, vTemp9, _MM_SHUFFLE(2, 3, 3, 3));
+	vTR0 = VectorMul(vTR0, vTemp00);
+	vTR1 = _mm_shuffle_ps(vTemp9, vTemp9, _MM_SHUFFLE(0, 1, 1, 3));
+	vTR1 = VectorMul(vTR1, vTemp01);
+	vTR0 = VectorSub(vTR0, vTR1);
+
+	vTR1 = _mm_shuffle_ps(vTemp9, vTemp6, _MM_SHUFFLE(2, 2, 0, 2));
+	vTR1 = VectorMul(vTR1, vTemp02);
+	Vector vRes1 = VectorAdd(vTR0, vTR1);
+
+	// Calculate row 2 determinant values
+	vTR0 = _mm_shuffle_ps(vTemp5, vTemp8, _MM_SHUFFLE(2, 3, 3, 3));
+	vTR0 = VectorMul(vTR0, vTemp00);
+	vTR1 = _mm_shuffle_ps(vTemp8, vTemp8, _MM_SHUFFLE(0, 1, 1, 3));
+	vTR1 = VectorMul(vTR1, vTemp01);
+	vTR0 = VectorSub(vTR0, vTR1);
+
+	vTR1 = _mm_shuffle_ps(vTemp8, vTemp5, _MM_SHUFFLE(2, 2, 0, 2));
+	vTR1 = VectorMul(vTR1, vTemp02);
+	Vector vRes2 = VectorAdd(vTR0, vTR1);
+
+	// Calculate row 3 determinant values
+	vTR0 = _mm_shuffle_ps(vTemp4, vTemp7, _MM_SHUFFLE(2, 3, 3, 3));
+	vTR0 = VectorMul(vTR0, vTemp00);
+	vTR1 = _mm_shuffle_ps(vTemp7, vTemp7, _MM_SHUFFLE(0, 1, 1, 3));
+	vTR1 = VectorMul(vTR1, vTemp01);
+	vTR0 = VectorSub(vTR0, vTR1);
+
+	vTR1 = _mm_shuffle_ps(vTemp7, vTemp4, _MM_SHUFFLE(2, 2, 0, 2));
+	vTR1 = VectorMul(vTR1, vTemp02);
+	Vector vRes3 = VectorAdd(vTR0, vTR1);
+
+	// Cache minors and create matrix of cofactors
+	vRes0 = VectorMul(vRes0, gVNegateYW);
+	vRes1 = VectorMul(vRes1, gVNegateXZ);
+	vRes2 = VectorMul(vRes2, gVNegateYW);
+	vRes3 = VectorMul(vRes3, gVNegateXZ);
+	Matrix res = Matrix(vRes0, vRes1, vRes2, vRes3);
+
+	// Adjugate of cofactor
+	res = MatrixTranspose(res);
+
+	// Find determinant of original matrix
+	vTR0 = VectorMul(vRes0, r0);	// a b c d
+	vTR1 = _mm_movehl_ps(vTR0, vTR0);	// c d c d
+	vTR0 = VectorAdd(vTR0, vTR1);	// a+c b+d c+c d+d
+	vTR1 = _mm_shuffle_ps(vTR0, vTR0, _MM_SHUFFLE(3, 3, 0, 1));
+	vTR0 = VectorAdd(vTR0, vTR1);	// a+c+b+d b+c+a+c c+c+d+d d+d+d+d
+	vTR0 = _mm_shuffle_ps(vTR0, vTR0, _MM_SHUFFLE(0, 0, 0, 0));
+	*pDeterminant = vTR0;
+
+	// Scale matrix by 1 over determinant
+	vTR0 = VectorDiv(gVOne, vTR0);
+	res.r[0] = VectorMul(res.r[0], vTR0);
+	res.r[1] = VectorMul(res.r[1], vTR0);
+	res.r[2] = VectorMul(res.r[2], vTR0);
+	res.r[3] = VectorMul(res.r[3], vTR0);
+
+	return res;
+}
+
+//*************************************************************************************************
+// Matrix inverse transpose
+//*************************************************************************************************
+Matrix MatrixInverseTranspose(const Matrix& m)
+{
+	// Inverse transpose is only applied to normals, so ignore translation component
+	Matrix tMat = Matrix(m.r[0], m.r[1], m.r[2], gVIdentityR3);
+
+	// Calculate determinant
+	Vector det = VectorZero();
+
+	// Get matrix inverse
+	tMat = MatrixInverse(&det, tMat);
+
+	// Return transpose
+	return MatrixTranspose(tMat);
+}
 
 //*************************************************************************************************
 // Build a matrix which scales by (sx, sy, sz)

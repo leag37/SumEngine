@@ -49,10 +49,17 @@ BasicEffect::BasicEffect(ID3D11Device* device, const String& filename)
 	_light2Tech = _effect->GetTechniqueByName("Light2");
 	_light3Tech = _effect->GetTechniqueByName("Light3");
 
-	//_light0TexTech = _effect->GetTechniqueByName("Light0Tex");
-	//_light1TexTech = _effect->GetTechniqueByName("Light1Tex");
-	//_light2TexTech = _effect->GetTechniqueByName("Light2Tex");
-	//_light3TexTech = _effect->GetTechniqueByName("Light3Tex");
+	_light0TexTech = _effect->GetTechniqueByName("Light0Tex");
+	_light1TexTech = _effect->GetTechniqueByName("Light1Tex");
+	_light2TexTech = _effect->GetTechniqueByName("Light2Tex");
+	_light3TexTech = _effect->GetTechniqueByName("Light3Tex");
+
+	_viewProj = _effect->GetVariableByName("gViewProj")->AsMatrix();
+	_worldInvTranspose = _effect->GetVariableByName("gWorldViewProj")->AsMatrix();
+	_eyePosW = _effect->GetVariableByName("gEyePosW")->AsVector();
+	_dirLights = _effect->GetVariableByName("gDirLights");
+	_material = _effect->GetVariableByName("gMaterial");
+	_diffuseMap = _effect->GetVariableByName("gDiffuseMap")->AsShaderResource();
 }
 
 BasicEffect::~BasicEffect()

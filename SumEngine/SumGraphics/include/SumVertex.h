@@ -15,20 +15,21 @@ public:
 	Vertex();
 
 	// Constructor
-	Vertex(const Float3& p);
+	Vertex(const Float3& p, const Float3& n);
 
 	// Constructor
-	Vertex(SFLOAT px, SFLOAT py, SFLOAT pz);
+	Vertex(	SFLOAT px, SFLOAT py, SFLOAT pz,
+			SFLOAT nx, SFLOAT ny, SFLOAT nz);
 
 public:
 	const Float3& position();
-//	const Float3& normal();
+	const Float3& normal();
 //	const Float3& tangentU();
 //	const Float2& texC();
 
 private:
 	Float3 _position;
-//	Float3 _normal;
+	Float3 _normal;
 //	Float3 _tangentU;
 //	Float2 _texC;
 };

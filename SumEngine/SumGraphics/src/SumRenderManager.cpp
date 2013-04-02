@@ -53,6 +53,15 @@ void RenderManager::startUp()
 	// TEMP
 	_renderable = new Renderable("box", "box");
 	_camera = 0;
+
+	_dirLight.ambient = Float4(0.2f, 0.2f, 0.2f, 1.0f);
+	_dirLight.diffuse = Float4(0.5f, 0.5f, 0.5f, 1.0f);
+	_dirLight.specular = Float4(0.5f, 0.5f, 0.5f, 1.0f);
+	_dirLight.direction = Float3(0.57735f, 0.57735f, 0.57735f);
+
+	_material.ambient = Float4(0.48f, 0.77f, 0.46f, 1.0f);
+	_material.diffuse = Float4(0.48f, 0.77f, 0.46f, 1.0f);
+	_material.specular = Float4(0.2f, 0.2f, 0.2f, 16.0f);
 }
 
 //*************************************************************************************************
@@ -98,10 +107,15 @@ void RenderManager::renderScene()
 	// Only bother drawing the world if we have an attached camera
 	if(_camera)
 	{
+		// Prep matrix variables for effect
 		Matrix viewProj = _camera->viewProj();
-		PrimitiveEffect* effect = static_cast<PrimitiveEffect*>(_effectsManager->getEffectByName("primitive"));
-		effect->viewProj()->SetMatrix(reinterpret_cast<float*>(&viewProj));
-		effect->world()->SetMatrix(reinterpret_cast<const float*>(&_renderable->world()));
+		Matrix world = _renderable->world();
+		Matrix worldInvTranspose = MatrixInverseTranspose(world);
+		
+		BasicEffect* effect = static_cast<BasicEffect*>(_effectsManager->getEffectByName("basic"));
+		effect->setViewProj(viewProj);//>viewProj()->SetMatrix(reinterpret_cast<float*>(&viewProj));
+		effect->setWorld(_renderable->world());
+		//effect->world()->SetMatrix(reinterpret_cast<const float*>(&_renderable->world()));
 
 		// Set vertex buffers
 		SUINT stride = sizeof(Vertex);
@@ -109,13 +123,14 @@ void RenderManager::renderScene()
 		Mesh* currMesh = _renderable->mesh();
 		context->IASetVertexBuffers(0, 1, currMesh->vertexBufferPtr(), &stride, &offset);
 		context->IASetIndexBuffer(currMesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+		effect->setWorldInvTranspose(worldInvTranspose);
 
 		// Technique description
 		D3DX11_TECHNIQUE_DESC techDesc;
-		effect->technique()->GetDesc(&techDesc);
+		effect->light1Tech()->GetDesc(&techDesc);
 		for(SUINT p = 0; p < techDesc.Passes; ++p)
 		{
-			effect->technique()->GetPassByIndex(p)->Apply(0, context);
+			effect->light1Tech()->GetPassByIndex(p)->Apply(0, context);
 
 			// Draw indices
 			context->DrawIndexed(currMesh->indexCount(), 0, 0);

@@ -11,6 +11,8 @@
 
 #include "SumInputDevice.h"
 
+#define MAX_KEYS 256
+
 class InputDeviceKeyboard : public InputDevice
 {
 public:

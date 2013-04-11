@@ -150,11 +150,14 @@ void SimulationManager::gameLoop()
 			DispatchMessage(&msg);
 		}
 
+		// Cache deltaTime
+		SFLOAT deltaTime = _timer.deltaTime();
+
 		// Wait for input
 		WaitForJob(inputJob);
 
 		// Update simulation logic
-		simulationDelegate->setParam1(_timer.deltaTime());
+		simulationDelegate->setParam1(deltaTime);
 		RequestJob(simulationJob);
 
 		// Wait for simulation update

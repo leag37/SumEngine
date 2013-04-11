@@ -5,7 +5,7 @@
 //*************************************************************************************************
 #include "SumMatrixTest.h"
 
-void matrixSuite(int& errors, int& tests)
+void matrixSuite(SUINT& errors, SUINT& tests)
 {
 	//errors += matrixInit(tests);
 	errors += matrixEqual(tests);
@@ -15,9 +15,9 @@ void matrixSuite(int& errors, int& tests)
 }
 
 // Test initialization patterns for matrix
-int matrixInit(int& tests)
+SUINT matrixInit(SUINT& tests)
 {
-	int errors = 0;
+	SUINT errors = 0;
 
 	// Test case 1 - load individually
 	++tests;
@@ -25,9 +25,9 @@ int matrixInit(int& tests)
 	return errors;
 }
 
-int matrixEqual(int& tests)
+SUINT matrixEqual(SUINT& tests)
 {
-	int errors = 0;
+	SUINT errors = 0;
 
 	// Test Case 1 - Equality
 	Matrix m1 = Matrix(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f);
@@ -60,9 +60,9 @@ int matrixEqual(int& tests)
 	return errors;
 }
 
-int matrixNotEqual(int& tests)
+SUINT matrixNotEqual(SUINT& tests)
 {
-		int errors = 0;
+		SUINT errors = 0;
 
 	// Test Case 1 - Equality
 	Matrix m1 = Matrix(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f);
@@ -95,9 +95,9 @@ int matrixNotEqual(int& tests)
 	return errors;
 }
 
-int matrixTranspose(int& tests)
+SUINT matrixTranspose(SUINT& tests)
 {
-	int errors = 0;
+	SUINT errors = 0;
 
 	// Test case 1
 	// [1  2  3  4 ]
@@ -124,9 +124,9 @@ int matrixTranspose(int& tests)
 	return errors;
 }
 
-int matrixInverse(int& tests)
+SUINT matrixInverse(SUINT& tests)
 {
-	int errors = 0;
+	SUINT errors = 0;
 
 	// Test case 1
 	// [1  2  1  4 ]

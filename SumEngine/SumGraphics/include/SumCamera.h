@@ -12,11 +12,23 @@
 #define __SUMCAMERA_H__
 
 #include "SumRenderCore.h"
+#include "SumInputDeviceKeyboard.h"
 
 class SUM_DECLSPEC_ALIGN_16 Camera
 {
 public:
 	_SUM_ALIGN(Camera);
+
+	// Key states
+	enum KeyBindings
+	{
+		UP = 1,
+		DOWN = 2,
+		LEFT,
+		RIGHT,
+		FORWARD,
+		BACKWARD
+	};
 
 public:
 	// Constructor
@@ -80,15 +92,41 @@ public:
 	void setRotation(SFLOAT yaw, SFLOAT pitch, SFLOAT roll);
 
 	// Look at a point in space
-	void lookAt(const Vector pos, const Vector target, const Vector up);
+	void lookAt(const Vector eye, const Vector lookAt, const Vector up);
 
 	// Update the matrices based on current information and return the world-view matrix for this camera
 	const Matrix viewProj();
+
+	// Map a given keycode to a camera binding
+	void mapKey(SUINT keyCode, SUINT binding);
+
+	// Update based on new input parameters
+	void updateInput(SFLOAT deltaTime, const InputDeviceKeyboard* keyboard);
+
+	// Update velocity
+	void updateVelocity();
 
 private:
 	// Directional properties
 	//**********************************************
 	
+	// Eye vector
+	Vector _eye;
+
+	// Look at vector
+	Vector _lookAt;
+
+	// Rotation angles
+	SFLOAT _yawAngle;
+	SFLOAT _pitchAngle;
+	SFLOAT _rollAngle;
+
+	// Camera linear velocity
+	Vector _velocity;
+
+	// Delta time
+	SFLOAT _deltaTime;
+
 	// Position vector
 	Vector _position;
 
@@ -101,7 +139,8 @@ private:
 	// Look/forward vector
 	Vector _forward;
 
-	Matrix _orientation;
+	// World orientation
+	Matrix _world;
 
 	// Frustrum properties
 	//**********************************************
@@ -130,6 +169,15 @@ private:
 
 	// Projection matrix
 	Matrix _proj;
+
+	// Keyboard
+	//**********************************************
+
+	// Move direction
+	Vector _keyboardDirection;
+
+	// Key bindings
+	SUINT _keys[MAX_KEYS];
 };
 
 #endif

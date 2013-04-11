@@ -35,6 +35,8 @@ Vector VectorAdd(const Vector v1, const Vector v2);
 Vector VectorSub(const Vector v1, const Vector v2);
 Vector VectorMul(const Vector v1, const Vector v2);
 Vector VectorDiv(const Vector v1, const Vector v2);
+SBOOL VectorCompareEqual(const Vector v1, const Vector v2);
+SBOOL VectorCompareNotEqual(const Vector v1, const Vector v2);
 Vector VectorEqual(const Vector v1, const Vector v2);
 Vector VectorNotEqual(const Vector v1, const Vector v2);
 Vector VectorReciprocal(const Vector v);

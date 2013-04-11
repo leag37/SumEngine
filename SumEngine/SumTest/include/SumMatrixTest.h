@@ -14,13 +14,13 @@ using namespace Test;
 
 extern "C"
 {
-	void matrixSuite(int& errors, int& tests);
+	void matrixSuite(SUINT& errors, SUINT& tests);
 	
-	int matrixInit(int& tests);
-	int matrixEqual(int& tests);
-	int matrixNotEqual(int& tests);
-	int matrixTranspose(int& tests);
-	int matrixInverse(int& tests);
+	SUINT matrixInit(SUINT& tests);
+	SUINT matrixEqual(SUINT& tests);
+	SUINT matrixNotEqual(SUINT& tests);
+	SUINT matrixTranspose(SUINT& tests);
+	SUINT matrixInverse(SUINT& tests);
 }
 
 #endif

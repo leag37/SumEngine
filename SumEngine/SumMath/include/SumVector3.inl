@@ -143,9 +143,8 @@ SUMINLINE Vector Vec3Cross(const Vector v1, const Vector v2)
 SUMINLINE Vector Vec3Add(const Vector v1, const Vector v2)
 {
 #ifdef SUMSIMD
-
-	return _mm_add_ps(v1, v2);
-
+	Vector add = _mm_add_ps(v1, v2);
+	return add;
 #else
 #endif
 }

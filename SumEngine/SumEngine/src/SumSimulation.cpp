@@ -43,10 +43,14 @@ void Simulation::startUp()
 	SFLOAT z = _radius * sinf(_phi) * sinf(_theta);
 	SFLOAT y = _radius * cosf(_phi);
 	
-	Vector cPos = VectorSet(0.0f, 0.0f, -10.0f, 1.0f);
+	Vector cPos = VectorSet(0.0f, 5.0f, -10.0f, 0.0f);
 	Vector cTarget = VectorZero();
-	Vector cUp = VectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	Vector cUp = gVIdentityR1;//VectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	_camera->lookAt(cPos, cTarget, cUp);
+	_camera->mapKey(DIK_W, Camera::FORWARD);
+	_camera->mapKey(DIK_S, Camera::BACKWARD);
+	_camera->mapKey(DIK_A, Camera::LEFT);
+	_camera->mapKey(DIK_D, Camera::RIGHT);
 
 	renderManager->registerCamera(_camera);
 }
@@ -69,31 +73,8 @@ void Simulation::update(SFLOAT dTime)
 	const InputDeviceKeyboard* keyboard = InputManager::getSingletonPtr()->keyboard();
 
 	// Rotate camera based on mouse movement
-	_camera->rotateY(Math::ToRadian(mouse->relXf() * -0.25f));
-	_camera->pitch(Math::ToRadian(mouse->relYf() * 0.25f));
+	_camera->rotateY(Math::ToRadian(mouse->relXf() * 0.25f));
+	_camera->rotateX(Math::ToRadian(mouse->relYf() * -0.25f));
 
-	// Move the camera based on keyboard
-	SFLOAT transX = 0.0f;
-	SFLOAT transZ = 0.0f;
-	SFLOAT moveBy = 0.10f;
-	
-	if(keyboard->getKey(DIK_LEFT))
-	{
-		transX -= moveBy;
-	}
-	if(keyboard->getKey(DIK_RIGHT))
-	{
-		transX += moveBy;
-	}
-	if(keyboard->getKey(DIK_UP))
-	{
-		transZ += moveBy;
-	}
-	if(keyboard->getKey(DIK_DOWN))
-	{
-		transZ -= moveBy;
-	}
-
-	_camera->translateX(transX);
-	_camera->translateZ(transZ);
+	_camera->updateInput(dTime, keyboard);
 }

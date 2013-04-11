@@ -54,10 +54,18 @@ void RenderManager::startUp()
 	_renderable = new Renderable("box", "box");
 	_camera = 0;
 
+	// Calculate light direction
 	_dirLight.ambient = Float4(0.2f, 0.2f, 0.2f, 1.0f);
 	_dirLight.diffuse = Float4(0.5f, 0.5f, 0.5f, 1.0f);
 	_dirLight.specular = Float4(0.5f, 0.5f, 0.5f, 1.0f);
 	_dirLight.direction = Float3(0.57735f, 0.57735f, 0.57735f);
+
+	_pointLight.ambient = Float4(0.3f, 0.3f, 0.3f, 1.0f);
+	_pointLight.diffuse = Float4(0.7f, 0.7f, 0.7f, 1.0f);
+	_pointLight.specular = Float4(0.7f, 0.7f, 0.7f, 1.0f);
+	_pointLight.att = Float3(0.0f, 0.1f, 0.0f);
+	_pointLight.range = 25.0f;
+	_pointLight.position = Float3(0.0f, 5.0f, 0.0f);
 
 	_material.ambient = Float4(0.48f, 0.77f, 0.46f, 1.0f);
 	_material.diffuse = Float4(0.48f, 0.77f, 0.46f, 1.0f);
@@ -101,7 +109,7 @@ void RenderManager::renderScene()
 
 	// Set draw contexts
 	ID3D11DeviceContext* context = _renderContext->d3dImmediateContext();
-	context->IASetInputLayout(InputLayouts::Pos);
+	context->IASetInputLayout(InputLayouts::PosNormal);
 	context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	// Only bother drawing the world if we have an attached camera
@@ -113,10 +121,9 @@ void RenderManager::renderScene()
 		Matrix worldInvTranspose = MatrixInverseTranspose(world);
 		
 		BasicEffect* effect = static_cast<BasicEffect*>(_effectsManager->getEffectByName("basic"));
-		effect->setViewProj(viewProj);//>viewProj()->SetMatrix(reinterpret_cast<float*>(&viewProj));
+		effect->setViewProj(viewProj);
 		effect->setWorld(_renderable->world());
-		//effect->world()->SetMatrix(reinterpret_cast<const float*>(&_renderable->world()));
-
+		
 		// Set vertex buffers
 		SUINT stride = sizeof(Vertex);
 		SUINT offset = 0;
@@ -125,12 +132,20 @@ void RenderManager::renderScene()
 		context->IASetIndexBuffer(currMesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
 		effect->setWorldInvTranspose(worldInvTranspose);
 
+		effect->setDirLight(&_dirLight);
+		effect->setPointLight(&_pointLight);
+		effect->setEyePosW(_camera->position());
+		effect->setMaterial(_material);
+
+		// Get the active technique
+		ID3DX11EffectTechnique* activeTech = effect->light1Tech();
+
 		// Technique description
 		D3DX11_TECHNIQUE_DESC techDesc;
-		effect->light1Tech()->GetDesc(&techDesc);
+		activeTech->GetDesc(&techDesc);
 		for(SUINT p = 0; p < techDesc.Passes; ++p)
 		{
-			effect->light1Tech()->GetPassByIndex(p)->Apply(0, context);
+			activeTech->GetPassByIndex(p)->Apply(0, context);
 
 			// Draw indices
 			context->DrawIndexed(currMesh->indexCount(), 0, 0);

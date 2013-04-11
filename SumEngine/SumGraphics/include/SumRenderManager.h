@@ -85,6 +85,7 @@ private:
 	Renderable* _renderable;
 	Camera* _camera;
 	DirectionalLight _dirLight;
+	PointLight _pointLight;
 	Material _material;
 
 // Inline accessor functions

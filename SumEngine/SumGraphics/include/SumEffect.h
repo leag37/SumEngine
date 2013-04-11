@@ -91,9 +91,25 @@ public:
 		_worldInvTranspose->SetMatrix(reinterpret_cast<const float*>(&m));
 	}
 	void setTexTransform(const Matrix& m);
-	void setEyePosW(const Float3& v);
-	void setDirLights(const DirectionalLight* lights);
-	void setMaterial(const Material& material);
+	void setEyePosW(const Vector& v)
+	{
+		// Convert eye position to a Float3 for proper packing
+		Float3 eye;
+		StoreFloat3(&eye, v);
+		_eyePosW->SetRawValue(&eye, 0, sizeof(Float3));
+	}
+	void setDirLight(const DirectionalLight* light)
+	{
+		_dirLight->SetRawValue(light, 0, sizeof(DirectionalLight));
+	}
+	void setPointLight(const PointLight* light)
+	{
+		_pointLight->SetRawValue(light, 0, sizeof(PointLight));
+	}
+	void setMaterial(const Material& material)
+	{
+		_material->SetRawValue(&material, 0, sizeof(Material));
+	}
 	void setDiffuseMap(ID3D11ShaderResourceView* tex);
 
 	ID3DX11EffectTechnique* light1Tech();
@@ -101,20 +117,14 @@ public:
 private:
 	// Light techniques
 	ID3DX11EffectTechnique* _light1Tech;
-	ID3DX11EffectTechnique* _light2Tech;
-	ID3DX11EffectTechnique* _light3Tech;
-
-	ID3DX11EffectTechnique* _light0TexTech;
-	ID3DX11EffectTechnique* _light1TexTech;
-	ID3DX11EffectTechnique* _light2TexTech;
-	ID3DX11EffectTechnique* _light3TexTech;
 
 	// Effect variables
 	ID3DX11EffectMatrixVariable* _viewProj;
 	ID3DX11EffectMatrixVariable* _world;
 	ID3DX11EffectMatrixVariable* _worldInvTranspose;
 	ID3DX11EffectVectorVariable* _eyePosW;
-	ID3DX11EffectVariable* _dirLights;
+	ID3DX11EffectVariable* _dirLight;
+	ID3DX11EffectVariable* _pointLight;
 	ID3DX11EffectVariable* _material;
 	ID3DX11EffectShaderResourceVariable* _diffuseMap;
 };

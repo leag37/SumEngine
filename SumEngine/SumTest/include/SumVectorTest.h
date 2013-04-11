@@ -13,10 +13,10 @@ using namespace std;
 
 extern "C"
 {
-	void vectorSuite(int& errors, int& tests);
+	void vectorSuite(SUINT& errors, SUINT& tests);
 	
-	int vectorInit(int& tests);
-	int vectorSet(int& tests);
+	SUINT vectorInit(SUINT& tests);
+	SUINT vectorSet(SUINT& tests);
 	int vectorNegate(int& tests);
 	int vectorScale(int& tests);
 	int vectorAdd(int& tests);
@@ -25,6 +25,8 @@ extern "C"
 	int vectorMultiply(int& tests);
 	int vectorEqual(int& tests);
 	int vectorNotEqual(int& tests);
+	void TestVectorCompareEqual(SUINT& errors, SUINT& tests);
+	void TestVectorCompareNotEqual(SUINT& errors, SUINT& tests);
 
 }
 

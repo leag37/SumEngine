@@ -36,7 +36,7 @@ struct PointLight
 	Float4 diffuse;
 	Float4 specular;
 	
-	Float4 position;
+	Float3 position;
 	SFLOAT range;
 
 	Float3 att;

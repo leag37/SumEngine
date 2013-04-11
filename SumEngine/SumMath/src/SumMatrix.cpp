@@ -632,7 +632,11 @@ Matrix MatrixInverse(Vector* pDeterminant, const Matrix& m)
 	vTR1 = _mm_shuffle_ps(vTR0, vTR0, _MM_SHUFFLE(3, 3, 0, 1));
 	vTR0 = VectorAdd(vTR0, vTR1);	// a+c+b+d b+c+a+c c+c+d+d d+d+d+d
 	vTR0 = _mm_shuffle_ps(vTR0, vTR0, _MM_SHUFFLE(0, 0, 0, 0));
-	*pDeterminant = vTR0;
+	
+	if(pDeterminant)
+	{
+		*pDeterminant = vTR0;
+	}
 
 	// Scale matrix by 1 over determinant
 	vTR0 = VectorDiv(gVOne, vTR0);

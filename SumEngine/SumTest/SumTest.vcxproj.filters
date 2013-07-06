@@ -37,6 +37,12 @@
     <ClInclude Include="include\SumQueueTest.h">
       <Filter>Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumQuaternionTest.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumBaseTest.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumTestMain.cpp">
@@ -53,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="src\SumQueueTest.cpp">
       <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumQuaternionTest.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumBaseTest.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

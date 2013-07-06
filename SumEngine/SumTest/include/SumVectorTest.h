@@ -2,6 +2,8 @@
 // Title: SumVectorTest.h
 // Author: Gael Huber
 // Description: Vector test suite
+// 
+// TODO: Port to new class-based style of running tests
 //*************************************************************************************************
 #ifndef __SUMVECTORTEST_H__
 #define __SUMVECTORTEST_H__

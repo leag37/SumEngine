@@ -31,6 +31,15 @@ public:
 	// Get the keystate for the key	
 	SINT getKey(SINT code) const;
 
+	// Get whether a keystate changed
+	SBOOL getKeyChanged(SINT code) const;
+
+	// Get whether a key was pressed
+	SBOOL getKeyPressed(SINT code) const;
+
+	// Get whether a key was released
+	SBOOL getKeyReleased(SINT code) const;
+
 private:
 	// Current keyboard state
 	BYTE _keyState[256];

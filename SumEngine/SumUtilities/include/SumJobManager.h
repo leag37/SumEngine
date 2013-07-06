@@ -45,9 +45,9 @@ public:
 	void clearJobs(void);		// Clear out all existing jobs
 
 private:
-	Queue<Job*> jobs;			// List of all jobs to perform
-	HANDLE* workerThreads;		// Array of worker threads
-	SINT numWorkerThreads;		// The number of worker threads
+	Queue<Job*> _jobs;			// List of all jobs to perform
+	HANDLE* _workerThreads;		// Array of worker threads
+	SUINT _numWorkerThreads;		// The number of worker threads
 
 	CriticalSection _criticalSection;	// Used to manage access for job requests
 

@@ -100,9 +100,9 @@ Matrix MatrixRotationNormal(const Vector normal, float angle);
 
 // Build a matrix which rotates around an arbitrary normal axis
 Matrix MatrixRotationNormal(const Vector normal, Vector angle);
-//
-//// Build a matrix from a quaternion
-//Matrix MatrixRotationQuaternion(const Vector q);
+
+// Build a matrix from a quaternion
+Matrix MatrixRotationQuaternion(const Vector q);
 
 // Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis
 Matrix MatrixRotationYawPitchRoll(float yaw, float pitch, float roll);

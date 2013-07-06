@@ -16,7 +16,7 @@ template <> JobManager* Singleton<JobManager>::singleton = 0;
 // Constructor
 //*************************************************************************************************
 JobManager::JobManager(void) 
-	: workerThreads(0), _runManager(false)
+	: _workerThreads(0), _runManager(false)
 { 
 	_criticalSection = CriticalSection();
 }
@@ -36,14 +36,14 @@ void JobManager::startUp(SINT numExecutors)
 	_runManager = true;
 
 	// Allocate memory for the array of worker threads
-	workerThreads = (HANDLE*) malloc(sizeof(HANDLE*) * numExecutors);
+	_workerThreads = (HANDLE*) malloc(sizeof(HANDLE*) * numExecutors);
 
 	// Set the number of worker threads
-	numWorkerThreads = numExecutors;
+	_numWorkerThreads = numExecutors;
 
 	// Create the worker threads
-	for(SINT i(0); i < numWorkerThreads; ++i) {
-		workerThreads[i] = (HANDLE) CreateThread(0, 0, JobManager::WorkerThread, static_cast<void*>(this), 0, 0);
+	for(SUINT i(0); i < _numWorkerThreads; ++i) {
+		_workerThreads[i] = (HANDLE) CreateThread(0, 0, JobManager::WorkerThread, static_cast<void*>(this), 0, 0);
 	}
 }
 
@@ -58,9 +58,14 @@ void JobManager::shutDown(void)
 	// Clear the job queue
 	clearJobs();
 
-	// Wait for the threads
-	WaitForMultipleObjects(numWorkerThreads, workerThreads, TRUE, INFINITE);
-	free(workerThreads);
+	// Wait for each thread individually and close the handle on it
+	for(SUINT i = 0; i < _numWorkerThreads; ++i)
+	{
+		WaitForSingleObject(_workerThreads[i], INFINITE);
+		CloseHandle(_workerThreads[i]);
+	}
+
+	free(_workerThreads);
 }
 
 //*************************************************************************************************
@@ -70,8 +75,8 @@ void JobManager::clearJobs(void)
 {
 	// Empty job queue
 	_criticalSection.enter();
-	while(jobs.size() > 0) {
-		Job* j(jobs.dequeue());
+	while(_jobs.size() > 0) {
+		Job* j(_jobs.dequeue());
 		j->setStatus(Job::DONE);
 	}
 	_criticalSection.leave();

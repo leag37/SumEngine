@@ -257,6 +257,17 @@ SUMINLINE Vector VectorDiv(const Vector v1, const Vector v2)
 }
 
 //*************************************************************************************************
+// Square root of a vector
+//*************************************************************************************************
+SUMINLINE Vector VectorSqrt(const Vector v)
+{
+#ifdef SUMSIMD
+	return _mm_sqrt_ps(v);
+#else
+#endif
+}
+
+//*************************************************************************************************
 // Equality of two vectors
 //*************************************************************************************************
 SUMINLINE Vector VectorEqual(const Vector v1, const Vector v2)
@@ -267,7 +278,9 @@ SUMINLINE Vector VectorEqual(const Vector v1, const Vector v2)
 #endif
 }
 
+//*************************************************************************************************
 // Compare for equality and return boolean value
+//*************************************************************************************************
 SUMINLINE SBOOL VectorCompareEqual(const Vector v1, const Vector v2)
 {
 #ifdef SUMSIMD
@@ -278,13 +291,28 @@ SUMINLINE SBOOL VectorCompareEqual(const Vector v1, const Vector v2)
 #endif
 }
 
+//*************************************************************************************************
 // Compare for equality and return boolean value
+//*************************************************************************************************
 SUMINLINE SBOOL VectorCompareNotEqual(const Vector v1, const Vector v2)
 {
 #ifdef SUMSIMD
 	Vector cmp = _mm_cmpneq_ps(v1, v2);
 	SINT mask = _mm_movemask_ps(cmp);
 	return mask > 0;
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Compare for greater than and return the boolean value
+//*************************************************************************************************
+SUMINLINE SBOOL VectorCompareGreaterThan(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	Vector cmp = _mm_cmpgt_ps(v1, v2);
+	SINT mask = _mm_movemask_ps(cmp);
+	return mask == 15;
 #else
 #endif
 }
@@ -343,6 +371,38 @@ SUMINLINE Vector VectorSplatW(const Vector v)
 //Vector VectorSetY(const Vector v, SFLOAT y);
 //Vector VectorSetZ(const Vector v, SFLOAT z);
 //Vector VectorSetW(const Vector v, SFLOAT w);
+
+SUMINLINE SFLOAT VectorGetX(const Vector v)
+{
+#ifdef SUMSIMD
+	return v.m128_f32[0];
+#else
+#endif
+}
+
+SUMINLINE SFLOAT VectorGetY(const Vector v)
+{
+#ifdef SUMSIMD
+	return v.m128_f32[1];
+#else
+#endif
+}
+
+SUMINLINE SFLOAT VectorGetZ(const Vector v)
+{
+#ifdef SUMSIMD
+	return v.m128_f32[2];
+#else
+#endif
+}
+
+SUMINLINE SFLOAT VectorGetW(const Vector v)
+{
+#ifdef SUMSIMD
+	return v.m128_f32[3];
+#else
+#endif
+}
 	
 //*************************************************************************************************
 // And operation on vector
@@ -354,3 +414,24 @@ SUMINLINE Vector VectorAnd(const Vector v1, const Vector v2)
 #else
 #endif
 }
+
+//*************************************************************************************************
+// Or operation on vector
+//*************************************************************************************************
+SUMINLINE Vector VectorOr(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_or_ps(v1, v2);
+#else
+#endif
+}
+
+//// Swizzle operation
+//SUMINLINE Vector VectorSwizzle(const Vector v1, const Vector v2, 
+//	SUINT x, SUINT y, SUINT z, SUINT w)
+//{
+//#ifdef SUMSIMD
+//	return _mm_shuffle_ps(v1, v2, SUM_SWIZZLE(x, y, z, w));
+//#else
+//#endif
+//}

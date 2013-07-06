@@ -8,6 +8,7 @@
 
 #include "SumVectorTest.h"
 #include "SumMatrixTest.h"
+#include "SumQuaternionTest.h"
 
 // Run entire math suite
 void runMathTests()
@@ -38,6 +39,11 @@ void runMathTests()
 	totalTests += tests;
 	errors = 0;
 	tests = 0;
+
+	QuaternionTest quaternions("Quaternion Suite");
+	quaternions.run();
+	totalErrors += quaternions.getErrors();
+	totalTests += quaternions.getTests();
 }
 
 #endif

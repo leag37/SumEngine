@@ -13,7 +13,9 @@
   <ItemGroup>
     <ClInclude Include="include\SumMathTest.h" />
     <ClInclude Include="include\SumMatrixTest.h" />
+    <ClInclude Include="include\SumQuaternionTest.h" />
     <ClInclude Include="include\SumQueueTest.h" />
+    <ClInclude Include="include\SumBaseTest.h" />
     <ClInclude Include="include\SumTestDriver.h" />
     <ClInclude Include="include\SumTestHelper.h" />
     <ClInclude Include="include\SumUtilitiesTest.h" />
@@ -21,7 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMatrixTest.cpp" />
+    <ClCompile Include="src\SumQuaternionTest.cpp" />
     <ClCompile Include="src\SumQueueTest.cpp" />
+    <ClCompile Include="src\SumBaseTest.cpp" />
     <ClCompile Include="src\SumTestMain.cpp" />
     <ClCompile Include="src\SumUtilitiesTest.cpp" />
     <ClCompile Include="src\SumVectorTest.cpp" />

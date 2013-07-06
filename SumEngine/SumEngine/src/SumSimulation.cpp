@@ -51,6 +51,7 @@ void Simulation::startUp()
 	_camera->mapKey(DIK_S, Camera::BACKWARD);
 	_camera->mapKey(DIK_A, Camera::LEFT);
 	_camera->mapKey(DIK_D, Camera::RIGHT);
+	_camera->mapKey(DIK_Q, Camera::TOGGLE_AXIS);
 
 	renderManager->registerCamera(_camera);
 }
@@ -68,13 +69,5 @@ void Simulation::shutDown()
 //*************************************************************************************************
 void Simulation::update(SFLOAT dTime)
 {
-	// Get the mouse
-	const InputDeviceMouse* mouse = InputManager::getSingletonPtr()->mouse();
-	const InputDeviceKeyboard* keyboard = InputManager::getSingletonPtr()->keyboard();
-
-	// Rotate camera based on mouse movement
-	_camera->rotateY(Math::ToRadian(mouse->relXf() * 0.25f));
-	_camera->rotateX(Math::ToRadian(mouse->relYf() * -0.25f));
-
-	_camera->updateInput(dTime, keyboard);
+	_camera->updateInput(dTime);
 }

@@ -15,7 +15,7 @@ SUMINLINE void JobManager::addJob(Job* j)
 	_criticalSection.enter();
 
 	// Add a the job to the list
-	jobs.enqueue(j);
+	_jobs.enqueue(j);
 
 	// Leave the section
 	_criticalSection.leave();
@@ -39,7 +39,7 @@ SUMINLINE Job* JobManager::requestJob(void)
 		if(jobExists())
 		{
 			// Grab job
-			j = jobs.dequeue();
+			j = _jobs.dequeue();
 		}
 
 		// Enter critical section
@@ -54,5 +54,5 @@ SUMINLINE Job* JobManager::requestJob(void)
 //*************************************************************************************************
 SUMINLINE SBOOL JobManager::jobExists(void) const 
 {
-	return jobs.size() > 0;
+	return _jobs.size() > 0;
 }

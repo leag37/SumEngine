@@ -7,12 +7,16 @@
 //	directly manipulated. All externally exposed orientation and positioning data is accomplished
 //	through manipulable postion and scale vectors and an orientation quaternion. The view matrix
 //	will periodically synchronize itself with the most recent data. 
+//
+// TODO: Make update indepedent of passing in keyboard and mouse input devices
+// TODO: Make matrix rotations more robust for reliable use in rotations to prevent jumping
+// TODO: Properly clamp rotational values to prevent camera jumping
 //*************************************************************************************************
 #ifndef __SUMCAMERA_H__
 #define __SUMCAMERA_H__
 
 #include "SumRenderCore.h"
-#include "SumInputDeviceKeyboard.h"
+#include "SumInputManager.h"
 
 class SUM_DECLSPEC_ALIGN_16 Camera
 {
@@ -27,7 +31,8 @@ public:
 		LEFT,
 		RIGHT,
 		FORWARD,
-		BACKWARD
+		BACKWARD,
+		TOGGLE_AXIS
 	};
 
 public:
@@ -88,6 +93,8 @@ public:
 	// Rotate about the relative Z axis
 	void roll(SFLOAT r);
 
+	void rotateYawPitchRoll(SFLOAT yaw, SFLOAT pitch, SFLOAT roll);
+
 	// Set the camera rotation
 	void setRotation(SFLOAT yaw, SFLOAT pitch, SFLOAT roll);
 
@@ -101,22 +108,33 @@ public:
 	void mapKey(SUINT keyCode, SUINT binding);
 
 	// Update based on new input parameters
-	void updateInput(SFLOAT deltaTime, const InputDeviceKeyboard* keyboard);
+	void updateInput(SFLOAT deltaTime);
 
 	// Update velocity
 	void updateVelocity();
 
 private:
-	// Directional properties
+	// Physical properties
 	//**********************************************
-	
+	// Orientation 
+	Vector _orientation;
+
+	// Position
+	Vector _position;
+
+	// Yaw axis for a fixed yaw
+	Vector _fixedYawAxis;
+
+	// Is the yaw axis fixed?
+	SBOOL _isYawFixed;
+
 	// Eye vector
 	Vector _eye;
 
 	// Look at vector
 	Vector _lookAt;
 
-	// Rotation angles
+	// Rotation angles with respect to world coordinate frame
 	SFLOAT _yawAngle;
 	SFLOAT _pitchAngle;
 	SFLOAT _rollAngle;
@@ -126,9 +144,6 @@ private:
 
 	// Delta time
 	SFLOAT _deltaTime;
-
-	// Position vector
-	Vector _position;
 
 	// Right vector
 	Vector _right;
@@ -178,6 +193,14 @@ private:
 
 	// Key bindings
 	SUINT _keys[MAX_KEYS];
+
+	// Mouse
+	//**********************************************
+
+	// Sensitivity
+	SFLOAT _mouseSensitivity;
+
+	SBOOL _rotateYAxis;
 };
 
 #endif

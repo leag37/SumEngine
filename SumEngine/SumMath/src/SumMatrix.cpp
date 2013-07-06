@@ -956,11 +956,68 @@ Matrix MatrixRotationNormal(const Vector normal, Vector angle)
 	return m1;
 }
 
-////*************************************************************************************************
-//// 
-////*************************************************************************************************
-//// Build a matrix from a quaternion
-//Matrix MatrixRotationQuaternion(const Vector q);
+//*************************************************************************************************
+// Build a matrix from a quaternion
+//
+// 1-2yy-2zz	2xy+2zw		2xz-2wy		0
+// 2xy-2yz		1-2xx-2zz	2yz+2xw		0
+// 2xz+2yw		2yz-2xw		1-2xx-2yy	0
+// 0			0			0			1
+//*************************************************************************************************
+Matrix MatrixRotationQuaternion(const Vector q)
+{
+	// Create row ops
+	Vector vTemp1 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 0, 0, 1));
+	Vector vTemp2 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 2, 1, 1));
+	Vector vTemp3 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 1, 2, 2));
+	Vector vTemp4 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 3, 0, 2));
+	Vector vTemp5 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 1, 0, 0));
+	Vector vTemp6 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 2, 0, 1));
+	Vector vTemp7 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 0, 2, 1));
+	Vector vTemp8 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 3, 2, 2));
+	Vector vTemp9 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 0, 1, 0));
+	Vector vTemp10 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 0, 2, 2));
+	Vector vTemp11 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 1, 0, 1));
+	Vector vTemp12 = _mm_shuffle_ps(q, q, _MM_SHUFFLE(0, 1, 3, 3));
+
+	// Create pairs, double, and add proper negations
+	vTemp1 = VectorMul(vTemp1, vTemp2);
+	vTemp1 = VectorMul(vTemp1, gVTwo);
+	vTemp1 = VectorMul(vTemp1, gVNegateX);
+	
+	vTemp3 = VectorMul(vTemp3, vTemp4);
+	vTemp3 = VectorMul(vTemp3, gVTwo);
+	vTemp3 = VectorMul(vTemp3, gVNegateXZ);
+	
+	vTemp5 = VectorMul(vTemp5, vTemp6);
+	vTemp5 = VectorMul(vTemp5, gVTwo);
+	vTemp5 = VectorMul(vTemp5, gVNegateY);
+	
+	vTemp7 = VectorMul(vTemp7, vTemp8);
+	vTemp7 = VectorMul(vTemp7, gVTwo);
+	vTemp7 = VectorMul(vTemp7, gVNegateXY);
+	
+	vTemp9 = VectorMul(vTemp9, vTemp10);
+	vTemp9 = VectorMul(vTemp9, gVTwo);
+	vTemp9 = VectorMul(vTemp9, gVNegateZ);
+	
+	vTemp11 = VectorMul(vTemp11, vTemp12);
+	vTemp11 = VectorMul(vTemp11, gVTwo);
+	vTemp11 = VectorMul(vTemp11, gVNegateYZ);
+	
+	// Combine rows
+	vTemp1 = VectorAdd(gVIdentityR0, vTemp1);
+	vTemp1 = VectorAdd(vTemp1, vTemp3);
+
+	vTemp5 = VectorAdd(gVIdentityR1, vTemp5);
+	vTemp5 = VectorAdd(vTemp5, vTemp7);
+
+	vTemp9 = VectorAdd(gVIdentityR2, vTemp9);
+	vTemp9 = VectorAdd(vTemp9, vTemp11);
+
+	Matrix m = Matrix(vTemp1, vTemp5, vTemp9, gVIdentityR3);
+	return m;
+}
 
 //*************************************************************************************************
 // Yaw around the Y axis, a pitch around the X axis, and a roll around the Z axis 

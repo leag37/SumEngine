@@ -176,6 +176,7 @@ SUMGLOBALCONST VectorI32 gVMask3 = {0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0x000000
 SUMGLOBALCONST VectorF32 gVOne = {1.0f, 1.0f, 1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVZero = {0.0f, 0.0f, 0.0f, 0.0f};
 SUMGLOBALCONST VectorF32 gVOneHalf = {0.5f, 0.5f, 0.5f, 0.5f};
+SUMGLOBALCONST VectorF32 gVTwo = {2.0f, 2.0f, 2.0f, 2.0f};
 SUMGLOBALCONST VectorF32 gVNegOne = {-1.0f, -1.0f, -1.0f, -1.0f};
 SUMGLOBALCONST VectorF32 gVSinCoefficient0 = {1.0f, -0.166666667f, 8.33333333e-3f, -1.984126984e-4f};
 SUMGLOBALCONST VectorF32 gVSinCoefficient1 = {2.755731922e-6f, -2.505210839e-8f, 1.605904383e-10f, -7.647163732e-13f};
@@ -189,7 +190,9 @@ SUMGLOBALCONST VectorF32 gVNegateZ = {1.0f, 1.0f, -1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateW = {1.0f, 1.0f, 1.0f, -1.0f};
 SUMGLOBALCONST VectorF32 gVNegateXY = {-1.0f, -1.0f, 1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateXZ = {-1.0f, 1.0f, -1.0f, 1.0f};
+SUMGLOBALCONST VectorF32 gVNegateYZ = {1.0f, -1.0f, -1.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVNegateYW = {1.0f, -1.0f, 1.0f, -1.0f};
+SUMGLOBALCONST VectorF32 gVConjugate = {-1.0f, -1.0f, -1.0f, 1.0f};
 
 // Matrix
 //***********************************************
@@ -198,6 +201,7 @@ SUMGLOBALCONST VectorF32 gVIdentityR1 = {0.0f, 1.0f, 0.0f, 0.0f};
 SUMGLOBALCONST VectorF32 gVIdentityR2 = {0.0f, 0.0f, 1.0f, 0.0f};
 SUMGLOBALCONST VectorF32 gVIdentityR3 = {0.0f, 0.0f, 0.0f, 1.0f};
 SUMGLOBALCONST VectorF32 gVDeterminantNegate = {1.0f, -1.0f, 1.0f, -1.0f};
+SUMGLOBALCONST VectorF32 gVIdentity = {0.3333333333f, 0.3333333333f, 0.3333333333f, 0.0f};
 
 SUMGLOBALCONST VectorF32 gV3Negate = {-1.0f, -1.0f, -1.0f, 1.0f};
 

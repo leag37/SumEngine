@@ -66,6 +66,9 @@
     <ClCompile Include="src\SumVector4.cpp">
       <Filter>Vectors</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumQuaternion.cpp">
+      <Filter>Quaternions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\SumMatrix.inl">

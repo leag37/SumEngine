@@ -58,3 +58,28 @@ SINT InputDeviceKeyboard::getKey(SINT code) const
 {
 	return _keyState[code] && 0x80;
 }
+
+//*************************************************************************************************
+// Get whether the keystate changed
+//*************************************************************************************************
+SBOOL InputDeviceKeyboard::getKeyChanged(SINT code) const
+{
+	return _prevKeyState[code] != _keyState[code];
+}
+
+//*************************************************************************************************
+// Get whether a key was pressed
+//*************************************************************************************************
+SBOOL InputDeviceKeyboard::getKeyPressed(SINT code) const
+{
+	return getKeyChanged(code) && _keyState[code] == 0x80;
+}
+
+//*************************************************************************************************
+// Get whether a key was released
+//*************************************************************************************************
+SBOOL InputDeviceKeyboard::getKeyReleased(SINT code) const
+{
+	return true;
+}
+

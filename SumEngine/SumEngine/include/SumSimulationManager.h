@@ -11,6 +11,7 @@
 #include "SumRenderManager.h"
 #include "SumInputManager.h"
 #include "SumConfigurationManager.h"
+#include "SumPhysicsManager.h"
 #include "SumResourceManager.h"
 #include "SumDelegate.h"
 #include "SumSimulation.h"

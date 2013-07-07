@@ -41,7 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>include;..\SumPlatform\include;..\SumMemory\include;..\SumMath\include;..\SumThreading\include;..\SumUtilities\include;..\SumGraphics\include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;..\SumPlatform\include;..\SumMemory\include;..\SumMath\include;..\SumThreading\include;..\SumUtilities\include;..\SumGraphics\include;..\SumPhysics\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

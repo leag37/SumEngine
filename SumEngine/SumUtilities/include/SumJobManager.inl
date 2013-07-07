@@ -54,5 +54,5 @@ SUMINLINE Job* JobManager::requestJob(void)
 //*************************************************************************************************
 SUMINLINE SBOOL JobManager::jobExists(void) const 
 {
-	return _jobs.size() > 0;
+	return _jobs.size() != 0;
 }

@@ -45,7 +45,7 @@ void Simulation::startUp()
 	
 	Vector cPos = VectorSet(0.0f, 5.0f, -10.0f, 0.0f);
 	Vector cTarget = VectorZero();
-	Vector cUp = gVIdentityR1;//VectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	Vector cUp = gVIdentityR1;
 	_camera->lookAt(cPos, cTarget, cUp);
 	_camera->mapKey(DIK_W, Camera::FORWARD);
 	_camera->mapKey(DIK_S, Camera::BACKWARD);

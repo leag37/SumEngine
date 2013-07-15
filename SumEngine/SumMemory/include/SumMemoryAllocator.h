@@ -12,6 +12,9 @@
 #include <malloc.h>
 #include <climits>
 
+#include "SumMemoryChunk.h"
+#include "SumMemoryState.h"
+
 namespace SumMemory
 {
 	class MemoryAllocator
@@ -77,6 +80,9 @@ namespace SumMemory
 
 		// Free a single chunk of memory
 		void free(void* ptr);
+
+	private:
+
 	
 	private:
 		// Designated victim for allocating new chunks
@@ -90,6 +96,9 @@ namespace SumMemory
 
 		// Critical section
 		CriticalSection _criticalSection;
+
+		// Memory state
+		MemoryState _memState;
 	};
 }
 

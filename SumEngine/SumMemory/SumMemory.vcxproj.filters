@@ -11,6 +11,9 @@
     <Filter Include="Allocators">
       <UniqueIdentifier>{38590948-c987-4c63-8d8d-96736eb1d18d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Chunk">
+      <UniqueIdentifier>{00aad89a-788d-49dc-b847-067f3df11323}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumMemory.h">
@@ -32,6 +35,15 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="include\SumMutex.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMemoryDefines.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMemoryChunk.h">
+      <Filter>Chunk</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMemoryState.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>

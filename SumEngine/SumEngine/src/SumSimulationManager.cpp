@@ -16,6 +16,7 @@ template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 SimulationManager::SimulationManager()
 	:	_inputManager(0),
 		_jobManager(0),
+		_physicsManager(0),
 		_renderManager(0),
 		_resourceManager(0),
 		_configurationManager(0),
@@ -31,8 +32,7 @@ SimulationManager::~SimulationManager()
 	SafeDelete(_renderManager);
 	SafeDelete(_resourceManager);
 	SafeDelete(_inputManager);
-	// TODO: Shut down physics
-	// TODO: Shut down resource manager
+	SafeDelete(_physicsManager);
 	SafeDelete(_configurationManager);
 	SafeDelete(_simulation);
 }
@@ -42,7 +42,8 @@ SimulationManager::~SimulationManager()
 //*************************************************************************************************
 void SimulationManager::startUp()
 {
-	// TODO: Seed random number generator
+	// Seed random number generator
+	seed();
 
 	// Initialize memory subsystems
 	CreateAllocators();
@@ -64,7 +65,9 @@ void SimulationManager::startUp()
 	_renderManager = new RenderManager();
 	_renderManager->startUp();
 
-	// TODO: Initialize physics
+	// Initialize physics
+	_physicsManager = new PhysicsManager();
+	_physicsManager->startUp();
 
 	// Initialize input system
 	_inputManager = new InputManager();
@@ -93,7 +96,8 @@ void SimulationManager::shutDown()
 	// Shut down input system
 	_inputManager->shutDown();
 
-	// TODO: Shut down physics
+	// Shut down physics
+	_physicsManager->shutDown();
 
 	// Shut down rendering
 	_renderManager->shutDown();
@@ -101,7 +105,8 @@ void SimulationManager::shutDown()
 	// Shut down resource manager
 	_resourceManager->shutDown();
 
-	// TODO: Shut down game configuration
+	// Shut down game configuration
+	_configurationManager->shutDown();
 
 	// Destroy allocators
 	DestroyAllocators();
@@ -123,6 +128,9 @@ void SimulationManager::gameLoop()
 	// Jobs for major for engine components
 	simulationDelegate = new Delegate1<SFLOAT>(_simulation, &Simulation::update);
 	simulationJob = Job(simulationDelegate);
+
+	physicsDelegate = new Delegate(_physicsManager, &PhysicsManager::update);
+	physicsJob = Job(physicsDelegate);
 
 	renderDelegate = new Delegate(_renderManager, &RenderManager::update); 
 	renderJob = Job(renderDelegate);

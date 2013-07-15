@@ -13,6 +13,9 @@
     <ClInclude Include="include\SumPhysicsManager.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumPhysicsCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumPhysicsManager.cpp">

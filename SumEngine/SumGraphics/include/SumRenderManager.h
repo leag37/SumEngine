@@ -64,6 +64,9 @@ public:
 	// Register a camera
 	void registerCamera(Camera* camera);
 
+	// Register an object with the render list
+	void registerRenderable(Renderable* renderable);
+
 private:
 	// Render the current scene
 	void renderScene();
@@ -80,6 +83,9 @@ private:
 
 	// Effects manager
 	EffectsManager* _effectsManager;
+
+	// Render list
+	List<Renderable*> _renderList;
 
 	// TEMP
 	Renderable* _renderable;

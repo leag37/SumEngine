@@ -9,6 +9,7 @@
 #include "SumInclude.h"
 #include "SumRenderManager.h"
 #include "SumInputManager.h"
+#include "SumEntity.h"
 
 class Simulation
 {
@@ -31,6 +32,9 @@ public:
 private:
 	// Camera
 	Camera* _camera;
+
+	// TEMP
+	Entity* _entity;
 };
 
 #endif

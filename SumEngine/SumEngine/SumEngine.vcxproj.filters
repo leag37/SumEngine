@@ -11,6 +11,15 @@
     <Filter Include="Simulation">
       <UniqueIdentifier>{240f0961-d1d5-42d0-aa1a-21a7786e03b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{eb5f2f7f-ecd4-4937-bd45-ada2756db561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Movable">
+      <UniqueIdentifier>{40f87e24-6f1c-49c6-ad78-c647e1312d9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity\Movable\Renderable">
+      <UniqueIdentifier>{3abd667e-2c46-425b-8d35-e00d069bc60e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMain.cpp">
@@ -22,6 +31,9 @@
     <ClCompile Include="src\SumSimulation.cpp">
       <Filter>Simulation</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumEntity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumSimulationManager.h">
@@ -29,6 +41,12 @@
     </ClInclude>
     <ClInclude Include="include\SumSimulation.h">
       <Filter>Simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumEntity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMovableEntity.h">
+      <Filter>Entity\Movable</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

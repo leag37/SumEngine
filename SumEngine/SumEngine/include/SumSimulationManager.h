@@ -14,6 +14,7 @@
 #include "SumPhysicsManager.h"
 #include "SumResourceManager.h"
 #include "SumDelegate.h"
+#include "SumRandom.h"
 #include "SumSimulation.h"
 
 class SimulationManager : public Singleton<SimulationManager>
@@ -48,6 +49,9 @@ private:
 	// Manager for threading and job subsystem
 	JobManager* _jobManager;
 
+	// Physics manager
+	PhysicsManager* _physicsManager;
+
 	// Manager for rendering and effects pipeline
 	RenderManager* _renderManager;
 
@@ -61,6 +65,9 @@ private:
 	Simulation* _simulation;
 
 	// Jobs and delegate functions
+	Job physicsJob;
+	Delegate* physicsDelegate;
+
 	Job renderJob;
 	Delegate* renderDelegate;
 

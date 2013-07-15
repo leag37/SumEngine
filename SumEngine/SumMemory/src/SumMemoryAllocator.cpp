@@ -86,6 +86,7 @@ namespace SumMemory
 		_variableSize[30] = Chunk(0, 12582912);
 		_variableSize[31] = Chunk(0, 384);
 
+
 		// Initialize critical section
 		_criticalSection = CriticalSection();
 	}

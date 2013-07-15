@@ -51,7 +51,7 @@ void RenderManager::startUp()
 	InputLayouts::InitAll(_renderContext->d3dDevice());
 
 	// TEMP
-	_renderable = new Renderable("box", "box");
+	//_renderable = new Renderable("box", "box");
 	_camera = 0;
 
 	// Calculate light direction
@@ -122,33 +122,42 @@ void RenderManager::renderScene()
 		
 		BasicEffect* effect = static_cast<BasicEffect*>(_effectsManager->getEffectByName("basic"));
 		effect->setViewProj(viewProj);
-		effect->setWorld(_renderable->world());
-		
-		// Set vertex buffers
-		SUINT stride = sizeof(Vertex);
-		SUINT offset = 0;
-		Mesh* currMesh = _renderable->mesh();
-		context->IASetVertexBuffers(0, 1, currMesh->vertexBufferPtr(), &stride, &offset);
-		context->IASetIndexBuffer(currMesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
 		effect->setWorldInvTranspose(worldInvTranspose);
-
 		effect->setDirLight(&_dirLight);
 		effect->setPointLight(&_pointLight);
 		effect->setEyePosW(_camera->position());
-		effect->setMaterial(_material);
-
+			
 		// Get the active technique
 		ID3DX11EffectTechnique* activeTech = effect->light1Tech();
 
-		// Technique description
-		D3DX11_TECHNIQUE_DESC techDesc;
-		activeTech->GetDesc(&techDesc);
-		for(SUINT p = 0; p < techDesc.Passes; ++p)
-		{
-			activeTech->GetPassByIndex(p)->Apply(0, context);
+		// Set vertex buffers
+		SUINT stride = sizeof(Vertex);
+		SUINT offset = 0;
 
-			// Draw indices
-			context->DrawIndexed(currMesh->indexCount(), 0, 0);
+		// Iterate through the current list of renderables
+		List<Renderable*>::Iterator endItr = _renderList.end();
+		for(List<Renderable*>::Iterator itr = _renderList.begin(); itr != endItr; ++itr)
+		{
+			Renderable* renderable = *itr;
+
+			effect->setWorld(renderable->world());
+		
+			Mesh* currMesh = renderable->mesh();
+			context->IASetVertexBuffers(0, 1, currMesh->vertexBufferPtr(), &stride, &offset);
+			context->IASetIndexBuffer(currMesh->indexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+			
+			effect->setMaterial(_material);
+
+			// Technique description
+			D3DX11_TECHNIQUE_DESC techDesc;
+			activeTech->GetDesc(&techDesc);
+			for(SUINT p = 0; p < techDesc.Passes; ++p)
+			{
+				activeTech->GetPassByIndex(p)->Apply(0, context);
+
+				// Draw indices
+				context->DrawIndexed(currMesh->indexCount(), 0, 0);
+			}
 		}
 	}
 
@@ -163,5 +172,13 @@ void RenderManager::registerCamera(Camera* camera)
 {
 	// Set this camera to be the default camera
 	_camera = camera;
+}
+
+//***
+// Register a renderable with the render list
+//**************
+void RenderManager::registerRenderable(Renderable* renderable)
+{
+	_renderList.push_back(renderable);
 }
 

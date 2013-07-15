@@ -9,7 +9,7 @@
 // Constructor
 //*************************************************************************************************
 Simulation::Simulation()
-	: _camera(0)
+	: _camera(0), _entity(0)
 { }
 
 //*************************************************************************************************
@@ -18,6 +18,7 @@ Simulation::Simulation()
 Simulation::~Simulation()
 {
 	SafeDelete(_camera);
+	SafeDelete(_entity);
 }
 
 //*************************************************************************************************
@@ -51,9 +52,11 @@ void Simulation::startUp()
 	_camera->mapKey(DIK_S, Camera::BACKWARD);
 	_camera->mapKey(DIK_A, Camera::LEFT);
 	_camera->mapKey(DIK_D, Camera::RIGHT);
-	_camera->mapKey(DIK_Q, Camera::TOGGLE_AXIS);
 
 	renderManager->registerCamera(_camera);
+
+	_entity = new Entity("box", "box");
+	renderManager->registerRenderable(_entity->renderable());
 }
 
 //*************************************************************************************************

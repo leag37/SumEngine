@@ -46,7 +46,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SumMath.lib;SumUtilities.lib;SumMemory.lib;SumGraphics.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SumMath.lib;SumUtilities.lib;SumMemory.lib;SumGraphics.lib;SumPhysics.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -63,11 +63,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumEntity.cpp" />
     <ClCompile Include="src\SumMain.cpp" />
     <ClCompile Include="src\SumSimulation.cpp" />
     <ClCompile Include="src\SumSimulationManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumEntity.h" />
+    <ClInclude Include="include\SumMovableEntity.h" />
     <ClInclude Include="include\SumSimulation.h" />
     <ClInclude Include="include\SumSimulationManager.h" />
   </ItemGroup>

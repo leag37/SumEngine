@@ -61,6 +61,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumPhysicsCore.h" />
     <ClInclude Include="include\SumPhysicsManager.h" />
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@
 
 // Utility includes
 #include "SumArray.h"
+#include "SumList.h"
 #include "SumString.h"
 
 // Core graphics

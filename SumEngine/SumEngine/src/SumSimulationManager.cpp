@@ -14,7 +14,8 @@ template <> SimulationManager* Singleton<SimulationManager>::singleton = 0;
 // Constructor
 //*************************************************************************************************
 SimulationManager::SimulationManager()
-	:	_inputManager(0),
+	:	Singleton(),
+		_inputManager(0),
 		_jobManager(0),
 		_physicsManager(0),
 		_renderManager(0),

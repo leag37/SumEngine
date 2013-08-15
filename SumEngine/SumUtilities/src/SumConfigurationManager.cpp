@@ -14,8 +14,8 @@ template <> ConfigurationManager* Singleton<ConfigurationManager>::singleton = 0
 // Constructor
 //*************************************************************************************************
 ConfigurationManager::ConfigurationManager()
-{
-}
+	:	Singleton()
+{ }
 
 //*************************************************************************************************
 // Destructor

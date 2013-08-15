@@ -13,7 +13,7 @@
 
 SUMINLINE extern void* operator new (size_t size)
 {
-	return SumMemory::MemoryAllocator::getInstancePtr()->allocate(size);
+	return SumMemory::MemoryAllocator::getInstancePtr()->alloc(size);
 }
 
 SUMINLINE extern void operator delete(void* ptr)
@@ -23,7 +23,7 @@ SUMINLINE extern void operator delete(void* ptr)
 
 SUMINLINE extern void* operator new[] (size_t size) 
 {
-	return SumMemory::MemoryAllocator::getInstancePtr()->allocate(size);
+	return SumMemory::MemoryAllocator::getInstancePtr()->alloc(size);
 }
 
 SUMINLINE extern void operator delete[] (void* ptr) 

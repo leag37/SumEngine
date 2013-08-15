@@ -18,13 +18,13 @@
     <ClInclude Include="include\SumMemory.h" />
     <ClInclude Include="include\SumMemoryChunk.h" />
     <ClInclude Include="include\SumMemoryState.h" />
-    <ClInclude Include="include\SumMemoryDefines.h" />
     <ClInclude Include="include\SumMutex.h" />
     <ClInclude Include="include\SumUnaligned.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMemoryAllocator.cpp" />
     <ClCompile Include="src\SumMemory.cpp" />
+    <ClCompile Include="src\SumMemoryState.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}</ProjectGuid>
@@ -37,7 +37,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
@@ -71,6 +71,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>include;..\SumPlatform\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

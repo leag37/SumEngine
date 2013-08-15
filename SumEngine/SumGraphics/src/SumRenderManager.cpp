@@ -117,12 +117,9 @@ void RenderManager::renderScene()
 	{
 		// Prep matrix variables for effect
 		Matrix viewProj = _camera->viewProj();
-		Matrix world = _renderable->world();
-		Matrix worldInvTranspose = MatrixInverseTranspose(world);
 		
 		BasicEffect* effect = static_cast<BasicEffect*>(_effectsManager->getEffectByName("basic"));
 		effect->setViewProj(viewProj);
-		effect->setWorldInvTranspose(worldInvTranspose);
 		effect->setDirLight(&_dirLight);
 		effect->setPointLight(&_pointLight);
 		effect->setEyePosW(_camera->position());
@@ -139,8 +136,10 @@ void RenderManager::renderScene()
 		for(List<Renderable*>::Iterator itr = _renderList.begin(); itr != endItr; ++itr)
 		{
 			Renderable* renderable = *itr;
-
+			Matrix world = renderable->world();
+			Matrix worldInvTranspose = MatrixInverseTranspose(world);
 			effect->setWorld(renderable->world());
+			effect->setWorldInvTranspose(worldInvTranspose);
 		
 			Mesh* currMesh = renderable->mesh();
 			context->IASetVertexBuffers(0, 1, currMesh->vertexBufferPtr(), &stride, &offset);

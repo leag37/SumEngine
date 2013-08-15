@@ -37,9 +37,6 @@
     <ClInclude Include="include\SumMutex.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumMemoryDefines.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumMemoryChunk.h">
       <Filter>Chunk</Filter>
     </ClInclude>
@@ -52,6 +49,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="src\SumMemoryAllocator.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMemoryState.cpp">
       <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>

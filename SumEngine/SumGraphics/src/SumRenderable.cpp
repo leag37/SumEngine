@@ -20,7 +20,7 @@ Renderable::Renderable()
 // Constructor
 //*************************************************************************************************
 Renderable::Renderable(const String& name, const String& mesh)
-	:	_name("")
+	:	_name(name)
 {
 	// Set world
 	_world = MatrixIdentity();

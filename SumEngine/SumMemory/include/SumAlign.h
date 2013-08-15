@@ -21,7 +21,7 @@ namespace SumMemory
 		SUINT requestSize = size + alignment + pointerSize;
 
 		// Allocate memory
-		void* addr = MemoryAllocator::getInstancePtr()->allocate(requestSize);
+		void* addr = MemoryAllocator::getInstancePtr()->alloc(requestSize);
 
 		// The base return address must be at least POINTERSIZE away from the raw address
 		SCHAR* base = static_cast<SCHAR*>(addr) + pointerSize;

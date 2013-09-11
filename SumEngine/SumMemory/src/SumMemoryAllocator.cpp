@@ -19,35 +19,6 @@ namespace SumMemory
 	//************************************************************************************************
 	void MemoryAllocator::init()
 	{
-		__int64 a = ALLOC_ALIGNMENT;
-		__int64 b = CHUNK_ALIGN_MASK;
-
-		// Bin definitions
-		__int64 d = NUM_SMALL_BINS;
-		__int64 e = NUM_LARGE_BINS;
-		__int64 f = SMALL_BIN_SHIFT;
-		__int64 g = LARGE_BIN_SHIFT;
-		__int64 h = SMALL_BIN_WIDTH;
-
-		// Chunk sizes and requirements
-		__int64 i = CHUNK_SIZE;
-		__int64 j = MIN_CHUNK_SIZE;
-
-		__int64 k = CHUNK_OVERHEAD;
-		__int64 l = MIN_LARGE_SIZE;
-		__int64 m = MAX_SMALL_SIZE;
-		__int64 n = MAX_SMALL_REQUEST;
-
-		__int64 o = MAX_REQUEST;
-		__int64 p = MIN_REQUEST;
-		unsigned int q = MIN_CHUNK_SIZE;
-		unsigned int r = -MIN_CHUNK_SIZE;
-		unsigned int s = r << 2;
-		unsigned int t = q << 2;
-		unsigned int u = ~q;
-		unsigned int v = 0 - q;
-		unsigned int w = 1 - q;
-
 		// Initialize critical section
 		_criticalSection = CriticalSection();
 
@@ -78,7 +49,7 @@ namespace SumMemory
 	MPtr MemoryAllocator::alloc(SIZE_T size)
 	{
 		//TEMP
-		return malloc(size);
+		//return malloc(size);
 		//END TEMP
 
 		// The final allocated address
@@ -133,12 +104,14 @@ namespace SumMemory
 	{
 		// Get the bin for this size
 		SUINT binIndex = _memState.getSmallBinIndex(size);
+		SUINT smallBits = _memState.getSmallMap(binIndex);
 
 		// Check for valid remainderless bin
-		if(_memState.isSmallBinValid(binIndex))
+		if((smallBits & 0x3U) != 0)
 		{
 			// Since we have a valid remainderless bin, we can now proceed directly into allocating and choosing this bin
 			//-------------------
+			binIndex += ~smallBits & 1;
 
 			// Get the small bin at this index
 			MChunkPtr bin = _memState.smallBinAt(binIndex);
@@ -147,12 +120,57 @@ namespace SumMemory
 			MChunkPtr candidate = _memState.unlinkSmallChunkAt(bin, binIndex);
 
 			// Convert this chunk into a memory address
-			return reinterpret_cast<MPtr>(bin);
+			return reinterpret_cast<MPtr>(candidate);
 		}
 
 		// Check for dv chunk
+		if(_memState.checkDvForSize(size))
+		{
+			// Check whether DV is best fit or whether we need to carve from the DV
+			int a = 0;
+			MChunkPtr candidate = 0;
+			if(_memState.getDVSize() < size + MIN_CHUNK_SIZE)
+			{
+				// Remainderless chunk
+				candidate = _memState.unlinkDVForUse();
+			}
+			else
+			{
+				// Carve a piece out of the chunk
+				candidate = _memState.getDV();
+				MChunkPtr dv = 0;
+				_memState.carveChunk(candidate, &dv, size);
+
+				// Assign our new dv (as we are just overriding our previous DV, we do not want to free it
+				_memState.replaceDV(dv, false);
+			}
+
+			return reinterpret_cast<MPtr>(candidate);
+		}
 
 		// Find smallest available chunk
+		SIZE_T newIndex = _memState.findSmallestBin(binIndex);
+		// This will never assign to bin 0
+		if(newIndex > binIndex)
+		{
+			// Get the small bin at this index
+			MChunkPtr bin = _memState.smallBinAt(newIndex);
+
+			// Unlink this chunk from the current memory list
+			MChunkPtr candidate = _memState.unlinkSmallChunkAt(bin, newIndex);
+
+			// Now we must carve out a piece of this chunk as DV if this is not a best fit
+			if(candidate->size >= size + MIN_CHUNK_SIZE)
+			{
+				MChunkPtr dv = 0;
+				_memState.carveChunk(candidate, &dv, size);
+
+				// Assign our new dv
+				_memState.replaceDV(dv);
+			}
+
+			return reinterpret_cast<MPtr>(candidate);
+		}
 
 		// Perform a system allocation
 		return sysAlloc(size);
@@ -170,6 +188,9 @@ namespace SumMemory
 	//************************************************************************************************
 	MPtr MemoryAllocator::largeAlloc(SIZE_T size)
 	{
+		// Get our large bin index
+		//SUINT binIndex = _memState.getLargeBinIndex(size);
+
 		// Perform a system allocation
 		return sysAlloc(size);
 	}
@@ -213,9 +234,15 @@ namespace SumMemory
 	void MemoryAllocator::memFree(MPtr ptr)
 	{
 		//TEMP
-		free(ptr);
-		return;
+		//free(ptr);
+		//return;
 		//END TEMP
+
+		// Early return on 0
+		if(ptr == 0)
+		{
+			return;
+		}
 
 		// Convert this address to a memory chunk
 		MChunkPtr bin = memToChunk(ptr);
@@ -239,6 +266,7 @@ namespace SumMemory
 		else
 		{
 			// Large bin
+			int a = 0;
 		}
 
 		// Free the lock

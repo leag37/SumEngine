@@ -12,6 +12,7 @@
 
 #include "SumMemoryChunk.h"
 #include "SumPlatform.h"
+#include "SumBitUtils.h"
 
 class MemoryState
 {
@@ -40,8 +41,14 @@ public:
 	// Mark the small bin as valid
 	void markSmallBin(SIZE_T index);
 
+	// Mark the large bin as valid
+	void markLargeBin(SIZE_T index);
+
 	// Clear the small bin map
 	void clearSmallBin(SIZE_T index);
+
+	// Clear the large bin map
+	void clearLargeBin(SIZE_T index);
 
 	// Get the small bin index for a given size
 	SIZE_T getSmallBinIndex(SIZE_T size);
@@ -49,11 +56,34 @@ public:
 	// Get the large bin index for a given size
 	SIZE_T getLargeBinIndex(SIZE_T size);
 
+	// Get the small map value for a bin index
+	SIZE_T getSmallMap(SIZE_T index);
+
+	// Find the smallest available bin of >= index
+	SIZE_T findSmallestBin(SIZE_T index);
+
 	// Unlink a small chunk at a given index
-	MChunkPtr unlinkSmallChunkAt(MChunkPtr chunk, SIZE_T index);
+	MChunkPtr unlinkSmallChunkAt(MChunkPtr base, SIZE_T index);
 
 	// Link a small chunk to a given bin
 	void linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index);
+
+	SBOOL checkDvForSize(SIZE_T size);
+
+	// Carve out a chunk and save the designated victim
+	void carveChunk(MChunkPtr base, MChunkPtr* dv, SIZE_T size);
+
+	// Replace the current DV
+	void replaceDV(MChunkPtr dv, SBOOL freePrevious = true);
+
+	// Return the designated victim
+	MChunkPtr getDV();
+
+	// Return the DV size
+	SIZE_T getDVSize();
+
+	// Unlink the designated victim from the state
+	MChunkPtr unlinkDVForUse();
 
 private:
 	// Small bins

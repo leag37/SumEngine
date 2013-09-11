@@ -8,6 +8,9 @@
     <Filter Include="Core">
       <UniqueIdentifier>{87f1c243-a766-4ec7-88fc-4020fc002795}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bit Utilities">
+      <UniqueIdentifier>{22e37732-1e21-4331-a9f6-8e35db32db70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumInclude.h">
@@ -22,5 +25,13 @@
     <ClInclude Include="Include\SumGlobals.h">
       <Filter>Core</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\SumBitUtils.h">
+      <Filter>Bit Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumBitUtils.cpp">
+      <Filter>Bit Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

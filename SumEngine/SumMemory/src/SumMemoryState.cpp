@@ -31,9 +31,22 @@ void MemoryState::initState()
 		bin->prev = bin;
 	}
 
+	for(SUINT i = 0; i < NUM_LARGE_BINS; ++i)
+	{
+		TChunkPtr bin = largeBinAt(i);
+
+		// Set circular reference of each bin
+		bin->next = bin;
+		bin->prev = bin;
+	}
+
 	// Initialize binmaps
 	_sMap = 0;
 	_lMap = 0;
+
+	// Initialize designated victim
+	_designatedVictim = 0;
+	_dvSize = 0;
 }
 
 //*************************************************************************************************
@@ -66,7 +79,7 @@ SIZE_T MemoryState::isSmallBinValid(SIZE_T index)
 //*************************************************************************************************
 SIZE_T MemoryState::isLargeBinValid(SIZE_T index)
 {
-	return 0;
+	return _lMap & (1 << index);
 }
 
 //*************************************************************************************************
@@ -78,11 +91,35 @@ void MemoryState::markSmallBin(SIZE_T index)
 }
 
 //*************************************************************************************************
+// Mark the large bin as valid
+//*************************************************************************************************
+void MemoryState::markLargeBin(SIZE_T index)
+{
+	_lMap |= (1 << index);
+}
+
+//*************************************************************************************************
 // Clear the small bin map
 //*************************************************************************************************
 void MemoryState::clearSmallBin(SIZE_T index)
 {
 	_sMap &= ~(1 << index);
+}
+
+//*************************************************************************************************
+// Clear the large bin map
+//*************************************************************************************************
+void MemoryState::clearLargeBin(SIZE_T index)
+{
+	_lMap &= ~(1 << index);
+}
+
+//*************************************************************************************************
+// Get the small map value for a bin index
+//*************************************************************************************************
+SIZE_T MemoryState::getSmallMap(SIZE_T index)
+{
+	return _sMap >> index;
 }
 
 //*************************************************************************************************
@@ -100,20 +137,62 @@ SIZE_T MemoryState::getSmallBinIndex(SIZE_T size)
 //*************************************************************************************************
 SIZE_T MemoryState::getLargeBinIndex(SIZE_T size)
 {
-	return 0;
+	// Find the bin shift
+	SIZE_T shiftVal = size >> LARGE_BIN_SHIFT;
+	SIZE_T index = 0;
+	if(shiftVal == 0)
+	{
+		index = 0;
+	}
+	else if(shiftVal > 0xFFFF)
+	{
+		index = NUM_LARGE_BINS - 1;
+	}
+	else
+	{
+		SUINT k;
+		ReverseBitScan(&k, shiftVal);
+		index = (SIZE_T)((k << 1) + ((size >> (k + (LARGE_BIN_SHIFT - 1)) & 1)));
+	}
+	return index;
+}
+
+//*************************************************************************************************
+// Find the smallest available bin of >= index
+//*************************************************************************************************
+SIZE_T MemoryState::findSmallestBin(SIZE_T index)
+{
+	// Shift the map over to run ctz on minimum set
+	SIZE_T map = _sMap >> index;
+
+	// Run ctz and re-increment to find absolute index
+	SIZE_T bit = 0;
+	ForwardBitScan(&bit, map);
+	bit += index;
+	return bit;
 }
 
 //*************************************************************************************************
 // Unlink a small chunk at a given index
 //*************************************************************************************************
-MChunkPtr MemoryState::unlinkSmallChunkAt(MChunkPtr chunk, SIZE_T index)
+MChunkPtr MemoryState::unlinkSmallChunkAt(MChunkPtr base, SIZE_T index)
 {
 	// Grab the "next" chunk pointer
-	MChunkPtr next = chunk->next;
+	MChunkPtr candidate = base->next;
 
-	// TODO: Unlink this chunk
+	// Remove candidate
+	MChunkPtr next = candidate->next;
+	base->next = next;
+	next->prev = base;
 
-	return 0;
+	// Check for clearing in use marker
+	if(base == next)
+	{
+		clearSmallBin(index);
+	}
+
+	// We have successfully chosen our candidate, return for further processing
+	return candidate;
 }
 
 //*************************************************************************************************
@@ -128,14 +207,88 @@ void MemoryState::linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index)
 	// Grab "next" bin as this is a forward insertion
 	MChunkPtr next = base->next;
 
-	// Insert forward links
-	next->prev = bin;
+	// Link bin to base and next
+	bin->prev = base;
 	bin->next = next;
 
-	// Insert backward links
-	bin->prev = base;
+	// Link base and next to bin
 	base->next = bin;
+	next->prev = bin;
+
+	// Insert forward links
+//	next->prev = bin;
+//	bin->next = next;
+
+	// Insert backward links
+//	bin->prev = base;
+//	base->next = bin;
 
 	// Set this bin as in use
 	markSmallBin(index);
+}
+
+//*************************************************************************************************
+// Check whether  value will fit into the DV
+//*************************************************************************************************
+SBOOL MemoryState::checkDvForSize(SIZE_T size)
+{
+	return size <= _dvSize;
+}
+
+//*************************************************************************************************
+// Carve out a chunk and save the designated victim
+//*************************************************************************************************
+void MemoryState::carveChunk(MChunkPtr base, MChunkPtr* dv, SIZE_T size)
+{
+	// Carve portion out of candidate chunk
+	SCHAR* cdv = reinterpret_cast<SCHAR*>(base);
+	SCHAR* newMem = cdv + size;
+	*dv = reinterpret_cast<MChunkPtr>(newMem);
+	(*dv)->size = base->size - size;
+	base->size = size;
+}
+
+//*************************************************************************************************
+// Replace the current DV
+//*************************************************************************************************
+void MemoryState::replaceDV(MChunkPtr dv, SBOOL freePrevious)
+{
+	if(_designatedVictim != 0 && freePrevious == true)
+	{
+		SIZE_T dvIndex = getSmallBinIndex(_dvSize);
+		MChunkPtr bin = smallBinAt(dvIndex);
+		linkSmallChunkAt(bin, _designatedVictim, dvIndex);
+	}
+
+	_designatedVictim = dv;
+	_dvSize = dv->size;
+}
+
+//*************************************************************************************************
+// Return the designated victim
+//*************************************************************************************************
+MChunkPtr MemoryState::getDV()
+{
+	return _designatedVictim;
+}
+
+//*************************************************************************************************
+// Return the DV size
+//*************************************************************************************************
+SIZE_T MemoryState::getDVSize()
+{
+	return _dvSize;
+}
+
+//*************************************************************************************************
+// Unlink the designated victim from the state
+//*************************************************************************************************
+MChunkPtr MemoryState::unlinkDVForUse()
+{
+	MChunkPtr chunk = _designatedVictim;
+
+	_designatedVictim = 0;
+	_dvSize = 0;
+
+	return chunk;
 }

@@ -16,6 +16,10 @@
     <ClInclude Include="include\SumPlatform.h" />
     <ClInclude Include="include\SumSingleton.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\SumBitUtils.h" />
+    <ClCompile Include="src\SumBitUtils.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{EFDFA29F-5579-47E2-97F2-B0E8B27BA4C7}</ProjectGuid>
     <RootNamespace>SumPlatform</RootNamespace>

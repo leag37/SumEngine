@@ -102,7 +102,7 @@ typedef wchar_t SWCHAR_T;
 
 // Safe array deletion macro
 #ifndef SafeDeleteArray
-#define SafeDeleteArray(x) { if(x) delete[] x; x = 0; }
+#define SafeDeleteArray(x) { if(x != 0) delete[] x; x = 0; }
 #endif
 
 // Safe deletion macros overridden from DirectX
@@ -111,7 +111,7 @@ typedef wchar_t SWCHAR_T;
 #endif
 
 #ifndef SAFE_DELETE_ARRAY
-#define SAFE_DELETE_ARRAY(x) { if(x) delete[] x; x = 0; }
+#define SAFE_DELETE_ARRAY(x) { if(x != 0) delete[] x; x = 0; }
 #endif
 
 #ifndef SUMMEMORY

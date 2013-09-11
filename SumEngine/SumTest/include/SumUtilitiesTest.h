@@ -8,6 +8,7 @@
 
 #include "SumTestHelper.h"
 #include "SumQueueTest.h"
+#include "SumBitUtilsTest.h"
 
 // Run entire math suite
 void RunUtilitiesTests();

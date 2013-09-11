@@ -25,12 +25,6 @@
     <ClInclude Include="include\SumChunk.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumAlign.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SumUnaligned.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumCriticalSection.h">
       <Filter>Core</Filter>
     </ClInclude>

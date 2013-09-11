@@ -25,4 +25,10 @@ void RunUtilitiesTests()
 	totalTests += tests;
 	errors = 0;
 	tests = 0;
+
+	// Bit test suite
+	BitUtilsTest bitUtils("Bit Utils Suite");
+	bitUtils.run();
+	totalErrors += bitUtils.getErrors();
+	totalTests += bitUtils.getTests();
 }

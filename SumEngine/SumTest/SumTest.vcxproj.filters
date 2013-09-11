@@ -43,6 +43,9 @@
     <ClInclude Include="include\SumBaseTest.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumBitUtilsTest.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumTestMain.cpp">
@@ -65,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="src\SumBaseTest.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumBitUtilsTest.cpp">
+      <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

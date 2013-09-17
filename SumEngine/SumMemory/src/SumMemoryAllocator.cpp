@@ -59,7 +59,7 @@ namespace SumMemory
 		_criticalSection.enter();
 
 		// Check for a small request
-		if(size < MAX_SMALL_REQUEST)
+		if(size <= MAX_SMALL_REQUEST)
 		{
 			// Pad the requested size to find the needed chunk size for this request
 			SIZE_T paddedSize = (size < MIN_REQUEST) ? MIN_CHUNK_SIZE : size + CHUNK_OVERHEAD;
@@ -189,7 +189,34 @@ namespace SumMemory
 	MPtr MemoryAllocator::largeAlloc(SIZE_T size)
 	{
 		// Get our large bin index
-		//SUINT binIndex = _memState.getLargeBinIndex(size);
+		SUINT binIndex = _memState.getLargeBinIndex(size);
+		SUINT largeBits = _memState.getLargeMap(binIndex);
+
+		if(largeBits != 0)
+		{
+			// Get the large bin
+			TChunkPtr bin = _memState.largeBinAt(binIndex);
+		
+			// Fetch the smallest available fit from the bin
+			TChunkPtr candidate = 0;
+			_memState.fetchLargeBinForSize(bin, &candidate, size);
+
+			// Unlink the candidate bin
+			_memState.unlinkLargeChunkAt(candidate, binIndex);
+
+			// If the bin is not a remainderless large bin, split it
+			if(candidate->size - size >= MIN_LARGE_SIZE)
+			{
+				// Carve a chunk out of this bin
+			}
+		}
+
+		// There are no valid candidates in the tree, so choose DV
+		if(size < _memState.getDVSize())
+		{
+			// Choose DV and split DV
+			int a = 0;
+		}
 
 		// Perform a system allocation
 		return sysAlloc(size);
@@ -266,7 +293,13 @@ namespace SumMemory
 		else
 		{
 			// Large bin
-			int a = 0;
+			SUINT binIndex = _memState.getLargeBinIndex(bin->size);
+
+			// Now we must append this to the appropriate large bin
+			TChunkPtr candidate = _memState.largeBinAt(binIndex);
+
+			// Link to bin
+			_memState.linkLargeChunkAt(candidate, reinterpret_cast<TChunkPtr>(bin), binIndex);
 		}
 
 		// Free the lock

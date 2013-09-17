@@ -59,14 +59,26 @@ public:
 	// Get the small map value for a bin index
 	SIZE_T getSmallMap(SIZE_T index);
 
+	// Get the large map value for a bin index
+	SIZE_T getLargeMap(SIZE_T index);
+
 	// Find the smallest available bin of >= index
 	SIZE_T findSmallestBin(SIZE_T index);
 
 	// Unlink a small chunk at a given index
 	MChunkPtr unlinkSmallChunkAt(MChunkPtr base, SIZE_T index);
 
+	// Unlink a large chunk at a given index
+	TChunkPtr MemoryState::unlinkLargeChunkAt(TChunkPtr bin, SIZE_T index);
+
 	// Link a small chunk to a given bin
 	void linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index);
+
+	// Link a large chunk to a given bin
+	void linkLargeChunkAt(TChunkPtr base, TChunkPtr bin, SIZE_T index);
+
+	// Select a chunk from this tree for a given size
+	void fetchLargeBinForSize(TChunkPtr base, TChunkPtr* candidate, SIZE_T size);
 
 	SBOOL checkDvForSize(SIZE_T size);
 

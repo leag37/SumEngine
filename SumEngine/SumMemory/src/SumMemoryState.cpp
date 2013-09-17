@@ -33,11 +33,10 @@ void MemoryState::initState()
 
 	for(SUINT i = 0; i < NUM_LARGE_BINS; ++i)
 	{
-		TChunkPtr bin = largeBinAt(i);
+		TChunkPtr* bin = reinterpret_cast<TChunkPtr*>(largeBinAt(i));
 
 		// Set circular reference of each bin
-		bin->next = bin;
-		bin->prev = bin;
+		*bin = 0;
 	}
 
 	// Initialize binmaps
@@ -123,6 +122,14 @@ SIZE_T MemoryState::getSmallMap(SIZE_T index)
 }
 
 //*************************************************************************************************
+// Get the large map value for a bin index
+//*************************************************************************************************
+SIZE_T MemoryState::getLargeMap(SIZE_T index)
+{
+	return _lMap >> index;
+}
+
+//*************************************************************************************************
 // Get the small bin index for a given size
 //*************************************************************************************************
 SIZE_T MemoryState::getSmallBinIndex(SIZE_T size)
@@ -196,6 +203,18 @@ MChunkPtr MemoryState::unlinkSmallChunkAt(MChunkPtr base, SIZE_T index)
 }
 
 //*************************************************************************************************
+// Unlink a large chunk at a given index
+//*************************************************************************************************
+TChunkPtr MemoryState::unlinkLargeChunkAt(TChunkPtr bin, SIZE_T index)
+{
+	TChunkPtr candidate = bin;
+
+	// Check for parentage
+
+	return candidate;
+}
+
+//*************************************************************************************************
 // Link a small chunk to a given bin
 //*************************************************************************************************
 void MemoryState::linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index)
@@ -215,16 +234,112 @@ void MemoryState::linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index)
 	base->next = bin;
 	next->prev = bin;
 
-	// Insert forward links
-//	next->prev = bin;
-//	bin->next = next;
-
-	// Insert backward links
-//	bin->prev = base;
-//	base->next = bin;
-
 	// Set this bin as in use
 	markSmallBin(index);
+}
+
+//*************************************************************************************************
+// Link a large chunk to a given bin
+//*************************************************************************************************
+void MemoryState::linkLargeChunkAt(TChunkPtr base, TChunkPtr bin, SIZE_T index)
+{
+	// Find our head
+	TChunkPtr head = base;
+	TChunkPtr node = 0;
+
+	// Initialize bin
+	bin->next = 0;
+	bin->prev = 0;
+	bin->child[0] = 0;
+	bin->child[1] = 0;
+	bin->parent = 0;
+
+	// If head is valid, we are good to go
+	if(head == 0)
+	{
+		// Empty tree, insert new head value
+		base = bin;
+	}
+	else
+	{
+		// Tree is populated with at least one value, find point of insertion
+		for(;;)
+		{
+			// Insertion node is less, go left
+			if(bin->size < head->size)
+			{
+				if(head->child[0] == 0)
+				{
+					// New child
+					head->child[0] = bin;
+					bin->parent = head;
+					break;
+				}
+
+				// Insert into next node
+				head = head->child[0];
+			}
+			else if(bin->size > head->size)
+			{
+				if(head->child[1] == 0)
+				{
+					// New child
+					head->child[1] = bin;
+					bin->parent = head;
+					break;
+				}
+
+				// Search next node if we did not insert as a new child
+				head = head->child[1];
+			}
+			else 
+			{
+				// Equivalent node, insert as next value
+				TChunkPtr next = head->next; 
+
+				// Link bin
+				bin->prev = head;
+				bin->next = next;
+
+				// Link head and next
+				head->next = bin;
+				next->prev = bin;
+			}
+		}
+	}
+
+	// Set bin as in use
+	markLargeBin(index);
+}
+
+//*************************************************************************************************
+// Select a chunk from this tree for a given size
+//*************************************************************************************************
+void MemoryState::fetchLargeBinForSize(TChunkPtr base, TChunkPtr* candidate, SIZE_T size)
+{
+	// Assign the head of this branch
+	TChunkPtr head = base;
+	
+	// Find smallest available child of head
+	for(;;)
+	{
+		// Check left
+		if(head->child[0] != 0 && size < head->size)
+		{
+			head = head->child[0];
+		}
+		// Check right
+		else if(head->child[1] != 0 && size > head->size)
+		{
+			head = head->child[1];
+		}
+		// Check self
+		else
+		{
+			*candidate = head;
+			break;
+		}
+	}
 }
 
 //*************************************************************************************************

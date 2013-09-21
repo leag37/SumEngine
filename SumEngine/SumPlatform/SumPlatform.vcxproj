@@ -11,13 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\SumBitUtils.h" />
     <ClInclude Include="Include\SumGlobals.h" />
     <ClInclude Include="include\SumInclude.h" />
     <ClInclude Include="include\SumPlatform.h" />
     <ClInclude Include="include\SumSingleton.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\SumBitUtils.h" />
     <ClCompile Include="src\SumBitUtils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

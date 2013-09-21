@@ -25,11 +25,11 @@
     <ClInclude Include="Include\SumGlobals.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumBitUtils.h">
+      <Filter>Bit Utilities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="include\SumBitUtils.h">
-      <Filter>Bit Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\SumBitUtils.cpp">
       <Filter>Bit Utilities</Filter>
     </ClCompile>

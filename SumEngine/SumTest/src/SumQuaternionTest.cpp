@@ -64,7 +64,7 @@ void QuaternionTest::testInit()
 	Float4 f;
 	Vector axis = gVIdentityR0;
 	Vector angle = VectorReplicate(S_PI);
-	Vector hAngle = VectorMul(angle, gVOneHalf);
+//	Vector hAngle = VectorMul(angle, gVOneHalf);
 	Vector sin, cos;
 	VectorSinCos(&sin, &cos, angle);
 	q = QuaternionRotationAxis(axis, angle);

@@ -48,7 +48,7 @@ void BitUtilsTest::testScanReverse()
 	SUINT tErrors = 0;
 	SUINT tTests = 0;
 	SUINT tCase = 0;
-	SBOOL result = false;
+//	SBOOL result = false;
 
 	// Prep variables
 	SUCHAR success;

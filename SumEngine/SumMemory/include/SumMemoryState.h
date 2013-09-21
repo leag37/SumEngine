@@ -30,7 +30,7 @@ public:
 	MChunkPtr smallBinAt(SIZE_T index);
 
 	// Get the large bin at a given index
-	TChunkPtr largeBinAt(SIZE_T index);
+	TChunkPtr* largeBinAt(SIZE_T index);
 
 	// Check whether the small bin at this index is valid
 	SIZE_T isSmallBinValid(SIZE_T index);
@@ -75,7 +75,7 @@ public:
 	void linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index);
 
 	// Link a large chunk to a given bin
-	void linkLargeChunkAt(TChunkPtr base, TChunkPtr bin, SIZE_T index);
+	void linkLargeChunkAt(TChunkPtr* base, TChunkPtr bin, SIZE_T index);
 
 	// Select a chunk from this tree for a given size
 	void fetchLargeBinForSize(TChunkPtr base, TChunkPtr* candidate, SIZE_T size);

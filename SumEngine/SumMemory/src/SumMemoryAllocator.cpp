@@ -192,10 +192,10 @@ namespace SumMemory
 		SUINT binIndex = _memState.getLargeBinIndex(size);
 		SUINT largeBits = _memState.getLargeMap(binIndex);
 
-		if(largeBits != 0)
+		if((largeBits & 1) != 0)
 		{
 			// Get the large bin
-			TChunkPtr bin = _memState.largeBinAt(binIndex);
+			TChunkPtr bin = *_memState.largeBinAt(binIndex);
 		
 			// Fetch the smallest available fit from the bin
 			TChunkPtr candidate = 0;
@@ -208,7 +208,10 @@ namespace SumMemory
 			if(candidate->size - size >= MIN_LARGE_SIZE)
 			{
 				// Carve a chunk out of this bin
+				int a = 0;
 			}
+
+			return reinterpret_cast<MPtr>(candidate);
 		}
 
 		// There are no valid candidates in the tree, so choose DV
@@ -296,7 +299,7 @@ namespace SumMemory
 			SUINT binIndex = _memState.getLargeBinIndex(bin->size);
 
 			// Now we must append this to the appropriate large bin
-			TChunkPtr candidate = _memState.largeBinAt(binIndex);
+			TChunkPtr* candidate = _memState.largeBinAt(binIndex);
 
 			// Link to bin
 			_memState.linkLargeChunkAt(candidate, reinterpret_cast<TChunkPtr>(bin), binIndex);

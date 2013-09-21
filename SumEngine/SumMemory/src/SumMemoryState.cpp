@@ -33,8 +33,8 @@ void MemoryState::initState()
 
 	for(SUINT i = 0; i < NUM_LARGE_BINS; ++i)
 	{
-		TChunkPtr* bin = reinterpret_cast<TChunkPtr*>(largeBinAt(i));
-
+		TChunkPtr* bin = largeBinAt(i);
+		
 		// Set circular reference of each bin
 		*bin = 0;
 	}
@@ -59,9 +59,9 @@ MChunkPtr MemoryState::smallBinAt(SIZE_T index)
 //*************************************************************************************************
 // Get the large bin at a given index
 //*************************************************************************************************
-TChunkPtr MemoryState::largeBinAt(SIZE_T index)
+TChunkPtr* MemoryState::largeBinAt(SIZE_T index)
 {
-	return reinterpret_cast<TChunkPtr>(&_lBins[index]);
+	return &_lBins[index];
 }
 
 //*************************************************************************************************
@@ -208,8 +208,63 @@ MChunkPtr MemoryState::unlinkSmallChunkAt(MChunkPtr base, SIZE_T index)
 TChunkPtr MemoryState::unlinkLargeChunkAt(TChunkPtr bin, SIZE_T index)
 {
 	TChunkPtr candidate = bin;
+	TChunkPtr* base = largeBinAt(index);
 
-	// Check for parentage
+	// Check for existance of a list within this node
+	// A list exists
+	if(candidate->next != 0)
+	{
+		int a = 0;
+	}
+	// No list exists, change parentage
+	else 
+	{
+		// Check for parent
+		TChunkPtr swapNode = candidate;
+	
+		TChunkPtr parent = swapNode->parent;
+		TChunkPtr lChild = swapNode->child[0];
+		TChunkPtr rChild = swapNode->child[1];
+
+		// Check for no children
+		if(lChild == 0 && rChild == 0)
+		{
+			// Check parentage
+			if(parent == 0)
+			{
+				// There is no parent, so we want to just remove this from the tree
+				*base = 0;
+			}
+			else
+			{
+				int a = 0;
+			}
+		}
+
+		// One child (right)
+		else if(lChild == 0)
+		{
+			int a = 0;
+		}
+
+		// One child (left)
+		else if(rChild == 0)
+		{
+			int a = 0;
+		}
+
+		// Two valid children
+		else
+		{
+			int a = 0;
+		}
+	}
+
+	// Check the base for if we should clear
+	if(*base == 0)
+	{
+		clearLargeBin(index);
+	}
 
 	return candidate;
 }
@@ -241,10 +296,10 @@ void MemoryState::linkSmallChunkAt(MChunkPtr base, MChunkPtr bin, SIZE_T index)
 //*************************************************************************************************
 // Link a large chunk to a given bin
 //*************************************************************************************************
-void MemoryState::linkLargeChunkAt(TChunkPtr base, TChunkPtr bin, SIZE_T index)
+void MemoryState::linkLargeChunkAt(TChunkPtr* base, TChunkPtr bin, SIZE_T index)
 {
 	// Find our head
-	TChunkPtr head = base;
+	TChunkPtr head = *base;
 	TChunkPtr node = 0;
 
 	// Initialize bin
@@ -258,7 +313,7 @@ void MemoryState::linkLargeChunkAt(TChunkPtr base, TChunkPtr bin, SIZE_T index)
 	if(head == 0)
 	{
 		// Empty tree, insert new head value
-		base = bin;
+		*base = bin;
 	}
 	else
 	{

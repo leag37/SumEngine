@@ -8,6 +8,9 @@
 
 #include "SumPlatform.h"
 
+extern "C++"
+{
+
 // Reverse the bits in an int
 SUCHAR ReverseBits(SUINT* mask);
 SUCHAR ReverseBits64(SUINT64* mask);
@@ -27,5 +30,7 @@ SUCHAR CountTrailingZeros64(SUINT* zeros, SUINT64 mask);
 // Count the number of leading zeros
 SUCHAR CountLeadingZeros(SUINT* zeros, SUINT mask);
 SUCHAR CountLeadingZeros64(SUINT* zeros, SUINT64 mask);
+
+}
 
 #endif	// __SMBITUTILS_H__

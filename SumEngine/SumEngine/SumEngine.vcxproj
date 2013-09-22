@@ -53,11 +53,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>include;..\SumPlatform\include;..\SumMemory\include;..\SumMath\include;..\SumThreading\include;..\SumUtilities\include;..\SumGraphics\include;..\SumPhysics\include;$(DXSDK_DIR)Include;$(DXSDK_DIR)Samples/C++/Effects11/Inc;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\Debug;$(DXSDK_DIR)Lib\x86;</AdditionalLibraryDirectories>
       <AdditionalDependencies>SumMath.lib;SumUtilities.lib;SumMemory.lib;SumGraphics.lib;SumPhysics.lib;dxgi.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>
+      </IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

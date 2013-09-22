@@ -18,7 +18,7 @@ Entity::Entity()
 Entity::Entity(const String& name, const String& assetName)
 	: _name(name)
 { 
-	_renderable = new Renderable(assetName, assetName);
+	_renderable = new Renderable(name, assetName);
 }
 
 //*************************************************************************************************

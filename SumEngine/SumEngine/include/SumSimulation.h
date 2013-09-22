@@ -34,7 +34,8 @@ private:
 	Camera* _camera;
 
 	// TEMP
-	Entity* _entity;
+	Entity* _box;
+	Entity* _plane;
 };
 
 #endif

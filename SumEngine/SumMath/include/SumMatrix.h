@@ -71,6 +71,12 @@ Matrix MatrixTranslation(float x, float y, float z);
 // Build a matrix which tranlates by (x, y, z)
 Matrix MatrixTranslation(Vector t);
 
+// Set the translational component of this matrix to the (x, y, z)
+Matrix& MatrixSetTranslation(Matrix& m, SFLOAT x, SFLOAT y, SFLOAT z);
+
+// Set the translational component of this matrix to the (x, y, z)
+Matrix& MatrixSetTranslation(Matrix& m, Vector t);
+
 // Build a matrix which rotates around the X axis
 Matrix MatrixRotationX(float angle);
 

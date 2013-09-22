@@ -173,9 +173,9 @@ void RenderManager::registerCamera(Camera* camera)
 	_camera = camera;
 }
 
-//***
+//*************************************************************************************************
 // Register a renderable with the render list
-//**************
+//*************************************************************************************************
 void RenderManager::registerRenderable(Renderable* renderable)
 {
 	_renderList.push_back(renderable);

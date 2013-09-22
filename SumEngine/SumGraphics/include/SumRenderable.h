@@ -30,6 +30,9 @@ public:
 	// Destructor
 	~Renderable();
 
+	// Set the position in XYZ coordinates
+	void setPosition(SFLOAT x, SFLOAT y, FLOAT z);
+
 private:
 	// Renderable name
 	String _name;

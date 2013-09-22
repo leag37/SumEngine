@@ -9,7 +9,7 @@
 // Constructor
 //*************************************************************************************************
 Simulation::Simulation()
-	: _camera(0), _entity(0)
+	: _camera(0), _box(0)
 { }
 
 //*************************************************************************************************
@@ -18,7 +18,7 @@ Simulation::Simulation()
 Simulation::~Simulation()
 {
 	SafeDelete(_camera);
-	SafeDelete(_entity);
+	SafeDelete(_box);
 }
 
 //*************************************************************************************************
@@ -55,8 +55,13 @@ void Simulation::startUp()
 
 	renderManager->registerCamera(_camera);
 
-	_entity = new Entity("box", "box");
-	renderManager->registerRenderable(_entity->renderable());
+	// Create entities
+	_box = new Entity("box", "box");
+	renderManager->registerRenderable(_box->renderable());
+
+	_plane = new Entity("plane", "plane");
+	_plane->renderable()->setPosition(0.0f, -5.0f, 0.0f);
+	renderManager->registerRenderable(_plane->renderable());
 }
 
 //*************************************************************************************************

@@ -719,6 +719,24 @@ Matrix MatrixTranslation(Vector t)
 }
 
 //*************************************************************************************************
+// Set the translational component of this matrix to the (x, y, z)
+//*************************************************************************************************
+Matrix& MatrixSetTranslation(Matrix& m, SFLOAT x, SFLOAT y, SFLOAT z)
+{
+	m.r[3] = VectorSet(x, y, z, 1.0f);
+	return m;
+}
+
+//*************************************************************************************************
+// Set the translational component of this matrix to the (x, y, z)
+//*************************************************************************************************
+Matrix& MatrixSetTranslation(Matrix& m, Vector t)
+{
+	m.r[3] = t;
+	return m;
+}
+
+//*************************************************************************************************
 // Build a matrix which rotates around the X axis 
 //*************************************************************************************************
 Matrix MatrixRotationX(float angle)

@@ -37,4 +37,10 @@ Renderable::~Renderable()
 	_mesh = 0;
 }
 
-
+//*************************************************************************************************
+// Set the position in XYZ coordinates 
+//*************************************************************************************************
+void Renderable::setPosition(SFLOAT x, SFLOAT y, FLOAT z)
+{
+	MatrixSetTranslation(_world, x, y, z);	
+}

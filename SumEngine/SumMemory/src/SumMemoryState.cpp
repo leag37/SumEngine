@@ -204,6 +204,13 @@ MChunkPtr MemoryState::unlinkSmallChunkAt(MChunkPtr base, SIZE_T index)
 
 //*************************************************************************************************
 // Unlink a large chunk at a given index
+// If there are no other nodes, zero the tree
+// If there is a next node, promote the next node in the list
+// If there is one child, promote the child
+// If there are two children
+//	1) Choose the left-most child of the right subtree
+//	2) Promote right child of LMC (if it exists) to position of LMC
+//	3) Promote LMC to position of candidate node
 //*************************************************************************************************
 TChunkPtr MemoryState::unlinkLargeChunkAt(TChunkPtr bin, SIZE_T index)
 {

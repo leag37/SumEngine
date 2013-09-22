@@ -80,7 +80,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>src;include;../SumMath/include;../SumUtilities/include;../SumPlatform/include;../SumMemory/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;../SumMath/include;../SumUtilities/include;../SumPlatform/include;../SumMemory/include</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -90,7 +90,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SumMath.lib;SumMemory.lib;SumUtilities.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SumMath.lib;SumMemory.lib;SumUtilities.lib;SumPlatform.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

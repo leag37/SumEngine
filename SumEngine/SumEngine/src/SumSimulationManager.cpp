@@ -123,6 +123,33 @@ void SimulationManager::run()
 
 //*************************************************************************************************
 // Game loop for the engine
+// Synchronous order of tasks are as follows:
+// 1) Game object update - Ensure physics object matches entity direction based on input/planning
+// 2) Animation
+// 3) Post-animation update - Ensure rendering object made to match physics object
+// 4) Dynamic physics
+// 5) Ragdoll physics
+// 6) AI
+// 7) Audio
+// 8) ...
+// 9) Input
+// 10) Rendering
+//
+// Asynchronous order of tasks (ignore animation for now):
+// < update phys
+// > sync phys/anim
+// > update world
+// < sync phys/anim
+// > update anim
+// < update world
+// > sync world/phys
+// < update mesh
+// < update anim
+// > sync anim/mesh
+// < sync world/phys
+// > update phys
+// < sync anim/mesh
+// > update mesh
 //*************************************************************************************************
 void SimulationManager::gameLoop()
 {
@@ -162,7 +189,32 @@ void SimulationManager::gameLoop()
 		// Cache deltaTime
 		SFLOAT deltaTime = _timer.deltaTime();
 
-		// Wait for input
+		// Wait for physics update
+		WaitForJob(physicsJob);
+
+		// Wait for input joob
+		WaitForJob(inputJob);
+
+		// Update world
+		simulationDelegate->setParam1(deltaTime);
+		RequestJob(simulationJob);
+
+		// Wait for world update
+		WaitForJob(simulationJob);
+
+		// Request input
+		RequestJob(inputJob);
+
+		// Wait for rendering
+		WaitForJob(renderJob);
+
+		// Update physics
+		RequestJob(physicsJob);
+
+		// Update rendering
+		RequestJob(renderJob);
+
+		/*// Wait for input
 		WaitForJob(inputJob);
 
 		// Update simulation logic
@@ -179,7 +231,7 @@ void SimulationManager::gameLoop()
 		WaitForJob(renderJob);
 
 		// Render the scene
-		RequestJob(renderJob);
+		RequestJob(renderJob);*/
 	}
 }
 

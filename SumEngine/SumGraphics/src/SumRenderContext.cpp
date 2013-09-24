@@ -161,6 +161,18 @@ SBOOL RenderContext::checkMultisampling()
 	_d3dDevice->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &_4xMsaaQuality);
 	assert(_4xMsaaQuality > 0);
 
+	Configuration* config = ConfigurationManager::getSingletonPtr()->getConfiguration("Engine");
+	String configMsaa = config->retrieveValue("4xMsaa");
+
+	if(configMsaa == "enabled")
+	{
+		_4xMsaaEnabled = true;
+	}
+	else
+	{
+		_4xMsaaEnabled = false;
+	}
+
 	// Multisampling checked successfully
 	return true;
 }

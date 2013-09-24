@@ -8,6 +8,12 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2c4d6972-a2a9-4d23-8cc2-70948e16a522}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bodies">
+      <UniqueIdentifier>{ebcb7fb3-3819-4c25-b00b-678e68698797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bounding Volumes">
+      <UniqueIdentifier>{f008eef0-dc25-4778-9711-8c21eb66e05b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumPhysicsManager.h">
@@ -15,6 +21,12 @@
     </ClInclude>
     <ClInclude Include="include\SumPhysicsCore.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumPhysicsBody.h">
+      <Filter>Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumAxisAlignedBox.h">
+      <Filter>Bounding Volumes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

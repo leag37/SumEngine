@@ -97,9 +97,10 @@ DWORD WINAPI JobManager::WorkerThread(LPVOID param)
 	// Run provided that the simulation is active
 	while(manager->runManager()) 
 	{
+		// NOTE: This check is redundant. Request job returns 0 if there are no jobs. It also checks once before lock and once after so three checks is overkill. Sleep if Job* j = 0;
 		// Check whether there is a job to perform
-		while(manager->jobExists()) 
-		{
+		//while(manager->jobExists()) 
+		//{
 			// If there is a job to perform, get the job
 			Job* j(manager->requestJob());
 
@@ -109,10 +110,13 @@ DWORD WINAPI JobManager::WorkerThread(LPVOID param)
 				j->operator()();
 				j->setStatus(Job::DONE);
 			}
-		}
+			else
+			{
+		//}
 		
 		// No more jobs exist, so sleep
 		Sleep(THREAD_SLEEP_TIME);
+			}
 	}
 
 	return 0;

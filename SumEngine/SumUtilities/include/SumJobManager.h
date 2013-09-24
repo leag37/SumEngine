@@ -68,13 +68,50 @@ public:
 #include "SumJobManager.inl"
 
 //*************************************************************************************************
-// Helper function that waits for a job
+// Helper function that waits for a job. This will also request new jobs from the job manager to 
+// perform while waiting for the specified job to finish. This ensures that even on the main thread
+// work is not wasted and tasks continue to be performed.
 //*************************************************************************************************
 SUMINLINE void WaitForJob(const Job& job)
 {
+	JobManager* manager = JobManager::getSingletonPtr();
+
 	while(job.getStatus() != Job::DONE)
 	{
-		Sleep(THREAD_SLEEP_TIME);
+	// Check for an existing job to perform while waiting
+		// If there is a job to perform, get the job
+		Job* j(manager->requestJob());
+
+		// If the acquisition was successful, run the job
+		if(j) 
+		{
+			j->setStatus(Job::IN_PROGRESS);
+			j->operator()();
+			j->setStatus(Job::DONE);
+		}
+		// There are no other jobs to perform while waiting for this one, so just sleep
+		else
+		{
+			Sleep(THREAD_SLEEP_TIME);
+		}
+		//// Check for an existing job to perform while waiting
+		//if(manager->jobExists()) 
+		//{
+		//	// If there is a job to perform, get the job
+		//	Job* j(manager->requestJob());
+
+		//	// If the acquisition was successful, run the job
+		//	if(j) {
+		//		j->setStatus(Job::IN_PROGRESS);
+		//		j->operator()();
+		//		j->setStatus(Job::DONE);
+		//	}
+		//}
+		//// There are no other jobs to perform while waiting for this one, so just sleep
+		//else
+		//{
+		//	Sleep(THREAD_SLEEP_TIME);
+		//}
 	}
 }
 

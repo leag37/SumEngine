@@ -47,7 +47,15 @@ void PhysicsManager::shutDown()
 //*************************************************************************************************
 void PhysicsManager::update()
 {
+	// Broad phase collision culling, update AABBs and compute overlapping pairs
 
+	// Remove overlapping pairs using BV test
+
+	// Compute contact points, resolve interpenetrations
+
+	// Resolve constraints
+
+	// Solve equations of motion
 }
 
 //*************************************************************************************************

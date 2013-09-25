@@ -18,8 +18,23 @@ public:
 	// Constructor for the box
 	AxisAlignedBox();
 
+	// Constructor specifying position and extrema
+	AxisAlignedBox(Vector inPosition, Vector inExtrema);
+
+	// Copy constructor
+	AxisAlignedBox(const AxisAlignedBox& value);
+
 	// Destructor
 	~AxisAlignedBox();
+
+	// Assignment operator
+	AxisAlignedBox& operator=(const AxisAlignedBox& value);
+
+	// Equivalence operator
+	SBOOL operator==(const AxisAlignedBox& value);
+
+	// Non-equivalence operator
+	SBOOL operator!=(const AxisAlignedBox& value);
 
 	// Construct the box
 	void constructBox(Vector inPosition, Vector inExtrema);

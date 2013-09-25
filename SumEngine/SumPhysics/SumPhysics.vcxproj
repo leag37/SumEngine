@@ -173,6 +173,7 @@
     <ClInclude Include="include\SumPhysicsManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\SumAxisAlignedBox.cpp" />
     <ClCompile Include="src\SumPhysicsManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

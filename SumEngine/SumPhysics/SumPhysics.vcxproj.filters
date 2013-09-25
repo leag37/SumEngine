@@ -33,5 +33,8 @@
     <ClCompile Include="src\SumPhysicsManager.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumAxisAlignedBox.cpp">
+      <Filter>Bounding Volumes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

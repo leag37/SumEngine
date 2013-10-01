@@ -28,6 +28,7 @@ void Simulation::startUp()
 {
 	// Cache the render manager
 	RenderManager* renderManager = RenderManager::getSingletonPtr();
+	PhysicsManager* physicsManager = PhysicsManager::getSingletonPtr();
 
 	// Create the camera
 	_camera = new Camera();
@@ -56,8 +57,9 @@ void Simulation::startUp()
 	renderManager->registerCamera(_camera);
 
 	// Create entities
-	_box = new Entity("box", "box");
+	_box = new MovableEntity("box", "box");
 	renderManager->registerRenderable(_box->renderable());
+	physicsManager->registerPhysicsObject(_box->getPhysicsBody());
 
 	_plane = new Entity("plane", "plane");
 	_plane->renderable()->setPosition(0.0f, -5.0f, 0.0f);

@@ -121,7 +121,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>include;..\SumPlatform\include;..\SumMemory\include;..\SumMath\include;..\SumThreading\include;..\SumUtilities\include;..\SumGraphics\include;..\SumPhysics\include;$(DXSDK_DIR)Include;$(DXSDK_DIR)Samples/C++/Effects11/Inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;..\SumMemory\include;..\SumMath\include;..\SumPhysics\include;..\SumPlatform\include;..\SumThreading\include;..\SumUtilities\include;..\SumGraphics\include;$(DXSDK_DIR)Include;$(DXSDK_DIR)Samples/C++/Effects11/Inc</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -220,6 +220,7 @@
   <ItemGroup>
     <ClCompile Include="src\SumEntity.cpp" />
     <ClCompile Include="src\SumMain.cpp" />
+    <ClCompile Include="src\SumMovableEntity.cpp" />
     <ClCompile Include="src\SumSimulation.cpp" />
     <ClCompile Include="src\SumSimulationManager.cpp" />
   </ItemGroup>

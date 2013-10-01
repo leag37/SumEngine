@@ -33,6 +33,7 @@ Vector operator/ (const Vector v, const SFLOAT s);
 Vector VectorZero();
 Vector VectorSet(SFLOAT x, SFLOAT y, SFLOAT z, SFLOAT w);
 Vector VectorNegate(Vector v);
+Vector VectorMax(const Vector v1, const Vector v2);
 Vector VectorScale(const Vector v, const SFLOAT s);
 Vector VectorAdd(const Vector v1, const Vector v2);
 Vector VectorSub(const Vector v1, const Vector v2);

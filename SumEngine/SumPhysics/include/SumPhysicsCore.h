@@ -10,5 +10,8 @@
 #include "SumInclude.h"
 #include "SumMath.h"
 
+// Physics includes
+#include "SumPhysicsBody.h"
+
 
 #endif // __SUMPHYSICSCORE_H__

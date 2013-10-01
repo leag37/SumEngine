@@ -37,7 +37,7 @@ public:
 	SBOOL operator!=(const AxisAlignedBox& value);
 
 	// Construct the box
-	void constructBox(Vector inPosition, Vector inExtrema);
+	void update(Vector inPosition, Quaternion inRotation);
 
 	// Set the position
 	void setPosition(Vector inPosition);
@@ -52,11 +52,18 @@ public:
 	Vector getExtrema() const;
 
 private:
+	// Construct the box
+	void init();
+
+private:
 	// 3D position of this axis-aligned box
 	Vector _position;
 
-	// Vector describing extrema for the box along each axis in the positive direction
+	// Vector describing the original extrema for the box along each axis in the positive direction of the identity orientation
 	Vector _extrema;
+
+	// Vector describing extrema of the bounding box for the current rotational angle
+	Vector _rExtrema;
 };
 
 #endif // __SUMAXISALIGNEDBOX_H__

@@ -56,6 +56,9 @@ typedef struct Vector
 };
 #endif // SUMSIMD
 
+// Typedef Vector as Quaternion to help avoid confusion when dealing with similar values
+typedef Vector Quaternion;
+
 // Define conversions for vector types
 //***********************************************
 

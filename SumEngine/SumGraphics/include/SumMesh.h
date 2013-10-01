@@ -35,6 +35,9 @@ public:
 	// Free the mesh
 	void unload();
 
+	// Return the mesh data for this object
+	const MeshData& getMeshData() const;
+
 private:
 	// Vertex buffer
 	ID3D11Buffer* _vertexBuffer;

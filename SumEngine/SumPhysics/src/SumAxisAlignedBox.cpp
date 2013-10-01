@@ -10,21 +10,21 @@
 // Constructor for the box
 //*************************************************************************************************
 AxisAlignedBox::AxisAlignedBox()
-	:	_position(VectorZero()), _extrema(VectorZero())
+	:	_position(gVZero), _extrema(gVZero), _rExtrema(gVZero)
 { }
 
 //*************************************************************************************************
 // Constructor specifying position and extrema
 //*************************************************************************************************
 AxisAlignedBox::AxisAlignedBox(Vector inPosition, Vector inExtrema)
-	:	_position(inPosition), _extrema(inExtrema)
+	:	_position(inPosition), _extrema(inExtrema), _rExtrema(inExtrema)
 { }
 
 //*************************************************************************************************
 // Copy constructor
 //*************************************************************************************************
 AxisAlignedBox::AxisAlignedBox(const AxisAlignedBox& value)
-	:	_position(value._position), _extrema(value._extrema)
+	:	_position(value._position), _extrema(value._extrema), _rExtrema(value._rExtrema)
 { }
 
 //*************************************************************************************************
@@ -62,10 +62,19 @@ SBOOL AxisAlignedBox::operator!=(const AxisAlignedBox& value)
 //*************************************************************************************************
 // Construct the box
 //*************************************************************************************************
-void AxisAlignedBox::constructBox(Vector inPosition, Vector inExtrema)
+void AxisAlignedBox::update(Vector inPosition, Quaternion inRotation)
 {
+	// First, update the position
 	_position = inPosition;
-	_extrema = inExtrema;
+
+	// Next rotate the extrema by the specified value
+	Vector rExtrema = QuaternionTransformVector(_extrema, inRotation);
+
+	// Negate the rotated extrema
+	Vector nrExtrema = VectorNegate(rExtrema);
+
+	// Choose the max values and assign to the rotated extrema value
+	_rExtrema = VectorMax(rExtrema, nrExtrema);
 }
 
 //*************************************************************************************************

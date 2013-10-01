@@ -40,7 +40,7 @@ public:
 	void update();
 
 	// Register a physics object
-	void registerPhysicsObject();
+	void registerPhysicsObject(PhysicsBody* body);
 
 private:
 

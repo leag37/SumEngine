@@ -61,7 +61,7 @@ void PhysicsManager::update()
 //*************************************************************************************************
 // Register a physics object
 //*************************************************************************************************
-void PhysicsManager::registerPhysicsObject()
+void PhysicsManager::registerPhysicsObject(PhysicsBody* body)
 {
 
 }

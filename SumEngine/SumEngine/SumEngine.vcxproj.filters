@@ -17,9 +17,6 @@
     <Filter Include="Entity\Movable">
       <UniqueIdentifier>{40f87e24-6f1c-49c6-ad78-c647e1312d9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Entity\Movable\Renderable">
-      <UniqueIdentifier>{3abd667e-2c46-425b-8d35-e00d069bc60e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMain.cpp">
@@ -33,6 +30,9 @@
     </ClCompile>
     <ClCompile Include="src\SumEntity.cpp">
       <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMovableEntity.cpp">
+      <Filter>Entity\Movable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

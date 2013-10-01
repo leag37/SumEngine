@@ -7,9 +7,10 @@
 #define __SUMSIMULATION_H__
 
 #include "SumInclude.h"
+#include "SumPhysicsManager.h"
 #include "SumRenderManager.h"
 #include "SumInputManager.h"
-#include "SumEntity.h"
+#include "SumMovableEntity.h"
 
 class Simulation
 {
@@ -34,7 +35,7 @@ private:
 	Camera* _camera;
 
 	// TEMP
-	Entity* _box;
+	MovableEntity* _box;
 	Entity* _plane;
 };
 

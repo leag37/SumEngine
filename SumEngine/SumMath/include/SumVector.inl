@@ -172,6 +172,25 @@ SUMINLINE Vector VectorNegate(Vector v)
 }
 
 //*************************************************************************************************
+// Max values of a vector
+//*************************************************************************************************
+SUMINLINE Vector VectorMax(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_max_ps(v1, v2);
+#else	// SUMSIMD
+	Vector result = 
+	{
+		v1.x > v2.x ? v1.x : v2.x,
+		v1.y > v2.y ? v1.y : v2.y,
+		v1.z > v2.z ? v1.z : v2.z,
+		v1.w > v2.w ? v1.w : v2.w
+	};
+	return result;
+#endif	// SUMSIMD
+}
+
+//*************************************************************************************************
 // Scale a vector by a scalar
 //*************************************************************************************************
 SUMINLINE Vector VectorScale(const Vector v, const SFLOAT s)

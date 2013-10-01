@@ -19,10 +19,45 @@
 
 #include "SumInclude.h"
 #include "SumMath.h"
+#include "SumAxisAlignedBox.h"
+#include "SumRenderable.h"
 
-class PhysicsBody
+class SUM_DECLSPEC_ALIGN_16 PhysicsBody
 {
+public:
+	_SUM_ALIGN(PhysicsBody);
 
+	// Constructor for physics body
+	PhysicsBody();
+
+	// Constructor with pointer to renderable. All relevant information about the body will be assembled via the renderable data.
+	PhysicsBody(Renderable* inRenderable);
+
+	// Copy constructor
+	PhysicsBody(const PhysicsBody& value);
+
+	// Destructor
+	~PhysicsBody();
+
+	// Update the box based on its updated mesh
+	void update();
+
+private:
+	// Initialize the bounding volumes
+	void init();
+
+private:
+	// Pointer to the renderable
+	Renderable* _renderable;
+
+	// Position
+	Vector _position;
+
+	// Orientation
+	Quaternion _orientation;
+
+	// Axis aligned bounding box
+	AxisAlignedBox _aabb;
 };
 
 #endif // __SUMPHYSICSBODY_H__

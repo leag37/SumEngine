@@ -7,6 +7,7 @@
 #define __SUMPHYSICSMANAGER_H__
 
 #include "SumPhysicsCore.h"
+#include "SumPhysicsWorld.h"
 
 class PhysicsManager : public Singleton<PhysicsManager>
 {
@@ -43,6 +44,13 @@ public:
 	void registerPhysicsObject(PhysicsBody* body);
 
 private:
+	// List of objects in the world
+	List<PhysicsBody*> _bodyList;
+
+	// Physics world
+	PhysicsWorld _world;
+
+	// Query 
 
 };
 

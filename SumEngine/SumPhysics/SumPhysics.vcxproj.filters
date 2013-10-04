@@ -14,6 +14,9 @@
     <Filter Include="Bounding Volumes">
       <UniqueIdentifier>{f008eef0-dc25-4778-9711-8c21eb66e05b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="World">
+      <UniqueIdentifier>{3f40f63e-a8fd-45be-8168-6703c572b1ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumPhysicsManager.h">
@@ -28,6 +31,9 @@
     <ClInclude Include="include\SumAxisAlignedBox.h">
       <Filter>Bounding Volumes</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumPhysicsWorld.h">
+      <Filter>World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumPhysicsManager.cpp">
@@ -38,6 +44,12 @@
     </ClCompile>
     <ClCompile Include="src\SumPhysicsBody.cpp">
       <Filter>Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumPhysicsWorld.cpp">
+      <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumPhysicsWorldIterator.cpp">
+      <Filter>World</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

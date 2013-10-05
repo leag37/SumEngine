@@ -36,7 +36,7 @@ private:
 
 	// TEMP
 	MovableEntity* _box;
-	Entity* _plane;
+	MovableEntity* _plane;
 };
 
 #endif

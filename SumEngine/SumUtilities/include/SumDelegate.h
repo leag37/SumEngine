@@ -145,6 +145,54 @@ private:
 	Param1 _param1;
 };
 
+// Delegate with no parameter
+template <typename Param1, typename Param2>
+class Delegate2 : public Delegate
+{
+private:
+	typedef void (delegate_details::GenericClass::*GenericMemberFunction)(Param1 p1, Param2 p2);
+
+public:
+	// Constructor
+	Delegate2();
+
+	// Copy constructor
+	Delegate2(const Delegate2& rhs);
+
+	// Constructor for non-const member functions
+	template <typename X>
+	Delegate2(X* pThis, void (X::*function)(Param1 p1, Param2 p2));
+
+	// Constructor for non-const member functions with pre-set data (useful for calling the function asynchronously)
+	template <typename X>
+	Delegate2(X *pThis, void (X::*function)(Param1 p1, Param2 p2), Param1 param1, Param2 param2);
+
+	// Destructor
+	~Delegate2();
+
+	// Invoke the delegate
+	void operator() () const;
+
+	// Invoke the delegate with parametrized data
+	void operator() (Param1 p1, Param2 p2) const;
+
+	// Virtual clone function
+	Delegate* clone();
+
+	// Set param1
+	void setParam1(Param1 param);
+
+	// Set param2
+	void setParam2(Param2 param);
+
+private:
+	// Closure for the delegate
+	Param1 _param1;
+	Param2 _param2;
+};
+
 #include "SumDelegate.inl"
+#include "SumDelegate1.inl"
+#include "SumDelegate2.inl"
 
 #endif

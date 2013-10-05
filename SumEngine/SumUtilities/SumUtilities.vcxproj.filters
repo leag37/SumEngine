@@ -159,6 +159,12 @@
     <None Include="include\SumQueue.inl">
       <Filter>Data Structures\Queue</Filter>
     </None>
+    <None Include="include\SumDelegate1.inl">
+      <Filter>Delegates</Filter>
+    </None>
+    <None Include="include\SumDelegate2.inl">
+      <Filter>Delegates</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp">

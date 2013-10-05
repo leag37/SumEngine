@@ -17,6 +17,9 @@
     <Filter Include="World">
       <UniqueIdentifier>{3f40f63e-a8fd-45be-8168-6703c572b1ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Jobs">
+      <UniqueIdentifier>{2791d3d2-53e1-4a73-9704-a201a681de1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumPhysicsManager.h">
@@ -34,6 +37,12 @@
     <ClInclude Include="include\SumPhysicsWorld.h">
       <Filter>World</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumPhysicsJob.h">
+      <Filter>Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumPhysicsCollisionTestJob.h">
+      <Filter>Jobs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumPhysicsManager.cpp">
@@ -50,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="src\SumPhysicsWorldIterator.cpp">
       <Filter>World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumPhysicsJob.cpp">
+      <Filter>Jobs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumPhysicsCollisionTestJob.cpp">
+      <Filter>Jobs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

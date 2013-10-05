@@ -8,6 +8,7 @@
 
 #include "SumPhysicsCore.h"
 #include "SumPhysicsWorld.h"
+#include "SumPhysicsCollisionTestJob.h"
 
 class PhysicsManager : public Singleton<PhysicsManager>
 {
@@ -44,13 +45,24 @@ public:
 	void registerPhysicsObject(PhysicsBody* body);
 
 private:
+	// Query for all potential collision pairs
+	void queryForCollisionPairs();
+
+	// Test a potential collision pair
+	void testCollision(PhysicsBody* body1, PhysicsBody* body2);
+
+	// Process our job queue
+	void processQueue();
+
+private:
 	// List of objects in the world
 	List<PhysicsBody*> _bodyList;
 
 	// Physics world
 	PhysicsWorld _world;
 
-	// Query 
+	// Event list
+	List<PhysicsJob*> _jobQueue;
 
 };
 

@@ -42,14 +42,17 @@ private:
 class PhysicsWorld::Iterator
 {
 public:
-	// Default constructor
-	Iterator();
-
 	// Constructor given map
-	Iterator(const List<PhysicsBody*>& inWorldMap);
+	explicit Iterator(const List<PhysicsBody*>& inWorldMap);
+
+	// Constructor given map and iterator
+	explicit Iterator(const List<PhysicsBody*>& inWorldMap, List<PhysicsBody*>::Iterator itr);
 
 	// Destructor
 	~Iterator();
+
+	// Non-equivalence operator
+	SBOOL operator!=(const Iterator& value);
 
 	// Pre-Increment operator
 	Iterator& operator++();
@@ -62,13 +65,13 @@ public:
 
 private:
 	// First body
-	PhysicsBody* _first;
+	List<PhysicsBody*>::Iterator _first;
 
 	// Second body
-	PhysicsBody* _second;
+	List<PhysicsBody*>::Iterator _second;
 
 	// Reference to list
-	List<PhysicsBody*>& _worldMap;
+	const List<PhysicsBody*>& _worldMap;
 };
 
 #endif // __SUMPHYSICSWORLD_H__

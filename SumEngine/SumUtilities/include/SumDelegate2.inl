@@ -1,116 +1,98 @@
 //*************************************************************************************************
-// Title: SumPhysicsManager.h
+// Title: SumDelegate2.inl
 // Author: Gael Huber
-// Description: Manager for game physics.
+// Description: Definition for a two parameter delegate
 //*************************************************************************************************
-#include "SumPhysicsManager.h"
-
-//*************************************************************************************************
-// Initialize the singleton instance of this class to 0
-//*************************************************************************************************
-template <> PhysicsManager* Singleton<PhysicsManager>::singleton = 0;
 
 //*************************************************************************************************
 // Constructor
 //*************************************************************************************************
-PhysicsManager::PhysicsManager()
-{
+template <typename Param1, typename Param2>
+SUMINLINE Delegate2<Param1, Param2>::Delegate2()
+	: Delegate()
+{ }
 
+//*************************************************************************************************
+// Copy constructor
+//*************************************************************************************************
+template <typename Param1, typename Param2>
+SUMINLINE Delegate2<Param1, Param2>::Delegate2(const Delegate2<Param1, Param2>& rhs)
+{
+	_closure.clear();
+	_closure = rhs._closure;
+	_param1 = rhs._param1;
+	_param2 = rhs._param2;
+}
+
+//*************************************************************************************************
+// Constructor for non-const member functions
+//*************************************************************************************************
+template <typename Param1, typename Param2>
+template <typename X>
+SUMINLINE Delegate2<Param1, Param2>::Delegate2(X* pThis, void (X::*function)(Param1 p1, Param2 p2))
+{
+	_closure.bind(pThis, function);
+}
+
+//*************************************************************************************************
+// Constructor for non-const member functions
+//*************************************************************************************************
+template <typename Param1, typename Param2>
+template <typename X>
+SUMINLINE Delegate2<Param1, Param2>::Delegate2(X *pThis, void (X::*function)(Param1 p1, Param2 p2), Param1 param1, Param2 param2)
+	: _param1(param1), _param2(param2)
+{ 
+	_closure.bind(pThis, function);
 }
 
 //*************************************************************************************************
 // Destructor
 //*************************************************************************************************
-PhysicsManager::~PhysicsManager()
-{
+template <typename Param1, typename Param2>
+SUMINLINE Delegate2<Param1, Param2>::~Delegate2()
+{ }
 
+//*************************************************************************************************
+// Invoke the delegate
+//*************************************************************************************************
+template <typename Param1, typename Param2>
+SUMINLINE void Delegate2<Param1, Param2>::operator() () const
+{
+	this->operator()(_param1, _param2);
 }
 
 //*************************************************************************************************
-// Initialization method
+// Invoke the delegate with parametrized data
 //*************************************************************************************************
-void PhysicsManager::startUp()
+template <typename Param1, typename Param2>
+SUMINLINE void Delegate2<Param1, Param2>::operator() (Param1 p1, Param2 p2) const
 {
-
+	return (_closure.pThis()->*(reinterpret_cast<GenericMemberFunction>(_closure.pFunction())))(p1, p2);
 }
 
 //*************************************************************************************************
-// Shut down the manager
+// Clone
 //*************************************************************************************************
-void PhysicsManager::shutDown()
+template <typename Param1, typename Param2>
+SUMINLINE Delegate* Delegate2<Param1, Param2>::clone()
 {
-
+	return static_cast<Delegate*>(new Delegate2(*this));
 }
 
 //*************************************************************************************************
-// Update function for the manager
+// Set param1
 //*************************************************************************************************
-void PhysicsManager::update()
+template <typename Param1, typename Param2>
+SUMINLINE void Delegate2<Param1, Param2>::setParam1(Param1 param)
 {
-	// Broad phase collision culling, update AABBs and compute overlapping pairs
-	queryForCollisionPairs();
-	processQueue();
-
-	// Remove overlapping pairs using BV test
-
-	// Compute contact points, resolve interpenetrations
-
-	// Resolve constraints
-
-	// Solve equations of motion
+	_param1 = param;
 }
 
 //*************************************************************************************************
-// Process the job queue
+// Set param2
 //*************************************************************************************************
-void PhysicsManager::processQueue()
+template <typename Param1, typename Param2>
+SUMINLINE void Delegate2<Param1, Param2>::setParam2(Param2 param)
 {
-	// Process events
-	while(_jobQueue.size() > 0)
-	{
-		PhysicsJob* job = _jobQueue.front();
-		job->execute();
-		_jobQueue.pop_front();
-		SafeDelete(job);
-	}
+	_param2 = param;
 }
-
-//*************************************************************************************************
-// Register a physics object
-//*************************************************************************************************
-void PhysicsManager::registerPhysicsObject(PhysicsBody* body)
-{
-	// Push to the raw list of bodies
-	_bodyList.push_back(body);
-
-	// Push to the world
-	_world.addBody(body);
-}
-
-//*************************************************************************************************
-// Query for all potential collision pairs
-//*************************************************************************************************
-void PhysicsManager::queryForCollisionPairs()
-{
-	// Let's initialize our delegate function for collision tests
-	Delegate2<PhysicsBody*, PhysicsBody*> collisionDelegate = Delegate2<PhysicsBody*, PhysicsBody*>(this, &PhysicsManager::testCollision);
-
-	// Iterate through our physics map
-	PhysicsWorld::Iterator end = _world.end();
-
-	for(PhysicsWorld::Iterator itr = _world.begin(); itr != end; ++itr)
-	{
-		// Update parameters
-		PhysicsJob* job = new PhysicsCollisionTestJob(collisionDelegate, itr.getFirst(), itr.getSecond());
-		_jobQueue.push_back(job);
-	}
-}
-
-//*************************************************************************************************
-// Test a potential collision pair
-//*************************************************************************************************
-void PhysicsManager::testCollision(PhysicsBody* body1, PhysicsBody* body2)
-{
-	int a = 0;
-}
-

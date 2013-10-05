@@ -49,6 +49,8 @@
     <None Include="include\SumArray.inl" />
     <None Include="include\SumArrayIterator.inl" />
     <None Include="include\SumDelegate.inl" />
+    <None Include="include\SumDelegate1.inl" />
+    <None Include="include\SumDelegate2.inl" />
     <None Include="include\SumDictionary.inl" />
     <None Include="include\SumDictionaryIterator.inl" />
     <None Include="include\SumDictionaryNode.inl" />

@@ -61,9 +61,10 @@ void Simulation::startUp()
 	renderManager->registerRenderable(_box->renderable());
 	physicsManager->registerPhysicsObject(_box->getPhysicsBody());
 
-	_plane = new Entity("plane", "plane");
+	_plane = new MovableEntity("plane", "plane");
 	_plane->renderable()->setPosition(0.0f, -5.0f, 0.0f);
 	renderManager->registerRenderable(_plane->renderable());
+	physicsManager->registerPhysicsObject(_plane->getPhysicsBody());
 }
 
 //*************************************************************************************************

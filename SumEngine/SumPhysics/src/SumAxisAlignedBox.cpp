@@ -108,3 +108,20 @@ Vector AxisAlignedBox::getExtrema() const
 {
 	return _extrema;
 }
+
+//*************************************************************************************************
+// Return the maximum points of the box
+//*************************************************************************************************
+Vector AxisAlignedBox::getMax() const
+{
+	return VectorAdd(_extrema, _position);
+}
+
+//*************************************************************************************************
+// Return the minimum points of the box
+//*************************************************************************************************
+Vector AxisAlignedBox::getMin() const
+{
+	Vector min = VectorNegate(_extrema);
+	return VectorAdd(min, _position);
+}

@@ -94,5 +94,14 @@ void PhysicsBody::init()
 //*************************************************************************************************
 void PhysicsBody::update()
 {
+	// Ensure the position of the AABB matches the position of the renderable
+	_aabb.update(_renderable->world().r[3], QuaternionRotationMatrix(_renderable->world()));
+}
 
+//*************************************************************************************************
+// Get the body's axis aligned box
+//*************************************************************************************************
+const AxisAlignedBox& PhysicsBody::getAABB()
+{
+	return _aabb;
 }

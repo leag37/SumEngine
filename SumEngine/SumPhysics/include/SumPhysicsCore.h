@@ -11,7 +11,9 @@
 #include "SumMath.h"
 
 // Physics includes
+#include "SumAxisAlignedBox.h"
 #include "SumPhysicsBody.h"
+#include "SumIntersectionTests.h"
 
 
 #endif // __SUMPHYSICSCORE_H__

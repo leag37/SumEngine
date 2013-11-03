@@ -42,6 +42,9 @@ public:
 	// Update the box based on its updated mesh
 	void update();
 
+	// Get the body's aabb
+	const AxisAlignedBox& getAABB();
+
 private:
 	// Initialize the bounding volumes
 	void init();

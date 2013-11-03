@@ -287,17 +287,6 @@ SUMINLINE Vector VectorSqrt(const Vector v)
 }
 
 //*************************************************************************************************
-// Equality of two vectors
-//*************************************************************************************************
-SUMINLINE Vector VectorEqual(const Vector v1, const Vector v2)
-{
-#ifdef SUMSIMD
-	return _mm_cmpeq_ps(v1, v2);
-#else
-#endif
-}
-
-//*************************************************************************************************
 // Compare for equality and return boolean value
 //*************************************************************************************************
 SUMINLINE SBOOL VectorCompareEqual(const Vector v1, const Vector v2)
@@ -337,12 +326,78 @@ SUMINLINE SBOOL VectorCompareGreaterThan(const Vector v1, const Vector v2)
 }
 
 //*************************************************************************************************
-// Division of two vectors
+// Equality of two vectors
+//*************************************************************************************************
+SUMINLINE Vector VectorEqual(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmpeq_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Compare for non equality of two vectors
 //*************************************************************************************************
 SUMINLINE Vector VectorNotEqual(const Vector v1, const Vector v2)
 {
 #ifdef SUMSIMD
 	return _mm_cmpneq_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Compare first vector to second vector
+//*************************************************************************************************
+SUMINLINE Vector VectorGreaterThan(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmpgt_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Compare v1 >= v2
+//*************************************************************************************************
+SUMINLINE Vector VectorGreaterThanEqual(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmpge_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Compare v1 < v2
+//*************************************************************************************************
+SUMINLINE Vector VectorLessThan(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmplt_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Compare v1 <= v2
+//*************************************************************************************************
+SUMINLINE Vector VectorLessThanEqual(const Vector v1, const Vector v2)
+{
+#ifdef SUMSIMD
+	return _mm_cmple_ps(v1, v2);
+#else
+#endif
+}
+
+//*************************************************************************************************
+// Get the move mask for a vector
+//*************************************************************************************************
+SUMINLINE SUINT VectorMoveMask(const Vector v)
+{
+#ifdef SUMSIMD
+	return _mm_movemask_ps(v);
 #else
 #endif
 }

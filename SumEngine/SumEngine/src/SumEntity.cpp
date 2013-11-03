@@ -42,3 +42,11 @@ Renderable* Entity::renderable()
 {
 	return _renderable;
 }
+
+//*************************************************************************************************
+// Set the position
+//*************************************************************************************************
+void Entity::setPosition(SFLOAT x, SFLOAT y, SFLOAT z)
+{
+	_renderable->setPosition(x, y, z);
+}

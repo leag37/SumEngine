@@ -176,6 +176,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\SumAxisAlignedBox.h" />
+    <ClInclude Include="include\SumIntersectionTests.h" />
     <ClInclude Include="include\SumPhysicsBody.h" />
     <ClInclude Include="include\SumPhysicsCollisionTestJob.h" />
     <ClInclude Include="include\SumPhysicsCore.h" />
@@ -185,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumAxisAlignedBox.cpp" />
+    <ClCompile Include="src\SumIntersectionTests.cpp" />
     <ClCompile Include="src\SumPhysicsBody.cpp" />
     <ClCompile Include="src\SumPhysicsCollisionTestJob.cpp" />
     <ClCompile Include="src\SumPhysicsJob.cpp" />

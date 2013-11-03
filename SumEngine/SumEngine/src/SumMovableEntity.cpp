@@ -37,3 +37,12 @@ PhysicsBody* MovableEntity::getPhysicsBody() const
 {
 	return _physicsBody;
 }
+
+//*************************************************************************************************
+// Set the position
+//*************************************************************************************************
+void MovableEntity::setPosition(SFLOAT x, SFLOAT y, SFLOAT z)
+{
+	Entity::setPosition(x, y, z);
+	_physicsBody->update();
+}

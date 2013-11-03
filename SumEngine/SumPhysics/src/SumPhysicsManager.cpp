@@ -111,6 +111,7 @@ void PhysicsManager::queryForCollisionPairs()
 //*************************************************************************************************
 void PhysicsManager::testCollision(PhysicsBody* body1, PhysicsBody* body2)
 {
+	TestCollision(body1->getAABB(), body2->getAABB());
 	int a = 0;
 }
 

@@ -29,6 +29,9 @@ public:
 	// Renderable
 	Renderable* renderable();
 
+	// Set the position
+	virtual void setPosition(SFLOAT x, SFLOAT y, SFLOAT z);
+
 protected:
 	// Entity name
 	String _name;

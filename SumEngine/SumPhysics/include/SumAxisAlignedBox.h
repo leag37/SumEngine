@@ -51,6 +51,12 @@ public:
 	// Return the extrema
 	Vector getExtrema() const;
 
+	// Return the maximum points of the box
+	Vector getMax() const;
+
+	// Return the minimum points of the box
+	Vector getMin() const;
+
 private:
 	// Construct the box
 	void init();

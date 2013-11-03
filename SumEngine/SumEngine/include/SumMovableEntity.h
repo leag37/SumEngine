@@ -25,6 +25,9 @@ public:
 	// Retrieve the physics body
 	PhysicsBody* getPhysicsBody() const;
 
+	// Set the position
+	virtual void setPosition(SFLOAT x, SFLOAT y, SFLOAT z);
+
 private:
 	// Physics object
 	PhysicsBody* _physicsBody;

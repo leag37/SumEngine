@@ -14,68 +14,177 @@
 Vector QuaternionRotationMatrix(const Matrix& m)
 {
 	// Trace of a matrix
-	Vector vTemp0 = VectorSplatX(m.r[0]);
-	Vector vTemp1 = VectorSplatY(m.r[1]);
-	Vector vTemp2 = VectorSplatZ(m.r[2]);
-	vTemp0 = VectorAdd(vTemp0, vTemp1);
-	Vector trace = VectorAdd(vTemp0, vTemp2);
-	Vector root = VectorZero();
-	Vector result = VectorZero();
+	Vector m00 = VectorSplatX(m.r[0]);
+	Vector m11 = VectorSplatY(m.r[1]);
+	Vector m22 = VectorSplatZ(m.r[2]);
+	Vector trace = VectorAdd(m00, m11);
+	trace = VectorAdd(trace, m22);
 
-	// Check whether trace is greater than zero
+	Vector result = VectorZero();
+	
+	// There are 2 cases
+	// 1) The trace is greater than 0. We can proceed normally as there is no risk of division by 0
+	// 2) The trace is <= 0. Here we must pick the largest trace element and use that as our pivot point
 	if(VectorCompareGreaterThan(trace, gVZero))
 	{
-		// |w| > 0.5 so choose w > 0.5
-		root = VectorAdd(trace, gVOne);
-		root = VectorSqrt(root);
+		// x (m21 - m12) / s
+		// y (m02 - m20) / s
+		// z (m10 - m01) / s
+		// w 0.25 * s
+		// where s = sqrt(trace + 1) * 2
 
-		Vector w = VectorMul(gVOneHalf, root);
+		// S = 4*qx
+		Vector s = VectorAdd(trace, gVOne);
+		s = VectorSqrt(s);
+		s = VectorMul(s, gVTwo);
 
-		root = VectorDiv(gVOneHalf, root);
+		// Create our w component
+		Vector w = VectorSet(0.0f, 0.0f, 0.0f, 0.25f);
+		w = VectorMul(w, s);
 
-		// x = (21-12)*root
-		// y = (02-20)*root
-		// z = (10-01)*root
-		// j c e
-		vTemp0 = VectorSwizzle(m.r[2], m.r[0], SUM_SWIZZLE(1, 2, 1, 2));
-		vTemp1 = VectorSwizzle(m.r[1], m.r[1], SUM_SWIZZLE(0, 0, 0, 0));
-		vTemp0 = _mm_movelh_ps(vTemp0, vTemp1);
+		// Finish morphing s into final form
+		s = VectorAnd(s, gVMask3);
+		s = VectorOr(s, gVIdentityR3);
+		
+		// Shuffle around vectors until we can reach our desired structure
+		Vector v1 = VectorSwizzle(m.r[0], m.r[1], SUM_SWIZZLE(1, 2, 0, 2));	// 01 02 10 12
+		Vector v2 = VectorSwizzle(m.r[0], m.r[2], SUM_SWIZZLE(1, 2, 0, 1));	// 01 02 20 21
+		Vector v3 = VectorSwizzle(m.r[1], m.r[2], SUM_SWIZZLE(0, 2, 0, 1));	// 10 12 20 21
 
-		vTemp1 = VectorSwizzle(m.r[1], m.r[2], SUM_SWIZZLE(2, 0, 2, 0));
-		vTemp2 = VectorSwizzle(m.r[0], m.r[0], SUM_SWIZZLE(1, 1, 1, 1));
-		vTemp1 = _mm_movelh_ps(vTemp1, vTemp2);
+		Vector v4 = VectorSwizzle(v2, v1, SUM_SWIZZLE(3, 1, 2, 0));	// 21 02 10 01
+		Vector v5 = VectorSwizzle(v3, v2, SUM_SWIZZLE(1, 2, 0, 0));	// 12 20 01 01
 
-		vTemp0 = VectorSub(vTemp0, vTemp1);
-		vTemp0 = VectorMul(vTemp0, root);
+		v4 = VectorAnd(v4, gVMask3);	// 21 02 10 0.0f
+		v5 = VectorAnd(v5, gVMask3);	// 12 20 01 0.0f
 
-		// Move into result
-		w = VectorAnd(w, gVWMask);
-		vTemp0 = VectorAnd(vTemp0, gVMask3);
-		result = VectorOr(w, vTemp0);
+		v4 = VectorOr(v4, w);	// 21 02 10 0.25*s
+		v5 = VectorNegate(v5);
+		
+		v4 = VectorSub(v4, v5);	// m21 - m12 ...
+
+		result = VectorDiv(v4, s);
+	}
+	else if(VectorCompareGreaterThan(m00, m11) && VectorCompareGreaterThan(m00, m22))
+	{
+		// s = sqrt(1 + m00 - m11 - m22) * 2
+		// x = 0.25 * s
+		// y = (m01 + m10) / s
+		// z = (m02 + m20) / s
+		// w = (m21 - m12) / s
+
+		// Calculate s
+		Vector s = VectorAdd(gVOne, m00);
+		s = VectorSub(s, m11);
+		s = VectorSub(s, m22);
+		s = VectorSqrt(s);
+		s = VectorMul(s, gVTwo);
+
+		// Set x field
+		Vector x = VectorSet(0.25f, 0.0f, 0.0f, 0.0f);
+		x = VectorMul(x, s);
+
+		// Finish morphing s into final form
+		s = VectorAnd(s, gVMask0);
+		s = VectorOr(s, gVIdentityR0);
+
+		// Shuffle around vectors until we reach our desired configuration
+		Vector v1 = VectorSwizzle(m.r[0], m.r[2], SUM_SWIZZLE(1, 2, 0, 1));	// 01 02 20 21
+		Vector v2 = VectorSwizzle(m.r[1], m.r[2], SUM_SWIZZLE(0, 2, 0, 1));	// 10 12 20 21
+		
+		Vector v3 = VectorSwizzle(v1, v1, SUM_SWIZZLE(0, 0, 1, 3));	// 01 01 02 21
+		Vector v4 = VectorSwizzle(v2, v2, SUM_SWIZZLE(0, 0, 2, 1));	// 10 10 20 12
+
+		v3 = VectorAnd(v3, gVMask0);	// 0.0 01 02 21
+		v4 = VectorAnd(v4, gVMask0);	// 0.0 10 20 12
+
+		v3 = VectorOr(v3, x);	// 0.25*s 01 02 21
+		v4 = VectorMul(v4, gVNegateW);
+
+		v3 = VectorAdd(v3, v4);	// m01 + m10 ...
+
+		result = VectorDiv(v3, s);
+	}
+	else if(VectorCompareGreaterThan(m11, m22))
+	{
+		// s = sqrt(1 + m11 - m00 - m22) * 2
+		// x = (m01 + m10) / s
+		// y = 0.25 * s
+		// z = (m12 + m21) / s
+		// w = (m02 - m20) / s
+
+		// Calculate s
+		Vector s = VectorAdd(gVOne, m11);
+		s = VectorSub(s, m00);
+		s = VectorSub(s, m22);
+		s = VectorSqrt(s);
+		s = VectorMul(s, gVTwo);
+
+		// Calculate y
+		Vector y = VectorSet(0.0f, 0.25f, 0.0f, 0.0f);
+		y = VectorMul(y, s);
+
+		// Finish morphing s into final form
+		s = VectorAnd(s, gVMask1);
+		s = VectorOr(s, gVIdentityR1);
+
+		// Shuffle around vectors until we reach our desired configuration
+		Vector v1 = VectorSwizzle(m.r[0], m.r[1], SUM_SWIZZLE(1, 2, 0, 2));	// 01 02 10 12
+		Vector v2 = VectorSwizzle(m.r[1], m.r[2], SUM_SWIZZLE(0, 2, 0, 1));	// 10 12 20 21
+
+		Vector v3 = VectorSwizzle(v1, v1, SUM_SWIZZLE(0, 0, 3, 1));	// 01 01 12 02
+		Vector v4 = VectorSwizzle(v2, v2, SUM_SWIZZLE(0, 0, 3, 2));	// 10 10 21 20
+
+		v3 = VectorAnd(v3, gVMask1);
+		v4 = VectorAnd(v4, gVMask1);
+
+		v3 = VectorOr(v3, y);
+		v4 = VectorMul(v4, gVNegateW);
+
+		v3 = VectorAdd(v3, v4);
+
+		result = VectorDiv(v3, s);
 	}
 	else
 	{
-		// |w| <= 0.5
-		static size_t iNext[3] = {1, 2, 0};
-		size_t i = 0;
-		if(VectorCompareGreaterThan(vTemp1, vTemp0))
-		{
-			i = 1;
-		}
-		Vector vTemp3 = VectorSwizzle(m.r[i], m.r[i], SUM_SWIZZLE(1, 1, 1, 1));//i, i, i, i));
-		if(VectorCompareGreaterThan(vTemp2, vTemp3))
-		{
-			i = 2;
-		}
+		// s = sqrt(1 + m22 - m00 - m11) * 2
+		// x = (m02 + m20) / s
+		// y = (m12 + m21) / s
+		// z = 0.25 * s
+		// w = (m10 - m01) / s
 
-		size_t j = iNext[i];
-		size_t k = iNext[j];
+		// Calculate s
+		Vector s = VectorAdd(gVOne, m22);
+		s = VectorSub(s, m00);
+		s = VectorSub(s, m11);
+		s = VectorSqrt(s);
+		s = VectorMul(s, gVTwo);
 
-		// Grab ii, jj, and kk
-		//vTemp1 = VectorSwizzle(m.r[j], m.r[j], SUM_SWIZZLE(j, j, j, j));
-		//vTemp2 = VectorSwizzle(m.r[k], m.r[k], SUM_SWIZZLE(k, k, k, k));
+		// Calculate z
+		Vector z = VectorSet(0.0f, 0.0f, 0.25f, 0.0f);
+		z = VectorMul(z, s);
+
+		// Finish morphing s into final form
+		s = VectorAnd(s, gVMask2);
+		s = VectorOr(s, gVIdentityR2);
+
+		// Shuffle around vectors until we reach our desired configuration
+		Vector v1 = VectorSwizzle(m.r[0], m.r[1], SUM_SWIZZLE(1, 2, 0, 2));	// 01 02 10 12
+		Vector v2 = VectorSwizzle(m.r[0], m.r[2], SUM_SWIZZLE(1, 2, 0, 1));	// 01 02 20 21
+
+		Vector v3 = VectorSwizzle(v1, v1, SUM_SWIZZLE(1, 3, 0, 2));	// 02 12 01 10
+		Vector v4 = VectorSwizzle(v2, v2, SUM_SWIZZLE(2, 3, 0, 0));	// 20 21 01 01
+
+		v3 = VectorAnd(v3, gVMask2);
+		v4 = VectorAnd(v4, gVMask2);
+
+		v3 = VectorOr(v3, z);
+		v4 = VectorMul(v4, gVNegateW);
+
+		v3 = VectorAdd(v3, v4);
+
+		result = VectorDiv(v3, s);
 	}
-
+	
 	return result;	
 }
 

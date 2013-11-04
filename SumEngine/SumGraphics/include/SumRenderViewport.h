@@ -26,7 +26,7 @@ public:
 	~RenderViewport();
 
 	// Configure the viewport
-	void configure(const RenderContext* context, const RenderWindow* window);
+	void configure(const RenderContext* context, const SumEngine::RenderWindow* window);
 
 	// Clear the viewports
 	void clearViewport(const RenderContext* context);

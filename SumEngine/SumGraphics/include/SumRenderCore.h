@@ -21,6 +21,7 @@
 #include "SumString.h"
 
 // Core graphics
+#include "SumRenderSystem.h"
 #include "SumMeshData.h"
 #include "SumLight.h"
 #include "SumMaterial.h"

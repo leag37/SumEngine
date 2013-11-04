@@ -3,28 +3,33 @@
 // Author: Gael Huber
 // Description: Maintains a physical window for the client to attach the render context.
 //*************************************************************************************************
-#ifndef __SUMRENDERWINDOW_H__
-#define __SUMRENDERWINDOW_H__
+#ifndef __SUMD3D11RENDERWINDOW_H__
+#define __SUMD3D11RENDERWINDOW_H__
 
-#include "SumInclude.h"
-#include "SumString.h"
+#include "SumRenderCore.h"
+#include "SumRenderWindow.h"
+#include "SumD3D11Device.h"
 
 namespace SumEngine
 {
-	/** \addtogroup Rendering
-	 *	@{
-	 */
+	/**	\addtogroup Rendering
+	*	@{
+	*/
 
-	class RenderWindow
+	class D3D11RenderWindow : public RenderWindow
 	{
 	public:
 		/** Default constructor
 		*/
-		RenderWindow();
+		D3D11RenderWindow();
 
-		/** Destructor
+		/** Constructor
 		*/
-		virtual ~RenderWindow();
+		D3D11RenderWindow(HINSTANCE instance, D3D11Device& device, IDXGIFactory1* dxgiFactory);
+
+		/** Destructor 
+		*/
+		~D3D11RenderWindow();
 
 		/** Initializes the window
 		* @param
@@ -36,11 +41,11 @@ namespace SumEngine
 		* @param
 		*	fullscreen The window will be created in fullscreen if true
 		*/
-		virtual void create(const String& name, SUINT width, SUINT height, SBOOL fullscreen) = 0;
+		void create(const String& name, SUINT width, SUINT height, SBOOL fullscreen);
 
 		/** Destroy the window
 		*/
-		virtual void destroy() = 0;
+		void destroy();
 
 		/** Change the window position
 		* @param
@@ -48,42 +53,30 @@ namespace SumEngine
 		* @param
 		*	y The y position of the window's top-left corner
 		*/
-		virtual void setPosition(SUINT x, SUINT y) = 0;
+		void setPosition(SUINT x, SUINT y);
 
 		/** Change the window's fullscreen parameter and adjust as necessary
 		* @param
 		*	fullscreen Set the window to fullscreen if true, windowed if false
 		*/
-		virtual void setFullscreen(SBOOL fullscreen) = 0;
+		void setFullscreen(SBOOL fullscreen);
 
-	protected:
-		/** Name of this window 
+	private:
+		/** Process instance
 		*/
-		String _name;
+		HINSTANCE _hInstance;;
 
-		/** Width of the window 
+		/** Window handle
 		*/
-		SUINT _width;
+		HWND _handle;
 
-		/** Height of the window 
+		/** D3D11 Device
 		*/
-		SUINT _height;
+		D3D11Device& _device;
 
-		/** Is the window fullscreen 
-		*/
-		SBOOL _isFullscreen;
-
-		/** X position of the window 
-		*/
-		SUINT _x;
-
-		/** Y position of the window 
-		*/
-		SUINT _y;
 	};
-
 	/** @} */
 
 }	// Namespace
 
-#endif
+#endif // __SUMD3D11RENDERWINDOW_H__

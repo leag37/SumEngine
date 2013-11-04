@@ -230,6 +230,8 @@
   <ItemGroup>
     <ClInclude Include="include\SumBaseResource.h" />
     <ClInclude Include="include\SumCamera.h" />
+    <ClInclude Include="include\SumD3D11RenderWindow.h" />
+    <ClInclude Include="include\SumD3D11Device.h" />
     <ClInclude Include="include\SumEffect.h" />
     <ClInclude Include="include\SumEffectsManager.h" />
     <ClInclude Include="include\SumGeometry.h" />
@@ -242,6 +244,7 @@
     <ClInclude Include="Include\SumRenderCore.h" />
     <ClInclude Include="include\SumRenderManager.h" />
     <ClInclude Include="include\SumRenderContext.h" />
+    <ClInclude Include="include\SumRenderSystem.h" />
     <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
     <ClInclude Include="include\SumResource.h" />

@@ -31,87 +31,92 @@
 // TEMP
 #include "SumTimer.h"
 
-class RenderManager : public Singleton<RenderManager>
+namespace SumEngine
 {
-public:
-	// Constructor
-	RenderManager();
+	/** \addtogroup Rendering
+	*	@{
+	*/
 
-	// Destructor
-	~RenderManager();
+	/** \addtogroup Core
+	*	@{
+	*/
 
-	// Singleton
-	SUMINLINE static RenderManager& getSingleton()
+	class RenderManager : public Singleton<RenderManager>
 	{
-		assert(singleton);
-		return *singleton;
-	}
+	public:
+		// Constructor
+		RenderManager();
 
-	SUMINLINE static RenderManager* getSingletonPtr()
-	{
-		return singleton;
-	}
+		// Destructor
+		~RenderManager();
 
-	// Initialize render manager
-	void startUp();
+		// Singleton
+		SUMINLINE static RenderManager& getSingleton()
+		{
+			assert(singleton);
+			return *singleton;
+		}
 
-	// Shut down the render manager
-	void shutDown();
+		SUMINLINE static RenderManager* getSingletonPtr()
+		{
+			return singleton;
+		}
 
-	// Update the manager
-	void update();
+		// Initialize render manager
+		void startUp();
 
-	// Register a camera
-	void registerCamera(Camera* camera);
+		// Shut down the render manager
+		void shutDown();
 
-	// Register an object with the render list
-	void registerRenderable(Renderable* renderable);
+		// Update the manager
+		void update();
 
-private:
-	// Render the current scene
-	void renderScene();
+		// Register a camera
+		void registerCamera(Camera* camera);
 
-private:
-	// Render context
-	RenderContext* _renderContext;
+		// Register an object with the render list
+		void registerRenderable(Renderable* renderable);
 
-	// Render window
-	RenderWindow* _renderWindow;
+	private:
+		// Render the current scene
+		void renderScene();
 
-	// Render viewport
-	RenderViewport* _renderViewport;
+	private:
+		// Render system
+		RenderSystem* _renderSystem;
 
-	// Effects manager
-	EffectsManager* _effectsManager;
+		// Scene manager
 
-	// Render list
-	List<Renderable*> _renderList;
+		// Shader manager
 
-	// TEMP
-	Renderable* _renderable;
-	Camera* _camera;
-	DirectionalLight _dirLight;
-	PointLight _pointLight;
-	Material _material;
+	
+	
+		// Render context
+		RenderContext* _renderContext;
 
-// Inline accessor functions
-public:
-	SUMINLINE ID3D11Device* d3dDevice() const
-	{
-		return _renderContext->d3dDevice();
-	}
 
-	// Return the current window handle
-	SUMINLINE HWND handle() const
-	{
-		return _renderWindow->clientHandle();
-	}
+		// Render viewport
+		RenderViewport* _renderViewport;
 
-	// Get the aspect ratio for the window
-	SUMINLINE SFLOAT aspectRatio() const
-	{
-		return _renderWindow->aspectRatio();
-	}
-};
+		// Effects manager
+		EffectsManager* _effectsManager;
+
+		// Render list
+		List<Renderable*> _renderList;
+
+		// TEMP
+		Renderable* _renderable;
+		Camera* _camera;
+		DirectionalLight _dirLight;
+		PointLight _pointLight;
+		Material _material;
+
+
+	};
+
+	/** @} */
+	/** @} */
+
+}	// Namespace
 
 #endif

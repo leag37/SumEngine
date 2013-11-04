@@ -1,0 +1,27 @@
+var _sum_quaternion_8h =
+[
+    [ "QuaternionAdd", "_sum_quaternion_8h.html#a30f77d37050a66db4895b4e2ff5a24b8", null ],
+    [ "QuaternionCalculateRotation", "_sum_quaternion_8h.html#ae0fac6f170769c5149b9b2751a6587bc", null ],
+    [ "QuaternionCalculateRotationFast", "_sum_quaternion_8h.html#a23ec95685b349cd52f028a5351f2f1b6", null ],
+    [ "QuaternionConjugate", "_sum_quaternion_8h.html#a0ded236f36d6667b9b4ceefe65b10915", null ],
+    [ "QuaternionDot", "_sum_quaternion_8h.html#ac9a62466cded7b104f531c348c2bceed", null ],
+    [ "QuaternionFromAxes", "_sum_quaternion_8h.html#aaf7132a6115148efb31ff9d1723886f7", null ],
+    [ "QuaternionIdentity", "_sum_quaternion_8h.html#a809208b560602512e45e52a56f7c78dd", null ],
+    [ "QuaternionInverse", "_sum_quaternion_8h.html#a01cf745af4513c58bc0844c799f0251a", null ],
+    [ "QuaternionInverseSafe", "_sum_quaternion_8h.html#a97445424b4a3b520b8425924bf206739", null ],
+    [ "QuaternionIsIdentity", "_sum_quaternion_8h.html#a32aee11f1f91123d68c684da4961b639", null ],
+    [ "QuaternionLength", "_sum_quaternion_8h.html#a7225fa2ec5fdb7ac4b14140a300fc464", null ],
+    [ "QuaternionLengthSqr", "_sum_quaternion_8h.html#a1b77c3e0d79d9c00ae397b7a95353574", null ],
+    [ "QuaternionMultiply", "_sum_quaternion_8h.html#aeee8ea59c502054a2e04b4f33bf08a3c", null ],
+    [ "QuaternionMultiplyFast", "_sum_quaternion_8h.html#a01ec8df9654d2fd829ee6ed4c69b2997", null ],
+    [ "QuaternionNormalize", "_sum_quaternion_8h.html#a4118cc35e7456794e56a73d6df56f6b1", null ],
+    [ "QuaternionRotationAxis", "_sum_quaternion_8h.html#a9e033dec19d616770fd8f7a1facfc0b4", null ],
+    [ "QuaternionRotationAxis", "_sum_quaternion_8h.html#aa19ddc5bb0c10cb1ab3f1a4bd8b12e82", null ],
+    [ "QuaternionRotationMatrix", "_sum_quaternion_8h.html#a4b3d98db9c35784d9f3546e664867898", null ],
+    [ "QuaternionRotationYawPitchRoll", "_sum_quaternion_8h.html#a234c0527a6d32bef4defb18dd0678fca", null ],
+    [ "QuaternionRotationYawPitchRoll", "_sum_quaternion_8h.html#af8485e4ea91b63c8ec1961109e57133d", null ],
+    [ "QuaternionScale", "_sum_quaternion_8h.html#a4699ff3d824d945f1e93f2d65134dc00", null ],
+    [ "QuaternionScale", "_sum_quaternion_8h.html#ad17082f671e5124dea7eb4322bdb29c6", null ],
+    [ "QuaternionSub", "_sum_quaternion_8h.html#a381f829c597f8160afef13080bc5d713", null ],
+    [ "QuaternionTransformVector", "_sum_quaternion_8h.html#acdf0a4f9186264d615e41f3088be1e11", null ]
+];

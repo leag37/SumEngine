@@ -1,0 +1,25 @@
+var _sum_vector4_8h =
+[
+    [ "Vec4Add", "_sum_vector4_8h.html#ae0b75b872170bff93f4c7e986bc29b98", null ],
+    [ "Vec4Barycentric", "_sum_vector4_8h.html#aee3e7c0c5f163471163b0e77c39c37e9", null ],
+    [ "Vec4Barycentric", "_sum_vector4_8h.html#acd7a5ed0c0ccb140ffb1f3b704518afb", null ],
+    [ "Vec4CatmullRom", "_sum_vector4_8h.html#adef6d68c0a590fed1558657cd9413f73", null ],
+    [ "Vec4CatmullRom", "_sum_vector4_8h.html#aa281d8f2b38b7d8ad0dfa1bad6d2618c", null ],
+    [ "Vec4Cross", "_sum_vector4_8h.html#af6821bfdbdeb1537bf28256a43a912f6", null ],
+    [ "Vec4Dot", "_sum_vector4_8h.html#a35d06dec3d02ad4405c05f6a7f5ec22d", null ],
+    [ "Vec4Equal", "_sum_vector4_8h.html#ab4a48a5491c940903f1b986d1a15275c", null ],
+    [ "Vec4Hermite", "_sum_vector4_8h.html#a1ef4ef0f78f7025e58832a6deae87da1", null ],
+    [ "Vec4Hermite", "_sum_vector4_8h.html#a4c858395ad084a34f6d633d036e6af21", null ],
+    [ "Vec4Length", "_sum_vector4_8h.html#a912bc20de048f84b80408cad2390f294", null ],
+    [ "Vec4LengthSqr", "_sum_vector4_8h.html#a0b6fd7d1dddaf3a02c5b6121f49788af", null ],
+    [ "Vec4Lerp", "_sum_vector4_8h.html#a5c3b4eeb8e133354c84598685b7fe52f", null ],
+    [ "Vec4Lerp", "_sum_vector4_8h.html#a2bf47389810e37b1827cbbd487d88736", null ],
+    [ "Vec4Maximize", "_sum_vector4_8h.html#a20b3ff66d62b98f71772ef2df6855d58", null ],
+    [ "Vec4Minimize", "_sum_vector4_8h.html#a00099943bbda70cd1cb913282bf4ef1b", null ],
+    [ "Vec4Normalize", "_sum_vector4_8h.html#a06330d0b02e1b4c8523a62779f4f3ac2", null ],
+    [ "Vec4NotEqual", "_sum_vector4_8h.html#a0f26b0db673fe8c4843ac50ad2cb2158", null ],
+    [ "Vec4Scale", "_sum_vector4_8h.html#a6d972f7d4709230bbc0c9268d5871d82", null ],
+    [ "Vec4Scale", "_sum_vector4_8h.html#a350745b75ecb79d97f3760fbaf23516e", null ],
+    [ "Vec4Sub", "_sum_vector4_8h.html#a123252ceb2d09812927b08bcc4561d0a", null ],
+    [ "Vec4Transform", "_sum_vector4_8h.html#a107269fdd951741cc105d46728f413cf", null ]
+];

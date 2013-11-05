@@ -21,6 +21,7 @@
 
 #include "SumRenderCore.h"
 #include "SumRenderContext.h"
+#include "SumRenderSystemFactory.h"
 #include "SumRenderWindow.h"
 #include "SumRenderViewport.h"
 #include "SumEffectsManager.h"
@@ -84,6 +85,9 @@ namespace SumEngine
 	private:
 		// Render system
 		RenderSystem* _renderSystem;
+
+		// Render window
+		RenderWindow* _renderWindow;
 
 		// Scene manager
 

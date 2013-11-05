@@ -59,4 +59,6 @@ namespace SumEngine
 
 }	// Namespace
 
+#include "SumD3D11Device.inl"
+
 #endif // __SUMD3D11DEVICE_H__

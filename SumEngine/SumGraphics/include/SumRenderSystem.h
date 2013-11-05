@@ -9,6 +9,7 @@
 
 #include "SumRenderCore.h"
 #include "SumRenderWindow.h"
+#include "SumRenderSystemCapabilities.h"
 
 namespace SumEngine
 {
@@ -38,6 +39,14 @@ namespace SumEngine
 		// Shader program stuff
 
 	protected:
+		/** Build the render system capabilities
+		*/
+		virtual void _buildRenderSystemCapabilities() = 0;
+
+		/** The render system capabilities
+		*/
+		RenderSystemCapabilities _renderSystemCapabilities;
+
 	};
 
 	/** @} */

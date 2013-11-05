@@ -230,6 +230,7 @@
   <ItemGroup>
     <ClInclude Include="include\SumBaseResource.h" />
     <ClInclude Include="include\SumCamera.h" />
+    <ClInclude Include="include\SumD3D11RenderSystem.h" />
     <ClInclude Include="include\SumD3D11RenderWindow.h" />
     <ClInclude Include="include\SumD3D11Device.h" />
     <ClInclude Include="include\SumEffect.h" />
@@ -245,6 +246,8 @@
     <ClInclude Include="include\SumRenderManager.h" />
     <ClInclude Include="include\SumRenderContext.h" />
     <ClInclude Include="include\SumRenderSystem.h" />
+    <ClInclude Include="include\SumRenderSystemCapabilities.h" />
+    <ClInclude Include="include\SumRenderSystemFactory.h" />
     <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
     <ClInclude Include="include\SumResource.h" />
@@ -254,6 +257,7 @@
   <ItemGroup>
     <ClCompile Include="src\SumBaseResource.cpp" />
     <ClCompile Include="src\SumCamera.cpp" />
+    <ClCompile Include="src\SumD3D11Device.cpp" />
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
     <ClCompile Include="src\SumGeometry.cpp" />
@@ -262,6 +266,7 @@
     <ClCompile Include="src\SumRenderable.cpp" />
     <ClCompile Include="src\SumRenderManager.cpp" />
     <ClCompile Include="src\SumRenderContext.cpp" />
+    <ClCompile Include="src\SumRenderSystemFactory.cpp" />
     <ClCompile Include="src\SumRenderViewport.cpp" />
     <ClCompile Include="src\SumRenderWindow.cpp" />
     <ClCompile Include="src\SumResourceManager.cpp" />
@@ -330,6 +335,7 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_NoDebug|Win32'">$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release_NoDebug|x64'">$(SolutionDir)$(Configuration)\Effects\%(Filename).fxo</Outputs>
     </CustomBuild>
+    <None Include="include\SumD3D11Device.inl" />
     <None Include="include\SumEffect.inl" />
     <None Include="Include\SumRenderViewport.inl" />
     <None Include="include\SumResource.inl" />

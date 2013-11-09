@@ -20,7 +20,13 @@ namespace SumEngine
 	class RenderSystem
 	{
 	public:
+		/** Default constructor
+		*/
 		RenderSystem();
+
+		/** Destructor
+		*/
+		virtual ~RenderSystem();
 
 		virtual void init() = 0;
 
@@ -28,6 +34,8 @@ namespace SumEngine
 
 		virtual RenderWindow* createRenderWindow(const String& name, SUINT width, SUINT height, SBOOL fullscreen) = 0;
 
+		/** Destroy the render window
+		*/
 		virtual void destroyRenderWindow(const String& name);
 
 		//virtual void setWorldMatrix(const Matrix& m) = 0;
@@ -46,6 +54,10 @@ namespace SumEngine
 		/** The render system capabilities
 		*/
 		RenderSystemCapabilities _renderSystemCapabilities;
+
+		/** The active render window for the system
+		*/
+		RenderWindow* _renderWindow;
 
 	};
 

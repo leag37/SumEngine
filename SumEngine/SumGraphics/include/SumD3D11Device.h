@@ -24,13 +24,21 @@ namespace SumEngine
 
 		/** Constructor
 		* @param
-		*	device The I	D3DDevice to encapsulate
+		*	device The ID3DDevice to encapsulate
 		*/
 		D3D11Device(ID3D11Device* device);
 
 		/** Destructor
 		*/
 		~D3D11Device();
+
+		/** Assignment operator
+		* @param
+		*	device The ID3D11Device that is to be wrapped by this class
+		* @return
+		*	D3D11Device The device
+		*/
+		D3D11Device& operator=(ID3D11Device* device);
 
 		/** Allow the device to act immediately as the ID3D11Device.
 		* @return

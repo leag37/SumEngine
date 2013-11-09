@@ -47,14 +47,8 @@ namespace SumEngine
 
 		
 
-		// Initialize the three primary components
-		_renderWindow = new RenderWindow(width, height);
-		_renderContext = new RenderContext(_renderWindow->clientHandle(), _renderWindow->clientWidth(), _renderWindow->clientHeight());
-		_renderViewport = new RenderViewport();
-		_renderViewport->configure(_renderContext, _renderWindow);
-
 		// Initialize the effects manager
-		_effectsManager = new EffectsManager();
+/*		_effectsManager = new EffectsManager();
 		_effectsManager->startUp(_renderContext->d3dDevice());
 		InputLayouts::InitAll(_renderContext->d3dDevice());
 
@@ -78,6 +72,7 @@ namespace SumEngine
 		_material.ambient = Float4(0.48f, 0.77f, 0.46f, 1.0f);
 		_material.diffuse = Float4(0.48f, 0.77f, 0.46f, 1.0f);
 		_material.specular = Float4(0.2f, 0.2f, 0.2f, 16.0f);
+		*/
 	}
 
 	//*************************************************************************************************
@@ -85,11 +80,7 @@ namespace SumEngine
 	//*************************************************************************************************
 	void RenderManager::shutDown()
 	{
-		SafeDelete(_effectsManager);
 
-		SafeDelete(_renderContext);
-		SafeDelete(_renderWindow);
-		SafeDelete(_renderViewport);
 	}
 
 	//*************************************************************************************************
@@ -110,7 +101,7 @@ namespace SumEngine
 	//*************************************************************************************************
 	void RenderManager::renderScene()
 	{
-		// Clear the viewports
+/*		// Clear the viewports
 		_renderViewport->clearViewport(_renderContext);
 
 		// Draw the scene
@@ -169,7 +160,7 @@ namespace SumEngine
 		}
 
 		// Present the swap chain
-		HR(_renderContext->swapChain()->Present(0, 0));
+		HR(_renderContext->swapChain()->Present(0, 0));*/
 	}
 
 	//*************************************************************************************************
@@ -186,7 +177,7 @@ namespace SumEngine
 	//*************************************************************************************************
 	void RenderManager::registerRenderable(Renderable* renderable)
 	{
-		_renderList.push_back(renderable);
+		//_renderList.push_back(renderable);
 	}
 
 }	// Namespace

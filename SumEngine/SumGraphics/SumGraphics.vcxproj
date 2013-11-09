@@ -230,12 +230,12 @@
   <ItemGroup>
     <ClInclude Include="include\SumBaseResource.h" />
     <ClInclude Include="include\SumCamera.h" />
+    <ClInclude Include="include\SumD3D11Driver.h" />
     <ClInclude Include="include\SumD3D11RenderSystem.h" />
     <ClInclude Include="include\SumD3D11RenderWindow.h" />
     <ClInclude Include="include\SumD3D11Device.h" />
     <ClInclude Include="include\SumEffect.h" />
     <ClInclude Include="include\SumEffectsManager.h" />
-    <ClInclude Include="include\SumGeometry.h" />
     <ClInclude Include="include\SumMesh.h" />
     <ClInclude Include="include\SumMeshData.h" />
     <ClInclude Include="include\SumInputLayout.h" />
@@ -258,14 +258,15 @@
     <ClCompile Include="src\SumBaseResource.cpp" />
     <ClCompile Include="src\SumCamera.cpp" />
     <ClCompile Include="src\SumD3D11Device.cpp" />
+    <ClCompile Include="src\SumD3D11RenderSystem.cpp" />
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
-    <ClCompile Include="src\SumGeometry.cpp" />
     <ClCompile Include="src\SumInputLayout.cpp" />
     <ClCompile Include="src\SumMesh.cpp" />
     <ClCompile Include="src\SumRenderable.cpp" />
     <ClCompile Include="src\SumRenderManager.cpp" />
     <ClCompile Include="src\SumRenderContext.cpp" />
+    <ClCompile Include="src\SumRenderSystem.cpp" />
     <ClCompile Include="src\SumRenderSystemFactory.cpp" />
     <ClCompile Include="src\SumRenderViewport.cpp" />
     <ClCompile Include="src\SumRenderWindow.cpp" />

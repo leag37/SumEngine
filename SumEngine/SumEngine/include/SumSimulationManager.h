@@ -53,7 +53,7 @@ private:
 	PhysicsManager* _physicsManager;
 
 	// Manager for rendering and effects pipeline
-	RenderManager* _renderManager;
+	SumEngine::RenderManager* _renderManager;
 
 	// Resource manager
 	ResourceManager* _resourceManager;

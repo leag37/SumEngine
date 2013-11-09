@@ -38,10 +38,6 @@ namespace SumEngine
 	*	@{
 	*/
 
-	/** \addtogroup Core
-	*	@{
-	*/
-
 	class RenderManager : public Singleton<RenderManager>
 	{
 	public:
@@ -119,8 +115,7 @@ namespace SumEngine
 	};
 
 	/** @} */
-	/** @} */
-
+	
 }	// Namespace
 
 #endif

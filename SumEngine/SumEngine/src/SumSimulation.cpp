@@ -27,12 +27,12 @@ Simulation::~Simulation()
 void Simulation::startUp()
 {
 	// Cache the render manager
-	RenderManager* renderManager = RenderManager::getSingletonPtr();
+	SumEngine::RenderManager* renderManager = SumEngine::RenderManager::getSingletonPtr();
 	PhysicsManager* physicsManager = PhysicsManager::getSingletonPtr();
 
 	// Create the camera
 	_camera = new Camera();
-	_camera->setLens(0.25f * S_PI, renderManager->aspectRatio(), 1.0f, 1000.0f);
+	_camera->setLens(0.25f * S_PI, 0.0f, 1.0f, 1000.0f);//renderManager->aspectRatio(), 1.0f, 1000.0f);
 
 	//Vector cPos = VectorSet(0.0f, 0.0f, 5.0f, 1.0f);
 	//Vector cTarget = VectorZero();

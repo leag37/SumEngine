@@ -82,9 +82,6 @@
     <ClInclude Include="include\SumMesh.h">
       <Filter>Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumGeometry.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumResource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -118,6 +115,9 @@
     <ClInclude Include="include\SumRenderSystemCapabilities.h">
       <Filter>Render System</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumD3D11Driver.h">
+      <Filter>Render System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -144,9 +144,6 @@
     <ClCompile Include="src\SumInputLayout.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\SumGeometry.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="src\SumResourceManager.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
@@ -163,6 +160,12 @@
       <Filter>Render System</Filter>
     </ClCompile>
     <ClCompile Include="src\SumD3D11Device.cpp">
+      <Filter>Render System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumD3D11RenderSystem.cpp">
+      <Filter>Render System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumRenderSystem.cpp">
       <Filter>Render System</Filter>
     </ClCompile>
   </ItemGroup>

@@ -63,7 +63,7 @@ void SimulationManager::startUp()
 	_resourceManager->startUp();
 
 	// Initialize rendering
-	_renderManager = new RenderManager();
+	_renderManager = new SumEngine::RenderManager();
 	_renderManager->startUp();
 
 	// Initialize physics
@@ -72,7 +72,7 @@ void SimulationManager::startUp()
 
 	// Initialize input system
 	_inputManager = new InputManager();
-	_inputManager->startUp(_renderManager->handle());
+	_inputManager->startUp(0);//_renderManager->handle());
 
 	// Initialize simulation
 	_simulation = new Simulation();
@@ -160,7 +160,7 @@ void SimulationManager::gameLoop()
 	physicsDelegate = new Delegate(_physicsManager, &PhysicsManager::update);
 	physicsJob = Job(physicsDelegate);
 
-	renderDelegate = new Delegate(_renderManager, &RenderManager::update); 
+	renderDelegate = new Delegate(_renderManager, &SumEngine::RenderManager::update); 
 	renderJob = Job(renderDelegate);
 
 	inputDelegate = new Delegate(_inputManager, &InputManager::update);
@@ -251,13 +251,13 @@ void SimulationManager::calculateFrameStats()
 		float fps = (float)frameCnt;
 		float mspf = 1000.0f / fps;
 
-		std::ostringstream outs;
+/*		std::ostringstream outs;
 		outs.precision(6);
 		outs << "SumEngine v0.0.1 " << "    "
 			 << "FPS: " << fps << "    "
 			 << "Frame Time: " << mspf << " (ms)";
 		SetWindowText(gWindowHandle, (LPCSTR) outs.str().c_str());
-
+*/
 		// Reset for next average
 		frameCnt = 0;
 		timeElapsed += 1.0f;

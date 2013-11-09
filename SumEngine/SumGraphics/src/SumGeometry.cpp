@@ -86,7 +86,7 @@ void CreateMeshFromData(const MeshData& data, Mesh* pOut)
 void CreateBuffersFromData(const MeshData& data, ID3D11Buffer** vertexBuffer, ID3D11Buffer** indexBuffer)
 {	
 	// Get the device
-	ID3D11Device* device = RenderManager::getSingletonPtr()->d3dDevice();
+	ID3D11Device* device = SumEngine::RenderManager::getSingletonPtr()->d3dDevice();
 
 	// Create the buffer description for vertex buffer
 	D3D11_BUFFER_DESC bd;

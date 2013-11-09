@@ -6,8 +6,10 @@
 #ifndef __SUMD3D11RENDERSYSTEM_H__
 #define __SUMD3D11RENDERSYSTEM_H__
 
+#include "SumArray.h"
 #include "SumRenderSystem.h"
 #include "SumD3D11RenderWindow.h"
+#include "SumD3D11Driver.h"
 #include "SumRenderCore.h"
 
 namespace SumEngine
@@ -28,6 +30,8 @@ namespace SumEngine
 		/** Initialize the rendering system */
 		void init();
 
+		/** Set the lighting status of the rendering system
+		*/
 		void setLightingEnabled(SBOOL enabled);
 
 		/**
@@ -46,13 +50,35 @@ namespace SumEngine
 		RenderWindow* createRenderWindow(const String& name, SUINT width, SUINT height, SBOOL fullscreen);
 
 	protected:
-		// Build the render system capabilities
+		/** Build the render system capabilities
+		*/
 		void _buildRenderSystemCapabilities();
 
 	private:
+		/** Create the DXGI factory instance
+		*/
+		void _createDXGIFactory();
+
+		/** Create the device or detect the best option if there are no config settings
+		*/
+		void _createD3D11Device();
+
+		/** Create the list of valid drivers for this system
+		*/
+		void _buildD3D11DriverList();
+
+	private:
+		/** List of available D3D Drivers
+		*/
+		Array<D3D11Driver*> _drivers;
+		
 		/** D3D Device
 		*/
 		D3D11Device _device;
+
+		/** DXGI Factory instance for detecting available devices and choosing best option
+		*/
+		IDXGIFactory1* _dxgiFactory;
 
 	};
 

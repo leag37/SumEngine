@@ -13,8 +13,8 @@
 
 SUMGLOBAL SBOOL gCanRun = false;
 
-SUMGLOBAL HINSTANCE gHInstance = 0;
+//SUMGLOBAL HINSTANCE gHInstance = 0;
 
-SUMGLOBAL HWND gWindowHandle = 0;
+//SUMGLOBAL HWND gWindowHandle = 0;
 
 #endif

@@ -119,7 +119,7 @@ void Mesh::load()
 	}
 
 	// Now that we have constructed the mesh, create it
-	Geometry::CreateBuffersFromData(_data, &_vertexBuffer, &_indexBuffer);
+	//Geometry::CreateBuffersFromData(_data, &_vertexBuffer, &_indexBuffer);
 
 	// Set vertex counts
 	_vertexCount = _data.vertices.getCount();

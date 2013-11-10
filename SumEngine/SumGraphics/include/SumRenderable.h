@@ -13,55 +13,76 @@
 #include "SumInclude.h"
 #include "SumRenderCore.h"
 
-class Mesh;
-
-class SUM_DECLSPEC_ALIGN_16 Renderable
+namespace SumEngine
 {
-public:
-	_SUM_ALIGN(Renderable);
+	/** \addtogroup Rendering
+	*	@{
+	*/
 
-public:
-	// Constructor
-	Renderable();
+	class Mesh;
 
-	// Constructor
-	Renderable(const String& name, const String& mesh);
-
-	// Destructor
-	~Renderable();
-
-	// Set the position in XYZ coordinates
-	void setPosition(SFLOAT x, SFLOAT y, FLOAT z);
-
-private:
-	// Renderable name
-	String _name;
-
-	// Mesh
-	Mesh* _mesh;
-
-	// World information matrix
-	Matrix _world;
-
-// Inline functions
-public:
-	// Get the name
-	SUMINLINE const String& name() const
+	class SUM_DECLSPEC_ALIGN_16 Renderable
 	{
-		return _name;
-	}
+	public:
+		_SUM_ALIGN(Renderable);
 
-	// Retrieve the mesh
-	SUMINLINE Mesh* mesh() const
-	{
-		return _mesh;
-	}
+	public:
+		// Constructor
+		Renderable();
 
-	// Get the world
-	SUMINLINE const Matrix& world()
-	{
-		return _world;
-	}
-};
+		// Constructor
+		Renderable(const String& name, const String& mesh);
 
-#endif
+		// Destructor
+		~Renderable();
+
+		// Set the position in XYZ coordinates
+		void setPosition(SFLOAT x, SFLOAT y, FLOAT z);
+
+		/** Set the material for this renderable
+		* @param
+		*	name The material's name
+		*/
+		void setMaterial(const String& name);
+
+
+	private:
+		// Renderable name
+		String _name;
+
+		// Mesh
+		Mesh* _mesh;
+
+		/** Active material for this renderable
+		*/
+//		Material* _material;
+
+		// World information matrix
+		Matrix _world;
+
+	// Inline functions
+	public:
+		// Get the name
+		SUMINLINE const String& name() const
+		{
+			return _name;
+		}
+
+		// Retrieve the mesh
+		SUMINLINE Mesh* mesh() const
+		{
+			return _mesh;
+		}
+
+		// Get the world
+		SUMINLINE const Matrix& world()
+		{
+			return _world;
+		}
+	};
+
+	/** @} */
+
+}	// Namespace
+
+#endif	// __SUMRENDERABLE_H__

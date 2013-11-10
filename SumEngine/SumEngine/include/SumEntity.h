@@ -27,7 +27,7 @@ public:
 	const String& name();
 
 	// Renderable
-	Renderable* renderable();
+	SumEngine::Renderable* renderable();
 
 	// Set the position
 	virtual void setPosition(SFLOAT x, SFLOAT y, SFLOAT z);
@@ -37,7 +37,7 @@ protected:
 	String _name;
 
 	// Renderable component
-	Renderable* _renderable;
+	SumEngine::Renderable* _renderable;
 };
 
 #endif // __SUMENTITY_H__

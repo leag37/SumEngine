@@ -85,7 +85,7 @@ float4 PS(VertexOut pIn) : SV_TARGET
 	return litColor;
 }
 
-fxgroup Material
+fxgroup Meow
 {
 	technique11 Light1
 	{

@@ -31,7 +31,7 @@ public:
 	PhysicsBody();
 
 	// Constructor with pointer to renderable. All relevant information about the body will be assembled via the renderable data.
-	PhysicsBody(Renderable* inRenderable);
+	PhysicsBody(SumEngine::Renderable* inRenderable);
 
 	// Copy constructor
 	PhysicsBody(const PhysicsBody& value);
@@ -51,7 +51,7 @@ private:
 
 private:
 	// Pointer to the renderable
-	Renderable* _renderable;
+	SumEngine::Renderable* _renderable;
 
 	// Position
 	Vector _position;

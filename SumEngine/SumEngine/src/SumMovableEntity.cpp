@@ -19,7 +19,7 @@ MovableEntity::MovableEntity()
 MovableEntity::MovableEntity(const String& name, const String& assetName)
 	: Entity(name, assetName), _physicsBody(0)
 { 
-	_renderable = new Renderable(name, assetName);
+	_renderable = new SumEngine::Renderable(name, assetName);
 	_physicsBody = new PhysicsBody(_renderable);
 }
 

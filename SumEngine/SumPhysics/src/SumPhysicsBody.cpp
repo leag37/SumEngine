@@ -28,7 +28,7 @@ PhysicsBody::PhysicsBody()
 //*************************************************************************************************
 // Constructor with pointer to renderable. All relevant information about the body will be assembled via the renderable data.
 //*************************************************************************************************
-PhysicsBody::PhysicsBody(Renderable* inRenderable)
+PhysicsBody::PhysicsBody(SumEngine::Renderable* inRenderable)
 	:	_renderable(inRenderable), _position(gVZero), _orientation(gVIdentity)
 {
 	init();

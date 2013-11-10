@@ -18,7 +18,7 @@ Entity::Entity()
 Entity::Entity(const String& name, const String& assetName)
 	: _name(name)
 { 
-	_renderable = new Renderable(name, assetName);
+	_renderable = new SumEngine::Renderable(name, assetName);
 }
 
 //*************************************************************************************************
@@ -38,7 +38,7 @@ const String& Entity::name()
 //*************************************************************************************************
 // Renderable
 //*************************************************************************************************
-Renderable* Entity::renderable()
+SumEngine::Renderable* Entity::renderable()
 {
 	return _renderable;
 }

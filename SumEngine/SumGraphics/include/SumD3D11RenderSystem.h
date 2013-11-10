@@ -49,6 +49,10 @@ namespace SumEngine
 		*/
 		RenderWindow* createRenderWindow(const String& name, SUINT width, SUINT height, SBOOL fullscreen);
 
+		/** Clear buffers before rendering
+		*/
+		void clearBuffers();
+
 	protected:
 		/** Build the render system capabilities
 		*/
@@ -67,7 +71,15 @@ namespace SumEngine
 		*/
 		void _buildD3D11DriverList();
 
+		/** Choose the most appropriate D3D11 Driver
+		*/
+		void _chooseD3D11Driver();
+
 	private:
+		/** Keep track of the application instance
+		*/
+		HINSTANCE _hInstance;
+
 		/** List of available D3D Drivers
 		*/
 		Array<D3D11Driver*> _drivers;
@@ -80,6 +92,13 @@ namespace SumEngine
 		*/
 		IDXGIFactory1* _dxgiFactory;
 
+		/** The active D3D11 driver
+		*/
+		D3D11Driver* _activeDriver;
+
+		/** Active render window
+		*/
+		D3D11RenderWindow* _activeRenderWindow;
 	};
 
 	/** @} */

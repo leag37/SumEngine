@@ -38,6 +38,10 @@ namespace SumEngine
 		*/
 		virtual void destroyRenderWindow(const String& name);
 
+		/** Clear buffers before rendering
+		*/
+		virtual void clearBuffers() = 0;
+
 		//virtual void setWorldMatrix(const Matrix& m) = 0;
 		//virtual void setViewMatrix(const Matrix& m) = 0;
 		//virtual void setProjectionMatrix(const Matrix& m) = 0;

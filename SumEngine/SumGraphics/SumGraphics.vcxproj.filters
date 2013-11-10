@@ -118,6 +118,9 @@
     <ClInclude Include="include\SumD3D11Driver.h">
       <Filter>Render System</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumWindowEventHandler.h">
+      <Filter>Render Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -167,6 +170,15 @@
     </ClCompile>
     <ClCompile Include="src\SumRenderSystem.cpp">
       <Filter>Render System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumD3D11Driver.cpp">
+      <Filter>Render System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumWindowEventHandler.cpp">
+      <Filter>Render Window</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumD3D11RenderWindow.cpp">
+      <Filter>Render Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

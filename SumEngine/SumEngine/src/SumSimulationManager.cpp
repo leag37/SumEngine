@@ -67,13 +67,13 @@ void SimulationManager::startUp()
 	_renderManager->startUp();
 
 	// Initialize physics
-	_physicsManager = new PhysicsManager();
+/*	_physicsManager = new PhysicsManager();
 	_physicsManager->startUp();
 
 	// Initialize input system
 	_inputManager = new InputManager();
 	_inputManager->startUp(0);//_renderManager->handle());
-
+	*/
 	// Initialize simulation
 	_simulation = new Simulation();
 	_simulation->startUp();
@@ -95,10 +95,10 @@ void SimulationManager::shutDown()
 	_simulation->shutDown();
 
 	// Shut down input system
-	_inputManager->shutDown();
+	//_inputManager->shutDown();
 
 	// Shut down physics
-	_physicsManager->shutDown();
+	//_physicsManager->shutDown();
 
 	// Shut down rendering
 	_renderManager->shutDown();
@@ -157,14 +157,14 @@ void SimulationManager::gameLoop()
 	simulationDelegate = new Delegate1<SFLOAT>(_simulation, &Simulation::update);
 	simulationJob = Job(simulationDelegate);
 
-	physicsDelegate = new Delegate(_physicsManager, &PhysicsManager::update);
-	physicsJob = Job(physicsDelegate);
+	//physicsDelegate = new Delegate(_physicsManager, &PhysicsManager::update);
+	//physicsJob = Job(physicsDelegate);
 
 	renderDelegate = new Delegate(_renderManager, &SumEngine::RenderManager::update); 
 	renderJob = Job(renderDelegate);
 
-	inputDelegate = new Delegate(_inputManager, &InputManager::update);
-	inputJob = Job(inputDelegate);
+	//inputDelegate = new Delegate(_inputManager, &InputManager::update);
+	//inputJob = Job(inputDelegate);
 	
 	// Define a struct to hold a Windows event message
 	MSG msg;
@@ -203,13 +203,13 @@ void SimulationManager::gameLoop()
 		WaitForJob(simulationJob);
 
 		// Request input
-		RequestJob(inputJob);
+		//RequestJob(inputJob);
 
 		// Wait for rendering
 		WaitForJob(renderJob);
 
 		// Update physics
-		RequestJob(physicsJob);
+		//RequestJob(physicsJob);
 
 		// Update rendering
 		RequestJob(renderJob);

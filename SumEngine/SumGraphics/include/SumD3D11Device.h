@@ -28,6 +28,12 @@ namespace SumEngine
 		*/
 		D3D11Device(ID3D11Device* device);
 
+		/** Copy constructor
+		* @param
+		*	device D3D11Device to copy
+		*/
+		D3D11Device(const D3D11Device& device);
+
 		/** Destructor
 		*/
 		~D3D11Device();
@@ -52,6 +58,11 @@ namespace SumEngine
 		*/
 		ID3D11DeviceContext* getImmediateContext();
 
+		/** Check if the device is null
+		* @return
+		*	SBOOL True if the device is null, false otherwise
+		*/
+		SBOOL isNull();
 
 	private:
 		/** D3D device

@@ -31,6 +31,30 @@ namespace SumEngine
 		*/
 		~D3D11Driver();
 
+		/** Get the adapter
+		* @return
+		*	IDXGIAdapter1 The adapter to be used for the driver
+		*/
+		IDXGIAdapter1* getAdapter() const;
+
+		/** Get the dedicated system memory of this adapter
+		* @return
+		*	SUINT The dedicated system memory
+		*/
+		SUINT getDedicatedSystemMemory() const;
+
+		/** Get the dedicated video memory of this adapter
+		* @return
+		*	SUINT The dedicated video memory
+		*/
+		SUINT getDedicatedVideoMemory() const;
+
+		/** Get the shared system memory of this adapter
+		* @return
+		*	SUINT The shared system memory
+		*/
+		SUINT getSharedSystemMemory() const;
+
 	private:
 		/** The IDXGIAdapter
 		*/
@@ -39,7 +63,6 @@ namespace SumEngine
 		/** The description for the adapter
 		*/
 		DXGI_ADAPTER_DESC1 _adapterDescription;
-
 	};
 
 	/** @} */

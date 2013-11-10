@@ -56,6 +56,18 @@ namespace SumEngine
 		*/
 		virtual void setFullscreen(SBOOL fullscreen) = 0;
 
+		/** Get an attribute of the render window
+		* @param
+		*	attribute A pointer to the desired class type
+		* @param 
+		*	data Pointer to the data being retrieved
+		*/
+		virtual void getAttribute(SUINT attribute, void* data) = 0;
+
+		/** Swap the buffers for the window
+		*/
+		virtual void swapBuffers() = 0;
+
 	protected:
 		/** Name of this window 
 		*/
@@ -86,4 +98,4 @@ namespace SumEngine
 
 }	// Namespace
 
-#endif
+#endif	// __SUMRENDERWINDOW_H__

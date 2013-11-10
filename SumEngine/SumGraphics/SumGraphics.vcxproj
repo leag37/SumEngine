@@ -253,12 +253,15 @@
     <ClInclude Include="include\SumResource.h" />
     <ClInclude Include="include\SumResourceManager.h" />
     <ClInclude Include="include\SumVertex.h" />
+    <ClInclude Include="include\SumWindowEventHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumBaseResource.cpp" />
     <ClCompile Include="src\SumCamera.cpp" />
     <ClCompile Include="src\SumD3D11Device.cpp" />
+    <ClCompile Include="src\SumD3D11Driver.cpp" />
     <ClCompile Include="src\SumD3D11RenderSystem.cpp" />
+    <ClCompile Include="src\SumD3D11RenderWindow.cpp" />
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
     <ClCompile Include="src\SumInputLayout.cpp" />
@@ -271,6 +274,7 @@
     <ClCompile Include="src\SumRenderViewport.cpp" />
     <ClCompile Include="src\SumRenderWindow.cpp" />
     <ClCompile Include="src\SumResourceManager.cpp" />
+    <ClCompile Include="src\SumWindowEventHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Effects\Basic.fx">

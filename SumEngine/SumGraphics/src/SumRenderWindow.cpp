@@ -17,9 +17,7 @@ namespace SumEngine
 	// Destructor
 	//*************************************************************************************************
 	RenderWindow::~RenderWindow()
-	{
-		destroy();
-	}
+	{ }
 
 }	// Namespace
 

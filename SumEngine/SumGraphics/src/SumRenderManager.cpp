@@ -101,6 +101,14 @@ namespace SumEngine
 	//*************************************************************************************************
 	void RenderManager::renderScene()
 	{
+		// Clear the buffers
+		_renderSystem->clearBuffers();
+		
+		// TODO: Render stuff
+
+		// Swap buffers
+		_renderWindow->swapBuffers();
+
 /*		// Clear the viewports
 		_renderViewport->clearViewport(_renderContext);
 

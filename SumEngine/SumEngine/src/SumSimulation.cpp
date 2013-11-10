@@ -59,12 +59,12 @@ void Simulation::startUp()
 	// Create entities
 	_box = new MovableEntity("box", "box");
 	renderManager->registerRenderable(_box->renderable());
-	physicsManager->registerPhysicsObject(_box->getPhysicsBody());
+	//physicsManager->registerPhysicsObject(_box->getPhysicsBody());
 
 	_plane = new MovableEntity("plane", "plane");
 	_plane->setPosition(0.0f, -5.0f, 0.0f);
 	renderManager->registerRenderable(_plane->renderable());
-	physicsManager->registerPhysicsObject(_plane->getPhysicsBody());
+	//physicsManager->registerPhysicsObject(_plane->getPhysicsBody());
 }
 
 //*************************************************************************************************
@@ -80,5 +80,5 @@ void Simulation::shutDown()
 //*************************************************************************************************
 void Simulation::update(SFLOAT dTime)
 {
-	_camera->updateInput(dTime);
+	//_camera->updateInput(dTime);
 }

@@ -22,6 +22,8 @@ typedef unsigned __int32 SUINT;
 typedef __int32 SINT;
 typedef unsigned __int64 SUINT64;
 typedef __int64 SINT64;
+typedef long SLONG;
+typedef unsigned long SULONG;
 
 #ifdef _WIN64
 typedef unsigned __int128 SUINT128;

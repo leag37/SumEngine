@@ -12,9 +12,6 @@
 //*************************************************************************************************
 SINT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR lpCmdLine, int nCmdShow) 
 {
-	// Set application instance
-//	gHInstance = hInstance;
-
 	// Initialize the simulation
 	SimulationManager* simulation = new SimulationManager();
 	simulation->startUp();

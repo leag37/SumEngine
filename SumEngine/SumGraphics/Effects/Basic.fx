@@ -85,12 +85,15 @@ float4 PS(VertexOut pIn) : SV_TARGET
 	return litColor;
 }
 
-technique11 Light1
+fxgroup Material
 {
-	pass P0
+	technique11 Light1
 	{
-		SetVertexShader(CompileShader(vs_5_0, VS()));
-		SetGeometryShader(NULL);
-		SetPixelShader(CompileShader(ps_5_0, PS()));
+		pass P0
+		{
+			SetVertexShader(CompileShader(vs_5_0, VS()));
+			SetGeometryShader(NULL);
+			SetPixelShader(CompileShader(ps_5_0, PS()));
+		}
 	}
 }

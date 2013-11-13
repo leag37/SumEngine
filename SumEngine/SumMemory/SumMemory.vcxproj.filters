@@ -37,6 +37,7 @@
     <ClInclude Include="include\SumMemoryState.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumSharedPtr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMemory.cpp">

@@ -9,8 +9,47 @@
 
 #include "SumInclude.h"
 #include "SumString.h"
+#include "SumResourceGroup.h"
 
-template <typename Type>
+namespace SumEngine
+{
+	/** \addtogroup Rendering
+	*	@{
+	*/
+
+	/** An enum representing the current status of this resource
+	*/
+	enum ResourceStatus
+	{
+		RESOURCE_STATUS_UNLOADED = 0,
+		RESOURCE_STATUS_LOADING,
+		RESOURCE_STATUS_LOADED,
+		RESOURCE_STATUS_UNLOADING
+	};
+
+	class Resource
+	{
+	public:
+
+	protected:
+		/** Resource name
+		*/
+		String _name;
+
+		/** Resource status
+		*/
+		ResourceStatus _status;
+
+		/** Parent resource group
+		*/
+		ResourceGroup* _parentGroup;
+	};
+
+	/** @} */
+
+}	// Namespace
+
+/*template <typename Type>
 class Resource
 {
 public:
@@ -62,5 +101,6 @@ protected:
 };
 
 #include "SumResource.inl"
+*/
 
-#endif
+#endif	// __SUMRESOURCE_H__

@@ -44,6 +44,9 @@
     <Filter Include="Data Structures\Queue">
       <UniqueIdentifier>{b934f221-272b-4f59-a7e4-9d9fe81b2675}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{d8ce5337-85df-421a-a766-bd9d142d0f76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumForwardList.h">
@@ -96,6 +99,9 @@
     </ClInclude>
     <ClInclude Include="include\SumInputDeviceKeyboard.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumFileSystem.h">
+      <Filter>IO</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="src\SumInputDeviceKeyboard.cpp">
       <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumFileSystem.cpp">
+      <Filter>IO</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

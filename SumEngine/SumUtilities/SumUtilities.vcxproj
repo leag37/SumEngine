@@ -31,6 +31,7 @@
     <ClInclude Include="include\SumConfigurationManager.h" />
     <ClInclude Include="Include\SumDelegate.h" />
     <ClInclude Include="include\SumDictionary.h" />
+    <ClInclude Include="include\SumFileSystem.h" />
     <ClInclude Include="include\SumForwardList.h" />
     <ClInclude Include="include\SumHashMap.h" />
     <ClInclude Include="include\SumInputDevice.h" />
@@ -71,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp" />
+    <ClCompile Include="src\SumFileSystem.cpp" />
     <ClCompile Include="src\SumHashMapFunctions.cpp" />
     <ClCompile Include="src\SumInputDevice.cpp" />
     <ClCompile Include="src\SumInputDeviceKeyboard.cpp" />

@@ -17,14 +17,6 @@ namespace SumEngine
 	*	@{
 	*/
 
-	enum RenderSystemType
-	{
-		D3D11,
-		D3D10,
-		OPENGL4,
-		OPENGL3
-	};
-
 	class RenderSystemFactory
 	{
 	public:

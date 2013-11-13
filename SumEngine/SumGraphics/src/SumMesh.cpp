@@ -11,8 +11,7 @@ namespace SumEngine
 	// Constructor
 	//*************************************************************************************************
 	Mesh::Mesh()
-		:	BaseResource(),
-			_vertexBuffer(0),
+		:	_vertexBuffer(0),
 			_indexBuffer(0),
 			_vertexCount(0),
 			_indexCount(0)
@@ -22,8 +21,7 @@ namespace SumEngine
 	// Constructor
 	//*************************************************************************************************
 	Mesh::Mesh(const String& name, const String& filePath, const String& fileType)
-		:	BaseResource(name, filePath, fileType),
-			_vertexBuffer(0),
+		:	_vertexBuffer(0),
 			_indexBuffer(0),
 			_vertexCount(0),
 			_indexCount(0)
@@ -63,7 +61,7 @@ namespace SumEngine
 	//*************************************************************************************************
 	void Mesh::load()
 	{
-		std::fstream stream(_filePath);
+		std::fstream stream("");//_filePath);
 
 		// Line type (0 = vert, 1 = index)
 		SINT type = -1;
@@ -124,11 +122,11 @@ namespace SumEngine
 		//Geometry::CreateBuffersFromData(_data, &_vertexBuffer, &_indexBuffer);
 
 		// Set vertex counts
-		_vertexCount = _data.vertices.getCount();
-		_indexCount = _data.indices.getCount();
+		//_vertexCount = _data.vertices.getCount();
+		//_indexCount = _data.indices.getCount();
 
 		// Is loaded is now true
-		_isLoaded = true;
+		//_isLoaded = true;
 	}
 
 	//*************************************************************************************************

@@ -15,7 +15,9 @@ namespace SumEngine
 			_dxgiFactory(0),
 			_activeDriver(0),
 			_activeRenderWindow(0)
-	{ }
+	{ 
+		_renderSystemType = RENDER_SYSTEM_TYPE_D3D11;
+	}
 
 	//*************************************************************************************************
 	// Destructor 

@@ -75,6 +75,10 @@ namespace SumEngine
 		void registerRenderable(Renderable* renderable);
 
 	private:
+		/** Create resource factories for the different resource groups
+		*/
+		void _createResourceFactories();
+
 		// Render the current scene
 		void renderScene();
 
@@ -109,7 +113,6 @@ namespace SumEngine
 		Camera* _camera;
 		DirectionalLight _dirLight;
 		PointLight _pointLight;
-		Material _material;
 
 
 	};

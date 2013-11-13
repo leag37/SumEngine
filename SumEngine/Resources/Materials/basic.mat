@@ -1,0 +1,30 @@
+// Basic material
+// Author: Gael Huber
+
+// Definition for shader programs
+vertex_shader basic_vs
+{
+	source basic.hlsl
+	target vs_5_0
+	entry_point basic_vs
+}
+
+pixel_shader basic_ps
+{
+	source basic.hlsl
+	target vs_5_0
+	entry_point basic_ps
+}
+
+// Material definition
+material basic
+{
+	technique basic0
+	{
+		Pass
+		{
+			vertex_shader basic_vs
+			pixel_shader basic_ps
+		}
+	}
+}

@@ -57,11 +57,11 @@ void Simulation::startUp()
 	renderManager->registerCamera(_camera);
 
 	// Create entities
-	_box = new MovableEntity("box", "box");
+	_box = new MovableEntity("box", "box.mesh");
 	renderManager->registerRenderable(_box->renderable());
 	//physicsManager->registerPhysicsObject(_box->getPhysicsBody());
 
-	_plane = new MovableEntity("plane", "plane");
+	_plane = new MovableEntity("plane", "plane.mesh");
 	_plane->setPosition(0.0f, -5.0f, 0.0f);
 	renderManager->registerRenderable(_plane->renderable());
 	//physicsManager->registerPhysicsObject(_plane->getPhysicsBody());

@@ -34,6 +34,7 @@
     <ClInclude Include="include\SumMemoryChunk.h" />
     <ClInclude Include="include\SumMemoryState.h" />
     <ClInclude Include="include\SumMutex.h" />
+    <ClInclude Include="include\SumSharedPtr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMemoryAllocator.cpp" />

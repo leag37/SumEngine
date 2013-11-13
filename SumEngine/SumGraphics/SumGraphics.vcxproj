@@ -251,6 +251,8 @@
     <ClInclude Include="include\SumRenderViewport.h" />
     <ClInclude Include="include\SumRenderWindow.h" />
     <ClInclude Include="include\SumResource.h" />
+    <ClInclude Include="include\SumResourceFactory.h" />
+    <ClInclude Include="include\SumResourceGroup.h" />
     <ClInclude Include="include\SumResourceManager.h" />
     <ClInclude Include="include\SumVertex.h" />
     <ClInclude Include="include\SumWindowEventHandler.h" />
@@ -273,6 +275,7 @@
     <ClCompile Include="src\SumRenderSystemFactory.cpp" />
     <ClCompile Include="src\SumRenderViewport.cpp" />
     <ClCompile Include="src\SumRenderWindow.cpp" />
+    <ClCompile Include="src\SumResourceGroup.cpp" />
     <ClCompile Include="src\SumResourceManager.cpp" />
     <ClCompile Include="src\SumWindowEventHandler.cpp" />
   </ItemGroup>
@@ -344,6 +347,7 @@
     <None Include="include\SumEffect.inl" />
     <None Include="Include\SumRenderViewport.inl" />
     <None Include="include\SumResource.inl" />
+    <None Include="include\SumResourceGroup.inl" />
     <None Include="include\SumResourceManager.inl" />
     <None Include="include\SumVertex.inl" />
   </ItemGroup>

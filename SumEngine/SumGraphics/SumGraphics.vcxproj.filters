@@ -41,6 +41,18 @@
     <Filter Include="Render Window">
       <UniqueIdentifier>{5024d88c-dda5-4f36-bc97-2015068b4bce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Materials">
+      <UniqueIdentifier>{1bf9b1df-72cc-4d74-ad97-1c858bd9a82d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Mesh">
+      <UniqueIdentifier>{502c4f23-dca5-491c-a8d1-3a3ee1e042bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{6b0f0dd8-1ce0-4384-af3c-09127ed6f7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Resource Management">
+      <UniqueIdentifier>{b2b2587b-8c18-4949-83a0-038daad1e72a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumRenderContext.h">
@@ -59,9 +71,6 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="include\SumLight.h">
-      <Filter>Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SumMaterial.h">
       <Filter>Lighting</Filter>
     </ClInclude>
     <ClInclude Include="include\SumEffect.h">
@@ -120,6 +129,15 @@
     </ClInclude>
     <ClInclude Include="include\SumWindowEventHandler.h">
       <Filter>Render Window</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMaterial.h">
+      <Filter>Resources\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumResourceGroup.h">
+      <Filter>Resources\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumResourceFactory.h">
+      <Filter>Resources\Resource Management</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +198,9 @@
     <ClCompile Include="src\SumD3D11RenderWindow.cpp">
       <Filter>Render Window</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumResourceGroup.cpp">
+      <Filter>Resources\Resource Management</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">
@@ -199,6 +220,9 @@
     </None>
     <None Include="include\SumD3D11Device.inl">
       <Filter>Render System</Filter>
+    </None>
+    <None Include="include\SumResourceGroup.inl">
+      <Filter>Resources\Resource Management</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

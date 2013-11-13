@@ -28,7 +28,8 @@ namespace SumEngine
 		_world = MatrixIdentity();
 
 		// Load the mesh
-		_mesh = ResourceManager::getSingletonPtr()->getResourceById<Mesh>(mesh, "mesh");
+		ResourceManager::getSingletonPtr()->getResourceById<Resource>(name, mesh);
+		//_mesh = ResourceManager::getSingletonPtr()->getResourceById<Mesh>(mesh, "mesh");
 	}
 
 	//*************************************************************************************************

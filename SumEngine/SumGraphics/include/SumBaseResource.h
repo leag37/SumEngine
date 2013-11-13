@@ -10,7 +10,7 @@
 #include "SumString.h"
 #include "SumResource.h"
 
-class BaseResource : public Resource<BaseResource>
+/*class BaseResource : public Resource<BaseResource>
 {
 public:
 	// Constructor
@@ -21,6 +21,6 @@ public:
 
 	// Destructor
 	virtual ~BaseResource();
-};
+};*/
 
 #endif

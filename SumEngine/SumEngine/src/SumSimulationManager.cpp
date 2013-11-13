@@ -59,7 +59,7 @@ void SimulationManager::startUp()
 	_jobManager->startUp(numThreads);
 
 	// Initialize resources
-	_resourceManager = new ResourceManager();
+	_resourceManager = new SumEngine::ResourceManager();
 	_resourceManager->startUp();
 
 	// Initialize rendering

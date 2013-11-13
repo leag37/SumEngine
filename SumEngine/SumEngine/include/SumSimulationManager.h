@@ -56,7 +56,7 @@ private:
 	SumEngine::RenderManager* _renderManager;
 
 	// Resource manager
-	ResourceManager* _resourceManager;
+	SumEngine::ResourceManager* _resourceManager;
 
 	// Configuration manager
 	ConfigurationManager* _configurationManager;

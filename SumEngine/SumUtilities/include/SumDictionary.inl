@@ -401,6 +401,7 @@ void Dictionary<Key, Value>::erase(const Key& key) {
 
 			// We are now looking at the successor node as the node to be deleted
 			toDelete = successorNode;
+			deleteNode = reinterpret_cast<Node*>(reinterpret_cast<unsigned int>(&*toDelete));
 		}
 	}
 

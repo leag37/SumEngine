@@ -17,7 +17,7 @@ namespace SumEngine
 	*	@{
 	*/
 
-	class Mesh : public BaseResource
+	class Mesh //: public BaseResource
 	{
 	public:
 		// Constructor

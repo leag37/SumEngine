@@ -5,15 +5,32 @@
 //*************************************************************************************************
 
 //*************************************************************************************************
-// Get a resource from the resource pool
+// Get a resource from the resource map
+// @param
+//	name The name of the resource
+// @param
+//	fullName The resources fuull name
+// @return
+//	ResourceType* A pointer to the resource
 //*************************************************************************************************
 template <typename ResourceType>
-ResourceType* ResourceManager::getResourceById(const String& name, const String& type)
+ResourceType* ResourceManager::getResourceById(const String& name, const String& fullName)
 {
 	ResourceType* resource = 0;
 
+	// Get the resource group type
+	ResourceGroupType resourceGroupType = _detectResourceGroup(fullName);
+	
+	// Get the corresponding resource group
+	ResourceGroup* group = _resourceGroups[resourceGroupType];
+
+	// Fetch the resource
+	resource = group->getResourceById<ResourceType>(name, fullName);
+
+	return resource;
+
 	// Attempt to grab the resource
-	if(_resources.find(type) != _resources.end())
+	/*if(_resources.find(type) != _resources.end())
 	{
 		Dictionary<String, BaseResource*>& resources = _resources[type];
 		
@@ -32,7 +49,7 @@ ResourceType* ResourceManager::getResourceById(const String& name, const String&
 				resource->load();
 			}
 		}
-	}
+	}*/
 
-	return resource;
+	//return resource;
 }

@@ -17,6 +17,16 @@ namespace SumEngine
 	*	@{
 	*/
 
+	/** Enum for render system types
+	*/
+	enum RenderSystemType
+	{
+		RENDER_SYSTEM_TYPE_D3D11 = 0,
+		RENDER_SYSTEM_TYPE_D3D10,
+		RENDER_SYSTEM_TYPE_OPENGL4,
+		RENDER_SYSTEM_TYPE_OPENGL3
+	};
+
 	class RenderSystem
 	{
 	public:
@@ -47,6 +57,12 @@ namespace SumEngine
 		//virtual void setProjectionMatrix(const Matrix& m) = 0;
 		//virtual void render();
 		//const RenderSystemCapabilities* getCapabilities() const;
+
+		/** Return the render system type
+		* @return
+		*	RenderSystemType The specified API type we are using for this render system
+		*/
+		RenderSystemType getRenderSystemType() const;
 		
 		// Shader program stuff
 
@@ -62,6 +78,10 @@ namespace SumEngine
 		/** The active render window for the system
 		*/
 		RenderWindow* _renderWindow;
+
+		/** The render system type
+		*/
+		RenderSystemType _renderSystemType;
 
 	};
 

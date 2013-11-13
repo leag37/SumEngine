@@ -45,7 +45,8 @@ namespace SumEngine
 		SBOOL fullscreen = false;
 		_renderWindow = _renderSystem->createRenderWindow("SumEngine", width, height, fullscreen);
 
-		
+		// Create resource factories
+		_createResourceFactories();
 
 		// Initialize the effects manager
 /*		_effectsManager = new EffectsManager();
@@ -186,6 +187,35 @@ namespace SumEngine
 	void RenderManager::registerRenderable(Renderable* renderable)
 	{
 		//_renderList.push_back(renderable);
+	}
+
+	//*************************************************************************************************
+	// Create resource factories for the different resource groups
+	//*************************************************************************************************
+	void RenderManager::_createResourceFactories()
+	{
+		// Based on the current render system, create specialized factories for each resource type
+		//-----------------------------------------------------------------------------------------------
+
+		// Grab a copy of the resource manager
+		ResourceManager* resourceManager = ResourceManager::getSingletonPtr();
+		
+		// Cached pointers for easy factory creation
+		ResourceFactory* meshFactory = 0;
+		ResourceFactory* materialFactory = 0;
+		ResourceFactory* shaderFactory = 0;
+
+		// D3D11
+		if(_renderSystem->getRenderSystemType() == RENDER_SYSTEM_TYPE_D3D11)
+		{
+			// TODO Finish this method
+			//meshFactory = new D3D11MeshFactory(_renderSystem);
+		}
+
+		// Attach factories to respective resource groups
+		resourceManager->addResourceFactoryForGroup(meshFactory, RESOURCE_GROUP_TYPE_MESH);
+		resourceManager->addResourceFactoryForGroup(materialFactory, RESOURCE_GROUP_TYPE_MATERIAL);
+		resourceManager->addResourceFactoryForGroup(shaderFactory, RESOURCE_GROUP_TYPE_SHADER);
 	}
 
 }	// Namespace

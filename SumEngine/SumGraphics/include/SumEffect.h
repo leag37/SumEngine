@@ -106,10 +106,7 @@ public:
 	{
 		_pointLight->SetRawValue(light, 0, sizeof(PointLight));
 	}
-	void setMaterial(const Material& material)
-	{
-		_material->SetRawValue(&material, 0, sizeof(Material));
-	}
+	
 	void setDiffuseMap(ID3D11ShaderResourceView* tex);
 
 	ID3DX11EffectTechnique* light1Tech();

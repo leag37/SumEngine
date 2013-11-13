@@ -32,4 +32,14 @@ namespace SumEngine
 		// TODO
 	}
 
+	//*************************************************************************************************
+	// Return the render system type
+	// @return
+	//	RenderSystemType The specified API type we are using for this render system
+	//*************************************************************************************************
+	RenderSystemType RenderSystem::getRenderSystemType() const
+	{
+		return _renderSystemType;
+	}
+
 }	// Namespace

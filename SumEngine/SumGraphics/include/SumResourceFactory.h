@@ -26,12 +26,16 @@ namespace SumEngine
 
 		/** Destructor
 		*/
-		~ResourceFactory();
+		virtual ~ResourceFactory();
 
 		/** Create a resource
 		*/
-		template <class ResourceType : public Resource>
-		Resource* createResource();
+		virtual Resource* createResource() = 0;
+
+	private:
+		/** Resource factory name
+		*/
+		String _name;
 	};
 
 	/** @} */

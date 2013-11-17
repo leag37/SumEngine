@@ -139,6 +139,9 @@
     <ClInclude Include="include\SumResourceFactory.h">
       <Filter>Resources\Resource Management</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumMeshFactory.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -199,6 +202,9 @@
       <Filter>Render Window</Filter>
     </ClCompile>
     <ClCompile Include="src\SumResourceGroup.cpp">
+      <Filter>Resources\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumResourceFactory.cpp">
       <Filter>Resources\Resource Management</Filter>
     </ClCompile>
   </ItemGroup>

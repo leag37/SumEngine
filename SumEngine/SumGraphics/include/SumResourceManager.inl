@@ -27,6 +27,9 @@ ResourceType* ResourceManager::getResourceById(const String& name, const String&
 	// Fetch the resource
 	resource = group->getResourceById<ResourceType>(name, fullName);
 
+	// Check if the resource is loaded (otherwise load)
+	
+
 	return resource;
 
 	// Attempt to grab the resource

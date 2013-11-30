@@ -41,6 +41,9 @@
     <ClCompile Include="src\SumMemory.cpp" />
     <ClCompile Include="src\SumMemoryState.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="include\SumSharedPtr.inl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FA9FA2D4-93FA-4CD0-91F6-8359EC1A67BB}</ProjectGuid>
     <RootNamespace>SumMemory</RootNamespace>

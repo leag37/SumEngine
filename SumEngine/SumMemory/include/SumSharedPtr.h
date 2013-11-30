@@ -17,10 +17,12 @@ namespace SumEngine
 	template <class Type>
 	class SharedPtr
 	{
-	public:
-		/** Base constructor. This should generally speaking not be used. */
+	private:
+		/** Base constructor. This should generally speaking not be used. 
+		*/
 		SharedPtr();
 
+	public:
 		/** Primary constructor, pass in a reference to the object
 		* @param
 		*	pType The pointer to the object being owned
@@ -37,7 +39,7 @@ namespace SumEngine
 
 		/** Destructor
 		*/
-		~SharedPtr();
+		virtual ~SharedPtr();
 
 		/** Getter for the data as a pointer
 		* @return
@@ -101,5 +103,7 @@ namespace SumEngine
 	/** @} */
 
 }	// Namespace
+
+#include "SumSharedPtr.inl"
 
 #endif // __SUMSHAREDPTR_H__

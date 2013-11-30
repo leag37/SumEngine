@@ -88,9 +88,6 @@
     <ClInclude Include="include\SumMeshData.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumMesh.h">
-      <Filter>Renderables</Filter>
-    </ClInclude>
     <ClInclude Include="include\SumResource.h">
       <Filter>Resources</Filter>
     </ClInclude>
@@ -142,6 +139,15 @@
     <ClInclude Include="include\SumMeshFactory.h">
       <Filter>Resources\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="include\SumD3D11MeshFactory.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMesh.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumD3D11Mesh.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumRenderContext.cpp">
@@ -152,9 +158,6 @@
     </ClCompile>
     <ClCompile Include="src\SumRenderViewport.cpp">
       <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SumMesh.cpp">
-      <Filter>Renderables</Filter>
     </ClCompile>
     <ClCompile Include="src\SumRenderable.cpp">
       <Filter>Renderables</Filter>
@@ -206,6 +209,21 @@
     </ClCompile>
     <ClCompile Include="src\SumResourceFactory.cpp">
       <Filter>Resources\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMeshFactory.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumD3D11MeshFactory.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumMesh.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumResource.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumD3D11Mesh.cpp">
+      <Filter>Resources\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

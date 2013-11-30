@@ -29,6 +29,7 @@
   <ItemGroup>
     <ClInclude Include="include\SumArray.h" />
     <ClInclude Include="include\SumConfigurationManager.h" />
+    <ClInclude Include="include\SumFileStream.h" />
     <ClInclude Include="Include\SumDelegate.h" />
     <ClInclude Include="include\SumDictionary.h" />
     <ClInclude Include="include\SumFileSystem.h" />
@@ -72,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumConfigurationManager.cpp" />
+    <ClCompile Include="src\SumFileStream.cpp" />
+    <ClCompile Include="src\SumFileStreamPtr.cpp" />
     <ClCompile Include="src\SumFileSystem.cpp" />
     <ClCompile Include="src\SumHashMapFunctions.cpp" />
     <ClCompile Include="src\SumInputDevice.cpp" />

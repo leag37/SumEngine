@@ -62,7 +62,7 @@ void PhysicsBody::init()
 	}
 
 	// Get the mesh data
-	const MeshData& data = _renderable->mesh()->getMeshData();
+/*	const MeshData& data = _renderable->mesh()->getMeshData();
 	
 	// Initialize max values
 	SFLOAT maxX = 0.0f, maxY = 0.0f, maxZ = 0.0f;
@@ -86,7 +86,7 @@ void PhysicsBody::init()
 	}
 
 	// XYZ max are the extrema
-	_aabb = AxisAlignedBox(_position, VectorSet(maxX, maxY, maxZ, 0.0f));
+	_aabb = AxisAlignedBox(_position, VectorSet(maxX, maxY, maxZ, 0.0f));*/
 }
 
 //*************************************************************************************************

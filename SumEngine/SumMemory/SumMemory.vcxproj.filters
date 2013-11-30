@@ -14,6 +14,9 @@
     <Filter Include="Chunk">
       <UniqueIdentifier>{00aad89a-788d-49dc-b847-067f3df11323}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shared Pointers">
+      <UniqueIdentifier>{64a8ef03-2890-4f28-bd79-7d37b9a0cd10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumMemory.h">
@@ -37,7 +40,9 @@
     <ClInclude Include="include\SumMemoryState.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\SumSharedPtr.h" />
+    <ClInclude Include="include\SumSharedPtr.h">
+      <Filter>Shared Pointers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\SumMemory.cpp">
@@ -49,5 +54,10 @@
     <ClCompile Include="src\SumMemoryState.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\SumSharedPtr.inl">
+      <Filter>Shared Pointers</Filter>
+    </None>
   </ItemGroup>
 </Project>

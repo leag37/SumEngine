@@ -13,7 +13,8 @@
 #include "SumDictionary.h"
 #include "SumResource.h"
 #include "SumFileSystem.h"
-#include "SumBaseResource.h"
+//#include "SumBaseResource.h"
+#include "SumResourceFactory.h"
 #include "SumResourceGroup.h"
 
 #include <fstream>

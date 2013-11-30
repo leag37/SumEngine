@@ -1,31 +1,44 @@
 //*************************************************************************************************
-// Title: SumResourceFactory.cpp
+// Title: SumResource.cpp
 // Author: Gael Huber
-// Description: A resource factory that aids in the creation of various assets based on group. 
+// Description: An engine resource of any given type. This serves as a template for loading
+//	specific resources.
 //*************************************************************************************************
-#include "SumResourceFactory.h"
+#include "SumResource.h"
 
 namespace SumEngine
 {
 	//*************************************************************************************************
 	// Default constructor
 	//*************************************************************************************************
-	ResourceFactory::ResourceFactory()
+	Resource::Resource()
+		:	_parentGroup(0),
+			_status(RESOURCE_STATUS_UNLOADED)
+	{ }
+
+	//*************************************************************************************************
+	//Constructor
+	// @param
+	//	name The name of this resource
+	// @param
+	//	parentGroup The parent group for this resource
+	//*************************************************************************************************
+	Resource::Resource(const String& name, ResourceGroup* parentGroup)
+		:	_name(name),
+			_parentGroup(parentGroup),
+			_status(RESOURCE_STATUS_UNLOADED)
 	{ }
 
 	//*************************************************************************************************
 	// Destructor
 	//*************************************************************************************************
-	ResourceFactory::~ResourceFactory()
-	{ }
+	Resource::~Resource()
+	{
+		// TODO: Unload the resource
 
-	//*************************************************************************************************
-	// Constructor specifying name
-	// @param
-	//	name The name for this factory
-	//*************************************************************************************************
-	ResourceFactory::ResourceFactory(const String& name)
-		:	_name(name)
-	{ }
+
+		// Set parent group to 0
+		_parentGroup = 0;
+	}
 
 }	// Namespace

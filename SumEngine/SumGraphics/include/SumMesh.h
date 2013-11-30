@@ -8,8 +8,7 @@
 #ifndef __SUMMESH_H__
 #define __SUMMESH_H__
 
-#include "SumRenderCore.h"
-#include "SumBaseResource.h"
+#include "SumResource.h"
 
 namespace SumEngine
 {
@@ -17,6 +16,37 @@ namespace SumEngine
 	*	@{
 	*/
 
+	class Mesh : public Resource
+	{
+	public:
+		/** Default constructor
+		*/
+		Mesh();
+
+		/** Constructor
+		* @param
+		*	name The name of this resource
+		* @param
+		*	parentGroup The parent group for this resource
+		*/
+		Mesh(const String& name, ResourceGroup* parentGroup);
+
+		/** Destructor
+		*/
+		virtual ~Mesh();
+
+		/** Load the resource
+		*/
+		void load();
+
+		/** Unload the resource
+		*/
+		void unload();
+
+	protected:
+	};
+
+	/*
 	class Mesh //: public BaseResource
 	{
 	public:
@@ -123,7 +153,7 @@ namespace SumEngine
 			return _data;
 		}
 	
-	};
+	};*/
 
 	/** @} */
 

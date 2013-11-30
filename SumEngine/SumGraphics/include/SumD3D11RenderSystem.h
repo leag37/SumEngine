@@ -53,6 +53,12 @@ namespace SumEngine
 		*/
 		void clearBuffers();
 
+		/** Return a copy of the D3D device
+		* @return
+		*	D3D11Device The device owned by this system
+		*/
+		const D3D11Device& getD3D11Device() const;
+
 	protected:
 		/** Build the render system capabilities
 		*/

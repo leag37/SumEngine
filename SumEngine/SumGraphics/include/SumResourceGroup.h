@@ -11,6 +11,7 @@
 #ifndef __SUMRESOURCEGROUP_H__
 #define __SUMRESOURCEGROUP_H__
 
+//#include "SumResourceFactory.h"
 #include "SumDictionary.h"
 #include "SumString.h"
 #include "SumFileSystem.h"

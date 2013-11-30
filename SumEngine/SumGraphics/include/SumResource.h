@@ -30,6 +30,41 @@ namespace SumEngine
 	class Resource
 	{
 	public:
+		/** Default constructor
+		*/
+		Resource();
+
+		/** Constructor
+		* @param
+		*	name The name of this resource
+		* @param
+		*	parentGroup The parent group for this resource
+		*/
+		Resource(const String& name, ResourceGroup* parentGroup);
+
+		/** Destructor
+		*/
+		virtual ~Resource();
+
+		/** Should this resource be automatically unloaded
+		* @return
+		*	SBOOL Returns true if this resource should be unloaded automatically when only 1 reference is left
+		*/
+		SBOOL getAutoUnload();
+
+		/** Fetch the resource status
+		* @return
+		*	ResourceStatus The current status of this resource
+		*/
+		ResourceStatus getResourceStatus() const;
+
+		/** Load the resource
+		*/
+		virtual void load() = 0;
+
+		/** Unload the resource
+		*/
+		virtual void unload() = 0;
 
 	protected:
 		/** Resource name

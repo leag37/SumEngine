@@ -209,7 +209,7 @@ namespace SumEngine
 		if(_renderSystem->getRenderSystemType() == RENDER_SYSTEM_TYPE_D3D11)
 		{
 			// TODO Finish this method
-			//meshFactory = new D3D11MeshFactory(_renderSystem);
+			meshFactory = new D3D11MeshFactory("MeshFactory", reinterpret_cast<D3D11RenderSystem*>(_renderSystem));
 		}
 
 		// Attach factories to respective resource groups

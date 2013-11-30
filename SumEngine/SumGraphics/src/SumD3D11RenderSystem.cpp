@@ -219,4 +219,14 @@ namespace SumEngine
 		_device.getImmediateContext()->ClearDepthStencilView(dsv, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 	}
 
+	//*************************************************************************************************
+	// Return a copy of the D3D device
+	// @return
+	//	D3D11Device The device owned by this system
+	//*************************************************************************************************
+	const D3D11Device& D3D11RenderSystem::getD3D11Device() const
+	{
+		return _device;
+	}
+
 }	// Namespace

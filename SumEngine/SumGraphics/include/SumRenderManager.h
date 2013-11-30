@@ -28,6 +28,7 @@
 #include "SumInputLayout.h"
 #include "SumConfigurationManager.h"
 #include "SumResourceManager.h"
+#include "SumD3D11MeshFactory.h"
 
 // TEMP
 #include "SumTimer.h"

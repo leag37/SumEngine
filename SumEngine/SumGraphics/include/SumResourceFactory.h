@@ -6,7 +6,9 @@
 #ifndef __SUMRESOURCEFACTORY_H__
 #define __SUMRESOURCEFACTORY_H__
 
-#include "SumResourceGroup.h"
+//#include "SumResourceGroup.h"
+#include "SumInclude.h"
+#include "SumString.h"
 
 namespace SumEngine
 {
@@ -17,6 +19,9 @@ namespace SumEngine
 	*	@{
 	*/
 
+	class Resource;
+	class ResourceGroup;
+
 	class ResourceFactory
 	{
 	public:
@@ -24,13 +29,24 @@ namespace SumEngine
 		*/
 		ResourceFactory();
 
+		/** Constructor specifying name
+		* @param
+		*	name The name for this factory
+		*/
+		ResourceFactory(const String& name);
+
 		/** Destructor
 		*/
 		virtual ~ResourceFactory();
 
 		/** Create a resource
+		* @param
+		*	name The name of the resource
+		* @param
+		*	parentGroup The parent group for this resource (this should be passed in here due to the
+		*	possibility of having multiple parentGroups.
 		*/
-		virtual Resource* createResource() = 0;
+		virtual Resource* createResource(const String& name, ResourceGroup* parentGroup) = 0;
 
 	private:
 		/** Resource factory name

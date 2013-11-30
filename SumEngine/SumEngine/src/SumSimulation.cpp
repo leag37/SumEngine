@@ -57,6 +57,10 @@ void Simulation::startUp()
 	renderManager->registerCamera(_camera);
 
 	// Create entities
+	// TODO: Create entities in a more structured way: 
+	//	1) Create base entity definition
+	//	2) Add renderable component
+	//	3) Add physics component
 	_box = new MovableEntity("box", "box.mesh");
 	renderManager->registerRenderable(_box->renderable());
 	//physicsManager->registerPhysicsObject(_box->getPhysicsBody());

@@ -36,11 +36,14 @@ namespace SumEngine
 		else
 		{
 			// We must first find the file info
-			FileInfo info = _parentManager->getFileInfo(fullName);
+			//FileInfo info = _parentManager->getFileInfo(fullName);
 
 			// TODO:
 			// Create the resource in question
-			//_resourceFactory->create<ResourceType>(name, info);
+			resource = _resourceFactory->createResource(name, this);
+
+			// Add it to the resource map
+			_resourceMap[name] = resource;
 		}
 
 		return resource;

@@ -47,4 +47,20 @@ namespace SumEngine
 		return mesh;
 	}
 
+	//*************************************************************************************************
+	// Create a resource
+	// @param
+	//	name The name of the resource
+	// @param
+	//	parentGroup The parent group for this resource (this should be passed in here due to the
+	//	possibility of having multiple parentGroups.
+	// @param
+	//	fullName The full filename associated with this resource
+	//*************************************************************************************************
+	Resource* D3D11MeshFactory::createResource(const String& name, ResourceGroup* parentGroup, const String& fullName)
+	{
+		D3D11Mesh* mesh = new D3D11Mesh(name, parentGroup, fullName, _device);
+		return mesh;
+	}
+
 }	// Namespace

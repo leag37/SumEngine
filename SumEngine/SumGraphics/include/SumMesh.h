@@ -31,6 +31,16 @@ namespace SumEngine
 		*/
 		Mesh(const String& name, ResourceGroup* parentGroup);
 
+		/** Constructor
+		* @param
+		*	name The name of this resource
+		* @param
+		*	parentGroup The parent group for this resource
+		* @param
+		*	fullName The full name of the file associated with this resource
+		*/
+		Mesh(const String& name, ResourceGroup* parentGroup, const String& fullName);
+
 		/** Destructor
 		*/
 		virtual ~Mesh();

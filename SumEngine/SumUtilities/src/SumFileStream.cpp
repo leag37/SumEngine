@@ -86,11 +86,11 @@ namespace SumEngine
 	// @param
 	//	bytes The number of bytes to read
 	//*************************************************************************************************
-	void FileStream::read(SCHAR* data, SUINT bytes)
+	void FileStream::read(String& data, SUINT bytes)
 	{
 		if(isOpen() == true)
 		{
-			_stream.read(data, bytes);
+			_stream.read(data.c_str(), bytes);
 		}
 	}
 
@@ -101,11 +101,12 @@ namespace SumEngine
 	// @param
 	//	bytes The max number of bytes to store in the data array
 	//*************************************************************************************************
-	void FileStream::readLine(SCHAR* data, SUINT bytes)
+	void FileStream::readLine(String& data, SUINT bytes)
 	{
 		if(isOpen() == true)
 		{
-			_stream.getline(data, bytes);
+			_stream.getline(data.c_str(), bytes);
+			data.calcLength();
 		}
 	}
 

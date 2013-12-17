@@ -25,7 +25,7 @@ namespace SumEngine
 		ResourceType* resource = 0;
 
 		// First, check if we have this value in our dictionary
-		Dictionary<String, Resource*>::Iterator itr = _resourceMap.find(fullName);
+		Dictionary<String, Resource*>::Iterator itr = _resourceMap.find(name);
 
 		// If we have the value, store it
 		if(itr != _resourceMap.end())
@@ -40,7 +40,7 @@ namespace SumEngine
 
 			// TODO:
 			// Create the resource in question
-			resource = _resourceFactory->createResource(name, this);
+			resource = _resourceFactory->createResource(name, this, fullName);
 
 			// Add it to the resource map
 			_resourceMap[name] = resource;

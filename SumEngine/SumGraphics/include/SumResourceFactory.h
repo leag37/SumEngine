@@ -48,6 +48,17 @@ namespace SumEngine
 		*/
 		virtual Resource* createResource(const String& name, ResourceGroup* parentGroup) = 0;
 
+		/** Create a resource
+		* @param
+		*	name The name of the resource
+		* @param
+		*	parentGroup The parent group for this resource (this should be passed in here due to the
+		*	possibility of having multiple parentGroups.
+		* @param
+		*	fullName The full filename associated with this resource
+		*/
+		virtual Resource* createResource(const String& name, ResourceGroup* parentGroup, const String& fullName) = 0;
+
 	private:
 		/** Resource factory name
 		*/

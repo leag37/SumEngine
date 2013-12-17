@@ -97,12 +97,14 @@ public:
 	const int find(const char* str) const;		// Returns the first position where str exists (-1 otherwise)
 	const int find(const char c) const;		// Returns the first position where c exists (-1 otherwise)
 	const char* c_str(void) const;	// Return the contents as a standard C-string
+	char* c_str();	// Return the contents as a character pointer
 	operator const char*(void) const;	// Return the contents as a standard C-string upon casting
 	operator int() const;		// Cast as an int
 	const String substring(int i, int l) const;	// Return a substring
 	const String substring(const Iterator itr1, const Iterator itr2) const;	// Return a substring
 	Array<String> split(char split) const;	// Splits a string using the given character as a delimiter
 	const int compare(const String& str) const;		// Compare strings, return -1 if less than compared, 0 if equal, 1 if greater
+	void calcLength();	// Calculate the length of the string (this is to be used if this string is used as a buffer)
 
 	// Convert a string to an int
 	SINT toInt() const;

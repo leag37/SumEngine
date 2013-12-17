@@ -42,6 +42,16 @@ namespace SumEngine
 		*/
 		Resource(const String& name, ResourceGroup* parentGroup);
 
+		/** Constructor
+		* @param
+		*	name The name of this resource
+		* @param
+		*	parentGroup The parent group for this resource
+		* @param
+		*	fullName The full name of the file associated with this resource
+		*/
+		Resource(const String& name, ResourceGroup* parentGroup, const String& fullName);
+
 		/** Destructor
 		*/
 		virtual ~Resource();
@@ -56,7 +66,7 @@ namespace SumEngine
 		* @return
 		*	ResourceStatus The current status of this resource
 		*/
-		ResourceStatus getResourceStatus() const;
+		ResourceStatus getStatus() const;
 
 		/** Load the resource
 		*/
@@ -70,6 +80,11 @@ namespace SumEngine
 		/** Resource name
 		*/
 		String _name;
+
+		/** The full name for this resource (note that this is primarily used for file streaming
+		*	and not for data indexing.
+		*/
+		String _fullName;
 
 		/** Resource status
 		*/

@@ -26,21 +26,96 @@ namespace SumEngine
 	{ }
 
 	//*************************************************************************************************
+	// Constructor
+	// @param
+	//	name The name of this resource
+	// @param
+	//	parentGroup The parent group for this resource
+	// @param
+	//	fullName The full name of the file associated with this resource
+	//*************************************************************************************************
+	Mesh::Mesh(const String& name, ResourceGroup* parentGroup, const String& fullName)
+		:	Resource(name, parentGroup, fullName)
+	{ }
+
+	//*************************************************************************************************
 	// Destructor
 	//*************************************************************************************************
 	Mesh::~Mesh()
 	{ }
 
-	/** Load the resource
-	*/
+	//*************************************************************************************************
+	// Load the resource
+	//*************************************************************************************************
 	void Mesh::load()
 	{
+		// Set the resource status to loading
+		_status = RESOURCE_STATUS_LOADING;
+
+		// Request an open stream from the parent manager
+		FileStreamPtr stream = _parentGroup->openResourceFile(_fullName);
+
+		// Line type (0 = vert, 1 = index)
+		SINT type = -1;
+
+		// Iterate through the file
+		if(stream->isOpen())
+		{
+			String line = String(256);
+			while(stream->isEOF() == false)
+			{
+				// Grab the raw line
+				stream->readLine(line, 256);
+
+				// Determine the line type
+				if(line.getLength() > 0 && line.at(0) != '#')
+				{
+					if(line.at(0) == '[' && line.at(line.getLength() - 1) == ']')
+					{
+						String lineType = line.substring(++line.begin(), --line.end());
+						if(lineType == "Vertex")
+						{
+							type = 0;
+						}
+						else if(lineType == "Index")
+						{
+							type = 1;
+						}
+					}
+					else
+					{
+						// Parse the line
+						Array<String> aLine = line.split(' ');
+
+						// Process vertex data
+						if(type == 0)
+						{
+							/*_data.vertices.push_back(
+								Vertex(
+									aLine[0].toFloat(), aLine[1].toFloat(), aLine[2].toFloat(),
+									aLine[3].toFloat(), aLine[4].toFloat(), aLine[5].toFloat()
+								));*/
+						}
+
+						// Process index data
+						else if(type == 1)
+						{
+							/*_data.indices.push_back(line[0].toUInt());
+							_data.indices.push_back(line[1].toUInt());
+							_data.indices.push_back(line[2].toUInt());*/
+						}
+					}
+				}
+			}
+		
 	}
 
-	/** Unload the resource
-	*/
+	//*************************************************************************************************
+	// Unload the resource
+	//*************************************************************************************************
 	void Mesh::unload()
 	{
+
 	}
 
 	////*************************************************************************************************

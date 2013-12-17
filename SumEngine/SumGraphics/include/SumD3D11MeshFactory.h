@@ -47,6 +47,17 @@ namespace SumEngine
 		*/
 		Resource* createResource(const String& name, ResourceGroup* parentGroup);
 
+		/** Create a resource
+		* @param
+		*	name The name of the resource
+		* @param
+		*	parentGroup The parent group for this resource (this should be passed in here due to the
+		*	possibility of having multiple parentGroups.
+		* @param
+		*	fullName The full filename associated with this resource
+		*/
+		Resource* createResource(const String& name, ResourceGroup* parentGroup, const String& fullName);
+
 	private:
 		/** The device used to initialize D3D11 resources
 		*/

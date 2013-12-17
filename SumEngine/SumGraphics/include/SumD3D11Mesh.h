@@ -35,6 +35,18 @@ namespace SumEngine
 		*/
 		D3D11Mesh(const String& name, ResourceGroup* parentGroup, const D3D11Device& device);
 
+		/** Constructor
+		* @param
+		*	name The name of this resource
+		* @param
+		*	parentGroup The parent group for this resource
+		* @param
+		*	fullName The full name of the file associated with this resource
+		* @param
+		*	device The D3D11 Device used to initialize this mesh
+		*/
+		D3D11Mesh(const String& name, ResourceGroup* parentGroup, const String& fullName, const D3D11Device& device);
+
 	private:
 		/** A copy of the device used to create the mesh
 		*/

@@ -66,7 +66,7 @@ namespace SumEngine
 		* @param
 		*	bytes The number of bytes to read
 		*/
-		void read(SCHAR* data, SUINT bytes);
+		void read(String& data, SUINT bytes);
 
 		/** Read a line from the file
 		* @param
@@ -74,7 +74,7 @@ namespace SumEngine
 		* @param
 		*	bytes The max number of bytes to store in the data array
 		*/
-		void readLine(SCHAR* data, SUINT bytes);
+		void readLine(String& data, SUINT bytes);
 
 		/** Determine the length of the stream
 		* @return

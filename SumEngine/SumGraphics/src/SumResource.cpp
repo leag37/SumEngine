@@ -30,6 +30,22 @@ namespace SumEngine
 	{ }
 
 	//*************************************************************************************************
+	// Constructor
+	// @param
+	//	name The name of this resource
+	// @param
+	//	parentGroup The parent group for this resource
+	// @param
+	//	fullName The full name of the file associated with this resource
+	//*************************************************************************************************
+	Resource::Resource(const String& name, ResourceGroup* parentGroup, const String& fullName)
+		:	_name(name),
+			_parentGroup(parentGroup),
+			_status(RESOURCE_STATUS_UNLOADED),
+			_fullName(fullName)
+	{ }
+
+	//*************************************************************************************************
 	// Destructor
 	//*************************************************************************************************
 	Resource::~Resource()
@@ -39,6 +55,16 @@ namespace SumEngine
 
 		// Set parent group to 0
 		_parentGroup = 0;
+	}
+
+	//*************************************************************************************************
+	// Fetch the resource status
+	// @return
+	//	ResourceStatus The current status of this resource
+	//*************************************************************************************************
+	ResourceStatus Resource::getStatus() const
+	{
+		return _status;
 	}
 
 }	// Namespace

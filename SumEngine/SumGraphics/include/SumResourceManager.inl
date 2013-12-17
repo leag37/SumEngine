@@ -28,7 +28,12 @@ ResourceType* ResourceManager::getResourceById(const String& name, const String&
 	resource = group->getResourceById<ResourceType>(name, fullName);
 
 	// Check if the resource is loaded (otherwise load)
-	
+	// TODO: Support asynchronous loading
+	if(resource->getStatus() == RESOURCE_STATUS_UNLOADED)
+	{
+		// Load the resource
+		resource->load();
+	}
 
 	return resource;
 

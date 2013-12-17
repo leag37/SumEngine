@@ -9,6 +9,7 @@
 //	via ResourceFactory::createResource(RESOURCE_TYPE_MESH, name, etc.)
 //*************************************************************************************************
 #include "SumResourceGroup.h"
+#include "SumResourceManager.h"
 
 namespace SumEngine
 {
@@ -46,6 +47,18 @@ namespace SumEngine
 	void ResourceGroup::setResourceFactory(ResourceFactory* resourceFactory)
 	{
 		_resourceFactory = resourceFactory;
+	}
+
+	//*************************************************************************************************
+	// Opens a data stream on a given resource
+	// @param
+	//	fullName The full name of the resource being opened
+	//*************************************************************************************************
+	FileStreamPtr ResourceGroup::openResourceFile(const String& fullName)
+	{
+		FileInfo info = _parentManager->getFileInfo(fullName);
+
+		return FileStreamPtr(new FileStream(info.fullPath));
 	}
 
 }	// Namespace

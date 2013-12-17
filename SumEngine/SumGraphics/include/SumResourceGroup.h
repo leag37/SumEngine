@@ -11,10 +11,10 @@
 #ifndef __SUMRESOURCEGROUP_H__
 #define __SUMRESOURCEGROUP_H__
 
-//#include "SumResourceFactory.h"
 #include "SumDictionary.h"
 #include "SumString.h"
 #include "SumFileSystem.h"
+#include "SumFileStream.h"
 
 namespace SumEngine
 {
@@ -75,6 +75,12 @@ namespace SumEngine
 		*	resourceFactory The specialized factory for this group type
 		*/
 		void setResourceFactory(ResourceFactory* resourceFactory);
+
+		/** Opens a data stream on a given resource
+		* @param
+		*	fullName The full name of the resource being opened
+		*/
+		FileStreamPtr openResourceFile(const String& fullName);
 
 	private:
 		/** Group name

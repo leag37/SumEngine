@@ -107,7 +107,11 @@ namespace SumEngine
 					}
 				}
 			}
-		
+		}
+
+		// Create a vertex buffer and an index buffer for the data
+
+		// Set status to LOADED
 	}
 
 	//*************************************************************************************************

@@ -5,6 +5,7 @@
 //	graphs.
 //*************************************************************************************************
 #include "SumRenderManager.h"
+#include "SumD3D11HardwareBufferManager.h"
 
 //*************************************************************************************************
 // Initialize the singleton instance of this class to 0
@@ -216,6 +217,18 @@ namespace SumEngine
 		resourceManager->addResourceFactoryForGroup(meshFactory, RESOURCE_GROUP_TYPE_MESH);
 		resourceManager->addResourceFactoryForGroup(materialFactory, RESOURCE_GROUP_TYPE_MATERIAL);
 		resourceManager->addResourceFactoryForGroup(shaderFactory, RESOURCE_GROUP_TYPE_SHADER);
+	}
+
+	//*************************************************************************************************
+	// Create the hardware buffer manager
+	//*************************************************************************************************
+	void RenderManager::_createHardwareBufferManager()
+	{
+		// D3D11
+		if(_renderSystem->getRenderSystemType() == RENDER_SYSTEM_TYPE_D3D11)
+		{
+			_hardwareBufferManager = new D3D11HardwareBufferManager(_renderSystem);
+		}
 	}
 
 }	// Namespace

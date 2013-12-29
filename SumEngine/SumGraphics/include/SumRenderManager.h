@@ -39,6 +39,8 @@ namespace SumEngine
 	*	@{
 	*/
 
+	class HardwareBufferManager;
+
 	class RenderManager : public Singleton<RenderManager>
 	{
 	public:
@@ -80,6 +82,10 @@ namespace SumEngine
 		*/
 		void _createResourceFactories();
 
+		/** Create the hardware buffer manager
+		*/
+		void _createHardwareBufferManager();
+
 		// Render the current scene
 		void renderScene();
 
@@ -94,7 +100,8 @@ namespace SumEngine
 
 		// Shader manager
 
-	
+		// Hardware buffer manager
+		HardwareBufferManager* _hardwareBufferManager;
 	
 		// Render context
 		RenderContext* _renderContext;

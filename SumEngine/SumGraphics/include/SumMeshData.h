@@ -7,17 +7,16 @@
 #ifndef __SUMMESHDATA_H__
 #define __SUMMESHDATA_H__
 
-#include "SumRenderCore.h"
-
-class Vertex;
-
-struct MeshData
+namespace SumEngine
 {
-	SUMINLINE MeshData()
-	{ }
+	/** \addtogroup Rendering
+	*	@{
+	*/
 
-	Array<Vertex> vertices;
-	Array<SUINT> indices;
-};
 
-#endif
+
+	/** @} */
+
+};	// Namespace
+
+#endif // __SUMMESHDATA_H__

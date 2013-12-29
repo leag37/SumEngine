@@ -9,12 +9,15 @@
 #define __SUMMESH_H__
 
 #include "SumResource.h"
+#include "SumVertexHardwareBuffer.h"
 
 namespace SumEngine
 {
 	/** \addtogroup Rendering
 	*	@{
 	*/
+
+	//class SubMesh;
 
 	class Mesh : public Resource
 	{
@@ -54,6 +57,14 @@ namespace SumEngine
 		void unload();
 
 	protected:
+		/** List of submeshes composing this mesh
+		*/
+		//List<SubMesh*> _subMeshes;
+
+		/** Hardware buffer for vertices
+		*/
+		//VertexHardwareBufferPtr _vertexHardwareBuffer;
+
 	};
 
 	/*

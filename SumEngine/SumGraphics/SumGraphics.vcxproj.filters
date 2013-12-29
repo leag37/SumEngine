@@ -53,6 +53,9 @@
     <Filter Include="Resources\Resource Management">
       <UniqueIdentifier>{b2b2587b-8c18-4949-83a0-038daad1e72a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Hardware Buffers">
+      <UniqueIdentifier>{8f0fc4be-d58d-4c8d-b580-386dd631c9b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\SumRenderContext.h">
@@ -84,9 +87,6 @@
     </ClInclude>
     <ClInclude Include="include\SumVertex.h">
       <Filter>Renderables</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SumMeshData.h">
-      <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="include\SumResource.h">
       <Filter>Resources</Filter>
@@ -147,6 +147,39 @@
     </ClInclude>
     <ClInclude Include="include\SumD3D11Mesh.h">
       <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumHardwareBuffer.h">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumHardwareBufferManager.h">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumD3D11HardwareBufferManager.h">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVertexHardwareBuffer.h">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVertexDescription.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVertexProperty.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumVertexData.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMeshSerializer.h">
+      <Filter>Resources\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumMeshData.h">
+      <Filter>Resources\Resource Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumSubMesh.h">
+      <Filter>Resources\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SumD3D11VertexHardwareBuffer.h">
+      <Filter>Resources\Hardware Buffers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +257,15 @@
     </ClCompile>
     <ClCompile Include="src\SumD3D11Mesh.cpp">
       <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVertexHardwareBufferPtr.cpp">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumHardwareBufferManager.cpp">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumD3D11HardwareBufferManager.cpp">
+      <Filter>Resources\Hardware Buffers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

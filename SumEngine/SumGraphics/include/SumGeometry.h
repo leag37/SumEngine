@@ -14,14 +14,14 @@ class Mesh;
 
 namespace Geometry
 {
-	// Create a box and attach it to the resource manager
+/*	// Create a box and attach it to the resource manager
 	Mesh* CreateBox(const String& name, SFLOAT width, SFLOAT height, SFLOAT depth);
 
 	// Create a mesh from mesh data
 	void CreateMeshFromData(const MeshData& data, Mesh* pOut);
 
 	// Create buffers from data
-	void CreateBuffersFromData(const MeshData& data, ID3D11Buffer** vertexBuffer, ID3D11Buffer** indexBuffer);
+	void CreateBuffersFromData(const MeshData& data, ID3D11Buffer** vertexBuffer, ID3D11Buffer** indexBuffer);*/
 }
 
 #endif

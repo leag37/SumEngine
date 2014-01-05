@@ -267,6 +267,15 @@
     <ClCompile Include="src\SumD3D11HardwareBufferManager.cpp">
       <Filter>Resources\Hardware Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumD3D11VertexHardwareBuffer.cpp">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVertexHardwareBuffer.cpp">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumHardwareBuffer.cpp">
+      <Filter>Resources\Hardware Buffers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">

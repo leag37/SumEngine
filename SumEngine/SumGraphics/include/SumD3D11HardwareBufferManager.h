@@ -24,6 +24,16 @@ namespace SumEngine
 		*/
 		D3D11HardwareBufferManager(const RenderSystem* renderSystem);
 
+		/** Create a vertex buffer
+		* @param
+		*	vertexSize The size of each vertex
+		* @param
+		*	numVertices The numer of vertices in the buffer
+		* @param
+		*	usage The buffer usage type
+		*/
+		VertexHardwareBuffer* createVertexBuffer(SUINT vertexSize, SUINT numVertices, HardwareBufferUsage usage);
+
 	private:
 		/** The D3D11Device
 		*/

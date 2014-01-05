@@ -51,7 +51,7 @@ namespace SumEngine
 		* @param
 		*	usage The buffer usage type
 		*/
-		VertexHardwareBuffer* createVertexBuffer(SUINT vertexSize, SUINT numVertices, HardwareBufferUsage usage);
+		virtual VertexHardwareBuffer* createVertexBuffer(SUINT vertexSize, SUINT numVertices, HardwareBufferUsage usage) = 0;
 
 	protected:
 		/** The next buffer id to be assigned

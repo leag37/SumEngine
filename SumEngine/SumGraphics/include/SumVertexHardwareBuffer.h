@@ -27,8 +27,10 @@ namespace SumEngine
 		*	numVertices The number of vertices in the buffer
 		* @param
 		*	vertexSize The size in bytes of each vertex
+		* @param
+		*	usage The usage type for this hardware buffer
 		*/
-		VertexHardwareBuffer(SUINT numVertices, SUINT vertexSize);
+		VertexHardwareBuffer(SUINT numVertices, SUINT vertexSize, HardwareBufferUsage usage);
 
 		/** Destructor
 		*/

@@ -280,8 +280,10 @@
     <ClCompile Include="src\SumD3D11MeshFactory.cpp" />
     <ClCompile Include="src\SumD3D11RenderSystem.cpp" />
     <ClCompile Include="src\SumD3D11RenderWindow.cpp" />
+    <ClCompile Include="src\SumD3D11VertexHardwareBuffer.cpp" />
     <ClCompile Include="src\SumEffect.cpp" />
     <ClCompile Include="src\SumEffectsManager.cpp" />
+    <ClCompile Include="src\SumHardwareBuffer.cpp" />
     <ClCompile Include="src\SumHardwareBufferManager.cpp" />
     <ClCompile Include="src\SumInputLayout.cpp" />
     <ClCompile Include="src\SumMesh.cpp" />
@@ -297,6 +299,7 @@
     <ClCompile Include="src\SumResourceFactory.cpp" />
     <ClCompile Include="src\SumResourceGroup.cpp" />
     <ClCompile Include="src\SumResourceManager.cpp" />
+    <ClCompile Include="src\SumVertexHardwareBuffer.cpp" />
     <ClCompile Include="src\SumVertexHardwareBufferPtr.cpp" />
     <ClCompile Include="src\SumWindowEventHandler.cpp" />
   </ItemGroup>

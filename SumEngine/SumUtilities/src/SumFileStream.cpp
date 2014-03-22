@@ -91,6 +91,7 @@ namespace SumEngine
 		if(isOpen() == true)
 		{
 			_stream.read(data.c_str(), bytes);
+			data.calcLength();
 		}
 	}
 

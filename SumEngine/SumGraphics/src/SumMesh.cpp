@@ -4,6 +4,7 @@
 // Description: Contains basic mesh data.
 //*************************************************************************************************
 #include "SumMesh.h"
+#include "SumMeshSerializer.h"
 
 namespace SumEngine
 {
@@ -54,6 +55,13 @@ namespace SumEngine
 
 		// Request an open stream from the parent manager
 		FileStreamPtr stream = _parentGroup->openResourceFile(_fullName);
+
+		// If the stream is valid, create a serializer and read in the data
+		if(stream->isOpen())
+		{
+			MeshSerializer serializer = MeshSerializer(stream, this);
+			serializer.read();
+		}
 
 		// Line type (0 = vert, 1 = index)
 		SINT type = -1;

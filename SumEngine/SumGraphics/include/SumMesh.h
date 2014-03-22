@@ -10,6 +10,7 @@
 
 #include "SumResource.h"
 #include "SumVertexHardwareBuffer.h"
+#include "SumVertexDescription.h"
 
 namespace SumEngine
 {
@@ -21,6 +22,11 @@ namespace SumEngine
 
 	class Mesh : public Resource
 	{
+	private:
+		/** Predefine a mesh serializer class. This class should only be used within mesh context
+		*/
+		class MeshSerializer;
+
 	public:
 		/** Default constructor
 		*/
@@ -65,6 +71,9 @@ namespace SumEngine
 		*/
 		//VertexHardwareBufferPtr _vertexHardwareBuffer;
 
+		/** The vertex definition
+		*/
+		VertexDescription _vertexDescription;
 	};
 
 	/*

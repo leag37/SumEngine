@@ -288,6 +288,7 @@
     <ClCompile Include="src\SumInputLayout.cpp" />
     <ClCompile Include="src\SumMesh.cpp" />
     <ClCompile Include="src\SumMeshFactory.cpp" />
+    <ClCompile Include="src\SumMeshSerializer.cpp" />
     <ClCompile Include="src\SumRenderable.cpp" />
     <ClCompile Include="src\SumRenderManager.cpp" />
     <ClCompile Include="src\SumRenderContext.cpp" />
@@ -299,8 +300,10 @@
     <ClCompile Include="src\SumResourceFactory.cpp" />
     <ClCompile Include="src\SumResourceGroup.cpp" />
     <ClCompile Include="src\SumResourceManager.cpp" />
+    <ClCompile Include="src\SumVertexDescription.cpp" />
     <ClCompile Include="src\SumVertexHardwareBuffer.cpp" />
     <ClCompile Include="src\SumVertexHardwareBufferPtr.cpp" />
+    <ClCompile Include="src\SumVertexProperty.cpp" />
     <ClCompile Include="src\SumWindowEventHandler.cpp" />
   </ItemGroup>
   <ItemGroup>

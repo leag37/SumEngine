@@ -19,7 +19,9 @@ namespace SumEngine
 	class VertexDescription
 	{
 	public:
-
+		/** Constructor
+		*/
+		VertexDescription();
 
 		/** Add a vertex property to this description
 		* @param
@@ -29,12 +31,16 @@ namespace SumEngine
 		* @param
 		*	size The size of the property in bytes
 		*/
-		void addElement(VertexPropertyType type, SUINT offset, SUINT size);
+		void addElement(VertexPropertyType type, SUINT offset);
 
 	private:
 		/** A list of the vertex properties
 		*/
 		List<VertexProperty> _vertexProperties;
+
+		/** Size of the vertex description
+		*/
+		SUINT _size;
 	};
 
 	/** @} */

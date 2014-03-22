@@ -276,6 +276,15 @@
     <ClCompile Include="src\SumHardwareBuffer.cpp">
       <Filter>Resources\Hardware Buffers</Filter>
     </ClCompile>
+    <ClCompile Include="src\SumMeshSerializer.cpp">
+      <Filter>Resources\Resource Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVertexProperty.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SumVertexDescription.cpp">
+      <Filter>Resources\Mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Include\SumRenderViewport.inl">

@@ -27,12 +27,32 @@ namespace SumEngine
 		VPT_CHAR1,
 		VPT_UCHAR1,
 		VPT_SHORT1,
-		VPT_USHORT1
+		VPT_USHORT1,
+		VPT_UNKNOWN
 	};
 
 	class VertexProperty
 	{
 	public:
+		/** Constructor
+		*/
+		VertexProperty();
+
+		/** Constructor
+		* @param
+		*	type The type of vertex property
+		* @param
+		*	offset The offset in bytes within the vertex element
+		*/
+		VertexProperty(VertexPropertyType type, SUINT offset);
+
+		/** Given a property type, get the appropriate element size
+		* @param
+		*	type The property type
+		* @return
+		*	SUINT The size in bytes
+		*/
+		static SUINT GetSizeForType(VertexPropertyType type);
 
 	private:
 		/** The vertex property type
